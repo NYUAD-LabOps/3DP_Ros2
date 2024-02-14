@@ -24,6 +24,11 @@ void SingleMotorRotaryDrive::DriveHomingBackoff(void)
     g_ioport.p_api->pinRead (pinLimit0, &level);
     limit0State = level;
     SetDriveDir(dirFwd);
+    //
+    // sdasdasd
+    //asdasdasd
+    // sadasd
+    //
     while(limit0State == LIMITACTIVESTATE){
         R_BSP_SoftwareDelay (1, BSP_DELAY_UNITS_MILLISECONDS);
         g_ioport.p_api->pinRead (pinLimit0, &level);
