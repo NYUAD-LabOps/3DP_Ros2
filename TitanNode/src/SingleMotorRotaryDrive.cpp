@@ -25,9 +25,6 @@ void SingleMotorRotaryDrive::DriveHomingBackoff(void)
     limit0State = level;
     SetDriveDir(dirFwd);
     //
-    // sdasdasd
-    //asdasdasd
-    // sadasd
     //
     while(limit0State == LIMITACTIVESTATE){
         R_BSP_SoftwareDelay (1, BSP_DELAY_UNITS_MILLISECONDS);
@@ -157,7 +154,17 @@ void SingleMotorRotaryDrive::SetDriveDir(ioport_level_t target_Dir)
     }else{
         posDelta = -1;
     }
-    g_ioport.p_api->pinWrite (pinDir, dirTarget);
+    switch(motor_count){
+        case 1:
+            g_ioport.p_api->pinWrite (pinDir, dirTarget);
+            break;
+        case 2:
+            g_ioport.p_api->pinWrite (pinDir, dirTarget);
+            g_ioport.p_api->pinWrite (pinDir2, dirTarget);
+            break;
+        default:
+            break;
+    }
     dir = dirTarget;
 }
 
@@ -203,13 +210,14 @@ void SingleMotorRotaryDrive::DriveStepHandler()
     }
     switch(motor_count)
     {
-        case 0:
         case 1:
             g_ioport.p_api->pinWrite (pinStep, stepState);
             break;
         case 2:
             g_ioport.p_api->pinWrite (pinStep, stepState);
             g_ioport.p_api->pinWrite (pinStep2, stepState);
+            break;
+        default:
             break;
     }
 }
@@ -340,12 +348,12 @@ void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_st
     move_index = 0;
     motor_count = 0;
 
-    sprintf(key,"motorcount");
-    motor_count = usb->getIniIValue(NULL,NULL,key);  //HOMEVX;
 
 
     sprintf(section,"drive%u",drive_index);
     usb->SetDefaultIniSection(section);
+    sprintf(key,"motorcount");
+    motor_count = usb->getIniIValue(NULL,NULL,key);  //HOMEVX;
     sprintf(key,"pinStep");
     pinStep = (ioport_port_pin_t)usb->getIniHextoLongValue(NULL,NULL,key);
     sprintf(key,"pinStep2");
@@ -363,8 +371,12 @@ void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_st
     referenced = 0;
     sprintf(key,"pinDir");
     pinDir = (ioport_port_pin_t)usb->getIniHextoLongValue(NULL,NULL,key);
+    sprintf(key,"pinDir2");
+    pinDir2 = (ioport_port_pin_t)usb->getIniHextoLongValue(NULL,NULL,key);
     sprintf(key,"pinEnable");
     pinEnable = (ioport_port_pin_t)usb->getIniHextoLongValue(NULL,NULL,key);
+    sprintf(key,"pinEnable2");
+    pinEnable2 = (ioport_port_pin_t)usb->getIniHextoLongValue(NULL,NULL,key);
     stepState = IOPORT_LEVEL_LOW;
     sprintf(key,"dirFwd");
     dirFwd =  (ioport_level_t)usb->getIniIValue(NULL,NULL,key);  // forward direction logical level
@@ -404,16 +416,16 @@ void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_st
 
 void SingleMotorRotaryDrive::SetDriveEnable()
 {
+    mtrEnabledStatus = mtrEnableState;
     switch(motor_count){
-        case 0:
         case 1:
-            mtrEnabledStatus = mtrEnableState;
             g_ioport.p_api->pinWrite (pinEnable, mtrEnabledStatus);
             break;
         case 2:
-            mtrEnabledStatus = mtrEnableState;
             g_ioport.p_api->pinWrite (pinEnable, mtrEnabledStatus);
             g_ioport.p_api->pinWrite (pinEnable2, mtrEnabledStatus);
+            break;
+        default:
             break;
     }
 }
@@ -421,12 +433,14 @@ void SingleMotorRotaryDrive::SetDriveEnable()
 void SingleMotorRotaryDrive::DriveStep()
 {
     switch(motor_count){
-        case 0:
         case 1:
             g_ioport.p_api->pinWrite (pinStep, stepState);
             break;
         case 2:
+            g_ioport.p_api->pinWrite (pinStep, stepState);
             g_ioport.p_api->pinWrite (pinStep2, stepState);
+            break;
+        default:
             break;
     }
 }

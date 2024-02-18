@@ -27,11 +27,6 @@ public:
     ioport_level_t dirHome;
     ioport_level_t dirRev;
     ioport_level_t dirTarget;
-    ioport_level_t dir2;
-    ioport_level_t dirFwd2;
-    ioport_level_t dirHome2;
-    ioport_level_t dirRev2;
-    ioport_level_t dirTarget2;
     int drive_index;
     int drive_timer_index;
     TX_BLOCK_POOL move_block_pool;
@@ -103,7 +98,7 @@ public:
     void DriveStop(void);
     void LimitHit(void);
     void OpenExtIRQ(void);
-    void SetIrqInstance(external_irq_instance_t * external_irq);
+    void SetIrqInstance(external_irq_instance_t * ptr_external_irq);
     void SetDriveEnable(void);
     void SetDriveUnitIndex(int drive_unit_index);
     void SetDriveDir(ioport_level_t targetDir);
