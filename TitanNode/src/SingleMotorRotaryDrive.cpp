@@ -201,7 +201,17 @@ void SingleMotorRotaryDrive::DriveStepHandler()
         stepState = IOPORT_LEVEL_HIGH;
         pos += posDelta;
     }
-    g_ioport.p_api->pinWrite (pinStep, stepState);
+    switch(motor_count)
+    {
+        case 0:
+        case 1:
+            g_ioport.p_api->pinWrite (pinStep, stepState);
+            break;
+        case 2:
+            g_ioport.p_api->pinWrite (pinStep, stepState);
+            g_ioport.p_api->pinWrite (pinStep2, stepState);
+            break;
+    }
 }
 
 void SingleMotorRotaryDrive::SetTimerFrequency(int new_targetFreq)
@@ -328,17 +338,26 @@ void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_st
     move_count = 0;
     move_current = 0;
     move_index = 0;
+    motor_count = 0;
 
+    sprintf(key,"motorcount");
+    motor_count = usb->getIniIValue(NULL,NULL,key);  //HOMEVX;
 
 
     sprintf(section,"drive%u",drive_index);
     usb->SetDefaultIniSection(section);
     sprintf(key,"pinStep");
     pinStep = (ioport_port_pin_t)usb->getIniHextoLongValue(NULL,NULL,key);
+    sprintf(key,"pinStep2");
+    pinStep2 = (ioport_port_pin_t)usb->getIniHextoLongValue(NULL,NULL,key);
     sprintf(key,"ls0");
     pinLimit0 = (ioport_port_pin_t)usb->getIniHextoLongValue(NULL,NULL,key);
+    sprintf(key,"ls02");
+    pinLimit02 = (ioport_port_pin_t)usb->getIniHextoLongValue(NULL,NULL,key);
     sprintf(key,"ls1");
     pinLimit1 = (ioport_port_pin_t)usb->getIniHextoLongValue(NULL,NULL,key);
+    sprintf(key,"ls12");
+    pinLimit12 = (ioport_port_pin_t)usb->getIniHextoLongValue(NULL,NULL,key);
     sprintf(key,"hasLimits");
     hasLimits = (ioport_level_t)usb->getIniIValue(NULL,NULL,key);
     referenced = 0;
@@ -385,13 +404,31 @@ void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_st
 
 void SingleMotorRotaryDrive::SetDriveEnable()
 {
-    mtrEnabledStatus = mtrEnableState;
-    g_ioport.p_api->pinWrite (pinEnable, mtrEnabledStatus);
+    switch(motor_count){
+        case 0:
+        case 1:
+            mtrEnabledStatus = mtrEnableState;
+            g_ioport.p_api->pinWrite (pinEnable, mtrEnabledStatus);
+            break;
+        case 2:
+            mtrEnabledStatus = mtrEnableState;
+            g_ioport.p_api->pinWrite (pinEnable, mtrEnabledStatus);
+            g_ioport.p_api->pinWrite (pinEnable2, mtrEnabledStatus);
+            break;
+    }
 }
 
 void SingleMotorRotaryDrive::DriveStep()
 {
-    g_ioport.p_api->pinWrite (pinStep, stepState);
+    switch(motor_count){
+        case 0:
+        case 1:
+            g_ioport.p_api->pinWrite (pinStep, stepState);
+            break;
+        case 2:
+            g_ioport.p_api->pinWrite (pinStep2, stepState);
+            break;
+    }
 }
 
 void SingleMotorRotaryDrive::DriveMoveAdd(move new_move)

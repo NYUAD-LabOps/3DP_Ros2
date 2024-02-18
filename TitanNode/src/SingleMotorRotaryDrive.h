@@ -27,6 +27,11 @@ public:
     ioport_level_t dirHome;
     ioport_level_t dirRev;
     ioport_level_t dirTarget;
+    ioport_level_t dir2;
+    ioport_level_t dirFwd2;
+    ioport_level_t dirHome2;
+    ioport_level_t dirRev2;
+    ioport_level_t dirTarget2;
     int drive_index;
     int drive_timer_index;
     TX_BLOCK_POOL move_block_pool;
@@ -48,8 +53,10 @@ public:
     int homing;
     int init;
     ioport_level_t limit0State;
+    ioport_level_t limit1State;
     int ls_index;
     int move_cycle;
+    int motor_count;
 //    int move_count;
 //    move move_current;
     int pos;
@@ -60,10 +67,15 @@ public:
     int posSoftLimitReverse;
     int posTarget;
     ioport_port_pin_t pinDir;
+    ioport_port_pin_t pinDir2;
     ioport_port_pin_t pinEnable;
+    ioport_port_pin_t pinEnable2;
     ioport_port_pin_t pinLimit0;
+    ioport_port_pin_t pinLimit02;
     ioport_port_pin_t pinLimit1;
+    ioport_port_pin_t pinLimit12;
     ioport_port_pin_t pinStep;
+    ioport_port_pin_t pinStep2;
     char referenced;
     char status[50];
     ioport_level_t stepState;
