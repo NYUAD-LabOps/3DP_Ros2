@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deviceconfig>
+  <device>
+    <name>R7FS12878</name>
+    <series>Synergy</series>
+    <family>S1</family>
+    <server>
+      <params>
+        <param>-t R7FS12878</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+  </device>
+</deviceconfig>

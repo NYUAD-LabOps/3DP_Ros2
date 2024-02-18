@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<synergyModuleDescription>
+    <config id="config.driver.ptpedmac" path="ssp_cfg/driver/r_ptpedmac_cfg.h" version="0">
+        <property default="config.driver.ptpedmac.param_checking_enable.bsp" display="Parameter Checking" id="config.driver.ptpedmac.param_checking_enable" description="If selected code for parameter checking is included in the build.">
+            <option display="Default (BSP)" id="config.driver.ptpedmac.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.driver.ptpedmac.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.driver.ptpedmac.param_checking_enable.disabled" value="(0)"/>
+        </property> 
+        <property default="1" display="Number of RX descriptors" id="config.driver.ptpedmac.num_rx_descriptors"  description="Number of receive descriptors">
+            <constraint display="Must be an integer from 1 to 8">testInteger("${config.driver.ptpedmac.num_rx_descriptors}") &amp;&amp; ("${config.driver.ptpedmac.num_rx_descriptors}" &gt;= 1) 
+            &amp;&amp; ("${config.driver.ptpedmac.num_rx_descriptors}" &lt;= 8)</constraint>
+        </property>
+        <property default="1536" display="Buffer size" id="config.driver.ptpedmac.buffer_size"  description="PTPEDMAC buffer size">
+            <constraint display="Must be an integer from 64 to 1536">testInteger("${config.driver.ptpedmac.buffer_size}") &amp;&amp; ("${config.driver.ptpedmac.buffer_size}" &gt;= 64) 
+            &amp;&amp; ("${config.driver.ptpedmac.buffer_size}" &lt;= 1536)</constraint>
+        </property>
+        <content>
+            #define PTPEDMAC_CFG_PARAM_CHECKING_ENABLE ${config.driver.ptpedmac.param_checking_enable}
+            #define PTPEDMAC_CFG_NUM_RX_DESCRIPTORS ${config.driver.ptpedmac.num_rx_descriptors}
+            #define PTPEDMAC_CFG_BUFFER_SIZE ${config.driver.ptpedmac.buffer_size}
+        </content>
+    </config>
+    <module config="config.driver.ptpedmac" display="Driver|Networking|${module.driver.ptpedmac.name} PTPEDMAC for r_ptp" id="module.driver.ptpedmac_on_ptpedmac" version="1" visible="false" url="https://en-support.renesas.com/knowledgeBase/20069103">
+        <constraint display="Only one PTPEDMAC instance is allowed">
+            "${interface.driver.ptpedmac}" === "1"
+        </constraint>
+        <provides interface="interface.driver.ptpedmac" />
+        <property default="g_ptpedmac" display="Name" id="module.driver.ptpedmac.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.ptpedmac.name}")</constraint>
+        </property>
+        <property default="NULL" display="PINT Callback" id="module.driver.ptpedmac.p_callback" description="A user callback function.If this callback function is provided, it is called from the interrupt service routine (ISR) each time ETHER_PINT event occurs">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.ptpedmac.p_callback}")</constraint>
+        </property>
+        <property default="" display="PINT Interrupt Priority" id="module.driver.ptpedmac.irq_ipl" description="ETHER_PINT interrupt priority." category="category.interrupt.priority">
+            <select enum="enum.mcu.nvic.priorities.mandatory"/>
+        </property>
+        <header>
+            extern const ptpedmac_instance_t ${module.driver.ptpedmac.name};
+            #ifndef ${module.driver.ptpedmac.p_callback}
+            ssp_err_t ${module.driver.ptpedmac.p_callback}(ptpedmac_callback_args_t * p_args);
+            #endif
+        </header>
+        <includes>
+#include &quot;r_ptpedmac.h&quot;
+#include &quot;r_ptpedmac_api.h&quot;
+        </includes>
+        <declarations>
+#if ${module.driver.ptpedmac.irq_ipl} != BSP_IRQ_DISABLED
+#if !defined(SSP_SUPPRESS_ISR_${module.driver.ptpedmac.name}) &amp;&amp; !defined(SSP_SUPPRESS_ISR_PTPEDMAC)
+SSP_VECTOR_DEFINE(eptpc_pint_isr, EPTPC, PINT);
+#endif
+#endif
+static ptpedmac_instance_ctrl_t ${module.driver.ptpedmac.name}_ctrl;
+/** PTPEDMAC interface configuration */
+const ptpedmac_cfg_t ${module.driver.ptpedmac.name}_cfg = 
+{
+    .p_callback     = ${module.driver.ptpedmac.p_callback},
+    .irq_ipl        = ${module.driver.ptpedmac.irq_ipl}
+};
+/* Instance structure to use this module. */
+const ptpedmac_instance_t ${module.driver.ptpedmac.name} = 
+{
+    .p_ctrl        = &amp;${module.driver.ptpedmac.name}_ctrl,
+    .p_cfg         = &amp;${module.driver.ptpedmac.name}_cfg,
+    .p_api         = &amp;g_ptpedmac_on_ptpedmac
+};
+        </declarations>
+    </module>
+</synergyModuleDescription>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension point="com.tasking.pinmapper.mapping">
+    <vendor caption="Renesas" id="renesas" />
+    <group caption="Renesas Synergy" id="renesas.synergy" />
+    <family caption="Renesas S128" id="renesas.s128" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s128" device="renesas.s128_lm" package="renesas.36lga" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS1287xxxxxxLM.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s128" device="renesas.s128_fj" package="renesas.32lqfp" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS1287xxxxxxFJ.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s128" device="renesas.s128_fl" package="renesas.48lqfp" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS1287xxxxxxFL.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s128" device="renesas.s128_fm" package="renesas.64lqfp" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS1287xxxxxxFM.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s128" device="renesas.s128_ne" package="renesas.48qfn" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS1287xxxxxxNE.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s128" device="renesas.s128_ng" package="renesas.32qfn" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS1287xxxxxxNG.xml" />
+  </extension>
+</plugin>

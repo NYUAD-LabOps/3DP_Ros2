@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<synergyModuleDescription>
+    <config id="config.framework.sf_wifi_qca4010_onchip_stack" path="ssp_cfg/framework/sf_wifi_qca4010_onchip_stack_cfg.h" version="0">
+        <property default="config.framework.sf_wifi_qca4010_onchip_stack.param_checking_enable.bsp" display="Parameter Checking" id="config.framework.sf_wifi_qca4010_onchip_stack.param_checking_enable">
+            <option display="Default (BSP)" id="config.framework.sf_wifi_qca4010_onchip_stack.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="module.framework.sf_wifi_qca4010_onchip_stack.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="module.framework.sf_wifi_qca4010_onchip_stack.param_checking_enable.disabled" value="(0)"/>
+        </property>
+        <content>
+        #ifndef SF_WIFI_QCA4010_ONCHIP_STACK_CFG_PARAM_CHECKING_ENABLE
+        #define SF_WIFI_QCA4010_ONCHIP_STACK_CFG_PARAM_CHECKING_ENABLE ${config.framework.sf_wifi_qca4010_onchip_stack.param_checking_enable}
+        #endif
+        </content>
+    </config>
+    <module config="config.framework.sf_wifi_qca4010_onchip_stack" display="Framework|Networking|Wi-Fi|${module.framework.sf_wifi_qca4010_onchip_stack.name} On-Chip Stack on qca4010 Wi-Fi Framework" common="1" id="module.framework.sf_wifi_qca4010_onchip_stack" version="1" url="https://en-support.renesas.com/knowledgeBase/20069113">
+        <requires interface="_rtos" />
+        <requires id="module.framework.sf_wifi_qca4010_onchip_stack.requires.sf_wifi_qca4010" interface="interface.framework.sf_wifi_qca4010" display="Add Wi-Fi Device Driver">
+            <override property="module.framework.sf_wifi_qca4010.p_callback" value= "NULL"/>
+        </requires>
+        <provides interface="interface.framework.sf_wifi_qca4010_onchip_stack" />
+        <provides interface="interface.framework.sf_wifi_onchip_stack_on_sf_wifi_qca4010_onchip_stack" />
+        <provides interface="interface.framework.sf_wifi_qca4010_onchip_stack.${module.framework.sf_wifi_qca4010_onchip_stack.name}" />
+        <property default="g_sf_wifi_qca4010_onchip_stack" display="Name (Must be a valid C Symbol)" id="module.framework.sf_wifi_qca4010_onchip_stack.name" >
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.framework.sf_wifi_qca4010_onchip_stack.name}")</constraint>
+        </property>
+        <header>
+        /** sf_wifi_qca4010_onchip_stack instance on qca4010 */
+        extern sf_wifi_qca4010_onchip_stack_instance_t ${module.framework.sf_wifi_qca4010_onchip_stack.name};
+        </header>
+    <includes>#include &quot;sf_wifi_qca4010_onchip_stack_api.h&quot;
+    #include &quot;sf_wifi_qca4010_onchip_stack.h&quot;</includes>
+    <declarations>
+/***********************************************************************************************************************
+ * Wi-Fi On-Chip stack Instance
+ **********************************************************************************************************************/
+/** Control structure for On-Chip qca4010 stack */
+sf_wifi_qca4010_onchip_stack_ctrl_t ${module.framework.sf_wifi_qca4010_onchip_stack.name}_ctrl;
+
+/** Configuration structure for On-Chip qca4010 stack */
+static const sf_wifi_qca4010_onchip_stack_cfg_t ${module.framework.sf_wifi_qca4010_onchip_stack.name}_cfg =
+{
+    .p_lower_lvl_wifi_qca4010 = &amp;${module.framework.sf_wifi_qca4010_onchip_stack.requires.sf_wifi_qca4010::module.framework.sf_wifi_qca4010.name},
+};
+
+sf_wifi_qca4010_onchip_stack_instance_t ${module.framework.sf_wifi_qca4010_onchip_stack.name} =
+{
+    .p_ctrl = &amp;${module.framework.sf_wifi_qca4010_onchip_stack.name}_ctrl,
+    .p_cfg  = &amp;${module.framework.sf_wifi_qca4010_onchip_stack.name}_cfg,
+    .p_api  = &amp;g_sf_wifi_onchip_stack_on_sf_wifi_qca4010_onchip_stack
+};
+    </declarations>
+    </module>
+</synergyModuleDescription>

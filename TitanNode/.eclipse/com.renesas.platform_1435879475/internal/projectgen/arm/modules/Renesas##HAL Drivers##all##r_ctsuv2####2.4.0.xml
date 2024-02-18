@@ -1,0 +1,178 @@
+<?xml version="1.0" ?>
+<synergyModuleDescription>
+
+    <config id="config.driver.ctsuv2" path="ssp_cfg/driver/r_ctsuv2_cfg.h" version="0">
+        <property default="config.driver.ctsuv2.param_checking_enable.bsp" display="Parameter Checking" id="config.driver.ctsuv2.param_checking_enable" description="If selected code for parameter checking is included in the build.">
+            <option display="Default (BSP)" id="config.driver.ctsuv2.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.driver.ctsuv2.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.driver.ctsuv2.param_checking_enable.disabled" value="(0)"/>
+        </property>
+        <property default="config.driver.ctsuv2.dtc_enable.disabled" display="Support for using DTC" id="config.driver.ctsuv2.dtc_enable" description="Enable DTC support for the CTSU module.">
+            <option display="Enabled" id="config.driver.ctsuv2.dtc_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.driver.ctsuv2.dtc_enable.disabled" value="(0)"/>
+        </property>
+
+        <property default="2" display="Interrupt priority level" id="module.driver.ctsuv2.int_priority_level" description="Priority level of all CTSU interrupt (CSTU_WR,CTSU_RD,CTSU_FN) ">
+            <select enum="enum.mcu.nvic.priorities.mandatory"/>
+        </property>
+
+        <content>#define CTSU_CFG_PARAM_CHECKING_ENABLE   ${config.driver.ctsuv2.param_checking_enable}
+                 #define CTSU_CFG_DTC_SUPPORT_ENABLE      ${config.driver.ctsuv2.dtc_enable}
+                 #define CTSU_CFG_INT_PRIORITY_LEVEL      ${module.driver.ctsuv2.int_priority_level}
+                 #ifndef QE_TOUCH_CONFIGURATION
+                 #define CTSU_CFG_NUM_SELF_ELEMENTS       (1)
+                 #define CTSU_CFG_NUM_MUTUAL_ELEMENTS     (0)
+                 #define CTSU_CFG_LOW_VOLTAGE_MODE        (0)
+                 #define CTSU_CFG_PCLK_DIVISION           (0)
+                 #define CTSU_CFG_TSCAP_PORT              (0xFFFF)
+                 #define CTSU_CFG_DIAG_SUPPORT_ENABLE     (0)
+                 #define CTSU_CFG_NUM_SUMULTI             (1)
+                 #endif
+
+                 #if (CTSU_CFG_DIAG_SUPPORT_ENABLE == 1)
+                 #if (BSP_CFG_MCU_PART_SERIES == 1) || (BSP_CFG_MCU_PART_SERIES == 3)
+                 #if (CTSU_CFG_LOW_VOLTAGE_MODE == 0)
+                 #define CTSU_CFG_DIAG_CCO_HIGH_MAX                (54888)
+                 #define CTSU_CFG_DIAG_CCO_HIGH_MIN                (29062)
+                 #define CTSU_CFG_DIAG_CCO_LOW_MAX                 (3269)
+                 #define CTSU_CFG_DIAG_CCO_LOW_MIN                 (705)
+                 #define CTSU_CFG_DIAG_SSCG_MAX                    (21813)
+                 #define CTSU_CFG_DIAG_SSCG_MIN                    (11782)
+                 #define CTSU_CFG_DIAG_DAC1_MAX                    (20422)
+                 #define CTSU_CFG_DIAG_DAC2_MAX                    (21532)
+                 #define CTSU_CFG_DIAG_DAC3_MAX                    (23015)
+                 #define CTSU_CFG_DIAG_DAC4_MAX                    (25923)
+                 #define CTSU_CFG_DIAG_DAC5_MAX                    (32016)
+                 #define CTSU_CFG_DIAG_DAC6_MAX                    (45795)
+                 #define CTSU_CFG_DIAG_DAC1_MIN                    (12492)
+                 #define CTSU_CFG_DIAG_DAC2_MIN                    (14053)
+                 #define CTSU_CFG_DIAG_DAC3_MIN                    (15322)
+                 #define CTSU_CFG_DIAG_DAC4_MIN                    (18070)
+                 #define CTSU_CFG_DIAG_DAC5_MIN                    (23262)
+                 #define CTSU_CFG_DIAG_DAC6_MIN                    (33446)
+
+                 #else
+                 #define CTSU_CFG_DIAG_CCO_HIGH_MAX                (43910)
+                 #define CTSU_CFG_DIAG_CCO_HIGH_MIN                (23249)
+                 #define CTSU_CFG_DIAG_CCO_LOW_MAX                 (2615)
+                 #define CTSU_CFG_DIAG_CCO_LOW_MIN                 (564)
+                 #define CTSU_CFG_DIAG_SSCG_MAX                    (21813)
+                 #define CTSU_CFG_DIAG_SSCG_MIN                    (11782)
+                 #define CTSU_CFG_DIAG_DAC1_MAX                    (16599)
+                 #define CTSU_CFG_DIAG_DAC2_MAX                    (17226)
+                 #define CTSU_CFG_DIAG_DAC3_MAX                    (18412)
+                 #define CTSU_CFG_DIAG_DAC4_MAX                    (20738)
+                 #define CTSU_CFG_DIAG_DAC5_MAX                    (25613)
+                 #define CTSU_CFG_DIAG_DAC6_MAX                    (36636)
+                 #define CTSU_CFG_DIAG_DAC1_MIN                    (9994)
+                 #define CTSU_CFG_DIAG_DAC2_MIN                    (11242)
+                 #define CTSU_CFG_DIAG_DAC3_MIN                    (12258)
+                 #define CTSU_CFG_DIAG_DAC4_MIN                    (14456)
+                 #define CTSU_CFG_DIAG_DAC5_MIN                    (18610)
+                 #define CTSU_CFG_DIAG_DAC6_MIN                    (26757)
+                 #endif
+                 #endif
+                 #if (BSP_CFG_MCU_PART_SERIES == 5) || (BSP_CFG_MCU_PART_SERIES == 7)
+                 #define CTSU_CFG_DIAG_CCO_HIGH_MAX                (36873)
+                 #define CTSU_CFG_DIAG_CCO_HIGH_MIN                (24433)
+                 #define CTSU_CFG_DIAG_CCO_LOW_MAX                 (1781)
+                 #define CTSU_CFG_DIAG_CCO_LOW_MIN                 (105)
+                 #define CTSU_CFG_DIAG_SSCG_MAX                    (17795)
+                 #define CTSU_CFG_DIAG_SSCG_MIN                    (9610)
+                 #define CTSU_CFG_DIAG_DAC1_MAX                    (20422)
+                 #define CTSU_CFG_DIAG_DAC2_MAX                    (21532)
+                 #define CTSU_CFG_DIAG_DAC3_MAX                    (23015)
+                 #define CTSU_CFG_DIAG_DAC4_MAX                    (25923)
+                 #define CTSU_CFG_DIAG_DAC5_MAX                    (32016)
+                 #define CTSU_CFG_DIAG_DAC6_MAX                    (45795)
+                 #define CTSU_CFG_DIAG_DAC1_MIN                    (12492)
+                 #define CTSU_CFG_DIAG_DAC2_MIN                    (14053)
+                 #define CTSU_CFG_DIAG_DAC3_MIN                    (15322)
+                 #define CTSU_CFG_DIAG_DAC4_MIN                    (18070)
+                 #define CTSU_CFG_DIAG_DAC5_MIN                    (23262)
+                 #define CTSU_CFG_DIAG_DAC6_MIN                    (33446)
+                 #endif
+                 #endif
+        </content>
+    </config>
+    <module common="1" config="config.driver.ctsuv2" display="Driver|Input| CTSU Driver on r_ctsuv2" id="module.driver.ctsu_on_ctsuv2" version="1" url="https://knowledgebase.renesas.com/English_Content/Renesas_Synergy%E2%84%A2_Platform/Renesas_Synergy_Knowledge_Base/r_ctsu_Module_Guide_Resources">
+        <constraint display="Unique name required for each instance">
+            "${interface.driver.ctsuv2.${module.driver.ctsuv2.name}}" === "1"
+        </constraint>
+        <constraint display="Requires ctsu Peripheral">
+          "${interface.mcu.ctsu.external}" === "1"
+        </constraint>
+        <constraint display="DTC must both be enabled or disabled">
+            (("${interface.driver.transfer_on_dtc.${module.driver.ctsu_on_ctsuv2.requires.transfer_tx::module.driver.transfer.name}}" === "1") &amp;&amp;
+            ("${interface.driver.transfer_on_dtc.${module.driver.ctsu_on_ctsuv2.requires.transfer_rx::module.driver.transfer.name}}" === "1")) ||
+            (("${interface.driver.transfer_on_dtc.${module.driver.ctsu_on_ctsuv2.requires.transfer_tx::module.driver.transfer.name}}" !== "1") &amp;&amp;
+            ("${interface.driver.transfer_on_dtc.${module.driver.ctsu_on_ctsuv2.requires.transfer_rx::module.driver.transfer.name}}" !== "1"))
+        </constraint>
+        <constraint display="DTC support must be enabled to use DTC">
+            ("${config.driver.ctsuv2.dtc_enable}" === "config.driver.ctsuv2.dtc_enable.enabled") ||
+            (("${interface.driver.transfer_on_dtc.${module.driver.ctsu_on_ctsuv2.requires.transfer_tx::module.driver.transfer.name}}" !== "1") &amp;&amp;
+            ("${interface.driver.transfer_on_dtc.${module.driver.ctsu_on_ctsuv2.requires.transfer_rx::module.driver.transfer.name}}" !== "1"))
+        </constraint>
+        <constraint display="Requires DTC module">
+            ("${config.driver.ctsuv2.dtc_enable}" === "config.driver.ctsuv2.dtc_enable.disabled") ||
+            (("${interface.driver.transfer_on_dtc.${module.driver.ctsu_on_ctsuv2.requires.transfer_tx::module.driver.transfer.name}}" === "1") &amp;&amp;
+            ("${interface.driver.transfer_on_dtc.${module.driver.ctsu_on_ctsuv2.requires.transfer_rx::module.driver.transfer.name}}" === "1"))
+        </constraint>
+
+        <requires id="module.driver.ctsu_on_ctsuv2.requires.ctsu" interface="interface.mcu.ctsu.external" visible="false" display="Requires ctsu Peripheral" />
+        <requires id="module.driver.ctsu_on_ctsuv2.requires.transfer_tx" interface="interface.driver.transfer_on_dtc" display="Add DTC Driver for Transmission [Recommended but optional]" find="false">
+            <override property="module.driver.transfer.mode" value="module.driver.transfer.mode.mode_normal"/>
+            <override property="module.driver.transfer.dest_addr_mode" value="module.driver.transfer.dest_addr_mode.addr_mode_fixed"/>
+            <override property="module.driver.transfer.src_addr_mode" value="module.driver.transfer.src_addr_mode.addr_mode_incremented"/>
+            <override property="module.driver.transfer.repeat_area" value="module.driver.transfer.repeat_area.repeat_area_source"/>
+            <override property="module.driver.transfer.p_dest" value="NULL"/>
+            <override property="module.driver.transfer.p_src" value="NULL"/>
+            <override property="module.driver.transfer.length" value="0"/>
+            <override property="module.driver.transfer.interrupt" value="module.driver.transfer.interrupt.interrupt_end"/>
+            <override property="module.driver.transfer.num_blocks" value="0"/>
+            <override property="module.driver.transfer.activation_source" value="module.driver.transfer.event.event_ctsu_write"/>
+            <override property="module.driver.transfer.auto_enable" value="module.driver.transfer.auto_enable.false"/>
+            <override property="module.driver.transfer.p_callback" value="NULL"/>
+        </requires>
+        <requires id="module.driver.ctsu_on_ctsuv2.requires.transfer_rx" interface="interface.driver.transfer_on_dtc" display="Add DTC Driver for Reception [Recommended but optional]" find="false">
+            <override property="module.driver.transfer.mode" value="module.driver.transfer.mode.mode_normal"/>
+            <override property="module.driver.transfer.dest_addr_mode" value="module.driver.transfer.dest_addr_mode.addr_mode_incremented"/>
+            <override property="module.driver.transfer.src_addr_mode" value="module.driver.transfer.src_addr_mode.addr_mode_fixed"/>
+            <override property="module.driver.transfer.repeat_area" value="module.driver.transfer.repeat_area.repeat_area_destination"/>
+            <override property="module.driver.transfer.p_dest" value="NULL"/>
+            <override property="module.driver.transfer.p_src" value="NULL"/>
+            <override property="module.driver.transfer.length" value="0"/>
+            <override property="module.driver.transfer.interrupt" value="module.driver.transfer.interrupt.interrupt_end"/>
+            <override property="module.driver.transfer.num_blocks" value="0"/>
+            <override property="module.driver.transfer.activation_source" value="module.driver.transfer.event.event_ctsu_read"/>
+            <override property="module.driver.transfer.auto_enable" value="module.driver.transfer.auto_enable.false"/>
+            <override property="module.driver.transfer.p_callback" value="NULL"/>
+        </requires>
+
+        <provides interface="interface.driver.ctsuv2" />
+        <provides interface="interface.driver.ctsu_on_ctsuv2" />
+        <provides interface="interface.driver.ctsuv2.${module.driver.ctsuv2.name}" />
+
+        <!-- ctsu configuration -->
+        <property default="g_ctsuv2" id="module.driver.ctsuv2.name" description="Module name." />
+
+        <includes>
+            #include &quot;r_ctsuv2.h&quot;
+            #include &quot;r_ctsuv2_api.h&quot;
+        </includes>
+
+        <declarations>
+#if ${module.driver.ctsuv2.int_priority_level} != BSP_IRQ_DISABLED
+ #if !defined(SSP_SUPPRESS_ISR_${module.driver.ctsuv2.name}) &amp;&amp; !defined(SSP_SUPPRESS_ISR_CTSU)
+ SSP_VECTOR_DEFINE(ctsu_write_isr, CTSU, WRITE);
+ #endif
+ #if !defined(SSP_SUPPRESS_ISR_${module.driver.ctsuv2.name}) &amp;&amp; !defined(SSP_SUPPRESS_ISR_CTSU)
+ SSP_VECTOR_DEFINE(ctsu_read_isr, CTSU, READ);
+ #endif
+ #if !defined(SSP_SUPPRESS_ISR_${module.driver.ctsuv2.name}) &amp;&amp; !defined(SSP_SUPPRESS_ISR_CTSU)
+ SSP_VECTOR_DEFINE(ctsu_end_isr, CTSU, END);
+ #endif
+#endif
+        </declarations>
+    </module>
+</synergyModuleDescription>

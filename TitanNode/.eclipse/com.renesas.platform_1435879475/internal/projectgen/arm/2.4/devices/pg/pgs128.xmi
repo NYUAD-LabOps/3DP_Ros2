@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<projgen:Container xmi:version="2.0" xmlns:projgen="http:///projgen.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xmi="http://www.omg.org/XMI" xsi:schemaLocation="http:///projgen.ecore ProjGen.ecore">
+  <Target shortName="SYNERGY" target="SYNERGY">
+    <CpuType shortName="S1" isUsedInPG="true">
+      <Cpu shortName="S128" compilerCpuType="cortex-m0plus">
+        <PinCountRZTC shortName="S128 - 64 Pin" isUsedInPG="true" PinNumber="64">
+          <Device shortName="R7FS128783A01CFM" DeviceCommand="R7FS12878" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="S128 - 48 Pin" isUsedInPG="true" PinNumber="48">
+          <Device shortName="R7FS128783A01CFL" DeviceCommand="R7FS12878" />
+          <Device shortName="R7FS128783A01CNE" DeviceCommand="R7FS12878" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="S128 - 36 Pin" isUsedInPG="true" PinNumber="36">
+          <Device shortName="R7FS128782A01CLM" DeviceCommand="R7FS12878" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="S128 - 32 Pin" isUsedInPG="true" PinNumber="32">
+          <Device shortName="R7FS128783A01CFJ" DeviceCommand="R7FS12878" />
+          <Device shortName="R7FS128783A01CNG" DeviceCommand="R7FS12878" />
+        </PinCountRZTC>
+      </Cpu>
+    </CpuType>
+  </Target>
+</projgen:Container>

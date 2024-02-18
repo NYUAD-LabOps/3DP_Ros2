@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<synergyModuleDescription>
+    <config id="config.el.gx_src" path="ssp_cfg/framework/el/gx_src_user.h" version="0">
+        <property default="" display="GUIX Stack Size" id="config.el.gx_src.stack_size" description="GUIX internal thread stack size in bytes. Must be greater than zero or empty.">
+            <constraint display="Value must be greater than or zero or empty">("${config.el.gx_src.stack_size}".length === 0) || ("${config.el.gx_src.stack_size}" &gt; 0)</constraint>
+        </property>
+        <property default="" display="GUIX System Timer (Milliseconds)" id="config.el.gx_src.system_timer_ms" description="GUIX system timer. Must be a multiple of TX_TIMER_TICKS_PER_SECOND or empty. Do not set when GUIX Timer Rate is set.">
+            <constraint display="Value must be greater than or equal to 10 or empty">("${config.el.gx_src.system_timer_ms}".length === 0) || ("${config.el.gx_src.system_timer_ms}" &gt; 9)</constraint>
+        </property>
+        <property default="" display="GUIX Timer Rate" id="config.el.gx_src.system_timer_ticks" description="GUIX timer rate as a multiple of the ThreadX tick interrupt rate. Must be greater than zero or empty.">
+            <constraint display="Value must be greater than or zero or empty">("${config.el.gx_src.system_timer_ticks}".length === 0) || ("${config.el.gx_src.system_timer_ticks}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.disable_multithread_support" display="Disable Multithread Support" default="config.el.gx_src.disable_multithread_support.no" description="If your application has only one thread which utilizes the GUI API services, say yes to reduce system overhead.">
+            <option id="config.el.gx_src.disable_multithread_support.yes" display="Yes" value="1" />
+            <option id="config.el.gx_src.disable_multithread_support.no"  display="No(default)" value="0" />
+        </property>
+        <property id="config.el.gx_src.disable_utf8_support" display="Disable UTF8 Support" default="config.el.gx_src.disable_utf8_support.no" description="GUIX disables UTF8 support if you say yes.">
+            <option id="config.el.gx_src.disable_utf8_support.yes" display="Yes" value="1" />
+            <option id="config.el.gx_src.disable_utf8_support.no"  display="No(default)" value="0" />
+        </property>
+        <property default="" display="GUIX Event Queue Size" id="config.el.gx_src.max_queue_events" description="Size of GUIX Event Queue Size. Must be greater than zero or empty.">
+            <constraint display="Value must be greater than or zero or empty">("${config.el.gx_src.max_queue_events}".length === 0) || ("${config.el.gx_src.max_queue_events}" &gt; 0)</constraint>
+        </property>
+        <property default="16" display="GUIX Thread Priority" id="config.el.gx_src.thread_priority" description="Priority of GUIX Internal Thread. The value must be between 0 to 31.">
+            <constraint display="Value must be between 0 to 31, or empty">(("${config.el.gx_src.thread_priority}" &gt;= 0) &amp;&amp; ("${config.el.gx_src.thread_priority}" &lt;= 31))</constraint>
+        </property>
+        <property default="10" display="GUIX Thread Time Slice" id="config.el.gx_src.thread_time_slice" description="Time Slice value of GUIX Internal Thread. The value must be between 0(TX_NO_TIME_SLICE) to 0xFFFFFFFF.">
+            <constraint display="Value must be a non-negative integer">(testInteger("${config.el.gx_src.thread_time_slice}") &amp;&amp; ("${config.el.gx_src.thread_time_slice}" &gt;= 0))</constraint>
+        </property>
+        <property id="config.el.gx_src.widget_user_data" display="Use User Data Field in GX_WIDGET Structure" default="config.el.gx_src.widget_user_data.no" description="GUIX allows users to use gx_widget_user_data member in GX_WIDGET Structure if you say yes.">
+            <option id="config.el.gx_src.widget_user_data.yes" display="Yes" value="1" />
+            <option id="config.el.gx_src.widget_user_data.no"  display="No(default)" value="0" />
+        </property>
+        <property id="config.el.gx_src.disable_arc_drawing_support" display="Disable arc drawing support" default="config.el.gx_src.disable_arc_drawing_support.no" description="Reduce the GUIX library code size and GX_DISPLAY structure size by removing support for the arc-drawing functions circle, arc, pie, and ellipse.">
+            <option id="config.el.gx_src.disable_arc_drawing_support.yes" display="Yes" value="1" />
+            <option id="config.el.gx_src.disable_arc_drawing_support.no"  display="No(default)" value="0" />
+        </property>
+        <property id="config.el.gx_src.disable_software_decoder_support" display="Disable software decoder support" default="config.el.gx_src.disable_software_decoder_support.no" description="If your application does not require runtime decode of jpg or png files, select yes to reduce the GUIX library footprint.">
+            <option id="config.el.gx_src.disable_software_decoder_support.yes" display="Yes" value="1" />
+            <option id="config.el.gx_src.disable_software_decoder_support.no"  display="No(default)" value="0" />
+        </property>
+        <property id="config.el.gx_src.disable_binary_resource_support" display="Disable binary resource support" default="config.el.gx_src.disable_binary_resource_support.no" description="If your application is using only C source code format resource files, select yes to reduce your GUIX library footprint.">
+            <option id="config.el.gx_src.disable_binary_resource_support.yes" display="Yes" value="1" />
+            <option id="config.el.gx_src.disable_binary_resource_support.no"  display="No(default)" value="0" />
+        </property>
+        <property id="config.el.gx_src.repeat_button_initial_tics" display="Repeat button initial tics" default="" description="This value defines how long the button waits before beginning to send repeated GX_EVENT_CLICKED events.">
+            <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.repeat_button_initial_tics}".length === 0) || ("${config.el.gx_src.repeat_button_initial_tics}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.max_dirty_areas" display="Maximum number of unique dirty list entries" default="" description="This value defines the maximum number of unique dirty list entries that can be maintained by one canvas.">
+            <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.max_dirty_areas}".length === 0) || ("${config.el.gx_src.max_dirty_areas}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.max_context_nesting" display="Maximum nesting of context" default="" description="This value defines the maximum nesting of the drawing context stack.">
+             <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.max_context_nesting}".length === 0) || ("${config.el.gx_src.max_context_nesting}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.max_input_capture_nesting" display="Maximum input capture nesting" default="" description="This value defines size of the stack used to maintain the list of widgets that have captures the user input">
+             <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.max_input_capture_nesting}".length === 0) || ("${config.el.gx_src.max_input_capture_nesting}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.cursor_blink_interval" display="Cursor blink interval" default="" description="This value defines the rate at which the input cursor blinks for text input widgets.">
+            <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.cursor_blink_interval}".length === 0) || ("${config.el.gx_src.cursor_blink_interval}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.multi_line_index_cache_size" display="Multi line index cache size" default="" description="This value defines the size of the list-start index cache maintained by the multi-line text view and multi-line text input widgets.">
+             <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.multi_line_index_cache_size}".length === 0) || ("${config.el.gx_src.multi_line_index_cache_size}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.multi_line_text_button_max_lines" display="Multi line text button maximum lines" default="" description="This value determines the number of text pointers needed by the worst case multi-line text button.">
+             <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.multi_line_text_button_max_lines}".length === 0) || ("${config.el.gx_src.multi_line_text_button_max_lines}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.polygon_max_edge_num" display="Maximum number of polygon edges" default="" description="This value determines the most complex polygon that can be drawn by GUIX.">
+             <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.polygon_max_edge_num}".length === 0) || ("${config.el.gx_src.polygon_max_edge_num}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.numeric_scroll_wheel_string_buffer_size" display="Numeric scroll wheel string buffer size" default="" description="This value determines the maximum length of the string required to display the assigned integer values.">
+             <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.numeric_scroll_wheel_string_buffer_size}".length === 0) || ("${config.el.gx_src.numeric_scroll_wheel_string_buffer_size}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.circular_gauge_animation_delay" display="Circular gauge animation delay" default="" description="This value defines the number of GUIX timer ticks (50 ms) between updates of a circular gauge configured to animate the needle movement between last and current angular position.">
+             <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.circular_gauge_animation_delay}".length === 0) || ("${config.el.gx_src.circular_gauge_animation_delay}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.numeric_prompt_buffer_size" display="Numeric prompt buffer size" default="" description="This value defines the size of buffer allocated to convert an integer value assigned to the prompt to an ascii string.">
+             <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.numeric_prompt_buffer_size}".length === 0) || ("${config.el.gx_src.numeric_prompt_buffer_size}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.animation_pool_size" display="Animation pool size" default="" description="This value defines the size of animation pool from which animation information structures can be dynamically allocated and returned.">
+             <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.animation_pool_size}".length === 0) || ("${config.el.gx_src.animation_pool_size}" &gt; 0)</constraint>
+        </property>
+        <property id="config.el.gx_src.mouse_support" display="Mouse support" default="config.el.gx_src.mouse_support.no" description="Enables the mouse support. This definition should only be enabled when a mouse (not a touch screen) must be supported.">
+            <option id="config.el.gx_src.mouse_support.yes" display="Enable" value="1" />
+            <option id="config.el.gx_src.mouse_support.no"  display="Disable(default)" value="0" />
+        </property>
+        <property id="config.el.gx_src.hardware_mouse_support" display="Hardware mouse support" default="config.el.gx_src.hardware_mouse_support.no" description="When enabled, the GUIX display driver utilizes hardware mouse cursor drawing support.">
+            <option id="config.el.gx_src.hardware_mouse_support.yes" display="Enable" value="1" />
+            <option id="config.el.gx_src.hardware_mouse_support.no"  display="Disable(default)" value="0" />
+        </property>
+        <property id="config.el.gx_src.font_kerning_support" display="Font kerning support" default="config.el.gx_src.font_kerning_support.no" description="Enables font kerning support. ">
+            <option id="config.el.gx_src.font_kerning_support.yes" display="Enable" value="1" />
+            <option id="config.el.gx_src.font_kerning_support.no"  display="Disable(default)" value="0" />
+        </property>
+        <property id="config.el.gx_src.disable_brush_alpha_support" display="Disable brush alpha support" default="config.el.gx_src.disable_brush_alpha_support.no" description="To eliminate runtime overhead and library footprint increase, say yes if you do not require alpha-blending drawing support.">
+            <option id="config.el.gx_src.disable_brush_alpha_support.yes" display="Yes" value="1" />
+            <option id="config.el.gx_src.disable_brush_alpha_support.no"  display="No(default)" value="0" />
+        </property>
+        <property id="config.el.gx_src.max_string_length" display="Maximum string length" default="" description="This value defines the maximum length of a string, which is used to test invalid strings.">
+             <constraint display="Value must be greater than zero or empty">("${config.el.gx_src.max_string_length}".length === 0) || ("${config.el.gx_src.max_string_length}" &gt; 0)</constraint>
+        </property>
+        <content>
+#if (${config.el.gx_src.stack_size}+0)
+#define GX_THREAD_STACK_SIZE (${config.el.gx_src.stack_size}+0)
+#endif
+#if (${config.el.gx_src.system_timer_ms}+0)
+#define GX_SYSTEM_TIMER_MS (${config.el.gx_src.system_timer_ms}+0)
+#endif
+#if (${config.el.gx_src.system_timer_ticks}+0)
+#define GX_SYSTEM_TIMER_TICKS (${config.el.gx_src.system_timer_ticks}+0)
+#endif
+#if (${config.el.gx_src.disable_multithread_support})
+#define GUIX_DISABLE_MULTITHREAD_SUPPORT
+#endif
+#if (${config.el.gx_src.disable_utf8_support})
+#define GX_DISABLE_UTF8_SUPPORT
+#endif
+#if (${config.el.gx_src.max_queue_events}+0)
+#define GX_MAX_QUEUE_EVENTS (${config.el.gx_src.max_queue_events}+0)
+#endif
+#define GX_SYSTEM_THREAD_PRIORITY (${config.el.gx_src.thread_priority}+0)
+#define GX_SYSTEM_THREAD_TIMESLICE (${config.el.gx_src.thread_time_slice}+0)
+#if (${config.el.gx_src.widget_user_data})
+#define GX_WIDGET_USER_DATA
+#endif
+#if (${config.el.gx_src.disable_arc_drawing_support})
+#define GX_DISABLE_ARC_DRAWING_SUPPORT
+#endif
+#if (${config.el.gx_src.disable_software_decoder_support})
+#define GX_DISABLE_SOFTWARE_DECODER_SUPPORT
+#endif
+#if (${config.el.gx_src.disable_binary_resource_support})
+#define GX_DISABLE_BINARY_RESOURCE_SUPPORT
+#endif
+#if (${config.el.gx_src.repeat_button_initial_tics}+0)
+#define GX_REPEAT_BUTTON_INITIAL_TICS (${config.el.gx_src.repeat_button_initial_tics}+0)
+#endif
+#if (${config.el.gx_src.max_dirty_areas}+0)
+#define GX_MAX_DIRTY_AREAS (${config.el.gx_src.max_dirty_areas}+0)
+#endif
+#if (${config.el.gx_src.max_context_nesting}+0)
+#define GX_MAX_CONTEXT_NESTING (${config.el.gx_src.max_context_nesting}+0)
+#endif
+#if (${config.el.gx_src.max_input_capture_nesting}+0)
+#define GX_MAX_INPUT_CAPTURE_NESTING (${config.el.gx_src.max_input_capture_nesting}+0)
+#endif
+#if (${config.el.gx_src.cursor_blink_interval}+0)
+#define GX_CURSOR_BLINK_INTERVAL (${config.el.gx_src.cursor_blink_interval}+0)
+#endif
+#if (${config.el.gx_src.multi_line_index_cache_size}+0)
+#define GX_MULTI_LINE_INDEX_CACHE_SIZE (${config.el.gx_src.multi_line_index_cache_size}+0)
+#endif
+#if (${config.el.gx_src.multi_line_text_button_max_lines}+0)
+#define GX_MULTI_LINE_TEXT_BUTTON_MAX_LINES (${config.el.gx_src.multi_line_text_button_max_lines}+0)
+#endif
+#if (${config.el.gx_src.polygon_max_edge_num}+0)
+#define GX_POLYGON_MAX_EDGE_NUM (${config.el.gx_src.polygon_max_edge_num}+0)
+#endif
+#if (${config.el.gx_src.numeric_scroll_wheel_string_buffer_size}+0)
+#define GX_NUMERIC_SCROLL_WHEEL_STRING_BUFFER_SIZE (${config.el.gx_src.numeric_scroll_wheel_string_buffer_size}+0)
+#endif
+#if (${config.el.gx_src.circular_gauge_animation_delay}+0)
+#define GX_DEFAULT_CIRCULAR_GAUGE_ANIMATION_DELAY (${config.el.gx_src.circular_gauge_animation_delay}+0)
+#endif
+#if (${config.el.gx_src.numeric_prompt_buffer_size}+0)
+#define GX_NUMERIC_PROMPT_BUFFER_SIZE (${config.el.gx_src.numeric_prompt_buffer_size}+0)
+#endif
+#if (${config.el.gx_src.animation_pool_size}+0)
+#define GX_ANIMATION_POOL_SIZE (${config.el.gx_src.animation_pool_size}+0)
+#endif
+#if (${config.el.gx_src.mouse_support})
+#define GX_MOUSE_SUPPORT
+#endif
+#if (${config.el.gx_src.hardware_mouse_support})
+#define GX_HARDWARE_MOUSE_SUPPORT
+#endif
+#if (${config.el.gx_src.font_kerning_support})
+#define GX_FONT_KERNING_SUPPORT
+#endif
+#if (${config.el.gx_src.disable_brush_alpha_support})
+#define GX_DISABLE_BRUSH_ALPHA_SUPPORT
+#endif
+#if (${config.el.gx_src.max_string_length}+0)
+#define GX_MAX_STRING_LENGTH (${config.el.gx_src.max_string_length}+0)
+#endif
+
+        </content>
+    </config>
+    <module config="config.el.gx_src" id="module.el.gx_src" display="X-Ware|GUIX|GUIX Source" common="1" version="0" category="framework" 
+        url="https://knowledgebase.renesas.com/English_Content/Renesas_Synergy%E2%84%A2_Platform/Renesas_Synergy_Knowledge_Base/sf_el_gx_Module_Guide_Resources">
+        <!-- Remove this warning when a proper fix is implemented to remove the library when source component is added -->
+        <constraint display="Refer to release notes if multiple symbol definition linkage error occurs">
+            "${module.el.gx_src.linkage_warning}" === "module.el.gx_src.linkage_warning.disabled"
+        </constraint>
+
+        <constraint display="GX_MOUSE and GX_HARDWARE_MOUSE cannot be enabled at the same time">
+            !(("${config.el.gx_src.mouse_support}" === "config.el.gx_src.mouse_support.yes") &amp;&amp; ("${config.el.gx_src.hardware_mouse_support}" === "config.el.gx_src.hardware_mouse_support.yes"))
+        </constraint>
+        <requires interface="_rtos" />
+        <provides interface="interface.el.gx_src" />
+
+        <!-- Remove this warning when a proper fix is implemented to remove the library when source component is added -->
+        <property default="module.el.gx_src.linkage_warning.enabled" display="Show linkage warning" id="module.el.gx_src.linkage_warning">
+            <option display="Enabled" id="module.el.gx_src.linkage_warning.enabled" value="0"/>
+            <option display="Disabled" id="module.el.gx_src.linkage_warning.disabled" value="1"/>
+        </property>
+    </module>
+</synergyModuleDescription>

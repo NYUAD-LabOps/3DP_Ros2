@@ -1,0 +1,113 @@
+<?xml version="1.0" ?>
+<synergyModuleDescription>
+    <config id="config.driver.ptp" path="ssp_cfg/driver/r_ptp_cfg.h" version="0">
+        <property default="config.driver.ptp.param_checking_enable.bsp" display="Parameter Checking" id="config.driver.ptp.param_checking_enable" description="If selected code for parameter checking is included in the build.">
+            <option display="Default (BSP)" id="config.driver.ptp.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.driver.ptp.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.driver.ptp.param_checking_enable.disabled" value="(0)"/>
+        </property>
+        <content>
+            #define PTP_CFG_PARAM_CHECKING_ENABLE ${config.driver.ptp.param_checking_enable}
+        </content>
+    </config>
+    <module config="config.driver.ptp" display="Driver|Networking|${module.driver.ptp.name} PTP Driver on r_ptp" id="module.driver.ptp_on_ptp" common = "1" visible="false" version="1" url="https://en-support.renesas.com/knowledgeBase/20069099">
+        <constraint display="Only one PTP driver instance is allowed">
+            "${interface.driver.ptp}" === "1"
+        </constraint>
+        <constraint display= "Requires EPTPC">
+            "${interface.mcu.etherc_eptpc}" === "1"
+        </constraint>
+        <constraint display="Requires PTPEDMAC">
+            testExists("${module.driver.ptp_on_ptp.requires.ptpedmac::module.driver.ptpedmac.name}")
+        </constraint>
+        <requires id="module.driver.ptp_on_ptp.requires.ptpedmac" interface="interface.driver.ptpedmac" display="Add PTPEDMAC for PTP driver">
+        </requires>
+        <provides interface="interface.driver.ptp" />
+        <property default="g_ptp" display="Name" id="module.driver.ptp.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.ptp.name}")</constraint>
+        </property>
+        <!-- PTP Extended configuration -->
+        <property default="" display="Clock mode" id="module.driver.ptp.clock_mode" description="Select the clock mode">
+            <select enum="enum.mcu.ptp.clock_mode"/>
+        </property>
+        <property default="module.driver.ptp.sync_mode.mode2_hw" display="STCA Synchronous mode" id="module.driver.ptp.sync_mode" description="Select the synchronous mode.">
+            <option display="Mode 1 - No gradient collection" id="module.driver.ptp.sync_mode.mode1" value="PTP_STCA_MODE_1"/>
+            <option display="Mode 2 - Gradient collection by hardware" id="module.driver.ptp.sync_mode.mode2_hw" value="PTP_STCA_MODE_2_HW"/>
+            <option display="Mode 2 - Gradient collection by software" id="module.driver.ptp.sync_mode.mode2_sw" value="PTP_STCA_MODE_2_SW"/>
+        </property>
+        <property default="NULL" display="MINT Callback" id="module.driver.ptp.p_callback" description="A user callback function.If this callback function is provided, it is called from the interrupt service routine (ISR) each time ETHER_MINT event occurs">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.ptp.p_callback}")</constraint>
+        </property>
+        <property default="" display="MINT Interrupt Priority" id="module.driver.ptp.irq_ipl" description="ETHER_MINT interrupt priority." category="category.interrupt.priority">
+            <select enum="enum.mcu.nvic.priorities.optional"/>
+        </property>
+        <property default="module.driver.ptp.channel_0.heading" display="PTP channel 0" id="module.driver.ptp.channel_0" description="Configuration for EPTPC channel 0">
+            <option display="" id="module.driver.ptp.channel_0.heading" value="(0)"/>
+        </property>
+        <property default="module.driver.ptp.channel_0.clock_state.slave" display="    Clock state" id="module.driver.ptp.channel_0.clock_state" description="Select the state. master/slave.">
+            <option display="Master" id="module.driver.ptp.channel_0.clock_state.master" value="PTP_STATE_MASTER"/>
+            <option display="Slave" id="module.driver.ptp.channel_0.clock_state.slave" value="PTP_STATE_SLAVE"/>
+        </property>
+        <property default="module.driver.ptp.channel_0.delay_mechanism.e2e" display="    Delay correction method" id="module.driver.ptp.channel_0.delay_mechanism" description="Select the delay correction protocol.">
+            <option display="E2E" id="module.driver.ptp.channel_0.delay_mechanism.e2e" value="PTP_DELAY_MECHANISM_E2E"/>
+            <option display="P2P" id="module.driver.ptp.channel_0.delay_mechanism.p2p" value="PTP_DELAY_MECHANISM_P2P"/>
+        </property>
+        <property default="module.driver.ptp.channel_0.frame_format.eth" display="    Frame format" id="module.driver.ptp.channel_0.frame_format" description="Select the PTP message frame format.">
+            <option display="Ethernet II frame format" id="module.driver.ptp.channel_0.frame_format.eth" value="PTP_FRAME_FORMAT_ETH"/>
+            <option display="IEEE802.3 frame format" id="module.driver.ptp.channel_0.frame_format.eth_8023" value="PTP_FRAME_FORMAT_ETH_8023"/>
+            <option display="Ethernet II over UDP4" id="module.driver.ptp.channel_0.frame_format.udp4" value="PTP_FRAME_FORMAT_UDP4"/>
+            <option display="IEEE802.3 over UDP4" id="module.driver.ptp.channel_0.frame_format.udp4_8023" value="PTP_FRAME_FORMAT_UDP4_8023"/>
+        </property>
+        <property default="module.driver.ptp.channel_1.heading" display="PTP channel 1" id="module.driver.ptp.channel_1" description="Configuration for EPTPC channel 0">
+            <option display="" id="module.driver.ptp.channel_1.heading" value="(0)"/>
+        </property> 
+        <property default="" display="    Clock state" id="module.driver.ptp.channel_1.clock_state" description="Select the state. master/slave.">
+            <select enum="enum.mcu.ptp.clock_state"/>
+        </property>
+        <property default="" display="    Delay correction method" id="module.driver.ptp.channel_1.delay_mechanism" description="Select the delay correction protocol.">
+            <select enum="enum.mcu.ptp.delay_mechanism"/>
+        </property>
+        <property default="" display="    Frame format" id="module.driver.ptp.channel_1.frame_format" description="Select the PTP message frame format.">
+            <select enum="enum.mcu.ptp.frame_format"/>
+        </property>
+        <header>
+            extern const ptp_instance_t ${module.driver.ptp.name};
+            #ifndef ${module.driver.ptp.p_callback}
+            ssp_err_t ${module.driver.ptp.p_callback}(ptp_callback_args_t * p_args);
+            #endif
+        </header>
+        <includes>
+#include &quot;r_ptp.h&quot;
+#include &quot;r_ptp_api.h&quot;
+        </includes>
+        <declarations>
+#if ${module.driver.ptp.irq_ipl} != BSP_IRQ_DISABLED
+#if !defined(SSP_SUPPRESS_ISR_${module.driver.ptp.name}) &amp;&amp; !defined(SSP_SUPPRESS_ISR_PTP)
+SSP_VECTOR_DEFINE(eptpc_mint_isr, EPTPC, MINT);
+#endif
+#endif
+static ptp_instance_ctrl_t     ${module.driver.ptp.name}_ctrl;
+/** PTP interface configuration */
+const ptp_cfg_t ${module.driver.ptp.name}_cfg =
+{
+    .device           = ${module.driver.ptp.clock_mode},
+    .stca_sync_mode   = ${module.driver.ptp.sync_mode},
+    .state[0]         = ${module.driver.ptp.channel_0.clock_state},
+    .delay[0]         = ${module.driver.ptp.channel_0.delay_mechanism},
+    .frame_format[0]  = ${module.driver.ptp.channel_0.frame_format},
+    .state[1]         = ${module.driver.ptp.channel_1.clock_state},
+    .delay[1]         = ${module.driver.ptp.channel_1.delay_mechanism},
+    .frame_format[1]  = ${module.driver.ptp.channel_1.frame_format},
+    .p_callback       = ${module.driver.ptp.p_callback},
+    .irq_ipl          = ${module.driver.ptp.irq_ipl}
+};
+/* Instance structure to use this module. */
+const ptp_instance_t ${module.driver.ptp.name} = 
+{
+    .p_ctrl        = &amp;${module.driver.ptp.name}_ctrl,
+    .p_cfg         = &amp;${module.driver.ptp.name}_cfg,
+    .p_api         = &amp;g_ptp_on_ptp
+};
+        </declarations>
+    </module>
+</synergyModuleDescription>

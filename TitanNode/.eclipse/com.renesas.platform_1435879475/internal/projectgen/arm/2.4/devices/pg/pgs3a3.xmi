@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<projgen:Container xmi:version="2.0" xmlns:projgen="http:///projgen.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xmi="http://www.omg.org/XMI" xsi:schemaLocation="http:///projgen.ecore ProjGen.ecore">
+  <Target shortName="SYNERGY" target="SYNERGY">
+    <CpuType shortName="S3" isUsedInPG="true">
+      <Cpu shortName="S3A3" compilerCpuType="cortex-m4">
+        <PinCountRZTC shortName="S3A3 - 145 Pin" isUsedInPG="true" PinNumber="145">
+          <Device shortName="R7FS3A37A2A01CLK" DeviceCommand="R7FS3A37A" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="S3A3 - 144 Pin" isUsedInPG="true" PinNumber="144">
+          <Device shortName="R7FS3A37A3A01CFB" DeviceCommand="R7FS3A37A" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="S3A3 - 121 Pin" isUsedInPG="true" PinNumber="121">
+          <Device shortName="R7FS3A37A2A01CBJ" DeviceCommand="R7FS3A37A" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="S3A3 - 100 Pin" isUsedInPG="true" PinNumber="100">
+          <Device shortName="R7FS3A37A2A01CLJ" DeviceCommand="R7FS3A37A" />
+          <Device shortName="R7FS3A37A3A01CFP" DeviceCommand="R7FS3A37A" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="S3A3 - 64 Pin" isUsedInPG="true" PinNumber="64">
+          <Device shortName="R7FS3A37A3A01CFM" DeviceCommand="R7FS3A37A" />
+          <Device shortName="R7FS3A37A3A01CNB" DeviceCommand="R7FS3A37A" />
+        </PinCountRZTC>
+      </Cpu>
+    </CpuType>
+  </Target>
+</projgen:Container>

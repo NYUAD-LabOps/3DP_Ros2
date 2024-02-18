@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<synergyModuleDescription>
+
+    <module config="" display="X-Ware|NetX Duo|Protocols|${module.el.nxd.tls_dtls_session.name} NetX Duo TLS/DTLS Session" id="module.el.nxd.tls_dtls_session" version="1" category="framework" 
+        url="https://knowledgebase.renesas.com/English_Content/Renesas_Synergy%E2%84%A2_Platform/Renesas_Synergy_Knowledge_Base/NetX_Duo_TLS_DTLS_Session_Module_Guide_Resources">
+
+        <constraint display="Requires NetX Duo TLS Common">
+            testExists("${module.el.nxd.tls_dtls_session.requires.module.el.nxd_tls_common::module.el.nxd_tls_common.name}")
+        </constraint>
+		<constraint display="Auto Init feature is not available with DTLS">
+			("${module.el.nxd.tls_dtls_session.protocol}" === "module.el.nxd.tls_dtls_session.protocol.TLS")  &amp;&amp; ("${module.el.nxd.tls_dtls_session.auto_init}" === "module.el.nxd.tls_dtls_session.auto_init.enable") ||
+			("${module.el.nxd.tls_dtls_session.protocol}" === "module.el.nxd.tls_dtls_session.protocol.TLS")  &amp;&amp; ("${module.el.nxd.tls_dtls_session.auto_init}" === "module.el.nxd.tls_dtls_session.auto_init.disable") ||
+			("${module.el.nxd.tls_dtls_session.protocol}" === "module.el.nxd.tls_dtls_session.protocol.DTLS")  &amp;&amp; ("${module.el.nxd.tls_dtls_session.auto_init}" === "module.el.nxd.tls_dtls_session.auto_init.disable")
+		</constraint>
+
+        <requires interface="_rtos" />
+        <requires id="module.el.nxd.tls_dtls_session.requires.module.el.nxd_tls_common" interface="interface.el.nxd_tls_common" display="Add NetX Duo TLS Common"/>
+
+        <!-- NetX Duo only -->
+        <provides interface="interface.el.nxd.tls_dtls_session"/>
+        <provides interface="interface.el.nxd.tls_dtls_session.${module.el.nxd.tls_dtls_session.name}" />
+
+        <property default="module.el.nxd.tls_dtls_session.protocol.TLS" display="Security Protocol" id="module.el.nxd.tls_dtls_session.protocol">
+            <option display="DTLS"  id="module.el.nxd.tls_dtls_session.protocol.DTLS"  value="0"/>
+            <option display="TLS" id="module.el.nxd.tls_dtls_session.protocol.TLS"  value="1"/>
+        </property>
+		
+        <property default="g_tls_session${_instance}" display="Session Name" id="module.el.nxd.tls_dtls_session.name">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd.tls_dtls_session.name}")</constraint>
+        </property>
+		
+        <property default="module.el.nxd.tls_dtls_session.auto_init.enable" display="Auto Init" id="module.el.nxd.tls_dtls_session.auto_init">
+            <option display="Disable"  id="module.el.nxd.tls_dtls_session.auto_init.disable"  value="0"/>
+            <option display="Enable" id="module.el.nxd.tls_dtls_session.auto_init.enable"  value="1"/>
+        </property>
+		
+        <property default="module.el.nxd.tls_dtls_session.heading.entry1" display="TLS" id="module.el.nxd.tls_dtls_session.heading" description="Configuration parameters for TLS Session Initialization.">
+            <option display="" id="module.el.nxd.tls_dtls_session.heading.entry1"  value="(0)"/> 
+        </property>	
+
+        <property default="4000" display="    Meta data size" id="module.el.nxd.tls_dtls_session.meta_data_size">
+            <constraint display="Must be a positive number">
+                testInteger("${module.el.nxd.tls_dtls_session.meta_data_size}")  &amp;&amp; (("${module.el.nxd.tls_dtls_session.meta_data_size}" &gt;= 0)) 
+            </constraint>
+        </property>
+
+        <property default="tls_crypto_methods${_instance}" id="module.el.nxd.tls_dtls_session.tls_method_instance">
+        </property>
+
+        <property default="tls_timestamp_callback${_instance}" display="    Name of Timestamp Function" id="module.el.nxd.tls_dtls_session.timestamp_func">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd.tls_dtls_session.timestamp_func}")</constraint>
+        </property>
+        
+        <property default="certificate_verification_callback${_instance}" display="    Name of Certificate Verification Function" id="module.el.nxd.tls_dtls_session.cert_verf_func">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd.tls_dtls_session.cert_verf_func}")</constraint>
+        </property>
+
+        <property default="tls_dtls_session_init${_instance}" display="    Name of generated initialization function" id="module.el.nxd.tls_dtls_session.init_function">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd.tls_dtls_session.init_function}")</constraint>
+        </property>
+		        
+        <header>    
+            #if(${module.el.nxd.tls_dtls_session.protocol})      
+            extern NX_SECURE_TLS_SESSION	${module.el.nxd.tls_dtls_session.name};
+			
+            void ${module.el.nxd.tls_dtls_session.name}_err_callback(void * p_instance, void * p_data);
+            void ${module.el.nxd.tls_dtls_session.init_function}(NX_SECURE_TLS_SESSION *p_tls_session);
+            
+            /** TLS TIMESTAMP FUNCTION Callback */
+            #ifdef ${module.el.nxd.tls_dtls_session.timestamp_func}
+            #define NXD_TLS_TIMESTAMP_CALLBACK_USED_${module.el.nxd.tls_dtls_session.name} (0)
+            #else
+            #define NXD_TLS_TIMESTAMP_CALLBACK_USED_${module.el.nxd.tls_dtls_session.name} (1)
+            #endif
+            #if NXD_TLS_TIMESTAMP_CALLBACK_USED_${module.el.nxd.tls_dtls_session.name}
+            /* Add a timestamp function for time checking and timestamps in the TLS handshake. */
+            /** Declaration of user callback function. This function MUST be defined in the user application.*/
+            extern ULONG ${module.el.nxd.tls_dtls_session.timestamp_func}(void);
+            #endif
+            
+            /** TLS TIMESTAMP FUNCTION Callback */
+            #ifdef ${module.el.nxd.tls_dtls_session.cert_verf_func}
+            #define NXD_TLS_CERT_VERIFICATION_CALLBACK_USED_${module.el.nxd.tls_dtls_session.name} (0)
+            #else
+            #define NXD_TLS_CERT_VERIFICATION_CALLBACK_USED_${module.el.nxd.tls_dtls_session.name} (1)
+            #endif
+            #if NXD_TLS_CERT_VERIFICATION_CALLBACK_USED_${module.el.nxd.tls_dtls_session.name}
+            /* Setup the callback invoked when TLS has a certificate it wants to verify so we can
+                   do additional checks not done automatically by TLS. */
+            /** Declaration of user callback function. This function MUST be defined in the user application.*/
+            extern ULONG ${module.el.nxd.tls_dtls_session.cert_verf_func}(NX_SECURE_TLS_SESSION *session, NX_SECURE_X509_CERT* certificate);
+            #endif
+            #else
+            extern NX_SECURE_DTLS_SESSION	${module.el.nxd.tls_dtls_session.name};
+            #endif
+            
+        </header>
+        <includes>
+            #include "nx_secure_tls_api.h"
+            #include "nx_secure_dtls_api.h"
+        </includes>
+        <declarations>		
+            #ifdef NX_CRYPTO_ENGINE_SW
+            extern const NX_SECURE_TLS_CRYPTO nx_crypto_tls_ciphers;
+            #else
+            extern const NX_SECURE_TLS_CRYPTO nx_crypto_tls_ciphers_synergys7;
+            #endif
+			
+            #if(${module.el.nxd.tls_dtls_session.protocol})
+            NX_SECURE_TLS_SESSION	${module.el.nxd.tls_dtls_session.name};
+		
+            #if defined(__ICCARM__)
+            #define ${module.el.nxd.tls_dtls_session.name}_err_callback_WEAK_ATTRIBUTE
+            #pragma weak ${module.el.nxd.tls_dtls_session.name}_err_callback  = ${module.el.nxd.tls_dtls_session.name}_err_callback_internal
+            #elif defined(__GNUC__)
+            #define ${module.el.nxd.tls_dtls_session.name}_err_callback_WEAK_ATTRIBUTE   __attribute__ ((weak, alias("${module.el.nxd.tls_dtls_session.name}_err_callback_internal")))
+            #endif
+            void ${module.el.nxd.tls_dtls_session.name}_err_callback(void * p_instance, void * p_data) ${module.el.nxd.tls_dtls_session.name}_err_callback_WEAK_ATTRIBUTE;
+            /*******************************************************************************************************************//**
+            * @brief      This is a weak example initialization error function.  It should be overridden by defining a user  function
+            *             with the prototype below.
+            *             - void ${module.el.nxd.tls_dtls_session.name}_err_callback(void * p_instance, void * p_data)
+            *
+            * @param[in]  p_instance arguments used to identify which instance caused the error 
+            * @param[in]  p_data Callback arguments used to identify what error caused the callback.
+            **********************************************************************************************************************/
+            void ${module.el.nxd.tls_dtls_session.name}_err_callback_internal(void * p_instance, void * p_data);
+            void ${module.el.nxd.tls_dtls_session.name}_err_callback_internal(void * p_instance, void * p_data)
+            {
+                /** Suppress compiler warning for not using parameters. */
+                SSP_PARAMETER_NOT_USED(p_instance);
+                SSP_PARAMETER_NOT_USED(p_data);
+
+                /** An error has occurred. Please check function arguments for more information. */
+                BSP_CFG_HANDLE_UNRECOVERABLE_ERROR(0);
+            }
+
+            /* See the documentation for nx_secure_tls_metadata_size_calculate to find the required size. */
+            CHAR ${module.el.nxd.tls_dtls_session.name}_meta_data[${module.el.nxd.tls_dtls_session.meta_data_size}];
+            /*******************************************************************************************************************//**
+            * @brief     Initialization function that the user can choose to have called automatically during thread entry.
+            *            The user can call this function at a later time if desired using the prototype below.
+            *            - void ${module.el.nxd.tls_dtls_session.init_function}(NX_SECURE_TLS_SESSION *p_tls_session)
+            **********************************************************************************************************************/  
+            void ${module.el.nxd.tls_dtls_session.init_function}(NX_SECURE_TLS_SESSION *p_tls_session)
+            {
+                UINT ${module.el.nxd.tls_dtls_session.name}_err;
+                /* Create TLS client. */
+
+
+
+                ${module.el.nxd.tls_dtls_session.name}_err = nx_secure_tls_session_create(p_tls_session,
+                #ifdef NX_CRYPTO_ENGINE_SW
+                                                                              &amp; nx_crypto_tls_ciphers,
+                #else
+                                                                              &amp; nx_crypto_tls_ciphers_synergys7,
+                #endif
+                                                                              ${module.el.nxd.tls_dtls_session.name}_meta_data,
+                                                                              sizeof(${module.el.nxd.tls_dtls_session.name}_meta_data));
+                                                                              
+                #if NXD_TLS_TIMESTAMP_CALLBACK_USED_${module.el.nxd.tls_dtls_session.name}
+                /* Add a timestamp function for time checking and timestamps in the TLS handshake. */
+                /** Declaration of user callback function. This function MUST be defined in the user application.*/
+                _nx_secure_tls_session_time_function_set(p_tls_session, ${module.el.nxd.tls_dtls_session.timestamp_func});
+                #endif
+            
+                
+                #if NXD_TLS_CERT_VERIFICATION_CALLBACK_USED_${module.el.nxd.tls_dtls_session.name}
+                /* Setup the callback invoked when TLS has a certificate it wants to verify so we can
+                   do additional checks not done automatically by TLS. */
+                /** Declaration of user callback function. This function MUST be defined in the user application.*/   
+                 _nx_secure_tls_session_certificate_callback_set(p_tls_session, ${module.el.nxd.tls_dtls_session.cert_verf_func});
+                #endif                
+                      
+                if (NX_SUCCESS != ${module.el.nxd.tls_dtls_session.name}_err)
+                {
+                    ${module.el.nxd.tls_dtls_session.name}_err_callback((void *)p_tls_session,&amp;${module.el.nxd.tls_dtls_session.name}_err);
+                }
+            }
+            #else
+            NX_SECURE_DTLS_SESSION	${module.el.nxd.tls_dtls_session.name};
+            #endif
+
+        </declarations>
+        <init>
+        /** Call initialization function if user has selected to do so. */
+        #if (${module.el.nxd.tls_dtls_session.auto_init} &amp;&amp; ${module.el.nxd.tls_dtls_session.protocol})
+        ${module.el.nxd.tls_dtls_session.init_function}(&amp; ${module.el.nxd.tls_dtls_session.name});
+        #endif
+        </init>
+    </module>
+    
+    <config id="config.el.nxd_tls_common" path="ssp_cfg/framework/el/nx_secure_user.h" version="0">
+        <property default="config.el.nxd.nxd_tls_common.crypto_engine.hw" display="Crypto Engine" id="config.el.nxd.nxd_tls_common.crypto_engine">
+            <!-- option display="Software"  id="config.el.nxd.nxd_tls_common.crypto_engine.sw"  value="1"/ -->
+            <option display="Hardware"  id="config.el.nxd.nxd_tls_common.crypto_engine.hw"  value="0"/>
+        </property>
+
+        <property default="config.el.nxd.nxd_tls_common.allow_self_signed_cert.Disable" display="Self Signed Certificates" id="config.el.nxd.nxd_tls_common.allow_self_signed_cert">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.allow_self_signed_cert.Enable" value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.allow_self_signed_cert.Disable"  value="0"/>
+        </property>
+
+        <property default="config.el.nxd.nxd_tls_common.enable_psk_cipher.Disable" display="PSK Cipher Suite" id="config.el.nxd.nxd_tls_common.enable_psk_cipher">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.enable_psk_cipher.Enable" value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.enable_psk_cipher.Disable"  value="0"/>
+        </property>    
+
+        <property default="config.el.nxd.nxd_tls_common.enable_ecc_cipher.Disable" display="ECC Cipher Suite" id="config.el.nxd.nxd_tls_common.enable_ecc_cipher">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.enable_ecc_cipher.Enable" value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.enable_ecc_cipher.Disable"  value="0"/>
+        </property>    
+
+        <property default="2048" display="AES-GCM Data Buffer Size" id="config.el.nxd.nxd_tls_common.aes_data_buffer_size" description="Size of the internal data buffer used for crypto operations in AES-GCM based cipher-suites. Size provided should be greater than or equal to the application data packet size.">
+        </property>		
+
+        <property default="config.el.nxd.nxd_tls_common.x509_strict_name_compare.Disable" display="X509 Strict Name Compare" id="config.el.nxd.nxd_tls_common.x509_strict_name_compare">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.x509_strict_name_compare.Enable" value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.x509_strict_name_compare.Disable"  value="0"/>
+        </property>
+
+        <property default="config.el.nxd.nxd_tls_common.x509_extend_distinguished_name.Disable" display="X509 Extended Distinguished Names" id="config.el.nxd.nxd_tls_common.x509_extend_distinguished_name">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.x509_extend_distinguished_name.Enable" value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.x509_extend_distinguished_name.Disable"  value="0"/>
+        </property>
+		
+        <property default="config.el.nxd.nxd_tls_common.x509_crl_check.Enable" display="X509 Certificate Revcation List Check" id="config.el.nxd.nxd_tls_common.x509_crl_check">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.x509_crl_check.Enable" value="0"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.x509_crl_check.Disable"  value="1"/>
+        </property>
+
+        <property default="config.el.nxd.nxd_tls_common.nxd_x509.Enable" display="X509" id="config.el.nxd.nxd_tls_common.nxd_x509">
+            <option display="Enable" id="config.el.nxd.nxd_x509.Enable" value="0"/>
+            <option display="Disable"  id="config.el.nxd.nxd_x509.Disable"  value="1"/>
+        </property>
+
+        <property default="config.el.nxd.nxd_tls_common.nxd_aead_cipher.Disable" display="AEAD Cipher" id="config.el.nxd.nxd_tls_common.nxd_aead_cipher">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.nxd_aead_cipher.Enable" value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.nxd_aead_cipher.Disable"  value="0"/>
+        </property>
+
+        <property default="config.el.nxd.nxd_tls_common.nxd_aead_cipher_check.Disable" display="AEAD Cipher Check(AEAD ciphersuites other than AES-CCM or AES-GCM,AEAD Cipher Check needs AEAD Cipher to be Enabled)" id="config.el.nxd.nxd_tls_common.nxd_aead_cipher_check">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.nxd_aead_cipher_check.Enable" value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.nxd_aead_cipher_check.Disable"  value="0"/>
+        </property>
+
+        <property default="NX_FALSE" display="    Additional AEAD Cipher ID" id="config.el.nxd.nxd_tls_common.nxd_aead_cipher_id" description="Additional AEAD Cipher ID,needs AEAD Cipher and AEAD Cipher Check to be Enabled ">
+		    <constraint display="Name must be a valid C symbol">testSymbol("${config.el.nxd.nxd_tls_common.nxd_aead_cipher_id}")</constraint>
+        </property>
+
+        <property default="config.el.nxd.nxd_tls_common.nxd_ecjpake_ciphersuites.Disable" display="ECJPAKE Ciphersuites for DTLS" id="config.el.nxd.nxd_tls_common.nxd_ecjpake_ciphersuites">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.nxd_ecjpake_ciphersuites.Enable" value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.nxd_ecjpake_ciphersuites.Disable"  value="0"/>
+        </property>
+		
+        <property default="config.el.nxd.nxd_tls_common.nxd_scsv_cipher.Disable" display="SCSV Ciphersuite" id="config.el.nxd.nxd_tls_common.nxd_scsv_cipher">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.nxd_scsv_cipher.Enable" value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.nxd_scsv_cipher.Disable"  value="0"/>
+        </property>
+
+        <property default="config.el.nxd.nxd_tls_common.rsa_modulus_expected.b4096" display="Maximum RSA Modulus size (bits)" id="config.el.nxd.nxd_tls_common.rsa_modulus_expected">
+            <option display="1024" id="config.el.nxd.nxd_tls_common.rsa_modulus_expected.b1024"  value="1024"/>
+            <option display="2048" id="config.el.nxd.nxd_tls_common.rsa_modulus_expected.b2048"  value="2048"/>
+            <option display="3072" id="config.el.nxd.nxd_tls_common.rsa_modulus_expected.b3072"  value="3072"/>
+            <option display="4096" id="config.el.nxd.nxd_tls_common.rsa_modulus_expected.b4096"  value="4096"/>
+        </property>           
+
+        <!-- NX_SECURE_TLS_ENABLE_TLS_1_3 -->
+        <property default="config.el.nxd.nxd_tls_common.enable_tls_v_1_3_mode.Disable" display="TLS v1.3" id="config.el.nxd.nxd_tls_common.enable_tls_v_1_3_mode">
+            <option display="Enable"  id="config.el.nxd.nxd_tls_common.enable_tls_v_1_3_mode.Enable"  value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.enable_tls_v_1_3_mode.Disable"  value="0"/>
+        </property>    
+
+        <!-- NX_SECURE_TLS_VERSION_DOWNGRADE_DISABLED -->
+        <property default="config.el.nxd.nxd_tls_common.tls_version_downgrade.Enable" display="TLS Version Downgrade" id="config.el.nxd.nxd_tls_common.tls_version_downgrade">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.tls_version_downgrade.Enable" value="0"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.tls_version_downgrade.Disable"  value="1"/>
+        </property>    
+
+        <!-- NX_SECURE_DTLS_ENABLE -->
+        <property default="config.el.nxd.nxd_tls_common.nxd_dtls.Disable" display="DTLS" id="config.el.nxd.nxd_tls_common.nxd_dtls">
+            <option display="Enable"  id="config.el.nxd.nxd_tls_common.nxd_dtls.Enable"  value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.nxd_dtls.Disable"  value="0"/>
+        </property>
+		
+        <property default="32" display="DTLS Cookie Length" id="config.el.nxd.nxd_tls_common.dtls_cookie_length">
+            <constraint display="Must be a positive number">
+                testInteger("${config.el.nxd.nxd_tls_common.dtls_cookie_length}")  &amp;&amp; (("${config.el.nxd.nxd_tls_common.dtls_cookie_length}" &gt;= 0)) 
+            </constraint>
+        </property>
+		
+		<property default="10" display="DTLS Retransmit Retries" id="config.el.nxd.nxd_tls_common.dtls_retransmit_retry">
+            <constraint display="Must be a positive number">
+                testInteger("${config.el.nxd.nxd_tls_common.dtls_retransmit_retry}")  &amp;&amp; (("${config.el.nxd.nxd_tls_common.dtls_retransmit_retry}" &gt;= 0)) 
+            </constraint>
+        </property>
+
+		<property default="1" display="DTLS Initial Retransmit Rate(Sec)" id="config.el.nxd.nxd_tls_common.dtls_initial_retransmit_rate">
+            <constraint display="Must be a positive number">
+                testInteger("${config.el.nxd.nxd_tls_common.dtls_initial_retransmit_rate}")  &amp;&amp; (("${config.el.nxd.nxd_tls_common.dtls_initial_retransmit_rate}" &gt;= 0)) 
+            </constraint>
+        </property>
+		
+		<property default="60" display="DTLS Maximum Retransmit Rate(Sec)" id="config.el.nxd.nxd_tls_common.dtls_max_retransmit_rate">
+            <constraint display="Must be a positive number">
+                testInteger("${config.el.nxd.nxd_tls_common.dtls_max_retransmit_rate}")  &amp;&amp; (("${config.el.nxd.nxd_tls_common.dtls_max_retransmit_rate}" &gt;= 0)) 
+            </constraint>
+        </property>
+
+		<property default="20" display="Max. PSK ID Size" id="config.el.nxd.nxd_tls_common.max_psk_id_size">
+            <constraint display="Must be a positive number">
+                testInteger("${config.el.nxd.nxd_tls_common.max_psk_id_size}")  &amp;&amp; (("${config.el.nxd.nxd_tls_common.max_psk_id_size}" &gt;= 0)) 
+            </constraint>
+        </property>
+		
+        <property default="5" display="Max. PSK Keys" id="config.el.nxd.nxd_tls_common.max_psk_keys">
+            <constraint display="Must be a positive number">
+                testInteger("${config.el.nxd.nxd_tls_common.max_psk_keys}")  &amp;&amp; (("${config.el.nxd.nxd_tls_common.max_psk_keys}" &gt;= 0)) 
+            </constraint>
+        </property>
+		
+		<property default="20" display="Max. Size of PSK" id="config.el.nxd.nxd_tls_common.max_psk_size">
+            <constraint display="Must be a positive number">
+                testInteger("${config.el.nxd.nxd_tls_common.max_psk_size}")  &amp;&amp; (("${config.el.nxd.nxd_tls_common.max_psk_size}" &gt;= 0)) 
+            </constraint>
+        </property>
+
+		<property default="256" display="Min. TLS X509 Certificate Size" id="config.el.nxd.nxd_tls_common.tls_min_certificate_size">
+            <constraint display="Must be a positive number">
+                testInteger("${config.el.nxd.nxd_tls_common.tls_min_certificate_size}")  &amp;&amp; (("${config.el.nxd.nxd_tls_common.tls_min_certificate_size}" &gt;= 0)) 
+            </constraint>
+        </property>
+
+		<property default="4000" display="Min. TLS Message Buffer Size" id="config.el.nxd.nxd_tls_common.tls_min_message_buffer_size">
+            <constraint display="Must be a positive number">
+                testInteger("${config.el.nxd.nxd_tls_common.tls_min_message_buffer_size}")  &amp;&amp; (("${config.el.nxd.nxd_tls_common.tls_min_message_buffer_size}" &gt;= 0)) 
+            </constraint>
+        </property>
+
+		<property default="48" display="Size of TLS Pre-Master Secret" id="config.el.nxd.nxd_tls_common.tls_pre_master_size">
+            <constraint display="Must be a positive number">
+                testInteger("${config.el.nxd.nxd_tls_common.tls_pre_master_size}")  &amp;&amp; (("${config.el.nxd.nxd_tls_common.tls_pre_master_size}" &gt;= 0)) 
+            </constraint>
+        </property>
+		
+		<property default="config.el.nxd.nxd_tls_common.dtls_retransmit_retry_shift.Twice" display="DTLS Retransmit Retry Shift" id="config.el.nxd.nxd_tls_common.dtls_retransmit_retry_shift">
+            <option display="Successive retransmit timeout same as initial retransmit" id="config.el.nxd.nxd_tls_common.dtls_retransmit_retry_shift.Same" value="0"/>
+            <option display="Successive retransmit timeout twice the initial retransmit"  id="config.el.nxd.nxd_tls_common.dtls_retransmit_retry_shift.Twice"  value="1"/>
+        </property>
+
+        <property default="config.el.nxd.nxd_tls_common.nxd_secure_key_clear.Disable" display="Secure Key Clear" id="config.el.nxd.nxd_tls_common.nxd_secure_key_clear">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.nxd_secure_key_clear.Enable" value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.nxd_secure_key_clear.Disable"  value="0"/>
+        </property>
+		
+       <!-- NX_SECURE_TLS_SNI_EXTENSION_DISABLED -->
+        <property default="config.el.nxd.nxd_tls_common.tls_sni_extension.Enable" display="TLS SNI Extension" id="config.el.nxd.nxd_tls_common.tls_sni_extension">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.tls_sni_extension.Enable" value="0"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.tls_sni_extension.Disable"  value="1"/>
+        </property>   
+		
+        <!-- NX_SECURE_TLS_SERVER_DISABLED -->
+        <property default="config.el.nxd.nxd_tls_common.disable_server.Enable" display="Server Mode" id="config.el.nxd.nxd_tls_common.disable_server">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.disable_server.Enable" value="0"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.disable_server.Disable"  value="1"/>
+        </property>    
+
+        <!-- NX_SECURE_TLS_CLIENT_DISABLED -->
+        <property default="config.el.nxd.nxd_tls_common.disable_client.Enable" display="Client Mode" id="config.el.nxd.nxd_tls_common.disable_client">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.disable_client.Enable" value="0"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.disable_client.Disable"  value="1"/>
+        </property>    
+	
+        <property default="config.el.nxd.nxd_tls_common.client_certificate_verify.Disable" display="Client Certificate Verify" id="config.el.nxd.nxd_tls_common.client_certificate_verify">
+            <option display="Enable" id="config.el.nxd.nxd_tls_common.client_certificate_verify.Enable" value="1"/>
+            <option display="Disable"  id="config.el.nxd.nxd_tls_common.client_certificate_verify.Disable"  value="0"/>
+        </property>    
+
+        <content>
+            /* NX_CRYPTO_AES_OUTPUT_BUFFER specifies the size of internal data buffer used for Encryption/Decryption processing.*/
+            #ifndef NX_CRYPTO_AES_OUTPUT_BUFFER_SIZE
+            #define NX_CRYPTO_AES_OUTPUT_BUFFER_SIZE              (${config.el.nxd.nxd_tls_common.aes_data_buffer_size}U)
+            #endif
+			
+            /* NX_SECURE_TLS_ENABLE_TLS_1_3 defines whether or not to disable TLS 1.3 protocol support.
+            BY default TLS 1.3 is not enabled. */
+            #if (${config.el.nxd.nxd_tls_common.enable_tls_v_1_3_mode})
+            #define NX_SECURE_TLS_ENABLE_TLS_1_3
+            #endif
+
+            /* NX_SECURE_TLS_DISABLE_PROTOCOL_VERSION_DOWNGRADE defines whether or not to disables
+            protocol version downgrade for TLS client. BY default protocol version downgrade is supported. */
+            #if (${config.el.nxd.nxd_tls_common.tls_version_downgrade})            
+            #define NX_SECURE_TLS_DISABLE_PROTOCOL_VERSION_DOWNGRADE
+            #endif
+			
+            /* Defines Maximum RSA Modulus Bits*/
+            #ifndef NX_CRYPTO_MAX_RSA_MODULUS_SIZE
+            #define NX_CRYPTO_MAX_RSA_MODULUS_SIZE                (${config.el.nxd.nxd_tls_common.rsa_modulus_expected}U)
+            #endif
+
+            /* Enables the optional X.509 Distinguished
+            Name fields, at the expense of extra memory use for X.509 certificates.*/    
+            #if (${config.el.nxd.nxd_tls_common.x509_extend_distinguished_name})
+            #define NX_SECURE_X509_USE_EXTENDED_DISTINGUISHED_NAMES
+            #endif
+
+            /* Enables strict distinguished name comparison for X.509 certificates for certificate searching and verification*/
+            #if (${config.el.nxd.nxd_tls_common.x509_strict_name_compare})
+            #define NX_SECURE_X509_STRICT_NAME_COMPARE
+            #endif
+
+            /* NX_SECURE_X509_DISABLE_CRL disables X509 Certificate Revocation List check.
+            By default this feature is enabled. */
+            #if(${config.el.nxd.nxd_tls_common.x509_crl_check})
+            #define NX_SECURE_X509_DISABLE_CRL
+            #endif
+			
+            /* NX_SECURE_DISABLE_X509 disables X509 feature. By default this feature is enabled. */
+            #if (${config.el.nxd.nxd_tls_common.nxd_x509})
+			#define NX_SECURE_DISABLE_X509
+            #endif
+            
+            /* NX_SECURE_ENABLE_PSK_CIPHERSUITES enables Pre-Shared Key.  By default
+            this feature is not enabled. */
+            #if (${config.el.nxd.nxd_tls_common.enable_psk_cipher})
+            #define NX_SECURE_ENABLE_PSK_CIPHERSUITES
+            #endif
+
+            /* NX_SECURE_ENABLE_ECC_CIPHERSUITES enables ECC ciphersuites.  By default
+            this feature is not enabled. */
+            #if (${config.el.nxd.nxd_tls_common.enable_ecc_cipher})
+            #define NX_SECURE_ENABLE_ECC_CIPHERSUITE
+            #else
+            #define NX_SECURE_DISABLE_ECC_CIPHERSUITE
+            #endif
+
+            /* NX_SECURE_ENABLE_AEAD_CIPHER enables AEAD ciphersuites.
+            For AEAD ciphersuites other than AES-CCM or AES-GCM, additional definition of
+            NX_SECURE_AEAD_CIPHER_CHECK must be defined. By default this feature is not enabled. */
+            #if (${config.el.nxd.nxd_tls_common.nxd_aead_cipher})
+            #define NX_SECURE_ENABLE_AEAD_CIPHER
+            #endif
+			
+            /* NX_SECURE_AEAD_CIPHER_CHECK AEAD ciphersuites other than AES-CCM or AES-GCM.
+            It works only when NX_SECURE_ENABLE_AEAD_CIPHER is defined.
+            By default this feature is not enabled. */
+            #if (${config.el.nxd.nxd_tls_common.nxd_aead_cipher_check})
+            #define NX_SECURE_AEAD_CIPHER_CHECK(a) ((a) == (${config.el.nxd.nxd_tls_common.nxd_aead_cipher_id}))
+            #endif
+
+            /* NX_SECURE_ENABLE_ECJPAKE_CIPHERSUITE enables ECJPAKE ciphersuites for DTLS.
+            By default this feature is not enabled. */
+            #if (${config.el.nxd.nxd_tls_common.nxd_ecjpake_ciphersuites})
+            #define NX_SECURE_ENABLE_ECJPAKE_CIPHERSUITE
+            #endif
+
+            /* NX_SECURE_TLS_USE_SCSV_CIPHPERSUITE enables SCSV ciphersuite in ClientHello message.
+            By default this feature is not enabled. */
+            #if(${config.el.nxd.nxd_tls_common.nxd_scsv_cipher})
+            #define NX_SECURE_TLS_USE_SCSV_CIPHPERSUITE
+            #endif
+			
+            /* NX_SECURE_KEY_CLEAR enables key related materials cleanup when they are not used anymore.
+            By default this feature is not enabled. */
+            #if (${config.el.nxd.nxd_tls_common.nxd_secure_key_clear})
+            #define NX_SECURE_KEY_CLEAR
+            #endif
+			
+            /* NX_SECURE_ENABLE_DTLS enables DTLS feature. By default this feature is not enabled. */
+            #if (${config.el.nxd.nxd_tls_common.nxd_dtls})
+            #define NX_SECURE_ENABLE_DTLS
+            #endif
+			
+            /* NX_SECURE_DTLS_COOKIE_LENGTH defines the length of DTLS cookie.
+            The default value is 32. */
+            #define NX_SECURE_DTLS_COOKIE_LENGTH (${config.el.nxd.nxd_tls_common.dtls_cookie_length})
+			
+            /* NX_SECURE_DTLS_MAXIMUM_RETRANSMIT_RETRIES defineds the maximum retransmit retries
+            for DTLS handshake packet. The default value is 10. */
+            #define NX_SECURE_DTLS_MAXIMUM_RETRANSMIT_RETRIES (${config.el.nxd.nxd_tls_common.dtls_retransmit_retry})
+            
+            /* NX_SECURE_DTLS_RETRANSMIT_TIMEOUT defines the initial DTLS retransmit rate.
+            The default value is 1 second. */
+            #define NX_SECURE_DTLS_RETRANSMIT_TIMEOUT ((${config.el.nxd.nxd_tls_common.dtls_initial_retransmit_rate})*NX_IP_PERIODIC_RATE)
+
+            /* NX_SECURE_DTLS_MAXIMUM_RETRANSMIT_TIMEOUT defines the maximum DTLS retransmit rate.
+            The default value is 60 seconds. */
+            #define NX_SECURE_DTLS_MAXIMUM_RETRANSMIT_TIMEOUT ((${config.el.nxd.nxd_tls_common.dtls_max_retransmit_rate}) * NX_IP_PERIODIC_RATE)
+
+            /* NX_SECURE_DTLS_RETRANSMIT_RETRY_SHIFT defins how the retransmit timeout period changes between successive retries.
+            If this value is 0, the initial retransmit timeout is the same as subsequent retransmit timeouts. If this
+            value is 1, each successive retransmit is twice as long. The default value is 1.  */
+            #define NX_SECURE_DTLS_RETRANSMIT_RETRY_SHIFT (${config.el.nxd.nxd_tls_common.dtls_retransmit_retry_shift})
+
+            /* NX_SECURE_ENABLE_CLIENT_CERTIFICATE_VERIFY enables client certificate verification.
+            By default this feature is not enabled. */
+            #if(${config.el.nxd.nxd_tls_common.client_certificate_verify})
+            #define NX_SECURE_ENABLE_CLIENT_CERTIFICATE_VERIFY
+            #endif
+
+            /* NX_SECURE_TLS_MAX_PSK_ID_SIZE defines the maximum size of PSK ID.
+            By default it is 20. */
+            #define NX_SECURE_TLS_MAX_PSK_ID_SIZE (${config.el.nxd.nxd_tls_common.max_psk_id_size})
+
+            /* NX_SECURE_TLS_MAX_PSK_KEYS defines the maximum PSK keys.
+            By default it is 5. */
+            #define NX_SECURE_TLS_MAX_PSK_KEYS (${config.el.nxd.nxd_tls_common.max_psk_keys})
+			
+            /* NX_SECURE_TLS_MAX_PSK_SIZE defines the maximum size of PSK.
+            By default it is 20. */
+            #define NX_SECURE_TLS_MAX_PSK_SIZE (${config.el.nxd.nxd_tls_common.max_psk_size})
+
+            /* NX_SECURE_TLS_MINIMUM_CERTIFICATE_SIZE defines a minimum reasonable size for a TLS
+            X509 certificate. This is used in checking for * errors in allocating certificate space.
+            The size is determined by assuming a 512-bit RSA key, MD5 hash, and a rough estimate of
+            other data. It is theoretically possible for a real certificate to be smaller,
+            but in that case, bypass the error checking by re-defining this macro.
+            Approximately: 64(RSA) + 16(MD5) + 176(ASN.1 + text data, common name, etc)
+            The default value is 256. */
+            #define NX_SECURE_TLS_MINIMUM_CERTIFICATE_SIZE (${config.el.nxd.nxd_tls_common.tls_min_certificate_size})
+
+            /* NX_SECURE_TLS_MINIMUM_MESSAGE_BUFFER_SIZE defines the minimum size for the TLS message buffer.
+            It is determined by a number of factors, but primarily the expected size of the TLS handshake
+            Certificate message (sent by the TLS server) that may contain multiple certificates of 1-2KB each.
+            The upper limit is determined by the length field in the TLS header (16 bit), and is 64KB.
+            The default value is 4000. */
+            #define NX_SECURE_TLS_MINIMUM_MESSAGE_BUFFER_SIZE (${config.el.nxd.nxd_tls_common.tls_min_message_buffer_size})
+
+            /* NX_SECURE_TLS_PREMASTER_SIZE defines the sie of pre-master secret.
+            The default value is 48. */
+            #define NX_SECURE_TLS_PREMASTER_SIZE (${config.el.nxd.nxd_tls_common.tls_pre_master_size})
+
+            /* NX_SECURE_TLS_SNI_EXTENSION_DISABLED disables Server Name Indication (SNI) extension.
+            By default this feature is enabled */
+            #if (${config.el.nxd.nxd_tls_common.tls_sni_extension})
+            #define NX_SECURE_TLS_SNI_EXTENSION_DISABLED
+			#endif
+
+            /* This option removes all TLS stack code related to TLS Server mode, reducing code and data usage */
+            #if (${config.el.nxd.nxd_tls_common.disable_server})
+            #define NX_SECURE_TLS_SERVER_DISABLED
+            #endif
+
+            /* This option removes all TLS stack code related to TLS Client mode, reducing code and data usage */
+            #if (${config.el.nxd.nxd_tls_common.disable_client})
+            #define NX_SECURE_TLS_CLIENT_DISABLED
+            #endif
+
+            /* This option allows TLS to accept self-signed certificates from a remote host. 
+            Otherwise the certificate must be issued by a certificate in the trusted certificate store */
+            #if (${config.el.nxd.nxd_tls_common.allow_self_signed_cert})
+            #define NX_SECURE_ALLOW_SELF_SIGNED_CERTIFICATES
+            #endif        
+            
+            /* This option specifies whether to use Software Crypto Engines or not */
+            #if (${config.el.nxd.nxd_tls_common.crypto_engine})
+            #define NX_CRYPTO_ENGINE_SW
+            #endif
+           
+            /* NX_SECURE_MEMCMP defines the memory compare function.
+            By default it is mapped to C library function. */
+            #define NX_SECURE_MEMCMP memcmp
+
+            /* NX_SECURE_MEMCPY defines the memory copy function.
+            By default it is mapped to C library function. */
+            #define NX_SECURE_MEMCPY memcpy
+
+            /* NX_SECURE_MEMMOVE defines the memory move function.
+            By default it is mapped to C library function. */
+            #define NX_SECURE_MEMMOVE memmove
+
+            /* NX_SECURE_MEMSET defines the memory set function.
+            By default it is mapped to C library function. */
+            #define NX_SECURE_MEMSET memset
+			
+        </content>
+    </config>   
+    <module config="config.el.nxd_tls_common" display="X-Ware|NetX Duo|Protocols| NetX Duo TLS Common" id="module.el.nxd_tls_common" common="1" version="1" category="framework" >
+        
+        <constraint display="Requires NetX Duo Software Crypto Module">
+            testExists("${module.el.nxd_tls_common.requires.module.el.nxd_crypto_generic::module.el.nxd_crypto_generic.name}")
+        </constraint>  
+		
+        <constraint display="If ECC Ciphersuite is enabled, Pre-Master Secret should be at least 66 Bytes">
+		    ("${config.el.nxd.nxd_tls_common.enable_ecc_cipher}" == "config.el.nxd.nxd_tls_common.enable_ecc_cipher.Disable")  ||
+            ("${config.el.nxd.nxd_tls_common.enable_ecc_cipher}" != "config.el.nxd.nxd_tls_common.enable_ecc_cipher.Disable") &amp;&amp;		
+		    testInteger("${config.el.nxd.nxd_tls_common.tls_pre_master_size}")  &amp;&amp; (("${config.el.nxd.nxd_tls_common.tls_pre_master_size}" &gt;= 66)) 	
+	    </constraint>		
+        
+        <requires interface="_rtos" />
+        <requires id="module.el.nxd_tls_common.requires.el.nxd_common"  interface="interface.el.nxd_common" display="Add NetX Duo Common "/>
+        <requires id="module.el.nxd_tls_common.requires.module.el.nxd_crypto_generic"  interface="interface.el.nxd_crypto_generic" display="Add NetX Duo Software Crypto">
+          
+        </requires>
+        
+        <provides interface="interface.el.nxd_tls_common" />
+        <property default="g_tls_common" id="module.el.nxd_tls_common.name">
+            
+        </property>
+        <property default="nx_secure_common_init" display="Name of generated initialization function" id="module.el.nxd_tls_common.init_function">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd_tls_common.init_function}")</constraint>
+        </property>
+        <property default="module.el.nxd_tls_common.init.enable" display="Auto Initialization" id="module.el.nxd_tls_common.init">
+            <option display="Enable"  id="module.el.nxd_tls_common.init.enable"  value="1"/>
+            <option display="Disable" id="module.el.nxd_tls_common.init.disable" value="0"/>
+        </property>
+		
+        <header>
+            extern ssp_err_t sce_initialize(void);
+            extern void nx_secure_tls_initialize(void);    
+            extern void ${module.el.nxd_tls_common.init_function}(void);            
+        </header>
+        <includes>
+            #include "nx_api.h"
+        </includes>        
+        <declarations>
+            
+            /*******************************************************************************************************************//**
+             * @brief     Initialization function that the user can choose to have called automatically during thread entry.
+             *            The user can call this function at a later time if desired using the prototype below.
+             *            - void ${module.el.nxd_tls_common.init_function}(void)
+             **********************************************************************************************************************/
+            void ${module.el.nxd_tls_common.init_function}(void)
+            {
+            #ifndef    NX_CRYPTO_ENGINE_SW 
+                ssp_err_t ssp_err_${module.driver.sce.name};
+
+                /* Initialise secure crypto engine driver */            
+                ssp_err_${module.driver.sce.name} = sce_initialize();
+                if (SSP_SUCCESS != ssp_err_${module.driver.sce.name})
+                {
+                    ${module.driver.sce.name}_err_callback((void *)&amp;${module.driver.sce.name},&amp;ssp_err_${module.driver.sce.name});
+                }
+            #endif
+            
+            /* Initialises the various control data structures for the TLS component */
+                nx_secure_tls_initialize();            
+            }
+        </declarations>        
+        <init>
+            /**  Call initialization function if user has selected to do so. */
+            #if (${module.el.nxd_tls_common.init})
+                ${module.el.nxd_tls_common.init_function}(); 
+            #endif 
+        </init>
+        
+    </module>
+    
+    <module display="X-Ware|NetX Duo|Protocols|${module.el.nxd_crypto_generic.name} NetX Duo Software Crypto" id="module.el.nxd_crypto_generic" visible="false" common="1" version="1" category="framework" 
+        url="https://knowledgebase.renesas.com/English_Content/Renesas_Synergy%E2%84%A2_Platform/Renesas_Synergy_Knowledge_Base/NetX_Duo_Software_Crypto_Module_Guide_Resources">   
+        
+        <requires interface="_rtos" />
+        <requires id="module.el.nxd_crypto_generic.requires.module.framework.sf_el_nx_crypto"  interface="interface.framework.sf_el_nx_crypto" display="Add Hardware Accelerated Crypto" />
+
+        <!-- NetX Duo only -->
+        <provides interface="interface.el.nxd_crypto_generic" />
+        <provides interface="interface.el.nxd_crypto_generic.${module.el.nxd_crypto_generic.name}" />
+        
+         <property default="g_crypto_generic" display="Name" id="module.el.nxd_crypto_generic.name">
+            <constraint display="Name must be a valid C symbol">
+                testSymbol("${module.el.nxd_crypto_generic.name}")
+            </constraint>
+        </property>
+
+        <header>
+            /** Software based crypto ciphers for use with nx_secure_tls_session_create. */
+            extern const NX_SECURE_TLS_CRYPTO nx_crypto_tls_ciphers;
+        </header>
+        
+        <includes>
+            #include "nx_secure_tls.h"
+            #include "nx_secure_tls_api.h"
+        </includes>
+        
+
+    </module>
+</synergyModuleDescription>

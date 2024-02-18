@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<synergyModuleDescription>
+    <config id="config.el.nxd_mdns" path="ssp_cfg/framework/el/nxd_mdns_cfg.h" version="0">
+        <property default="config.el.nxd_mdns.mdns_server.disable" display="mDNS/DNS-SD Server Support" id="config.el.nxd_mdns.mdns_server">
+            <option display="Disable" id="config.el.nxd_mdns.mdns_server.disable" value="0"/>
+            <option display="Enable" id="config.el.nxd_mdns.mdns_server.enable" value="1"/>
+        </property>
+        <property default="config.el.nxd_mdns.mdns_client.enable" display="mDNS/DNS-SD Client Support" id="config.el.nxd_mdns.mdns_client">
+            <option display="Disable" id="config.el.nxd_mdns.mdns_client.disable" value="0"/>
+            <option display="Enable" id="config.el.nxd_mdns.mdns_client.enable" value="1"/>
+        </property>
+        <property default="config.el.nxd_mdns.mdns_address_check.enable" display="Validate address from Received mDNS messages" id="config.el.nxd_mdns.mdns_address_check">
+            <option display="Disable" id="config.el.nxd_mdns.mdns_address_check.disable" value="0"/>
+            <option display="Enable" id="config.el.nxd_mdns.mdns_address_check.enable" value="1"/>
+        </property>
+        <property default="config.el.nxd_mdns.mdns_client_proof.enable" display="Verify multicast queries issued by the other hosts on the network" id="config.el.nxd_mdns.mdns_client_proof">
+            <option display="Disable" id="config.el.nxd_mdns.mdns_client_proof.disable" value="0"/>
+            <option display="Enable" id="config.el.nxd_mdns.mdns_client_proof.enable" value="1"/>
+        </property>
+        <property default="config.el.nxd_mdns.mdns_server_negative_response.enable" display="Enable mDNS/DNS-SD generating negative response" id="config.el.nxd_mdns.mdns_server_negative_response">
+            <option display="Disable" id="config.el.nxd_mdns.mdns_server_negative_response.disable" value="0"/>
+            <option display="Enable" id="config.el.nxd_mdns.mdns_server_negative_response.enable" value="1"/>
+        </property>
+        <property default="config.el.nxd_mdns.mdns_enable_ipv6_address.disable" display="Enable mDNS/DNS-SD IPV6 processing" id="config.el.nxd_mdns.mdns_enable_ipv6_address">
+            <option display="Disable" id="config.el.nxd_mdns.mdns_enable_ipv6_address.disable" value="0"/>
+            <option display="Enable" id="config.el.nxd_mdns.mdns_enable_ipv6_address.enable" value="1"/>
+        </property>
+        <property default="2" display="Maximum IPV6 address count" id="config.el.nxd_mdns.mdns_ipv6_address_count">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.mdns_ipv6_address_count}")
+            </constraint>
+        </property>
+        <property default="64" display="Maximum string size for host" id="config.el.nxd_mdns.max_host_name_size">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.max_host_name_size}")  &amp;&amp; ("${config.el.nxd_mdns.max_host_name_size}" &gt; 32)  &amp;&amp; ("${config.el.nxd_mdns.max_host_name_size}" &lt; 128)
+            </constraint>
+        </property>
+        <property default="64" display="Maximum string size for service" id="config.el.nxd_mdns.max_service_name_size">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.max_service_name_size}")  &amp;&amp; ("${config.el.nxd_mdns.max_service_name_size}" &gt; 32)
+            </constraint>
+        </property>
+        <property default="16" display="Maximum string size for Domain" id="config.el.nxd_mdns.max_domain_name_size">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.max_domain_name_size}")  &amp;&amp; ("${config.el.nxd_mdns.max_domain_name_size}" &gt; 4)  &amp;&amp; ("${config.el.nxd_mdns.max_domain_name_size}" &lt; 128)
+            </constraint>
+        </property>
+        <property default="8" display="Maximum conflict count for host or service name" id="config.el.nxd_mdns.max_conflict_count">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.max_conflict_count}")
+            </constraint>
+        </property>
+        <property default="120" display="TTL value for resource records with host name(in sec)" id="config.el.nxd_mdns.rr_ttl_value_host">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.rr_ttl_value_host}")
+            </constraint>
+        </property>
+        <property default="4500" display="TTL value for other records(in sec)" id="config.el.nxd_mdns.rr_ttl_value_other">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.rr_ttl_value_other}")
+            </constraint>
+        </property>
+        <property default="25" display="Time interval b/w mDNS probing messages(in ticks)" id="config.el.nxd_mdns.probing_timer_count">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.probing_timer_count}")
+            </constraint>
+        </property>
+        <property default="25" display="Time interval b/w mDNS announcement messages(in ticks)" id="config.el.nxd_mdns.announcement_timer_count">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.announcement_timer_count}")
+            </constraint>
+        </property>
+        <property default="25" display="Time interval b/w goodbye messages(in ticks)" id="config.el.nxd_mdns.goodbye_timer_count">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.goodbye_timer_count}")
+            </constraint>
+        </property>
+        <property default="100" display="Minimum time interval b/w two queries(in ticks)" id="config.el.nxd_mdns.query_min_timer_count">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.query_min_timer_count}")
+            </constraint>
+        </property>
+        <property default="360000" display="Maximum time interval b/w two queries(in ticks)" id="config.el.nxd_mdns.query_max_timer_count">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.query_max_timer_count}")
+            </constraint>
+        </property>
+        <property default="2" display="Minimum delay for sending first query(in ticks)" id="config.el.nxd_mdns.query_delay_min">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.query_delay_min}")
+            </constraint>
+        </property>
+        <property default="10" display="Delay range for sending first query(in ticks)" id="config.el.nxd_mdns.query_delay_range">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.query_delay_range}")
+            </constraint>
+        </property>
+        <property default="100" display="Query response time interval(in ticks)" id="config.el.nxd_mdns.query_response_interval" description="The time interval, in ticks, in responding to a query to ensure an interval of at least 1s since the last time the record was multicast.">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.query_response_interval}")
+            </constraint>
+        </property>
+        <property default="25" display="Probe query response time(in ticks)" id="config.el.nxd_mdns.query_response_probing_interval" description="The time interval, in ticks, in responding to a probe queries to ensure an interval of at least 250ms since the last time the record was multicast.">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.query_response_probing_interval}")
+            </constraint>
+        </property>
+        <property default="1" display="Unique query response delay(in ticks)" id="config.el.nxd_mdns.unique_query_response_delay" description="The delay, in ticks, in responding to a query to a service that is unique to the local network.">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.unique_query_response_delay}")
+            </constraint>
+        </property>
+        <property default="2" display="Minimum delay in responding to a query to shared resource(in ticks)" id="config.el.nxd_mdns.shared_resource_response_delay" description="The minimum delay, in ticks, in responding to a query to a shared resource.">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.shared_resource_response_delay}")
+            </constraint>
+        </property>
+        <property default="10" display="Delay range in responding to a query to shared resource(in ticks)" id="config.el.nxd_mdns.shared_resource_response_delay_range">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.shared_resource_response_delay_range}")
+            </constraint>
+        </property>
+        <property default="40" display="Minimum delay in responding to a query with TC bit(in ticks)" id="config.el.nxd_mdns.min_delay_tc_response">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.min_delay_tc_response}")
+            </constraint>
+        </property>
+        <property default="10" display="Delay range in responding to a query with TC bit(in ticks)" id="config.el.nxd_mdns.tc_response_delay_range">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.tc_response_delay_range}")
+            </constraint>
+        </property>
+        <property default="12" display="Timer count range(in ticks)" id="config.el.nxd_mdns.timer_count_range" description="When sending out mDNS responses, the packet contains responses that otherwise would be sent within this timer counter range.This value allows a response to include messages that would be sent within the next 120ms range if each tick is 10ms.">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.timer_count_range}")
+            </constraint>
+        </property>
+        <property default="3" display="Number of retransmitted probing messages" id="config.el.nxd_mdns.retransmit_probing_count">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.retransmit_probing_count}")
+            </constraint>
+        </property>
+        <property default="1" display="Number of retransmitted goodbye messages" id="config.el.nxd_mdns.retransmit_goodbye_count">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.retransmit_goodbye_count}")
+            </constraint>
+        </property>
+        <property default="2" display="Minimum number of count with no multicast response" id="config.el.nxd_mdns.min_poof_count" description="The number of queries that no multicast response, then the host may take this as an indication that the record may no longer be valid.">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.min_poof_count}")
+            </constraint>
+        </property>
+        <property default="1000" display="Time interval in deleting the record from cache without expected result(in ticks)" id="config.el.nxd_mdns.poof_time_count" description="The time interval, in ticks, in deleting the record from the cache after seeing two or more of these queries, and seeing no multicast response containing the expected answer.">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.poof_time_count}")
+            </constraint>
+        </property>
+        <property default="100" display="Delay for deleting a resource record when the TTL is zero" id="config.el.nxd_mdns.rr_delete_delay_timer_count">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_mdns.rr_delete_delay_timer_count}")
+            </constraint>
+        </property>
+        <content>
+            #if (!${config.el.nxd_mdns.mdns_server})
+            #define NX_MDNS_DISABLE_SERVER
+            #endif
+            #if (!${config.el.nxd_mdns.mdns_client})
+            #define NX_MDNS_DISABLE_CLIENT
+            #endif
+            #if (${config.el.nxd_mdns.mdns_address_check})
+            #define NX_MDNS_ENABLE_ADDRESS_CHECK
+            #endif
+            #if (${config.el.nxd_mdns.mdns_client_proof})
+            #define NX_MDNS_ENABLE_CLIENT_POOF
+            #endif
+            #if (${config.el.nxd_mdns.mdns_server_negative_response})
+            #define NX_MDNS_ENABLE_SERVER_NEGATIVE_RESPONSES
+            #endif
+            #if (${config.el.nxd_mdns.mdns_enable_ipv6_address})
+            #define NX_MDNS_ENABLE_IPv6
+            #endif
+            #define NX_MDNS_IPV6_ADDRESS_COUNT                              ${config.el.nxd_mdns.mdns_ipv6_address_count}
+            #define NX_MDNS_HOST_NAME_MAX                                   ${config.el.nxd_mdns.max_host_name_size}
+            #define NX_MDNS_SERVICE_NAME_MAX                                ${config.el.nxd_mdns.max_service_name_size}
+            #define NX_MDNS_DOMAIN_NAME_MAX                                 ${config.el.nxd_mdns.max_domain_name_size}
+            #define NX_MDNS_CONFLICT_COUNT                                  ${config.el.nxd_mdns.max_conflict_count}
+            #define NX_MDNS_RR_TTL_HOST                                     ${config.el.nxd_mdns.rr_ttl_value_host}
+            #define NX_MDNS_RR_TTL_OTHER                                    ${config.el.nxd_mdns.rr_ttl_value_other}
+            #define NX_MDNS_PROBING_TIMER_COUNT                             ${config.el.nxd_mdns.probing_timer_count}
+            #define NX_MDNS_ANNOUNCING_TIMER_COUNT                          ${config.el.nxd_mdns.announcement_timer_count}
+            #define NX_MDNS_GOODBYE_TIMER_COUNT                             ${config.el.nxd_mdns.goodbye_timer_count}
+            #define NX_MDNS_QUERY_MIN_TIMER_COUNT                           ${config.el.nxd_mdns.query_min_timer_count}
+            #define NX_MDNS_QUERY_MAX_TIMER_COUNT                           ${config.el.nxd_mdns.query_max_timer_count}
+            #define NX_MDNS_QUERY_DELAY_MIN                                 ${config.el.nxd_mdns.query_delay_min}
+            #define NX_MDNS_QUERY_DELAY_RANGE                               ${config.el.nxd_mdns.query_delay_range}
+            #define NX_MDNS_RESPONSE_INTERVAL                               ${config.el.nxd_mdns.query_response_interval}
+            #define NX_MDNS_RESPONSE_PROBING_INTERVAL                       ${config.el.nxd_mdns.query_response_probing_interval}
+            #define NX_MDNS_RESPONSE_UNIQUE_DELAY                           ${config.el.nxd_mdns.unique_query_response_delay}
+            #define NX_MDNS_RESPONSE_SHARED_DELAY_MIN                       ${config.el.nxd_mdns.shared_resource_response_delay}
+            #define NX_MDNS_RESPONSE_SHARED_DELAY_RANGE                     ${config.el.nxd_mdns.shared_resource_response_delay_range}
+            #define NX_MDNS_RESPONSE_TC_DELAY_MIN                           ${config.el.nxd_mdns.min_delay_tc_response}
+            #define NX_MDNS_RESPONSE_TC_DELAY_RANGE                         ${config.el.nxd_mdns.tc_response_delay_range}
+            #define NX_MDNS_TIMER_COUNT_RANGE                               ${config.el.nxd_mdns.timer_count_range}
+            #define NX_MDNS_PROBING_RETRANSMIT_COUNT                        ${config.el.nxd_mdns.retransmit_probing_count}
+            #define NX_MDNS_GOODBYE_RETRANSMIT_COUNT                        ${config.el.nxd_mdns.retransmit_goodbye_count}
+            #define NX_MDNS_POOF_MIN_COUNT                                  ${config.el.nxd_mdns.min_poof_count}
+            #define NX_MDNS_POOF_TIME_COUNT                                 ${config.el.nxd_mdns.poof_time_count}
+            #define NX_MDNS_RR_DELETE_DELAY_TIMER_COUNT                     ${config.el.nxd_mdns.rr_delete_delay_timer_count}
+        </content>
+    </config>
+    <module config="config.el.nxd_mdns" display="X-Ware|NetX Duo|Protocols|${module.el.nxd_mdns.name} NetX Duo mDNS/DNS-SD" id="module.el.nxd_mdns" version="1" category="framework">
+        <constraint display="Module instances must have unique names">
+            "${interface.el.nx_mdns.${module.el.nxd_mdns.name}}" === "1"
+        </constraint>
+        <requires interface="_rtos" />
+        <requires id="module.el.nxd_mdns.requires.nxd.ip" interface="interface.el.nxd.ip" display="Add NetX Duo IP Instance" >
+            <override property="module.el.nx.ip.arp" value="module.el.nx.ip.arp.enable" />
+            <override property="module.el.nx.ip.udp" value="module.el.nx.ip.udp.enable" />
+        </requires>
+        <requires id="module.el.nxd_mdns.requires.nxd.packet_pool" interface="interface.el.nxd.packet_pool" display="Add NetX Duo Packet Pool" />
+
+        <!-- NetX Duo only -->
+        <provides interface="interface.el.nx_mdns" />
+        <provides interface="interface.el.nx_mdns.${module.el.nxd_mdns.name}" />
+
+        <property default="g_mdns${_instance}" display="Name" id="module.el.nxd_mdns.name">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd_mdns.name}")</constraint>
+        </property>
+        <property default="3" display="mDNS thread priority" id="module.el.nxd_mdns.mdns_thread_priority">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${module.el.nxd_mdns.mdns_thread_priority}")  &amp;&amp; ("${module.el.nxd_mdns.mdns_thread_priority}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="4096" display="Internal thread stack size (bytes)" id="module.el.nxd_mdns.stack_size">
+            <constraint display="Value must be a non-negative integer and divisible by 8">
+                testInteger("${module.el.nxd_mdns.stack_size}")  &amp;&amp; (("${module.el.nxd_mdns.stack_size}" % 8) == 0) &amp;&amp; ("${module.el.nxd_mdns.stack_size}" &gt; 0)
+            </constraint>
+        </property>
+        <property default="4096" display="Local service cache size (bytes)" id="module.el.nxd_mdns.local_service_cache_size">
+            <constraint display="Value must be a non-negative integer and divisible by 8">
+                testInteger("${module.el.nxd_mdns.local_service_cache_size}")  &amp;&amp; (("${module.el.nxd_mdns.local_service_cache_size}" % 8) == 0) &amp;&amp; ("${module.el.nxd_mdns.local_service_cache_size}" &gt; 0)
+            </constraint>
+        </property>	
+        <property default="4096" display="Peer service cache size (bytes)" id="module.el.nxd_mdns.peer_service_cache_size">
+            <constraint display="Value must be a non-negative integer and divisible by 8">
+                testInteger("${module.el.nxd_mdns.peer_service_cache_size}")  &amp;&amp; (("${module.el.nxd_mdns.peer_service_cache_size}" % 8) == 0) &amp;&amp; ("${module.el.nxd_mdns.peer_service_cache_size}" &gt; 0)
+            </constraint>
+        </property>
+        <property default="probing_notify" display="Name of Probing notify callback function" id="module.el.nxd_mdns.probing_notify_function">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd_mdns.probing_notify_function}")</constraint>
+        </property>
+        <property default="mdns_init${_instance}" display="Name of generated initialization function" id="module.el.nxd_mdns.init_function">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd_mdns.init_function}")</constraint>
+        </property>
+        <property default="module.el.nxd_mdns.init.enable" display="Auto Initialization" id="module.el.nxd_mdns.init">
+            <option display="Enable"  id="module.el.nxd_mdns.init.enable"  value="1"/>
+            <option display="Disable" id="module.el.nxd_mdns.init.disable" value="0"/>
+        </property>
+        <header>
+            extern NX_MDNS  ${module.el.nxd_mdns.name};
+            void ${module.el.nxd_mdns.name}_err_callback(void * p_instance, void * p_data);
+            void ${module.el.nxd_mdns.init_function}(void);
+            #if !defined(${module.el.nxd_mdns.probing_notify_function})
+            void ${module.el.nxd_mdns.probing_notify_function}(NX_MDNS *mdns_ptr, UCHAR *name, UINT probing_state);
+            #endif
+        </header>
+        <includes>
+            #include "nxd_mdns.h"
+        </includes>
+        <macros>
+        </macros>
+        <declarations>
+            NX_MDNS     ${module.el.nxd_mdns.name};
+            UCHAR       ${module.el.nxd_mdns.name}_stack_memory[${module.el.nxd_mdns.stack_size}] BSP_PLACE_IN_SECTION_V2(".stack.${module.el.nxd_mdns.name}") BSP_ALIGN_VARIABLE_V2(BSP_STACK_ALIGNMENT);
+            UCHAR       ${module.el.nxd_mdns.name}_local_service_cache[${module.el.nxd_mdns.local_service_cache_size}] BSP_PLACE_IN_SECTION_V2(".stack.${module.el.nxd_mdns.name}") BSP_ALIGN_VARIABLE_V2(BSP_STACK_ALIGNMENT);
+            UCHAR       ${module.el.nxd_mdns.name}_peer_service_cache[${module.el.nxd_mdns.peer_service_cache_size}] BSP_PLACE_IN_SECTION_V2(".stack.${module.el.nxd_mdns.name}") BSP_ALIGN_VARIABLE_V2(BSP_STACK_ALIGNMENT);
+
+            #if defined(__ICCARM__)
+            #define ${module.el.nxd_mdns.name}_err_callback_WEAK_ATTRIBUTE
+            #pragma weak ${module.el.nxd_mdns.name}_err_callback  = ${module.el.nxd_mdns.name}_err_callback_internal
+            #elif defined(__GNUC__)
+            #define ${module.el.nxd_mdns.name}_err_callback_WEAK_ATTRIBUTE   __attribute__ ((weak, alias("${module.el.nxd_mdns.name}_err_callback_internal")))
+            #endif
+            void ${module.el.nxd_mdns.name}_err_callback(void * p_instance, void * p_data) ${module.el.nxd_mdns.name}_err_callback_WEAK_ATTRIBUTE;
+            /*******************************************************************************************************************//**
+               * @brief      This is a weak example initialization error function.  It should be overridden by defining a user  function
+               *             with the prototype below.
+               *             - void ${module.el.nxd_mdns.name}_err_callback(void * p_instance, void * p_data)
+               *
+               * @param[in]  p_instance arguments used to identify which instance caused the error and p_data Callback arguments used to identify what error caused the callback.
+             **********************************************************************************************************************/
+            void ${module.el.nxd_mdns.name}_err_callback_internal(void * p_instance, void * p_data);
+            void ${module.el.nxd_mdns.name}_err_callback_internal(void * p_instance, void * p_data)
+            {
+              /** Suppress compiler warning for not using parameters. */
+              SSP_PARAMETER_NOT_USED(p_instance);
+              SSP_PARAMETER_NOT_USED(p_data);
+
+              /** An error has occurred. Please check function arguments for more information. */
+              BSP_CFG_HANDLE_UNRECOVERABLE_ERROR(0);
+            }
+            /*******************************************************************************************************************//**
+             * @brief     Initialization function that the user can choose to have called automatically during thread entry.
+             *            The user can call this function at a later time if desired using the prototype below.
+             *            - void ${module.el.nxd_mdns.init_function}(void)
+             **********************************************************************************************************************/
+            void ${module.el.nxd_mdns.init_function}(void)
+            {
+                UINT ${module.el.nxd_mdns.name}_err;
+
+                /* Create mDNS Client. */
+                ${module.el.nxd_mdns.name}_err = nx_mdns_create(&amp;${module.el.nxd_mdns.name},
+                                                             &amp;${module.el.nxd_mdns.requires.nxd.ip::module.el.nx.ip.name},
+                                                             &amp;${module.el.nxd_mdns.requires.nxd.packet_pool::module.el.nx.packet_pool.name},
+                                                             ${module.el.nxd_mdns.mdns_thread_priority},
+                                                             ${module.el.nxd_mdns.name}_stack_memory,
+                                                             ${module.el.nxd_mdns.stack_size},
+                                                             (UCHAR *)"NETX-MDNS-HOST",
+                                                             (VOID*)${module.el.nxd_mdns.name}_local_service_cache,
+                                                             ${module.el.nxd_mdns.local_service_cache_size},
+                                                             (VOID*)${module.el.nxd_mdns.name}_peer_service_cache,
+                                                             ${module.el.nxd_mdns.peer_service_cache_size},
+                                                             ${module.el.nxd_mdns.probing_notify_function}
+                                                             );
+                if (NX_SUCCESS != ${module.el.nxd_mdns.name}_err)
+                {
+                    ${module.el.nxd_mdns.name}_err_callback((void *)&amp;${module.el.nxd_mdns.name},&amp;${module.el.nxd_mdns.name}_err);
+                }
+            }
+        </declarations>
+        <init>
+            /** Call initialization function if user has selected to do so. */
+            #if (${module.el.nxd_mdns.init})
+                ${module.el.nxd_mdns.init_function}();
+            #endif
+        </init>
+    </module>
+</synergyModuleDescription>		

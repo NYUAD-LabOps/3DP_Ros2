@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" ?>
+<synergyModuleDescription>
+  <!-- LevelX NOR Framework -->
+  <config id="config.framework.sf_el_lx_nor" path="ssp_cfg/framework/sf_el_lx_nor_cfg.h" version="0">
+    <!-- LevelX NOR Framework Config Properties -->
+    <property default="config.framework.sf_el_lx_nor.param_checking_enable.bsp"
+              display="Parameter Checking"
+              id="config.framework.sf_el_lx_nor.param_checking_enable"
+              description="Selects if code for parameter checking is to be included in the build.">
+      <option display="Default (BSP)" id="config.framework.sf_el_lx_nor.param_checking_enable.bsp"
+              value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+      <option display="Enabled" id="config.framework.sf_el_lx_nor.param_checking_enable.enabled" value="(1)"/>
+      <option display="Disabled" id="config.framework.sf_el_lx_nor.param_checking_enable.disabled" value="(0)"/>
+    </property>
+
+    <!-- Header Content   -->
+    <content>
+      #define SF_EL_LX_NOR_CFG_PARAM_CHECKING_ENABLE ${config.framework.sf_el_lx_nor.param_checking_enable}
+    </content>
+  </config>
+
+  <!-- LevelX NOR Module Instance -->
+  <module config="config.framework.sf_el_lx_nor"
+          display="Framework|LevelX|${module.framework.sf_el_lx_nor.name} Port LevelX Framework on sf_el_lx_nor"
+          id="module.framework.sf_el_lx_nor"
+          version="1"
+          category="framework"
+          url="https://knowledgebase.renesas.com/English_Content/Renesas_Synergy%E2%84%A2_Platform/Renesas_Synergy_Knowledge_Base/sf_el_lx_nor_Module_Guide_Resources">
+
+    <!-- Module Constraints -->
+    <constraint display="Module instances must have unique names">
+      "${interface.framework.sf_el_lx_nor.${module.framework.sf_el_lx_nor.name}}" === "1"
+    </constraint>
+
+    <!-- Module Dependencies   -->
+    <requires interface="_rtos" />
+    <requires id="module.framework.sf_el_lx_nor.requires.sf_block_media"
+              interface="interface.framework.sf_memory_qspi"
+              display="Add Block Media Driver" />
+
+    <!-- Module Exports -->
+    <provides interface="interface.framework.sf_el_lx_nor" />
+    <provides interface="interface.framework.sf_el_lx_nor_on_sf_el_lx_nor" />
+    <provides interface="interface.framework.sf_el_lx_nor.${module.framework.sf_el_lx_nor.name}" />
+
+    <!-- Module Instance Properties -->
+    <property id="module.framework.sf_el_lx_nor.name"
+              display="Name"
+              default="g_sf_el_lx_nor${_instance}"
+              description="Module Name">
+      <constraint display="Name must be a valid C symbol">
+        testSymbol("${module.framework.sf_el_lx_nor.name}")
+      </constraint>
+    </property>
+    <property id="module.framework.sf_el_lx_nor.p_callback"
+              display="Event Callback"
+              default="NULL"
+              description="Name of the function to call when an event occured">
+      <constraint display="Name must be a valid C symbol">
+        testSymbol("${module.framework.sf_el_lx_nor.p_callback}")
+      </constraint>
+    </property>
+    <property default="module.framework.sf_el_lx_nor.size_format.kilobyte" id="module.framework.sf_el_lx_nor.size_unit" display="Memory Partition Size Unit in(KB/MB)" description="Size of memory partition to be selected in KB or MB.">
+      <option display="Kilobyte(KB)" id="module.framework.sf_el_lx_nor.size_unit.kilobyte" value="1024"/>
+      <option display="Megabyte(MB)" id="module.framework.sf_el_lx_nor.size_unit.megabyte" value="1048576"/>
+    </property>
+    <property default="0" id="module.framework.sf_el_lx_nor.partition_size" display="Memory Partition Size" description="Size of partitioned region depending on memory unit i.e. KB/MB. Size value zero and partition start address value 0x00000000 means no partition. In case of partition, memory size should be a non zero value.">
+      <constraint display="Partition size should be a non-zero integer in case of partition.">testInteger("${module.framework.sf_el_lx_nor.partition_size}") &amp;&amp; ("${module.framework.sf_el_lx_nor.partition_size}" &gt;= 0)</constraint>
+    </property>
+    <property default="0x00000000" display="Memory Partition Start Address(in hex format)" id="module.framework.sf_el_lx_nor.partition_start_addr" description="Enter memory partition start address starting from base address 0x00000000 in case of flash partition is intended.">
+      <constraint display="Address should be greater than or equal to zero">testInteger("${module.framework.sf_el_lx_nor.partition_start_addr}") &amp;&amp; ("${module.framework.sf_el_lx_nor.partition_start_addr}" &gt;= 0x00000000) &amp;&amp; ("${module.framework.sf_el_lx_nor.partition_start_addr}" &lt;= 0x9fffffff)</constraint>
+    </property>
+
+    <header>
+      #include "sf_el_lx_nor.h"
+
+      #ifndef ${module.framework.sf_el_lx_nor.p_callback}
+      void ${module.framework.sf_el_lx_nor.p_callback}(sf_el_lx_nor_callback_args_t * p_args);
+      #endif
+    </header>
+
+    <includes>
+      #include &quot;sf_el_lx_nor.h&quot;
+    </includes>
+
+    <declarations>
+      #define FLASH_DEVICE_PHYSICAL_ADDRESS_OFFSET 0x60000000
+
+      /* sf_el_lx_nor driver instance control block */
+      static sf_el_lx_nor_instance_ctrl_t ${module.framework.sf_el_lx_nor.name}_ctrl;
+
+      const sf_el_lx_nor_memory_settings_t ${module.framework.sf_el_lx_nor.name}_memory_settings = 
+      {
+        .absolute_start_addr = ${module.framework.sf_el_lx_nor.partition_start_addr} + FLASH_DEVICE_PHYSICAL_ADDRESS_OFFSET,
+        .size                = ${module.framework.sf_el_lx_nor.partition_size} * ${module.framework.sf_el_lx_nor.size_unit}
+      };
+
+      /* sf_el_lx_nor driver config block */
+      static sf_el_lx_nor_instance_cfg_t  ${module.framework.sf_el_lx_nor.name}_cfg =
+      {
+        .p_lower_lvl = &amp;${module.framework.sf_el_lx_nor.requires.sf_block_media::module.framework.sf_memory_qspi_nor.name},
+        .p_callback = ${module.framework.sf_el_lx_nor.p_callback},
+        .p_memory_settings = &amp;${module.framework.sf_el_lx_nor.name}_memory_settings
+      };
+    </declarations>
+  </module>
+</synergyModuleDescription>

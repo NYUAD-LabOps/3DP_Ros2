@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<synergyModuleDescription>
+    <config id="config.el.ux_device_class_hid_src" path="ssp_cfg/framework/el/ux_device_class_hid_src_user.h" version="0">
+        <property default="32" display="USBX Device HID Event Buffer length" id="config.el.ux_device_class_hid_src.hid_event_buffer_length" description="USBX Device HID Event Buffer length">
+            <constraint display="Value must be greater than or equal to 32">("${config.el.ux_device_class_hid_src.hid_event_buffer_length}" &gt;= 32)</constraint>
+        </property>
+        <property default="16" display="Maximum number of USBX Device HID Events queue" id="config.el.ux_device_class_hid_src.hid_event_queue" description="This value represents the maximum number of hid event queue in the device hid class driver.">
+            <constraint display="Value must be greater than or equal to 16">("${config.el.ux_device_class_hid_src.hid_event_queue}" &gt;= 16)</constraint>
+        </property>
+        <property id="config.el.ux_device_class_hid_src.device_hid_interrupt_out_support" display="Device HID Interrupt OUT Endpoint Support" default="config.el.ux_device_class_hid_src.device_hid_interrupt_out_support.disabled" description="When enabled, device HID interrupt OUT transfer is supported. ">
+            <option id="config.el.ux_device_class_hid_src.device_hid_interrupt_out_support.enabled" display="Enabled" value="1" />
+            <option id="config.el.ux_device_class_hid_src.device_hid_interrupt_out_support.disabled" display="Disabled (default)" value="0" />
+        </property>
+
+        <content>
+        #if (${config.el.ux_device_class_hid_src.hid_event_buffer_length})
+        #define UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH  (${config.el.ux_device_class_hid_src.hid_event_buffer_length})
+        #endif
+        #if (${config.el.ux_device_class_hid_src.hid_event_queue})
+        #define UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE  (${config.el.ux_device_class_hid_src.hid_event_queue})
+        #endif
+        #if (${config.el.ux_device_class_hid_src.device_hid_interrupt_out_support})
+        #define UX_DEVICE_CLASS_HID_INTERRUPT_OUT_SUPPORT
+        #endif
+        </content>
+    </config>
+    <module config="config.el.ux_device_class_hid_src" display="X-Ware|USBX|Device|Classes|HID|USBX Device Class HID Source" common="1" id="module.el.ux_device_class_hid_src" version="0" category="framework" 
+        url="https://knowledgebase.renesas.com/English_Content/Renesas_Synergy%E2%84%A2_Platform/Renesas_Synergy_Knowledge_Base/USBX_Device_Class_HID_Module_Guide_Resources">
+        <!-- Remove this warning when a proper fix is implemented to remove the library when source component is added -->
+        <constraint display="Refer to release notes if multiple symbol definition linkage error occurs">
+            "${module.el.ux_device_class_hid_src.linkage_warning}" === "module.el.ux_device_class_hid_src.linkage_warning.disabled"
+        </constraint>
+
+        <requires interface="_rtos" />
+        <provides interface="interface.el.ux_device_class_hid_src" />
+
+        <!-- Remove this warning when a proper fix is implemented to remove the library when source component is added -->
+        <property default="module.el.ux_device_class_hid_src.linkage_warning.enabled" display="Show linkage warning" id="module.el.ux_device_class_hid_src.linkage_warning">
+            <option display="Enabled" id="module.el.ux_device_class_hid_src.linkage_warning.enabled" value="0"/>
+            <option display="Disabled" id="module.el.ux_device_class_hid_src.linkage_warning.disabled" value="1"/>
+        </property>
+    </module>
+</synergyModuleDescription>

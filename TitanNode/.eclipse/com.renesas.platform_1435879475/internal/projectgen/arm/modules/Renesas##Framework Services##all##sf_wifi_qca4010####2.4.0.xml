@@ -1,0 +1,153 @@
+<?xml version="1.0" ?>
+<synergyModuleDescription>
+    <config id="config.framework.sf_wifi_qca4010" path="ssp_cfg/framework/sf_wifi_qca4010_cfg.h" version="0">
+        <property default="config.framework.sf_wifi_qca4010.param_checking_enable.bsp" display="Parameter Checking" id="config.framework.sf_wifi_qca4010.param_checking_enable">
+            <option display="Default (BSP)" id="config.framework.sf_wifi_qca4010.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.framework.sf_wifi_qca4010.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.framework.sf_wifi_qca4010.param_checking_enable.disabled" value="(0)"/>
+        </property>
+        <property default="10" display="AT Command Retry Count" id="config.framework.sf_wifi_qca4010.retry_count">
+            <constraint display="values range from 5 through 255">
+                testInteger("${config.framework.sf_wifi_qca4010.retry_count}") &amp;&amp; 
+                ("${config.framework.sf_wifi_qca4010.retry_count}" &gt; 4) &amp;&amp; 
+                ("${config.framework.sf_wifi_qca4010.retry_count}" &lt; 256)
+            </constraint>
+        </property>
+        <content>
+        #ifndef SF_WIFI_QCA4010_CFG_PARAM_CHECKING_ENABLE
+        #define SF_WIFI_QCA4010_CFG_PARAM_CHECKING_ENABLE ${config.framework.sf_wifi_qca4010.param_checking_enable}
+        #endif
+        #ifndef SF_WIFI_QCA4010_CFG_AT_CMD_RETRY_COUNT
+        #define SF_WIFI_QCA4010_CFG_AT_CMD_RETRY_COUNT	(${config.framework.sf_wifi_qca4010.retry_count})
+        #endif
+        #ifndef SF_WIFI_QCA4010_CFG_MAX_NUMBER_UART_PORTS
+        #define SF_WIFI_QCA4010_CFG_MAX_NUMBER_UART_PORTS (2)
+        #endif
+        </content>
+    </config>
+    <module config="config.framework.sf_wifi_qca4010" display="Framework|Networking|Wi-Fi|${module.framework.sf_wifi_qca4010.name} qca4010 Wi-Fi Device Driver on sf_wifi_qca4010" id="module.framework.sf_wifi_qca4010" common="1" version="1" url="https://en-support.renesas.com/knowledgeBase/20069108">
+        <constraint display="Module instances must have unique names">
+            "${interface.framework.sf_wifi_qca4010.${module.framework.sf_wifi_qca4010.name}}" === "1"
+        </constraint>
+        <requires interface="_rtos" />
+        <requires id="module.framework.sf_wifi_qca4010.requires.uart_cmd" interface="interface.driver.uart_on_sci_uart" display="Add SCI_UART Driver">
+            <override property="module.driver.uart.callback" value="sf_wifi_qca4010_serial_uart_callback"/>
+        </requires>
+        <requires id="module.framework.sf_wifi_qca4010.requires.uart_data" interface="interface.driver.uart_on_sci_uart" display="Add additional SCI_UART peripheral for Data port, mandatory for multiple socket instances" find="false">
+            <override property="module.driver.uart.callback" value="sf_wifi_qca4010_serial_uart_callback"/>
+        </requires>
+        <provides interface="interface.framework.sf_wifi_qca4010" />
+        <provides interface="interface.framework.sf_wifi_qca4010"/>
+        <provides interface="interface.framework.sf_wifi_qca4010.${module.framework.sf_wifi_qca4010.name}" />
+        <provides interface="interface.framework.sf_wifi_qca4010.${module.framework.sf_wifi_qca4010.name}" />
+        <provides interface="interface.framework.sf_wifi_onchip_stack_qca4010" />
+        <property default="g_sf_wifi_qca4010" display="Name (Must be a valid C symbol)" id="module.framework.sf_wifi_qca4010.name">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.framework.sf_wifi_qca4010.name}")</constraint>
+        </property>
+        <property default="module.framework.sf_wifi_qca4010.hw_mode.802_11n" display="Hardware Mode" id="module.framework.sf_wifi_qca4010.hw_mode">
+            <option display="802.11b" id="module.framework.sf_wifi_qca4010.hw_mode.802_11b" value="SF_WIFI_QCA4010_INTERFACE_HW_MODE_11B"/>
+            <option display="802.11g" id="module.framework.sf_wifi_qca4010.hw_mode.802_11g" value="SF_WIFI_QCA4010_INTERFACE_HW_MODE_11G"/>
+            <option display="802.11n" id="module.framework.sf_wifi_qca4010.hw_mode.802_11n" value="SF_WIFI_QCA4010_INTERFACE_HW_MODE_11N"/>
+        </property>
+        <property default="IOPORT_PORT_09_PIN_11" display="Reset Pin" id="module.framework.sf_wifi_qca4010.pin_reset">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.framework.sf_wifi_qca4010.pin_reset}")</constraint>
+        </property>
+        <property default="256" display="Queue Size in Bytes" id="module.framework.sf_wifi_qca4010.cq_size">
+           <constraint display="Value must be multiple of 4 and must be greater than or equal to 256">
+                testInteger("${module.framework.sf_wifi_qca4010.cq_size}") &amp;&amp; 
+                ("${module.framework.sf_wifi_qca4010.cq_size}" &gt; 255) &amp;&amp; 
+                ("${module.framework.sf_wifi_qca4010.cq_size}" % 4 == 0) &amp;&amp; 
+                ("${module.framework.sf_wifi_qca4010.cq_size}" &lt;= 512)
+            </constraint>
+        </property>
+       <property default="2048" display="Response buffer size" id="module.framework.sf_wifi_qca4010.resp_buffer_size">
+            <constraint display="values should be greater than or equal to 256">
+                testInteger("${module.framework.sf_wifi_qca4010.resp_buffer_size}") &amp;&amp; 
+                ("${module.framework.sf_wifi_qca4010.resp_buffer_size}" &gt;= 256) &amp;&amp; ("${module.framework.sf_wifi_qca4010.resp_buffer_size}" &lt;= 4096)
+            </constraint>
+        </property>
+        <header>
+        /** sf_wifi_qca4010 instance on qca4010 */
+        extern sf_wifi_qca4010_instance_t ${module.framework.sf_wifi_qca4010.name};
+        </header>
+    <includes>
+    #include &quot;sf_wifi_qca4010_api.h&quot;
+    #include &quot;sf_wifi_qca4010.h&quot;
+    </includes>
+    <declarations>
+    static uint32_t ${module.framework.sf_wifi_qca4010.name}_cq_buffer[${module.framework.sf_wifi_qca4010.cq_size}] BSP_PLACE_IN_SECTION_V2(".stack.${module.framework.sf_wifi_qca4010.name}_cq_buffer") BSP_ALIGN_VARIABLE_V2(BSP_STACK_ALIGNMENT);
+
+    static uint32_t ${module.framework.sf_wifi_qca4010.name}_resp_buff[${module.framework.sf_wifi_qca4010.resp_buffer_size}];
+
+    TX_QUEUE     ${module.framework.sf_wifi_qca4010.name}_cq;
+    TX_MUTEX 	 ${module.framework.sf_wifi_qca4010.name}_mutex;
+    TX_EVENT_FLAGS_GROUP    g_eventflag[2];
+
+    /** Queue Configuration */
+    sf_wifi_qca4010_queue_cfg_t   ${module.framework.sf_wifi_qca4010.name}_cq_cfg =
+    {
+        .p_cmd_queue_ptr = &amp;${module.framework.sf_wifi_qca4010.name}_cq,
+        .p_queue_buffer = ${module.framework.sf_wifi_qca4010.name}_cq_buffer,
+        .queue_size = ${module.framework.sf_wifi_qca4010.cq_size},
+        .ok_check_index = 0
+    };
+
+    static const sf_wifi_qca4010_extended_cfg_t ${module.framework.sf_wifi_qca4010.name}_on_sf_wifi_qca4010_cfg =
+    {
+        .p_queue_cfg = &amp;${module.framework.sf_wifi_qca4010.name}_cq_cfg,
+        .pin_reset = ${module.framework.sf_wifi_qca4010.pin_reset},
+        .p_eventflag[0] = &amp;g_eventflag[0],
+        .p_eventflag[1] = &amp;g_eventflag[1],
+     };
+
+    static sf_wifi_qca4010_instance_cfg_t ${module.framework.sf_wifi_qca4010.name}_instance_cfg = 
+    {
+        .p_wifi_mutex = &amp;${module.framework.sf_wifi_qca4010.name}_mutex,
+        .p_resp_buff = (uint8_t *)${module.framework.sf_wifi_qca4010.name}_resp_buff,
+        .resp_buffer_length = ${module.framework.sf_wifi_qca4010.resp_buffer_size}
+    };
+
+    /** Wifi Framework control block */
+    static sf_wifi_qca4010_ctrl_t ${module.framework.sf_wifi_qca4010.name}_ctrl =
+    { .p_driver_handle = &amp;${module.framework.sf_wifi_qca4010.name}_instance_cfg };
+
+    static const sf_wifi_qca4010_cfg_t ${module.framework.sf_wifi_qca4010.name}_cfg =
+    {
+        #define SYNERGY_NOT_DEFINED (1)
+        #if (SYNERGY_NOT_DEFINED == ${module.framework.sf_wifi_qca4010.requires.uart_data::module.driver.uart.name} )
+            .num_uarts = 1,
+        #else
+            .num_uarts = 2,
+        #endif
+        .p_uart_instances =
+        {
+            #if (SYNERGY_NOT_DEFINED == ${module.framework.sf_wifi_qca4010.requires.uart_cmd::module.driver.uart.name})
+                NULL,
+            #else
+                &amp;${module.framework.sf_wifi_qca4010.requires.uart_cmd::module.driver.uart.name},
+            #endif
+            #if (SYNERGY_NOT_DEFINED == ${module.framework.sf_wifi_qca4010.requires.uart_data::module.driver.uart.name})
+                NULL
+            #else
+                &amp;${module.framework.sf_wifi_qca4010.requires.uart_data::module.driver.uart.name}
+            #endif
+        #undef SYNERGY_NOT_DEFINED
+        },
+        .hw_mode    = ${module.framework.sf_wifi_qca4010.hw_mode},
+        .p_context	 = NULL,
+        .p_extend   = &amp;${module.framework.sf_wifi_qca4010.name}_on_sf_wifi_qca4010_cfg,
+        .p_cmd_set  = g_sf_wifi_qca4010_cmd_set
+    };
+
+    static sf_wifi_qca4010_ctrl_t ${module.framework.sf_wifi_qca4010.name}_ctrl;
+
+    /* Instance structure to use this module. */
+    sf_wifi_qca4010_instance_t ${module.framework.sf_wifi_qca4010.name} = 
+    {
+        .p_ctrl        = &amp;${module.framework.sf_wifi_qca4010.name}_ctrl,
+        .p_cfg         = &amp;${module.framework.sf_wifi_qca4010.name}_cfg,
+        .p_api         = &amp;g_sf_wifi_on_sf_wifi_qca4010
+    };
+    </declarations>
+    </module>
+</synergyModuleDescription>

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" ?>
+<synergyModuleDescription>
+    <config id="config.driver.agt_input_capture" path="ssp_cfg/driver/r_agt_input_capture_cfg.h" version="0">
+        <property default="config.driver.agt_input_capture.param_checking_enable.bsp" display="Parameter Checking" id="config.driver.agt_input_capture.param_checking_enable" description="If selected code for parameter checking is included in the build.">
+            <option display="Default (BSP)" id="config.driver.agt_input_capture.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.driver.agt_input_capture.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.driver.agt_input_capture.param_checking_enable.disabled" value="(0)"/>
+        </property>
+        <content>#define AGT_INPUT_CAPTURE_CFG_PARAM_CHECKING_ENABLE ${config.driver.agt_input_capture.param_checking_enable}
+        </content>
+    </config>
+    <module config="config.driver.agt_input_capture" display="Driver|Timers|${module.driver.input_capture.name} Input Capture Driver on r_agt_input_capture" id="module.driver.input_capture_on_agt" version="1" url="https://en-support.renesas.com/knowledgeBase/18684885">
+        <constraint display="Unique name required for each instance">
+            "${interface.driver.input_capture.${module.driver.input_capture.name}}" === "1"
+        </constraint>
+        <constraint display="Requires AGT peripheral">
+          "${interface.mcu.agt.external}" === "1"
+        </constraint>
+        <requires id="module.driver.input_capture_on_agt.requires.agt" interface="interface.mcu.agt.external" visible="false" display="Requires AGT peripheral" />
+        <provides interface="interface.driver.input_capture" />
+        <provides interface="interface.driver.input_capture_on_agt_input_capture" />
+        <provides interface="interface.driver.input_capture.${module.driver.input_capture.name}" />
+        <provides interface="interface.driver.input_capture_on_agt_input_capture.${module.driver.input_capture.channel}" /> 
+        <property default="g_input_capture" display="Name" id="module.driver.input_capture.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.input_capture.name}")</constraint>
+        </property>
+        <property default="0" display="Channel" id="module.driver.input_capture.channel" description="Specify the hardware channel.">
+            <constraint display="Value must be a non-negative integer">testInteger("${module.driver.input_capture.channel}")  &amp;&amp; ("${module.driver.input_capture.channel}" &gt;= 0)</constraint>
+        </property>
+        <property default="module.driver.input_capture.mode.pulse_width" display="Mode" id="module.driver.input_capture.mode" description="Measure the pulse width or the period of the signal.">
+            <option display="Pulse Width" id="module.driver.input_capture.mode.pulse_width" value="INPUT_CAPTURE_MODE_PULSE_WIDTH"/>
+            <option display="Period" id="module.driver.input_capture.mode.period" value="INPUT_CAPTURE_MODE_PERIOD"/>     
+            <option display="Event Count" id="module.driver.input_capture.mode.pulse_count" value="INPUT_CAPTURE_MODE_PULSE_COUNT"/>
+        </property>
+        <property default="module.driver.input_capture.signal_edge.rising" display="Signal Edge" id="module.driver.input_capture.signal_edge" description="Start measurement on rising or falling edge. Measurement stops on the opposite edge in Pulse Width mode or the Signal Edge in Period mode.">
+            <option display="Rising" id="module.driver.input_capture.signal_edge.rising" value="INPUT_CAPTURE_SIGNAL_EDGE_RISING"/>
+            <option display="Falling" id="module.driver.input_capture.signal_edge.falling" value="INPUT_CAPTURE_SIGNAL_EDGE_FALLING"/>
+        </property>
+        <property default="module.driver.input_capture.pin_select.agtio_a" display="AGTIO Pin Select" id="module.driver.input_capture.pin_select" description="Captures the input signal through one of these pins">
+            <option display="AGTIO_A" id="module.driver.input_capture.pin_select.agtio_a" value="AGT_INPUT_CAPTURE_PIN_AGTIO_A"/>
+            <option display="AGTIO_B" id="module.driver.input_capture.pin_select.agtio_b" value="AGT_INPUT_CAPTURE_PIN_AGTIO_B"/>
+            <option display="AGTIO_C" id="module.driver.input_capture.pin_select.agtio_c" value="AGT_INPUT_CAPTURE_PIN_AGTIO_C"/>
+        </property>
+        <property default="module.driver.input_capture.count_edge.single" display="Event Edge Polarity" id="module.driver.input_capture.count_edge" description="Counts the pulses on single edges (ie on either rising or falling) or on both edges ie (on any one of rising or falling) is recieved, in the Event counter mode">
+            <option display="Single Edge" id="module.driver.input_capture.count_edge.single" value="INPUT_CAPTURE_SIGNAL_SINGLE_EDGE"/>
+            <option display="Both Edge" id="module.driver.input_capture.count_edge.both" value="INPUT_CAPTURE_SIGNAL_BOTH_EDGE"/>
+        </property>
+        <property default="0" display="Event count value" id="module.driver.input_capture.pulse_count_value" description="Specify the Pulse count value when the call back must be triggered in the pulse count measurement.">
+            <constraint display="Value must be a non-negative integer">testInteger("${module.driver.input_capture.pulse_count_value}")  &amp;&amp; ("${module.driver.input_capture.pulse_count_value}" &gt;= 0)</constraint>
+        </property>
+        <property default="module.driver.input_capture.repetition.periodic" display="Repetition" id="module.driver.input_capture.repetition" description="Capture a signal measurement, then disable captures (one shot) until the enable API is called, or capture measurements continuously (periodic).">
+            <option display="Periodic" id="module.driver.input_capture.repetition.periodic" value="INPUT_CAPTURE_REPETITION_PERIODIC"/>
+            <option display="One Shot" id="module.driver.input_capture.repetition.one_shot" value="INPUT_CAPTURE_REPETITION_ONE_SHOT"/>
+        </property>
+        <property default="module.driver.input_capture.autostart.true" display="Auto Start" id="module.driver.input_capture.autostart" description="Set to true to enable measurements after configuring, or set to false to leave the  measurements disabled until the enable API is called.">
+            <option display="True" id="module.driver.input_capture.autostart.true" value="true"/>
+            <option display="False" id="module.driver.input_capture.autostart.false" value="false"/>
+        </property>
+        <property default="module.driver.input_capture.signal_filter.none" display="Input Signal Filter" id="module.driver.input_capture.signal_filter" description="The noise filter samples the external signal at intervals of the PCLK divided by one of the values. When 3 consecutive samples are at the same level (high or low), then that level is passed on as the observed state of the signal.">
+            <option display="None" id="module.driver.input_capture.signal_filter.none" value="AGT_INPUT_CAPTURE_SIGNAL_FILTER_NONE"/>
+            <option display="PCLK/1" id="module.driver.input_capture.signal_filter.sig1" value="AGT_INPUT_CAPTURE_SIGNAL_FILTER_1"/>
+            <option display="PCLK/8" id="module.driver.input_capture.signal_filter.sig8" value="AGT_INPUT_CAPTURE_SIGNAL_FILTER_8"/>
+            <option display="PCLK/32" id="module.driver.input_capture.signal_filter.sig32" value="AGT_INPUT_CAPTURE_SIGNAL_FILTER_32"/>
+        </property>
+        <property default="module.driver.input_capture.count_source.div1" display="Clock Source" id="module.driver.input_capture.count_source" description="Input capture clock source.">
+            <option display="PCLKB" id="module.driver.input_capture.count_source.pclkb" value="AGT_INPUT_CAPTURE_CLOCK_PCLKB"/>
+            <option display="PCLKB/8" id="module.driver.input_capture.count_source.pclkb/8" value="AGT_INPUT_CAPTURE_CLOCK_PCLKB_DIV_8"/>
+            <option display="PCLKB/2" id="module.driver.input_capture.count_source.pclkb/2" value="AGT_INPUT_CAPTURE_CLOCK_PCLKB_DIV_2"/>
+            <option display="AGTLCLK" id="module.driver.input_capture.count_source.agtlclk" value="AGT_INPUT_CAPTURE_CLOCK_LOCO"/>
+            <option display="AGTSCLK" id="module.driver.input_capture.count_source.agtsclk" value="AGT_CLOCK_INPUT_CAPTURE_FSUB"/>
+        </property>
+        <property default="module.driver.input_capture.clock_divider.div1" display="Clock Divider" id="module.driver.input_capture.clock_divider" description="Input capture AGT LOCO and AGT FSUB clock divider. Used to scale the timer counter.">
+            <option display="PCLK/1" id="module.driver.input_capture.clock_divider.div1" value="AGT_INPUT_CAPTURE_CLOCK_DIVIDER_1"/>
+            <option display="PCLK/2" id="module.driver.input_capture.clock_divider.div2" value="AGT_INPUT_CAPTURE_CLOCK_DIVIDER_2"/>
+            <option display="PCLK/4" id="module.driver.input_capture.clock_divider.div4" value="AGT_INPUT_CAPTURE_CLOCK_DIVIDER_4"/>
+            <option display="PCLK/8" id="module.driver.input_capture.clock_divider.div8" value="AGT_INPUT_CAPTURE_CLOCK_DIVIDER_8"/>
+            <option display="PCLK/16" id="module.driver.input_capture.clock_divider.div16" value="AGT_INPUT_CAPTURE_CLOCK_DIVIDER_16"/>
+            <option display="PCLK/32" id="module.driver.input_capture.clock_divider.div32" value="AGT_INPUT_CAPTURE_CLOCK_DIVIDER_32"/>
+            <option display="PCLK/64" id="module.driver.input_capture.clock_divider.div64" value="AGT_INPUT_CAPTURE_CLOCK_DIVIDER_64"/>
+            <option display="PCLK/128" id="module.driver.input_capture.clock_divider.div128" value="AGT_INPUT_CAPTURE_CLOCK_DIVIDER_128"/>
+        </property>
+        <property default="NULL" display="Callback" id="module.driver.input_capture.p_callback" description="A user callback function must be provided. The callback is called from the ISR each time a capture is completed.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.input_capture.p_callback}")</constraint>
+        </property>
+        <property default="" display="Measurement and Overflow Interrupt Priority" id="module.driver.input_capture.overflow_ipl" description="Select the measurement and overflow interrupt priority.">
+            <select enum="enum.mcu.nvic.priorities.mandatory"/>
+        </property>
+        <property default="" display="Capture Interrupt Priority" id="module.driver.input_capture.capture_ipl" description="Select the capture interrupt priority, captured interrupt is used only for pulse count mode">
+            <select enum="enum.mcu.nvic.priorities.mandatory"/>
+        </property>
+        <header>
+            /** Timer on AGT Instance. */
+            extern const input_capture_instance_t ${module.driver.input_capture.name};
+#ifndef ${module.driver.input_capture.p_callback}
+void ${module.driver.input_capture.p_callback}(input_capture_callback_args_t * p_args);
+#endif
+        </header>
+        <includes>#include &quot;r_agt_input_capture.h&quot;
+#include &quot;r_input_capture_api.h&quot;</includes>
+        <declarations>
+#if !defined(SSP_SUPPRESS_ISR_${module.driver.input_capture.name}) &amp;&amp; !defined(SSP_SUPPRESS_ISR_AGT${module.driver.input_capture.channel})
+SSP_VECTOR_DEFINE_CHAN(agt_input_capture_counter_overflow_isr, AGT, INT, ${module.driver.input_capture.channel});
+#endif
+#if !defined(SSP_SUPPRESS_ISR_${module.driver.input_capture.name}) &amp;&amp; !defined(SSP_SUPPRESS_ISR_AGT${module.driver.input_capture.channel})
+SSP_VECTOR_DEFINE_CHAN(agt_input_capture_compare_isr, AGT, COMPARE_A, ${module.driver.input_capture.channel});
+#endif
+static agt_input_capture_instance_ctrl_t ${module.driver.input_capture.name}_ctrl;
+static const agt_input_capture_extend_t ${module.driver.input_capture.name}_extend =
+{
+    .pulse_count_value      = ${module.driver.input_capture.pulse_count_value},
+    .signal_filter          = ${module.driver.input_capture.signal_filter},
+    .count_source           = ${module.driver.input_capture.count_source},
+    .clock_divider          = ${module.driver.input_capture.clock_divider},
+    .count_edge             = ${module.driver.input_capture.count_edge},
+    .pin_select             = ${module.driver.input_capture.pin_select},
+};
+static const input_capture_cfg_t ${module.driver.input_capture.name}_cfg =
+{
+    .channel             = ${module.driver.input_capture.channel},
+    .mode                = ${module.driver.input_capture.mode},
+    .edge                = ${module.driver.input_capture.signal_edge},
+    .repetition          = ${module.driver.input_capture.repetition},
+    .autostart           = ${module.driver.input_capture.autostart},
+    .p_callback          = ${module.driver.input_capture.p_callback},
+    .p_context           = &amp;${module.driver.input_capture.name},
+    .p_extend            = &amp;${module.driver.input_capture.name}_extend,
+    .capture_irq_ipl     = ${module.driver.input_capture.capture_ipl},
+    .overflow_irq_ipl    = ${module.driver.input_capture.overflow_ipl},
+};
+/* Instance structure to use this module. */
+const input_capture_instance_t ${module.driver.input_capture.name} = 
+{
+    .p_ctrl        = &amp;${module.driver.input_capture.name}_ctrl,
+    .p_cfg         = &amp;${module.driver.input_capture.name}_cfg,
+    .p_api         = &amp;g_input_capture_on_agt
+};
+
+</declarations>
+    </module>
+</synergyModuleDescription>

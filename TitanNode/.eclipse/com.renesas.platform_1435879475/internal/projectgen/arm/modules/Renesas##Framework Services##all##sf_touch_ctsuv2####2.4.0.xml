@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<synergyModuleDescription>
+    <config id="config.framework.sf_touch_ctsuv2" path="ssp_cfg/framework/sf_touch_ctsuv2_cfg.h" version="0">
+        <property default="config.framework.sf_touch_ctsuv2.param_checking_enable.bsp" display="Parameter Checking" id="config.framework.sf_touch_ctsuv2.param_checking_enable" description="If selected code for parameter checking is included in the build.">
+            <option display="Default (BSP)" id="config.framework.sf_touch_ctsuv2.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.framework.sf_touch_ctsuv2.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.framework.sf_touch_ctsuv2.param_checking_enable.disabled" value="(0)"/>
+        </property>
+
+        <property default="config.framework.sf_touch_ctsuv2.uart_support.disabled" display="Support for QE monitoring using UART" id="config.framework.sf_touch_ctsuv2.uart_support" description="Enable SCI_UART support for QE monitoring.">
+            <option display="Enabled" id="config.framework.sf_touch_ctsuv2.uart_support.enabled" value="(1)"/>
+            <option display="Disabled" id="config.framework.sf_touch_ctsuv2.uart_support.disabled" value="(0)"/>
+        </property>
+
+        <content>   #define SF_TOUCH_CTSU_CFG_PARAM_CHECKING_ENABLE   ${config.framework.sf_touch_ctsuv2.param_checking_enable}
+                    #define SF_TOUCH_CTSU_CFG_UART_MONITOR_SUPPORT    ${config.framework.sf_touch_ctsuv2.uart_support}
+                    #ifndef QE_TOUCH_CONFIGURATION
+                    #define SF_TOUCH_CTSU_CFG_MONITOR_ENABLE          (0)
+                    #define SF_TOUCH_CTSU_CFG_NUM_BUTTONS             (1)
+                    #define SF_TOUCH_CTSU_CFG_NUM_SLIDERS             (0)
+                    #define SF_TOUCH_CTSU_CFG_NUM_WHEELS              (0)
+                    #endif
+        </content>
+    </config>
+    <module common="1" config="config.framework.sf_touch_ctsuv2" display="Framework|Input| Cap Touch Framework on sf_touch_ctsuv2" id="module.framework.sf_touch_ctsu_on_sf_touch_ctsuv2" version="1" category="framework" url="https://en-support.renesas.com/knowledgeBase/17914325">
+        <constraint display="Unique name required for each instance">
+            "${interface.framework.sf_touch_ctsuv2.${module.framework.sf_touch_ctsuv2.name}}" === "1"
+        </constraint>
+        <constraint display="Requires touch Peripheral">
+            "${interface.mcu.ctsu.external}" === "1"
+        </constraint>
+        <constraint display="UART support must be enabled to use UART">
+            ("${config.framework.sf_touch_ctsuv2.uart_support}" === "config.framework.sf_touch_ctsuv2.uart_support.enabled") ||
+            ((!testExists("${module.framework.sf_touch_ctsu_on_sf_touch_ctsuv2.requires.uart::module.driver.uart.name}")))
+        </constraint>
+        <constraint display="Requires SCI_UART module">
+            ("${config.framework.sf_touch_ctsuv2.uart_support}" === "config.framework.sf_touch_ctsuv2.uart_support.disabled") ||
+            ((testExists("${module.framework.sf_touch_ctsu_on_sf_touch_ctsuv2.requires.uart::module.driver.uart.name}")))
+        </constraint>
+        <requires id="module.framework.sf_touch_ctsu_on_sf_touch_ctsuv2.requires.touch" interface="interface.mcu.ctsu.external" visible="false" display="Requires TOUCH Peripheral" />
+
+        <requires id="module.framework.sf_touch_ctsu_on_sf_touch_ctsuv2.requires.ctsu" interface="interface.driver.ctsu_on_ctsuv2" display="Add CTSU Driver" />
+        <requires id="module.framework.sf_touch_ctsu_on_sf_touch_ctsuv2.requires.uart" interface="interface.driver.uart_on_sci_uart" display="Add SCI UART Driver for monitor of QE" find="false">
+            <override property="module.driver.uart.name" value="g_uart_qe"/>
+            <override property="module.driver.uart.data_bits" value="module.driver.uart.data_bits.data_bits_8"/>
+            <override property="module.driver.uart.parity" value="module.driver.uart.parity.parity_off"/>
+            <override property="module.driver.uart.stop_bits" value="module.driver.uart.stop_bits.stop_bits_1"/>
+            <override property="module.driver.uart.callback" value="sf_touch_ctsu_uart_callback"/>
+        </requires>
+
+        <provides interface="interface.framework.sf_touch_ctsuv2" />
+        <provides interface="interface.framework.sf_touch_ctsu_on_sf_touch_ctsuv2" />
+        <!-- touch configuration -->
+        <provides interface="interface.framework.sf_touch_ctsuv2.${module.framework.sf_touch_ctsuv2.name}" />
+        <property default="g_sf_touch_ctsuv2" id="module.framework.sf_touch_ctsuv2.name" description="Module name.">
+        </property>
+
+        <includes>
+            #include &quot;sf_touch_ctsuv2.h&quot;
+            #include &quot;sf_touch_ctsuv2_api.h&quot;
+        </includes>
+
+    </module>
+</synergyModuleDescription>

@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<synergyModuleDescription>
+    <config id="config.el.nxd_web_http_server" path="ssp_cfg/framework/el/nxd_web_http_server_cfg.h" version="0">
+        <property default="config.el.nxd_web_http_server.param_checking_enable.bsp_default" display="Parameter Checking" id="config.el.nxd_web_http_server.param_checking_enable">
+            <option display="Default (BSP)" id="config.el.nxd_web_http_server.param_checking_enable.bsp_default" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.el.nxd_web_http_server.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.el.nxd_web_http_server.param_checking_enable.disabled" value="(0)"/>
+        </property>
+        <property default="module.el.nxd_web_http_server.secure.disable" display="HTTPS Support" id="module.el.nxd_web_http_server.secure" description="This configuration property adds/removes Web HTTP server secure APIs from NetX code. This option can be disabled for code optimization" >
+            <option display="Enable"  id="module.el.nxd_web_http_server.secure.enable"  value="1"/>
+            <option display="Disable" id="module.el.nxd_web_http_server.secure.disable" value="0"/>
+        </property>
+        <property default="config.el.nxd_web_http_server.filex.enable" display="FileX Support" id="config.el.nxd_web_http_server.filex" description="Enables/Disables FileX Support" >
+            <option display="Disable" id="config.el.nxd_web_http_server.filex.disable" value="0"/>
+            <option display="Enable" id="config.el.nxd_web_http_server.filex.enable" value="1"/>
+        </property>
+        <property default="config.el.nxd_web_http_server.multipart.disable" display="Multipart HTTP requests support" id="config.el.nxd_web_http_server.multipart" description="Enables/Disables Multipart HTTP requests Support" >
+            <option display="Disable" id="config.el.nxd_web_http_server.multipart.disable" value="0"/>
+            <option display="Enable" id="config.el.nxd_web_http_server.multipart.enable" value="1"/>
+        </property>
+        <property default="16" display="Server thread priority" id="config.el.nxd_web_http_server.priority" description="Priority of HTTP Server thread" >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.priority}")  &amp;&amp; ("${config.el.nxd_web_http_server.priority}" &gt;= 0)
+            </constraint>
+        </property>
+         <property default="2" id="config.el.nxd_web_http_server.time_slice" display="Server thread time slicing interval (ticks)"
+            description="Number of timer-ticks this thread is allowed to run before other ready threads of the same priority are given a chance to run. Legal time-slice values range from 1 to 0xFFFFFFFF (inclusive). A value of TX_NO_TIME_SLICE (a value of 0) disables time-slicing of this thread." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.time_slice}")  &amp;&amp; ("${config.el.nxd_web_http_server.time_slice}" &gt;= 0)
+            </constraint>
+         </property>
+        <property default="2048" display="Server socket window size (bytes)" id="config.el.nxd_web_http_server.server_window_size" description="Window size of Server socket" >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.server_window_size}")  &amp;&amp; ("${config.el.nxd_web_http_server.server_window_size}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="10" display="Server time out (seconds)" id="config.el.nxd_web_http_server.server_timeout" description=" Number of ThreadX ticks for which internal services of server will suspend" >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.server_timeout}")  &amp;&amp; ("${config.el.nxd_web_http_server.server_timeout}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="10" display="Server time out for accept (seconds)" id="config.el.nxd_web_http_server.server_timeout_accept" description=" Specifies the number of ThreadX ticks that internal services will suspend for in internal nx_tcp_server_socket_accept() calls.">
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.server_timeout_accept}")  &amp;&amp; ("${config.el.nxd_web_http_server.server_timeout_accept}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="10" display="Server time out for disconnect (seconds)" id="config.el.nxd_web_http_server.server_timeout_disconnect" description=" Specifies the number of ThreadX ticks that internal services will suspend for in internal nx_tcp_socket_disconnect() calls." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.server_timeout_disconnect}")  &amp;&amp; ("${config.el.nxd_web_http_server.server_timeout_disconnect}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="10" display="Server time out for receive (seconds)" id="config.el.nxd_web_http_server.server_timeout_receive" description=" Specifies the number of ThreadX ticks that internal services will suspend for in internal nx_tcp_socket_receive() calls." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.server_timeout_receive}")  &amp;&amp; ("${config.el.nxd_web_http_server.server_timeout_receive}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="10" display="Server time out for send (seconds)" id="config.el.nxd_web_http_server.server_timeout_send" description=" Specifies the number of ThreadX ticks that internal services will suspend for in internal nx_tcp_socket_send() calls." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.server_timeout_send}")  &amp;&amp; ("${config.el.nxd_web_http_server.server_timeout_send}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="256" display="Maximum size of header field (bytes)" id="config.el.nxd_web_http_server.max_header_field" description=" Specifies the maximum size of HTTP header field." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.max_header_field}")  &amp;&amp; ("${config.el.nxd_web_http_server.max_header_field}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="4" display="Maximum connections in queue" id="config.el.nxd_web_http_server.server_max_pending" description=" Specifies the number of connections that can be queued for the HTTP Server." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.server_max_pending}")  &amp;&amp; ("${config.el.nxd_web_http_server.server_max_pending}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="40" display="Maximum length of resource name" id="config.el.nxd_web_http_server.max_resource" description=" Specifies the length of resource name." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.max_resource}")  &amp;&amp; ("${config.el.nxd_web_http_server.max_resource}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="2" display="Number of simultaneous sessions for server" id="config.el.nxd_web_http_server.server_session_max" description=" Specifies the number of simultaneous sessions for an HTTP or HTTPS server. A TCP socket and a TLS session (if HTTPS is enabled) are allocated for each session. " >
+            <constraint display="Value must be a non-negative integer">
+               testInteger("${config.el.nxd_web_http_server.server_session_max}")  &amp;&amp; ("${config.el.nxd_web_http_server.server_session_max}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="600" display="Minimum size of packets in pool (bytes)" id="config.el.nxd_web_http_server.server_min_packet_size" description=" Specifies the minimum size of the packets in the pool at the time of Server creation. This ensures complete HTTP header can be contained in one packet. Make sure that this minimum size > (low level packet pool size - NX_PHYSICAL_TRAILER). NX_PHYSICAL_TRAILER can be obtained from code." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.server_min_packet_size}")  &amp;&amp; ("${config.el.nxd_web_http_server.server_min_packet_size}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="20" display="Maximum number of queued transmit packets (units)" id="config.el.nxd_web_http_server.transmit_queue_depth" description=" Specifies the maximum number of packets that can be enqueued on the Server socket retransmission queue. If the number of packets enqueued reaches this number, no more packets can be sent until one or more enqueued packets are released." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.transmit_queue_depth}")  &amp;&amp; ("${config.el.nxd_web_http_server.transmit_queue_depth}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="2" display="Server Socket Re-transmission Timeout (seconds)" id="config.el.nxd_web_http_server.retry_seconds" description=" Timeout for Server socket re-transmission." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.retry_seconds}")  &amp;&amp; ("${config.el.nxd_web_http_server.retry_seconds}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="10" display="Maximum number of retries per packet" id="config.el.nxd_web_http_server.retry_max" description=" Maximum number of re-transmissions on Server socket." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.retry_max}")  &amp;&amp; ("${config.el.nxd_web_http_server.retry_max}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="1" display="Server Next Re-transmission timeout shift" id="config.el.nxd_web_http_server.retry_shift" description=" This value is used to set the next retransmission timeout. The current timeout is multiplied by the number of retransmissions thus far, shifted by the value of the socket timeout shift." >
+            <constraint display="Value must be a non-negative integer">
+                testInteger("${config.el.nxd_web_http_server.retry_shift}")  &amp;&amp; ("${config.el.nxd_web_http_server.retry_shift}" &gt;= 0)
+            </constraint>
+        </property>
+        <content>
+            /* Defined, this option removes the basic Web HTTP server error checking */
+            #if ${config.el.nxd_web_http_server.param_checking_enable}
+            #define NX_DISABLE_ERROR_CHECKING
+            #endif
+   
+            /* Enabling NX Secure Component within Web HTTP Server Instance */
+            #if (${module.el.nxd_web_http_server.secure})
+            #ifndef NX_WEB_HTTPS_ENABLE
+            #define NX_WEB_HTTPS_ENABLE
+            #endif
+            #endif
+   
+            #if (!${config.el.nxd_web_http_server.filex})
+            #define NX_WEB_HTTP_NO_FILEX
+            #endif
+            #if (${config.el.nxd_web_http_server.multipart})
+            #define NX_WEB_HTTP_MULTIPART_ENABLE
+            #endif
+            #define NX_WEB_HTTP_SERVER_PRIORITY                     ${config.el.nxd_web_http_server.priority}
+            #define NX_WEB_HTTP_SERVER_WINDOW_SIZE                  ${config.el.nxd_web_http_server.server_window_size}
+            #define NX_WEB_HTTP_SERVER_TIMEOUT                      (${config.el.nxd_web_http_server.server_timeout} * NX_IP_PERIODIC_RATE)
+            #define NX_WEB_HTTP_SERVER_TIMEOUT_ACCEPT               (${config.el.nxd_web_http_server.server_timeout_accept} * NX_IP_PERIODIC_RATE)
+            #define NX_WEB_HTTP_SERVER_TIMEOUT_DISCONNECT           (${config.el.nxd_web_http_server.server_timeout_disconnect} * NX_IP_PERIODIC_RATE)
+            #define NX_WEB_HTTP_SERVER_TIMEOUT_RECEIVE              (${config.el.nxd_web_http_server.server_timeout_receive} * NX_IP_PERIODIC_RATE)
+            #define NX_WEB_HTTP_SERVER_TIMEOUT_SEND                 (${config.el.nxd_web_http_server.server_timeout_send} * NX_IP_PERIODIC_RATE)
+            #define NX_WEB_HTTP_MAX_HEADER_FIELD                    ${config.el.nxd_web_http_server.max_header_field}
+            #define NX_WEB_HTTP_SERVER_MAX_PENDING                  ${config.el.nxd_web_http_server.server_max_pending}
+            #define NX_WEB_HTTP_MAX_RESOURCE                        ${config.el.nxd_web_http_server.max_resource}
+            #define NX_WEB_HTTP_SERVER_SESSION_MAX                  ${config.el.nxd_web_http_server.server_session_max}
+            #define NX_WEB_HTTP_SERVER_MIN_PACKET_SIZE              ${config.el.nxd_web_http_server.server_min_packet_size}
+            #define NX_WEB_HTTP_SERVER_THREAD_TIME_SLICE            ${config.el.nxd_web_http_server.time_slice}
+            #define NX_WEB_HTTP_SERVER_TRANSMIT_QUEUE_DEPTH         ${config.el.nxd_web_http_server.transmit_queue_depth}
+            #define NX_WEB_HTTP_SERVER_RETRY_SECONDS                ${config.el.nxd_web_http_server.retry_seconds}
+            #define NX_WEB_HTTP_SERVER_RETRY_MAX                    ${config.el.nxd_web_http_server.retry_max}
+            #define NX_WEB_HTTP_SERVER_RETRY_SHIFT                  ${config.el.nxd_web_http_server.retry_shift}
+        </content>
+    </config>
+    <module config="config.el.nxd_web_http_server" display="X-Ware|NetX Duo|Protocols|${module.el.nxd_web_http_server.name} NetX Duo Web HTTP/HTTPS Server" id="module.el.nxd_web_http_server" version="1" url="https://en-support.renesas.com/knowledgeBase/18684960">
+        <constraint display="Module instances must have unique names">
+            "${interface.el.nxd_web_http_server.${module.el.nxd_web_http_server.name}}" === "1"
+        </constraint>
+        <constraint display="If FileX Stub module is used then 'FileX support' must be 'Disabled' from the properties of Web HTTP Server">
+            (!testExists("${interface.el.fx_stub}") &amp;&amp; ("${config.el.nxd_web_http_server.filex}" === "config.el.nxd_web_http_server.filex.enable")) ||
+            (testExists("${interface.el.fx_stub}") &amp;&amp; ("${config.el.nxd_web_http_server.filex}" === "config.el.nxd_web_http_server.filex.disable"))
+        </constraint>
+        <!-- Highlight Error when HTTPS Support is enabled and TLS Common block is missing -->
+        <constraint display ="Requires NetX Duo TLS Common">
+        ("${module.el.nxd_web_http_server.secure}" === "module.el.nxd_web_http_server.secure.disable") || (testExists("${module.el.nxd_web_http_server.requires.nxd_tls_common::module.el.nxd_tls_common.name}") === true)
+        </constraint>
+        <requires interface="_rtos" />
+        <requires id="module.el.nxd_web_http_server.requires.nxd.ip" interface="interface.el.nxd.ip" display="Add NetX Duo IP Instance" >
+            <override property="module.el.nx.ip.arp" value="module.el.nx.ip.arp.enable" />
+            <override property="module.el.nx.ip.tcp" value="module.el.nx.ip.tcp.enable" />
+        </requires>
+        <requires id="module.el.nxd_web_http_server.requires.fx" interface="interface.el.fx" display="Add FileX" />
+        <requires id="module.el.nxd_web_http_server.requires.nxd.packet_pool" interface="interface.el.nxd.packet_pool" display="Add NetX Duo Packet Pool" />
+        <requires id="module.el.nxd_web_http_server.requires.nxd_web_http_common" interface="interface.el.nxd_web_http_common" display="Add Web HTTP Common" />
+       <requires id="module.el.nxd_web_http_server.requires.nxd_tls_common" interface="interface.el.nxd_tls_common" display="Add NetX Duo TLS Common [Optional]" find="false" />
+        <!-- NetX Duo only -->
+        <provides interface="interface.el.nxd_web_http_server" />
+        <provides interface="interface.el.nxd_web_http_server.${module.el.nxd_web_http_server.name}" />
+
+        <property default="g_web_http_server${_instance}" display="Name" id="module.el.nxd_web_http_server.name">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd_web_http_server.name}")</constraint>
+        </property>
+        <property default="4096" display="Internal thread stack size (bytes)" id="module.el.nxd_web_http_server.stack_size" description=" Thread stack size of HTTP Server" >
+            <constraint display="Value must be a non-negative integer and divisible by 8">
+                testInteger("${module.el.nxd_web_http_server.stack_size}")  &amp;&amp; (("${module.el.nxd_web_http_server.stack_size}" % 8) == 0) &amp;&amp; ("${module.el.nxd_web_http_server.stack_size}" &gt;= 0)
+            </constraint>
+        </property>
+        <property default="80" display="TCP listening port for HTTP/HTTPS Server" id="module.el.nxd_web_http_server.port_number" description=" TCP listening port for server instance" >
+            <constraint display="Value must be in range 0 to 65535"> testInteger("${module.el.nxd_web_http_server.port_number}") &amp;&amp; ("${module.el.nxd_web_http_server.port_number}" &gt;= 0) &amp;&amp;("${module.el.nxd_web_http_server.port_number}" &lt; 65536) 
+            </constraint>
+        </property>
+        <property default="NULL" display="Name of Authentication Checking Callback Function" id="module.el.nxd_web_http_server.authentication_function" description=" Function pointer to application’s authentication checking routine. If specified, this routine is called for each HTTP Client request. If this parameter is NULL, no authentication will be performed." >
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd_web_http_server.authentication_function}")</constraint>
+        </property>
+        <property default="NULL" display="Name of Request Notify Callback Function" id="module.el.nxd_web_http_server.request_notify_function" description=" Function pointer to application’s request notify routine. If specified, this routine is called prior to the HTTP server processing of the request. This allows the resource name to be redirected or fields within a resource to be updated prior to completing the HTTP Client request. " >
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd_web_http_server.request_notify_function}")</constraint>
+        </property>
+        <property default="web_http_server_init${_instance}" display="Name of generated initialization function" id="module.el.nxd_web_http_server.init_function">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.nxd_web_http_server.init_function}")</constraint>
+        </property>
+        <property default="module.el.nxd_web_http_server.init.enable" display="Auto Initialization" id="module.el.nxd_web_http_server.init">
+            <option display="Enable"  id="module.el.nxd_web_http_server.init.enable"  value="1"/>
+            <option display="Disable" id="module.el.nxd_web_http_server.init.disable" value="0"/>
+        </property>
+        <header>
+            extern NX_WEB_HTTP_SERVER ${module.el.nxd_web_http_server.name};
+            #if !defined(${module.el.nxd_web_http_server.authentication_function})
+            UINT ${module.el.nxd_web_http_server.authentication_function}(NX_WEB_HTTP_SERVER *server_ptr, UINT request_type, CHAR *resource, CHAR **name, CHAR **password, CHAR **realm);
+            #endif
+            #if !defined(${module.el.nxd_web_http_server.request_notify_function})
+            UINT ${module.el.nxd_web_http_server.request_notify_function}(NX_WEB_HTTP_SERVER *server_ptr, UINT request_type, CHAR *resource, NX_PACKET *packet_ptr);
+            #endif
+            void ${module.el.nxd_web_http_server.name}_err_callback(void * p_instance, void * p_data);
+            void ${module.el.nxd_web_http_server.init_function}(void);
+        </header>
+        <includes>
+            #include "nx_web_http_server.h"
+        </includes>
+        <macros>
+        </macros>
+        <declarations>
+            NX_WEB_HTTP_SERVER  ${module.el.nxd_web_http_server.name};
+            uint8_t         ${module.el.nxd_web_http_server.name}_stack_memory[${module.el.nxd_web_http_server.stack_size}] BSP_PLACE_IN_SECTION_V2(".stack.${module.el.nxd_web_http_server.name}") BSP_ALIGN_VARIABLE_V2(BSP_STACK_ALIGNMENT);
+            #if defined(__ICCARM__)
+            #define ${module.el.nxd_web_http_server.name}_err_callback_WEAK_ATTRIBUTE
+            #pragma weak ${module.el.nxd_web_http_server.name}_err_callback  = ${module.el.nxd_web_http_server.name}_err_callback_internal
+            #elif defined(__GNUC__)
+            #define ${module.el.nxd_web_http_server.name}_err_callback_WEAK_ATTRIBUTE   __attribute__ ((weak, alias("${module.el.nxd_web_http_server.name}_err_callback_internal")))
+            #endif
+            void ${module.el.nxd_web_http_server.name}_err_callback(void * p_instance, void * p_data) ${module.el.nxd_web_http_server.name}_err_callback_WEAK_ATTRIBUTE;
+            /*******************************************************************************************************************//**
+               * @brief      This is a weak example initialization error function.  It should be overridden by defining a user  function
+               *             with the prototype below.
+               *             - void ${module.el.nxd_web_http_server.name}_err_callback(void * p_instance, void * p_data)
+               *
+               * @param[in]  p_instance arguments used to identify which instance caused the error and p_data Callback arguments used to identify what error caused the callback.
+             **********************************************************************************************************************/
+            void ${module.el.nxd_web_http_server.name}_err_callback_internal(void * p_instance, void * p_data);
+            void ${module.el.nxd_web_http_server.name}_err_callback_internal(void * p_instance, void * p_data)
+            {
+              /** Suppress compiler warning for not using parameters. */
+              SSP_PARAMETER_NOT_USED(p_instance);
+              SSP_PARAMETER_NOT_USED(p_data);
+
+              /** An error has occurred. Please check function arguments for more information. */
+              BSP_CFG_HANDLE_UNRECOVERABLE_ERROR(0);
+            }
+            /*******************************************************************************************************************//**
+             * @brief     Initialization function that the user can choose to have called automatically during thread entry.
+             *            The user can call this function at a later time if desired using the prototype below.
+             *            - void ${module.el.nxd_web_http_server.init_function}(void)
+             **********************************************************************************************************************/
+            void ${module.el.nxd_web_http_server.init_function}(void)
+            {
+                UINT ${module.el.nxd_web_http_server.name}_err;
+                /* Create HTTP Server. */
+                ${module.el.nxd_web_http_server.name}_err = nx_web_http_server_create(&amp;${module.el.nxd_web_http_server.name},
+                                                                             "${module.el.nxd_web_http_server.name} HTTP Server",
+                                                                             &amp;${module.el.nxd_web_http_server.requires.nxd.ip::module.el.nx.ip.name},
+                                                                             ${module.el.nxd_web_http_server.port_number},
+                                                                             &amp;
+                                                                             ${module.el.nxd_web_http_server.requires.fx::module.framework.fx.name},
+                                                                             &amp;${module.el.nxd_web_http_server.name}_stack_memory[0],
+                                                                             ${module.el.nxd_web_http_server.stack_size},
+                                                                             &amp;${module.el.nxd_web_http_server.requires.nxd.packet_pool::module.el.nx.packet_pool.name},
+                                                                             ${module.el.nxd_web_http_server.authentication_function},
+                                                                             ${module.el.nxd_web_http_server.request_notify_function});
+                if (NX_SUCCESS != ${module.el.nxd_web_http_server.name}_err)
+                {
+                    ${module.el.nxd_web_http_server.name}_err_callback((void *)&amp;${module.el.nxd_web_http_server.name},&amp;${module.el.nxd_web_http_server.name}_err);
+                }
+            }
+        </declarations>
+        <init>
+            /** Call initialization function if user has selected to do so. */
+            #if (${module.el.nxd_web_http_server.init})
+                ${module.el.nxd_web_http_server.init_function}();
+            #endif
+        </init>
+    </module>
+</synergyModuleDescription>

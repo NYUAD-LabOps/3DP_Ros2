@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deviceconfig>
+  <device>
+    <name>R7FS3A17C</name>
+    <series>Synergy</series>
+    <family>S3</family>
+    <server>
+      <params>
+        <param>-t R7FS3A17C</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+  </device>
+</deviceconfig>

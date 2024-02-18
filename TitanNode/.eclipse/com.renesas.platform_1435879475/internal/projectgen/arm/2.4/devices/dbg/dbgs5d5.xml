@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deviceconfig>
+  <device>
+    <name>R7FS5D57A</name>
+    <series>Synergy</series>
+    <family>S5</family>
+    <server>
+      <params>
+        <param>-t R7FS5D57A</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+  </device>
+  <device>
+    <name>R7FS5D57C</name>
+    <series>Synergy</series>
+    <family>S5</family>
+    <server>
+      <params>
+        <param>-t R7FS5D57C</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+  </device>
+</deviceconfig>

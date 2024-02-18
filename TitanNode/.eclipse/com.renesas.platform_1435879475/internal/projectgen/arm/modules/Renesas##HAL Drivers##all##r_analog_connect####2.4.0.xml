@@ -1,0 +1,1856 @@
+<?xml version="1.0" ?>
+<synergyModuleDescription>
+    <config id="config.driver.analog_connect" path="ssp_cfg/driver/r_analog_connect_cfg.h" version="0">
+        <property default="config.driver.analog_connect.param_checking_enable.bsp" display="Parameter Checking" id="config.driver.analog_connect.param_checking_enable" description="If selected code for parameter checking is included in the build.">
+            <option display="Default (BSP)" id="config.driver.analog_connect.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.driver.analog_connect.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.driver.analog_connect.param_checking_enable.disabled" value="(0)"/>
+        </property>
+        <content>#define ANALOG_CONNECT_CFG_PARAM_CHECKING_ENABLE ${config.driver.analog_connect.param_checking_enable}
+</content>
+    </config>
+    <module config="config.driver.analog_connect" display="Driver|Analog|${module.driver.analog_connect.name} Analog Connection Driver on r_analog_connect S124" id="module.driver.analog_connect_s124" version="1" common="1" url="https://en-support.renesas.com/knowledgeBase/18611532">
+        <constraint display="Unique name required for each instance">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.name}}" === "1")
+        </constraint>
+        <constraint display="Unique name required for each table name">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.table_name}}" === "1")
+        </constraint>
+        <requires id="interface.driver.analog_connect_s124.requires.mcu" visible="false" interface="interface.mcu.s124" display="Requires S124 MCU"/>
+        <provides interface="interface.driver.analog_connect" />
+        <provides interface="interface.driver.analog_connect_on_analog_connect" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.name}" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.table_name}" />
+        <property default="g_analog_connect${_instance}" display="Name" id="module.driver.analog_connect.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.name}")</constraint>
+        </property>
+        <property default="g_analog_connect${_instance}_table" display="Connection Table Name" id="module.driver.analog_connect.table_name" description="Connection table name.  The connection table is passed to the connectMultiple() API to make all configured connections.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.table_name}")</constraint>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" display="ACMPLP0 IVREF" id="module.driver.analog_connect.connection_acmplp0_ivref" description="Select the connection for ACMPLP0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ANALOG0_VREF"/>
+            <option display="PORT1 P101" id="module.driver.analog_connect.connection_acmplp0_ivref.port1_p101" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_PORT1_P101"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" display="ACMPLP1 IVREF" id="module.driver.analog_connect.connection_acmplp1_ivref" description="Select the connection for ACMPLP1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp1_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ANALOG0_VREF"/>
+            <option display="PORT1 P103" id="module.driver.analog_connect.connection_acmplp1_ivref.port1_p103" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_PORT1_P103"/>
+        </property>
+       <header>
+/** Analog Connection Instance. */
+extern const analog_connect_instance_t ${module.driver.analog_connect.name};
+extern const analog_connect_table_t ${module.driver.analog_connect.table_name};
+        </header>
+        <includes>
+#include &quot;r_analog_connect.h&quot;
+#include &quot;r_analog_connect_api.h&quot;
+        </includes>
+        <declarations>
+#define ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_t ${module.driver.analog_connect.name}_connections[] = 
+{
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref},
+#endif
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+    (analog_connect_t) 0, // Not a valid connection
+#endif
+};
+#ifdef ANALOG_CONNECT_CONNECTION_MADE
+const analog_connect_table_t ${module.driver.analog_connect.table_name} = {
+    .number_of_connections = sizeof(${module.driver.analog_connect.name}_connections)/sizeof(analog_connect_t),
+    .p_connection_table    = &amp;${module.driver.analog_connect.name}_connections[0],
+};
+#endif
+#undef ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_cfg_t ${module.driver.analog_connect.name}_cfg =
+{
+    .unused              = 0U,
+};
+/* Instance structure to use this module. */
+const analog_connect_instance_t ${module.driver.analog_connect.name} = 
+{
+    .p_cfg         = &amp;${module.driver.analog_connect.name}_cfg,
+    .p_api         = &amp;g_analog_connect_on_analog_connect
+};
+</declarations>
+    </module>
+
+    <module config="config.driver.analog_connect" display="Driver|Analog|${module.driver.analog_connect.name} Analog Connection Driver on r_analog_connect S128" id="module.driver.analog_connect_s128" version="1" common="1" url="https://en-support.renesas.com/knowledgeBase/18611532">
+        <constraint display="Unique name required for each instance">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.name}}" === "1")
+        </constraint>
+        <constraint display="Unique name required for each table name">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.table_name}}" === "1")
+        </constraint>
+        <requires id="interface.driver.analog_connect_s128.requires.mcu" visible="false" interface="interface.mcu.s128" display="Requires S128 MCU"/>
+        <provides interface="interface.driver.analog_connect" />
+        <provides interface="interface.driver.analog_connect_on_analog_connect" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.name}" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.table_name}" />
+        <property default="g_analog_connect${_instance}" display="Name" id="module.driver.analog_connect.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.name}")</constraint>
+        </property>
+        <property default="g_analog_connect${_instance}_table" display="Connection Table Name" id="module.driver.analog_connect.table_name" description="Connection table name.  The connection table is passed to the connectMultiple() API to make all configured connections.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.table_name}")</constraint>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" display="ACMPHS0 IVCMP" id="module.driver.analog_connect.connection_acmphs0_ivcmp" description="Select the connection for ACMPHS0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P013" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port0_p013" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT0_P013"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" display="ACMPHS0 IVREF" id="module.driver.analog_connect.connection_acmphs0_ivref" description="Select the connection for ACMPHS0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P012" id="module.driver.analog_connect.connection_acmphs0_ivref.port0_p012" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT0_P012"/>
+            <option display="DAC80 DA" id="module.driver.analog_connect.connection_acmphs0_ivref.dac80_da" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_DAC80_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" display="ACMPHS1 IVCMP" id="module.driver.analog_connect.connection_acmphs1_ivcmp" description="Select the connection for ACMPHS1 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P015" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port0_p015" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT0_P015"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" display="ACMPHS1 IVREF" id="module.driver.analog_connect.connection_acmphs1_ivref" description="Select the connection for ACMPHS1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P014" id="module.driver.analog_connect.connection_acmphs1_ivref.port0_p014" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT0_P014"/>
+            <option display="DAC80 DA" id="module.driver.analog_connect.connection_acmphs1_ivref.dac80_da" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_DAC80_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs2_ivcmp.no_connection" display="ACMPHS2 IVCMP" id="module.driver.analog_connect.connection_acmphs2_ivcmp" description="Select the connection for ACMPHS2 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs2_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P000" id="module.driver.analog_connect.connection_acmphs2_ivcmp.port0_p000" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_PORT0_P000"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs2_ivref.no_connection" display="ACMPHS2 IVREF" id="module.driver.analog_connect.connection_acmphs2_ivref" description="Select the connection for ACMPHS2 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs2_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P001" id="module.driver.analog_connect.connection_acmphs2_ivref.port0_p001" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_PORT0_P001"/>
+            <option display="DAC80 DA" id="module.driver.analog_connect.connection_acmphs2_ivref.dac80_da" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_DAC80_DA"/>
+            <option display="DAC82 DA" id="module.driver.analog_connect.connection_acmphs2_ivref.dac82_da" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_DAC82_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref0.no_connection" display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp0_ivref0" description="Select the connection for ACMPLP0 IVREF0.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref0.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P101" id="module.driver.analog_connect.connection_acmplp0_ivref0.port1_p101" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_PORT1_P101"/>
+            <option display="DAC80 DA" id="module.driver.analog_connect.connection_acmplp0_ivref0.dac80_da" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_DAC80_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref1.no_connection" display="ACMPLP1 IVREF1" id="module.driver.analog_connect.connection_acmplp1_ivref1" description="Select the connection for ACMPLP1 IVREF1.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref1.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P103" id="module.driver.analog_connect.connection_acmplp1_ivref1.port1_p103" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_PORT1_P103"/>
+            <option display="DAC81 DA" id="module.driver.analog_connect.connection_acmplp1_ivref1.dac81_da" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_DAC81_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivcmp.no_connection" display="ACMPLP0 IVCMP" id="module.driver.analog_connect.connection_acmplp0_ivcmp" description="Select the connection for ACMPLP0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P100" id="module.driver.analog_connect.connection_acmplp0_ivcmp.port1_p100" value="ANALOG_CONNECT_ACMPLP0_IVCMP_TO_PORT1_P100"/>
+            <option display="OPAMP1 AMPO" id="module.driver.analog_connect.connection_acmplp0_ivcmp.opamp1_ampo" value="ANALOG_CONNECT_ACMPLP0_IVCMP_TO_OPAMP1_AMPO"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" display="ACMPLP0 IVREF" id="module.driver.analog_connect.connection_acmplp0_ivref" description="Select the connection for ACMPLP0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ANALOG0_VREF"/>
+            <option display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp0_ivref.acmplp0_ivref0" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ACMPLP0_IVREF0"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivcmp.no_connection" display="ACMPLP1 IVCMP" id="module.driver.analog_connect.connection_acmplp1_ivcmp" description="Select the connection for ACMPLP1 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P102" id="module.driver.analog_connect.connection_acmplp1_ivcmp.port1_p102" value="ANALOG_CONNECT_ACMPLP1_IVCMP_TO_PORT1_P102"/>
+            <option display="OPAMP2 AMPO" id="module.driver.analog_connect.connection_acmplp1_ivcmp.opamp2_ampo" value="ANALOG_CONNECT_ACMPLP1_IVCMP_TO_OPAMP2_AMPO"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" display="ACMPLP1 IVREF" id="module.driver.analog_connect.connection_acmplp1_ivref" description="Select the connection for ACMPLP1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp1_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ANALOG0_VREF"/>
+            <option display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp1_ivref.acmplp0_ivref0" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ACMPLP0_IVREF0"/>
+            <option display="ACMPLP1 IVREF1" id="module.driver.analog_connect.connection_acmplp1_ivref.acmplp1_ivref1" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ACMPLP1_IVREF1"/>
+        </property>
+       <header>
+/** Analog Connection Instance. */
+extern const analog_connect_instance_t ${module.driver.analog_connect.name};
+extern const analog_connect_table_t ${module.driver.analog_connect.table_name};
+        </header>
+        <includes>
+#include &quot;r_analog_connect.h&quot;
+#include &quot;r_analog_connect_api.h&quot;
+        </includes>
+        <declarations>
+#define ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_t ${module.driver.analog_connect.name}_connections[] = 
+{
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs2_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs2_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs2_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs2_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref0}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref0},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref1}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref1},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref},
+#endif
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+    (analog_connect_t) 0, // Not a valid connection
+#endif
+};
+#ifdef ANALOG_CONNECT_CONNECTION_MADE
+const analog_connect_table_t ${module.driver.analog_connect.table_name} = {
+    .number_of_connections = sizeof(${module.driver.analog_connect.name}_connections)/sizeof(analog_connect_t),
+    .p_connection_table    = &amp;${module.driver.analog_connect.name}_connections[0],
+};
+#endif
+#undef ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_cfg_t ${module.driver.analog_connect.name}_cfg =
+{
+    .unused              = 0U,
+};
+/* Instance structure to use this module. */
+const analog_connect_instance_t ${module.driver.analog_connect.name} = 
+{
+    .p_cfg         = &amp;${module.driver.analog_connect.name}_cfg,
+    .p_api         = &amp;g_analog_connect_on_analog_connect
+};
+</declarations>
+    </module>
+
+    <module config="config.driver.analog_connect" display="Driver|Analog|${module.driver.analog_connect.name} Analog Connection Driver on r_analog_connect S1JA" id="module.driver.analog_connect_s1ja" version="1" common="1" url="https://en-support.renesas.com/knowledgeBase/18611532">
+        <constraint display="Unique name required for each instance">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.name}}" === "1")
+        </constraint>
+        <constraint display="Unique name required for each table name">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.table_name}}" === "1")
+        </constraint>
+        <requires id="interface.driver.analog_connect_s1ja.requires.mcu" visible="false" interface="interface.mcu.s1ja" display="Requires S1JA MCU"/>
+        <provides interface="interface.driver.analog_connect" />
+        <provides interface="interface.driver.analog_connect_on_analog_connect" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.name}" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.table_name}" />
+        <property default="g_analog_connect${_instance}" display="Name" id="module.driver.analog_connect.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.name}")</constraint>
+        </property>
+        <property default="g_analog_connect${_instance}_table" display="Connection Table Name" id="module.driver.analog_connect.table_name" description="Connection table name.  The connection table is passed to the connectMultiple() API to make all configured connections.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.table_name}")</constraint>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" display="ACMPHS0 IVCMP" id="module.driver.analog_connect.connection_acmphs0_ivcmp" description="Select the connection for ACMPHS0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port5_p500" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT5_P500"/>
+            <option display="PORT0 P013" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port0_p013" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT0_P013"/>
+            <option display="PORT1 P100" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port1_p100" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT1_P100"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" display="ACMPHS0 IVREF" id="module.driver.analog_connect.connection_acmphs0_ivref" description="Select the connection for ACMPHS0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs0_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT5_P501"/>
+            <option display="PORT0 P014" id="module.driver.analog_connect.connection_acmphs0_ivref.port0_p014" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT0_P014"/>
+            <option display="PORT1 P101" id="module.driver.analog_connect.connection_acmphs0_ivref.port1_p101" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT1_P101"/>
+            <option display="DAC80 DA" id="module.driver.analog_connect.connection_acmphs0_ivref.dac80_da" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_DAC80_DA"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs0_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_DAC120_DA"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_ANALOG0_VREF"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref0.no_connection" display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp0_ivref0" description="Select the connection for ACMPLP0 IVREF0.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref0.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P109" id="module.driver.analog_connect.connection_acmplp0_ivref0.port1_p109" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_PORT1_P109"/>
+            <option display="DAC80 DA" id="module.driver.analog_connect.connection_acmplp0_ivref0.dac80_da" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_DAC80_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref1.no_connection" display="ACMPLP1 IVREF1" id="module.driver.analog_connect.connection_acmplp1_ivref1" description="Select the connection for ACMPLP1 IVREF1.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref1.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P110" id="module.driver.analog_connect.connection_acmplp1_ivref1.port1_p110" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_PORT1_P110"/>
+            <option display="DAC81 DA" id="module.driver.analog_connect.connection_acmplp1_ivref1.dac81_da" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_DAC81_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivcmp.no_connection" display="ACMPLP0 IVCMP" id="module.driver.analog_connect.connection_acmplp0_ivcmp" description="Select the connection for ACMPLP0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT4 P400" id="module.driver.analog_connect.connection_acmplp0_ivcmp.port4_p400" value="ANALOG_CONNECT_ACMPLP0_IVCMP_TO_PORT4_P400"/>
+            <option display="OPAMP0 AMPO" id="module.driver.analog_connect.connection_acmplp0_ivcmp.opamp0_ampo" value="ANALOG_CONNECT_ACMPLP0_IVCMP_TO_OPAMP0_AMPO"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" display="ACMPLP0 IVREF" id="module.driver.analog_connect.connection_acmplp0_ivref" description="Select the connection for ACMPLP0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ANALOG0_VREF"/>
+            <option display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp0_ivref.acmplp0_ivref0" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ACMPLP0_IVREF0"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivcmp.no_connection" display="ACMPLP1 IVCMP" id="module.driver.analog_connect.connection_acmplp1_ivcmp" description="Select the connection for ACMPLP1 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT4 P408" id="module.driver.analog_connect.connection_acmplp1_ivcmp.port4_p408" value="ANALOG_CONNECT_ACMPLP1_IVCMP_TO_PORT4_P408"/>
+            <option display="OPAMP1 AMPO" id="module.driver.analog_connect.connection_acmplp1_ivcmp.opamp1_ampo" value="ANALOG_CONNECT_ACMPLP1_IVCMP_TO_OPAMP1_AMPO"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" display="ACMPLP1 IVREF" id="module.driver.analog_connect.connection_acmplp1_ivref" description="Select the connection for ACMPLP1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp1_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ANALOG0_VREF"/>
+            <option display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp1_ivref.acmplp0_ivref0" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ACMPLP0_IVREF0"/>
+            <option display="ACMPLP1 IVREF1" id="module.driver.analog_connect.connection_acmplp1_ivref.acmplp1_ivref1" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ACMPLP1_IVREF1"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_opamp0_ampo.no_connection" display="OPAMP0 AMPO" id="module.driver.analog_connect.connection_opamp0_ampo" description="Select the connection for OPAMP0 AMPO.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_opamp0_ampo.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P014" id="module.driver.analog_connect.connection_opamp0_ampo.port0_p014" value="ANALOG_CONNECT_OPAMP0_AMPO_TO_PORT0_P014"/>
+            <option display="PORT0 P013" id="module.driver.analog_connect.connection_opamp0_ampo.port0_p013" value="ANALOG_CONNECT_OPAMP0_AMPO_TO_PORT0_P013"/>
+            <option display="PORT0 P003" id="module.driver.analog_connect.connection_opamp0_ampo.port0_p003" value="ANALOG_CONNECT_OPAMP0_AMPO_TO_PORT0_P003"/>
+            <option display="PORT0 P002" id="module.driver.analog_connect.connection_opamp0_ampo.port0_p002" value="ANALOG_CONNECT_OPAMP0_AMPO_TO_PORT0_P002"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_opamp0_ampm.no_connection" display="OPAMP0 AMPM" id="module.driver.analog_connect.connection_opamp0_ampm" description="Select the connection for OPAMP0 AMPM.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_opamp0_ampm.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_opamp0_ampm.port5_p501" value="ANALOG_CONNECT_OPAMP0_AMPM_TO_PORT5_P501"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_opamp0_ampm.port5_p500" value="ANALOG_CONNECT_OPAMP0_AMPM_TO_PORT5_P500"/>
+            <option display="PORT0 P014" id="module.driver.analog_connect.connection_opamp0_ampm.port0_p014" value="ANALOG_CONNECT_OPAMP0_AMPM_TO_PORT0_P014"/>
+            <option display="PORT0 P013" id="module.driver.analog_connect.connection_opamp0_ampm.port0_p013" value="ANALOG_CONNECT_OPAMP0_AMPM_TO_PORT0_P013"/>
+            <option display="PORT0 P003" id="module.driver.analog_connect.connection_opamp0_ampm.port0_p003" value="ANALOG_CONNECT_OPAMP0_AMPM_TO_PORT0_P003"/>
+            <option display="OPAMP0 AMPO" id="module.driver.analog_connect.connection_opamp0_ampm.opamp0_ampo" value="ANALOG_CONNECT_OPAMP0_AMPM_TO_OPAMP0_AMPO"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_opamp0_ampp.no_connection" display="OPAMP0 AMPP" id="module.driver.analog_connect.connection_opamp0_ampp" description="Select the connection for OPAMP0 AMPP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_opamp0_ampp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_opamp0_ampp.port5_p500" value="ANALOG_CONNECT_OPAMP0_AMPP_TO_PORT5_P500"/>
+            <option display="PORT0 P014" id="module.driver.analog_connect.connection_opamp0_ampp.port0_p014" value="ANALOG_CONNECT_OPAMP0_AMPP_TO_PORT0_P014"/>
+            <option display="PORT0 P013" id="module.driver.analog_connect.connection_opamp0_ampp.port0_p013" value="ANALOG_CONNECT_OPAMP0_AMPP_TO_PORT0_P013"/>
+            <option display="PORT0 P002" id="module.driver.analog_connect.connection_opamp0_ampp.port0_p002" value="ANALOG_CONNECT_OPAMP0_AMPP_TO_PORT0_P002"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_opamp0_ampp.dac120_da" value="ANALOG_CONNECT_OPAMP0_AMPP_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_opamp1_ampm.no_connection" display="OPAMP1 AMPM" id="module.driver.analog_connect.connection_opamp1_ampm" description="Select the connection for OPAMP1 AMPM.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_opamp1_ampm.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P014" id="module.driver.analog_connect.connection_opamp1_ampm.port0_p014" value="ANALOG_CONNECT_OPAMP1_AMPM_TO_PORT0_P014"/>
+            <option display="OPAMP1 AMPO" id="module.driver.analog_connect.connection_opamp1_ampm.opamp1_ampo" value="ANALOG_CONNECT_OPAMP1_AMPM_TO_OPAMP1_AMPO"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_opamp1_ampp.no_connection" display="OPAMP1 AMPP" id="module.driver.analog_connect.connection_opamp1_ampp" description="Select the connection for OPAMP1 AMPP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_opamp1_ampp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P014" id="module.driver.analog_connect.connection_opamp1_ampp.port0_p014" value="ANALOG_CONNECT_OPAMP1_AMPP_TO_PORT0_P014"/>
+            <option display="PORT0 P013" id="module.driver.analog_connect.connection_opamp1_ampp.port0_p013" value="ANALOG_CONNECT_OPAMP1_AMPP_TO_PORT0_P013"/>
+            <option display="PORT0 P003" id="module.driver.analog_connect.connection_opamp1_ampp.port0_p003" value="ANALOG_CONNECT_OPAMP1_AMPP_TO_PORT0_P003"/>
+            <option display="PORT0 P002" id="module.driver.analog_connect.connection_opamp1_ampp.port0_p002" value="ANALOG_CONNECT_OPAMP1_AMPP_TO_PORT0_P002"/>
+            <option display="DAC80 DA" id="module.driver.analog_connect.connection_opamp1_ampp.dac80_da" value="ANALOG_CONNECT_OPAMP1_AMPP_TO_DAC80_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_opamp2_ampm.no_connection" display="OPAMP2 AMPM" id="module.driver.analog_connect.connection_opamp2_ampm" description="Select the connection for OPAMP2 AMPM.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_opamp2_ampm.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P003" id="module.driver.analog_connect.connection_opamp2_ampm.port0_p003" value="ANALOG_CONNECT_OPAMP2_AMPM_TO_PORT0_P003"/>
+            <option display="OPAMP2 AMPO" id="module.driver.analog_connect.connection_opamp2_ampm.opamp2_ampo" value="ANALOG_CONNECT_OPAMP2_AMPM_TO_OPAMP2_AMPO"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_opamp2_ampp.no_connection" display="OPAMP2 AMPP" id="module.driver.analog_connect.connection_opamp2_ampp" description="Select the connection for OPAMP2 AMPP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_opamp2_ampp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P003" id="module.driver.analog_connect.connection_opamp2_ampp.port0_p003" value="ANALOG_CONNECT_OPAMP2_AMPP_TO_PORT0_P003"/>
+            <option display="PORT0 P002" id="module.driver.analog_connect.connection_opamp2_ampp.port0_p002" value="ANALOG_CONNECT_OPAMP2_AMPP_TO_PORT0_P002"/>
+            <option display="DAC81 DA" id="module.driver.analog_connect.connection_opamp2_ampp.dac81_da" value="ANALOG_CONNECT_OPAMP2_AMPP_TO_DAC81_DA"/>
+        </property>
+       <header>
+/** Analog Connection Instance. */
+extern const analog_connect_instance_t ${module.driver.analog_connect.name};
+extern const analog_connect_table_t ${module.driver.analog_connect.table_name};
+        </header>
+        <includes>
+#include &quot;r_analog_connect.h&quot;
+#include &quot;r_analog_connect_api.h&quot;
+        </includes>
+        <declarations>
+#define ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_t ${module.driver.analog_connect.name}_connections[] = 
+{
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref0}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref0},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref1}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref1},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_opamp0_ampo}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_opamp0_ampo},
+#endif
+#ifndef ${module.driver.analog_connect.connection_opamp0_ampm}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_opamp0_ampm},
+#endif
+#ifndef ${module.driver.analog_connect.connection_opamp0_ampp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_opamp0_ampp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_opamp1_ampm}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_opamp1_ampm},
+#endif
+#ifndef ${module.driver.analog_connect.connection_opamp1_ampp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_opamp1_ampp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_opamp2_ampm}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_opamp2_ampm},
+#endif
+#ifndef ${module.driver.analog_connect.connection_opamp2_ampp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_opamp2_ampp},
+#endif
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+    (analog_connect_t) 0, // Not a valid connection
+#endif
+};
+#ifdef ANALOG_CONNECT_CONNECTION_MADE
+const analog_connect_table_t ${module.driver.analog_connect.table_name} = {
+    .number_of_connections = sizeof(${module.driver.analog_connect.name}_connections)/sizeof(analog_connect_t),
+    .p_connection_table    = &amp;${module.driver.analog_connect.name}_connections[0],
+};
+#endif
+#undef ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_cfg_t ${module.driver.analog_connect.name}_cfg =
+{
+    .unused              = 0U,
+};
+/* Instance structure to use this module. */
+const analog_connect_instance_t ${module.driver.analog_connect.name} = 
+{
+    .p_cfg         = &amp;${module.driver.analog_connect.name}_cfg,
+    .p_api         = &amp;g_analog_connect_on_analog_connect
+};
+</declarations>
+    </module>
+
+    <module config="config.driver.analog_connect" display="Driver|Analog|${module.driver.analog_connect.name} Analog Connection Driver on r_analog_connect S3A1" id="module.driver.analog_connect_s3a1" version="1" common="1" url="https://en-support.renesas.com/knowledgeBase/18611532">
+        <constraint display="Unique name required for each instance">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.name}}" === "1")
+        </constraint>
+        <constraint display="Unique name required for each table name">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.table_name}}" === "1")
+        </constraint>
+        <requires id="interface.driver.analog_connect_s3a1.requires.mcu" visible="false" interface="interface.mcu.s3a1" display="Requires S3A1 MCU"/>
+        <provides interface="interface.driver.analog_connect" />
+        <provides interface="interface.driver.analog_connect_on_analog_connect" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.name}" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.table_name}" />
+        <property default="g_analog_connect${_instance}" display="Name" id="module.driver.analog_connect.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.name}")</constraint>
+        </property>
+        <property default="g_analog_connect${_instance}_table" display="Connection Table Name" id="module.driver.analog_connect.table_name" description="Connection table name.  The connection table is passed to the connectMultiple() API to make all configured connections.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.table_name}")</constraint>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref0.no_connection" display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp0_ivref0" description="Select the connection for ACMPLP0 IVREF0.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref0.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P101" id="module.driver.analog_connect.connection_acmplp0_ivref0.port1_p101" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_PORT1_P101"/>
+            <option display="DAC80 DA" id="module.driver.analog_connect.connection_acmplp0_ivref0.dac80_da" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_DAC80_DA"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmplp0_ivref0.port5_p502" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_PORT5_P502"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref1.no_connection" display="ACMPLP1 IVREF1" id="module.driver.analog_connect.connection_acmplp1_ivref1" description="Select the connection for ACMPLP1 IVREF1.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref1.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P103" id="module.driver.analog_connect.connection_acmplp1_ivref1.port1_p103" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_PORT1_P103"/>
+            <option display="DAC81 DA" id="module.driver.analog_connect.connection_acmplp1_ivref1.dac81_da" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_DAC81_DA"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmplp1_ivref1.port5_p500" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_PORT5_P500"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivcmp.no_connection" display="ACMPLP0 IVCMP" id="module.driver.analog_connect.connection_acmplp0_ivcmp" description="Select the connection for ACMPLP0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P100" id="module.driver.analog_connect.connection_acmplp0_ivcmp.port1_p100" value="ANALOG_CONNECT_ACMPLP0_IVCMP_TO_PORT1_P100"/>
+            <option display="PORT5 P503" id="module.driver.analog_connect.connection_acmplp0_ivcmp.port5_p503" value="ANALOG_CONNECT_ACMPLP0_IVCMP_TO_PORT5_P503"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" display="ACMPLP0 IVREF" id="module.driver.analog_connect.connection_acmplp0_ivref" description="Select the connection for ACMPLP0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ANALOG0_VREF"/>
+            <option display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp0_ivref.acmplp0_ivref0" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ACMPLP0_IVREF0"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivcmp.no_connection" display="ACMPLP1 IVCMP" id="module.driver.analog_connect.connection_acmplp1_ivcmp" description="Select the connection for ACMPLP1 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P102" id="module.driver.analog_connect.connection_acmplp1_ivcmp.port1_p102" value="ANALOG_CONNECT_ACMPLP1_IVCMP_TO_PORT1_P102"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmplp1_ivcmp.port5_p501" value="ANALOG_CONNECT_ACMPLP1_IVCMP_TO_PORT5_P501"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" display="ACMPLP1 IVREF" id="module.driver.analog_connect.connection_acmplp1_ivref" description="Select the connection for ACMPLP1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp1_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ANALOG0_VREF"/>
+            <option display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp1_ivref.acmplp0_ivref0" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ACMPLP0_IVREF0"/>
+            <option display="ACMPLP1 IVREF1" id="module.driver.analog_connect.connection_acmplp1_ivref.acmplp1_ivref1" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ACMPLP1_IVREF1"/>
+        </property>
+       <header>
+/** Analog Connection Instance. */
+extern const analog_connect_instance_t ${module.driver.analog_connect.name};
+extern const analog_connect_table_t ${module.driver.analog_connect.table_name};
+        </header>
+        <includes>
+#include &quot;r_analog_connect.h&quot;
+#include &quot;r_analog_connect_api.h&quot;
+        </includes>
+        <declarations>
+#define ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_t ${module.driver.analog_connect.name}_connections[] = 
+{
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref0}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref0},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref1}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref1},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref},
+#endif
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+    (analog_connect_t) 0, // Not a valid connection
+#endif
+};
+#ifdef ANALOG_CONNECT_CONNECTION_MADE
+const analog_connect_table_t ${module.driver.analog_connect.table_name} = {
+    .number_of_connections = sizeof(${module.driver.analog_connect.name}_connections)/sizeof(analog_connect_t),
+    .p_connection_table    = &amp;${module.driver.analog_connect.name}_connections[0],
+};
+#endif
+#undef ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_cfg_t ${module.driver.analog_connect.name}_cfg =
+{
+    .unused              = 0U,
+};
+/* Instance structure to use this module. */
+const analog_connect_instance_t ${module.driver.analog_connect.name} = 
+{
+    .p_cfg         = &amp;${module.driver.analog_connect.name}_cfg,
+    .p_api         = &amp;g_analog_connect_on_analog_connect
+};
+</declarations>
+    </module>
+
+    <module config="config.driver.analog_connect" display="Driver|Analog|${module.driver.analog_connect.name} Analog Connection Driver on r_analog_connect S3A3" id="module.driver.analog_connect_s3a3" version="1" common="1" url="https://en-support.renesas.com/knowledgeBase/18611532">
+        <constraint display="Unique name required for each instance">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.name}}" === "1")
+        </constraint>
+        <constraint display="Unique name required for each table name">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.table_name}}" === "1")
+        </constraint>
+        <requires id="interface.driver.analog_connect_s3a3.requires.mcu" visible="false" interface="interface.mcu.s3a3" display="Requires S3A3 MCU"/>
+        <provides interface="interface.driver.analog_connect" />
+        <provides interface="interface.driver.analog_connect_on_analog_connect" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.name}" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.table_name}" />
+        <property default="g_analog_connect${_instance}" display="Name" id="module.driver.analog_connect.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.name}")</constraint>
+        </property>
+        <property default="g_analog_connect${_instance}_table" display="Connection Table Name" id="module.driver.analog_connect.table_name" description="Connection table name.  The connection table is passed to the connectMultiple() API to make all configured connections.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.table_name}")</constraint>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref0.no_connection" display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp0_ivref0" description="Select the connection for ACMPLP0 IVREF0.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref0.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P101" id="module.driver.analog_connect.connection_acmplp0_ivref0.port1_p101" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_PORT1_P101"/>
+            <option display="DAC80 DA" id="module.driver.analog_connect.connection_acmplp0_ivref0.dac80_da" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_DAC80_DA"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmplp0_ivref0.port5_p502" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_PORT5_P502"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref1.no_connection" display="ACMPLP1 IVREF1" id="module.driver.analog_connect.connection_acmplp1_ivref1" description="Select the connection for ACMPLP1 IVREF1.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref1.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P103" id="module.driver.analog_connect.connection_acmplp1_ivref1.port1_p103" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_PORT1_P103"/>
+            <option display="DAC81 DA" id="module.driver.analog_connect.connection_acmplp1_ivref1.dac81_da" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_DAC81_DA"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmplp1_ivref1.port5_p500" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_PORT5_P500"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivcmp.no_connection" display="ACMPLP0 IVCMP" id="module.driver.analog_connect.connection_acmplp0_ivcmp" description="Select the connection for ACMPLP0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P100" id="module.driver.analog_connect.connection_acmplp0_ivcmp.port1_p100" value="ANALOG_CONNECT_ACMPLP0_IVCMP_TO_PORT1_P100"/>
+            <option display="PORT5 P503" id="module.driver.analog_connect.connection_acmplp0_ivcmp.port5_p503" value="ANALOG_CONNECT_ACMPLP0_IVCMP_TO_PORT5_P503"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" display="ACMPLP0 IVREF" id="module.driver.analog_connect.connection_acmplp0_ivref" description="Select the connection for ACMPLP0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ANALOG0_VREF"/>
+            <option display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp0_ivref.acmplp0_ivref0" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ACMPLP0_IVREF0"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivcmp.no_connection" display="ACMPLP1 IVCMP" id="module.driver.analog_connect.connection_acmplp1_ivcmp" description="Select the connection for ACMPLP1 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P102" id="module.driver.analog_connect.connection_acmplp1_ivcmp.port1_p102" value="ANALOG_CONNECT_ACMPLP1_IVCMP_TO_PORT1_P102"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmplp1_ivcmp.port5_p501" value="ANALOG_CONNECT_ACMPLP1_IVCMP_TO_PORT5_P501"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" display="ACMPLP1 IVREF" id="module.driver.analog_connect.connection_acmplp1_ivref" description="Select the connection for ACMPLP1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp1_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ANALOG0_VREF"/>
+            <option display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp1_ivref.acmplp0_ivref0" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ACMPLP0_IVREF0"/>
+            <option display="ACMPLP1 IVREF1" id="module.driver.analog_connect.connection_acmplp1_ivref.acmplp1_ivref1" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ACMPLP1_IVREF1"/>
+        </property>
+       <header>
+/** Analog Connection Instance. */
+extern const analog_connect_instance_t ${module.driver.analog_connect.name};
+extern const analog_connect_table_t ${module.driver.analog_connect.table_name};
+        </header>
+        <includes>
+#include &quot;r_analog_connect.h&quot;
+#include &quot;r_analog_connect_api.h&quot;
+        </includes>
+        <declarations>
+#define ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_t ${module.driver.analog_connect.name}_connections[] = 
+{
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref0}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref0},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref1}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref1},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref},
+#endif
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+    (analog_connect_t) 0, // Not a valid connection
+#endif
+};
+#ifdef ANALOG_CONNECT_CONNECTION_MADE
+const analog_connect_table_t ${module.driver.analog_connect.table_name} = {
+    .number_of_connections = sizeof(${module.driver.analog_connect.name}_connections)/sizeof(analog_connect_t),
+    .p_connection_table    = &amp;${module.driver.analog_connect.name}_connections[0],
+};
+#endif
+#undef ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_cfg_t ${module.driver.analog_connect.name}_cfg =
+{
+    .unused              = 0U,
+};
+/* Instance structure to use this module. */
+const analog_connect_instance_t ${module.driver.analog_connect.name} = 
+{
+    .p_cfg         = &amp;${module.driver.analog_connect.name}_cfg,
+    .p_api         = &amp;g_analog_connect_on_analog_connect
+};
+</declarations>
+    </module>
+
+    <module config="config.driver.analog_connect" display="Driver|Analog|${module.driver.analog_connect.name} Analog Connection Driver on r_analog_connect S3A6" id="module.driver.analog_connect_s3a6" version="1" common="1" url="https://en-support.renesas.com/knowledgeBase/18611532">
+        <constraint display="Unique name required for each instance">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.name}}" === "1")
+        </constraint>
+        <constraint display="Unique name required for each table name">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.table_name}}" === "1")
+        </constraint>
+        <requires id="interface.driver.analog_connect_s3a6.requires.mcu" visible="false" interface="interface.mcu.s3a6" display="Requires S3A6 MCU"/>
+        <provides interface="interface.driver.analog_connect" />
+        <provides interface="interface.driver.analog_connect_on_analog_connect" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.name}" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.table_name}" />
+        <property default="g_analog_connect${_instance}" display="Name" id="module.driver.analog_connect.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.name}")</constraint>
+        </property>
+        <property default="g_analog_connect${_instance}_table" display="Connection Table Name" id="module.driver.analog_connect.table_name" description="Connection table name.  The connection table is passed to the connectMultiple() API to make all configured connections.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.table_name}")</constraint>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref0.no_connection" display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp0_ivref0" description="Select the connection for ACMPLP0 IVREF0.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref0.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P101" id="module.driver.analog_connect.connection_acmplp0_ivref0.port1_p101" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_PORT1_P101"/>
+            <option display="DAC80 DA" id="module.driver.analog_connect.connection_acmplp0_ivref0.dac80_da" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_DAC80_DA"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmplp0_ivref0.port5_p502" value="ANALOG_CONNECT_ACMPLP0_IVREF0_TO_PORT5_P502"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref1.no_connection" display="ACMPLP1 IVREF1" id="module.driver.analog_connect.connection_acmplp1_ivref1" description="Select the connection for ACMPLP1 IVREF1.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref1.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P103" id="module.driver.analog_connect.connection_acmplp1_ivref1.port1_p103" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_PORT1_P103"/>
+            <option display="DAC81 DA" id="module.driver.analog_connect.connection_acmplp1_ivref1.dac81_da" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_DAC81_DA"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmplp1_ivref1.port5_p500" value="ANALOG_CONNECT_ACMPLP1_IVREF1_TO_PORT5_P500"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivcmp.no_connection" display="ACMPLP0 IVCMP" id="module.driver.analog_connect.connection_acmplp0_ivcmp" description="Select the connection for ACMPLP0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P100" id="module.driver.analog_connect.connection_acmplp0_ivcmp.port1_p100" value="ANALOG_CONNECT_ACMPLP0_IVCMP_TO_PORT1_P100"/>
+            <option display="PORT5 P503" id="module.driver.analog_connect.connection_acmplp0_ivcmp.port5_p503" value="ANALOG_CONNECT_ACMPLP0_IVCMP_TO_PORT5_P503"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" display="ACMPLP0 IVREF" id="module.driver.analog_connect.connection_acmplp0_ivref" description="Select the connection for ACMPLP0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ANALOG0_VREF"/>
+            <option display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp0_ivref.acmplp0_ivref0" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ACMPLP0_IVREF0"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivcmp.no_connection" display="ACMPLP1 IVCMP" id="module.driver.analog_connect.connection_acmplp1_ivcmp" description="Select the connection for ACMPLP1 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT1 P102" id="module.driver.analog_connect.connection_acmplp1_ivcmp.port1_p102" value="ANALOG_CONNECT_ACMPLP1_IVCMP_TO_PORT1_P102"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmplp1_ivcmp.port5_p501" value="ANALOG_CONNECT_ACMPLP1_IVCMP_TO_PORT5_P501"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" display="ACMPLP1 IVREF" id="module.driver.analog_connect.connection_acmplp1_ivref" description="Select the connection for ACMPLP1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp1_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ANALOG0_VREF"/>
+            <option display="ACMPLP0 IVREF0" id="module.driver.analog_connect.connection_acmplp1_ivref.acmplp0_ivref0" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ACMPLP0_IVREF0"/>
+            <option display="ACMPLP1 IVREF1" id="module.driver.analog_connect.connection_acmplp1_ivref.acmplp1_ivref1" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ACMPLP1_IVREF1"/>
+        </property>
+       <header>
+/** Analog Connection Instance. */
+extern const analog_connect_instance_t ${module.driver.analog_connect.name};
+extern const analog_connect_table_t ${module.driver.analog_connect.table_name};
+        </header>
+        <includes>
+#include &quot;r_analog_connect.h&quot;
+#include &quot;r_analog_connect_api.h&quot;
+        </includes>
+        <declarations>
+#define ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_t ${module.driver.analog_connect.name}_connections[] = 
+{
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref0}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref0},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref1}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref1},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref},
+#endif
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+    (analog_connect_t) 0, // Not a valid connection
+#endif
+};
+#ifdef ANALOG_CONNECT_CONNECTION_MADE
+const analog_connect_table_t ${module.driver.analog_connect.table_name} = {
+    .number_of_connections = sizeof(${module.driver.analog_connect.name}_connections)/sizeof(analog_connect_t),
+    .p_connection_table    = &amp;${module.driver.analog_connect.name}_connections[0],
+};
+#endif
+#undef ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_cfg_t ${module.driver.analog_connect.name}_cfg =
+{
+    .unused              = 0U,
+};
+/* Instance structure to use this module. */
+const analog_connect_instance_t ${module.driver.analog_connect.name} = 
+{
+    .p_cfg         = &amp;${module.driver.analog_connect.name}_cfg,
+    .p_api         = &amp;g_analog_connect_on_analog_connect
+};
+</declarations>
+    </module>
+
+    <module config="config.driver.analog_connect" display="Driver|Analog|${module.driver.analog_connect.name} Analog Connection Driver on r_analog_connect S3A7" id="module.driver.analog_connect_s3a7" version="1" common="1" url="https://en-support.renesas.com/knowledgeBase/18611532">
+        <constraint display="Unique name required for each instance">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.name}}" === "1")
+        </constraint>
+        <constraint display="Unique name required for each table name">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.table_name}}" === "1")
+        </constraint>
+        <requires id="interface.driver.analog_connect_s3a7.requires.mcu" visible="false" interface="interface.mcu.s3a7" display="Requires S3A7 MCU"/>
+        <provides interface="interface.driver.analog_connect" />
+        <provides interface="interface.driver.analog_connect_on_analog_connect" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.name}" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.table_name}" />
+        <property default="g_analog_connect${_instance}" display="Name" id="module.driver.analog_connect.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.name}")</constraint>
+        </property>
+        <property default="g_analog_connect${_instance}_table" display="Connection Table Name" id="module.driver.analog_connect.table_name" description="Connection table name.  The connection table is passed to the connectMultiple() API to make all configured connections.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.table_name}")</constraint>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" display="ACMPHS0 IVCMP" id="module.driver.analog_connect.connection_acmphs0_ivcmp" description="Select the connection for ACMPHS0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P004" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port0_p004" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT0_P004"/>
+            <option display="PORT0 P007" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port0_p007" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT0_P007"/>
+            <option display="PORT0 P015" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port0_p015" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT0_P015"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs0_ivcmp.analog0_vref" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_ANALOG0_VREF"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" display="ACMPHS0 IVREF" id="module.driver.analog_connect.connection_acmphs0_ivref" description="Select the connection for ACMPHS0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P005" id="module.driver.analog_connect.connection_acmphs0_ivref.port0_p005" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT0_P005"/>
+            <option display="PORT0 P006" id="module.driver.analog_connect.connection_acmphs0_ivref.port0_p006" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT0_P006"/>
+            <option display="PORT0 P014" id="module.driver.analog_connect.connection_acmphs0_ivref.port0_p014" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT0_P014"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_ANALOG0_VREF"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" display="ACMPHS1 IVCMP" id="module.driver.analog_connect.connection_acmphs1_ivcmp" description="Select the connection for ACMPHS1 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P000" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port0_p000" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT0_P000"/>
+            <option display="PORT0 P001" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port0_p001" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT0_P001"/>
+            <option display="PORT0 P002" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port0_p002" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT0_P002"/>
+            <option display="PORT0 P003" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port0_p003" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT0_P003"/>
+            <option display="PORT0 P007" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port0_p007" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT0_P007"/>
+            <option display="PORT0 P015" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port0_p015" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT0_P015"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" display="ACMPHS1 IVREF" id="module.driver.analog_connect.connection_acmphs1_ivref" description="Select the connection for ACMPHS1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT0 P000" id="module.driver.analog_connect.connection_acmphs1_ivref.port0_p000" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT0_P000"/>
+            <option display="PORT0 P001" id="module.driver.analog_connect.connection_acmphs1_ivref.port0_p001" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT0_P001"/>
+            <option display="PORT0 P002" id="module.driver.analog_connect.connection_acmphs1_ivref.port0_p002" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT0_P002"/>
+            <option display="PORT0 P003" id="module.driver.analog_connect.connection_acmphs1_ivref.port0_p003" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT0_P003"/>
+            <option display="PORT0 P006" id="module.driver.analog_connect.connection_acmphs1_ivref.port0_p006" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT0_P006"/>
+            <option display="PORT0 P014" id="module.driver.analog_connect.connection_acmphs1_ivref.port0_p014" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT0_P014"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" display="ACMPLP0 IVREF" id="module.driver.analog_connect.connection_acmplp0_ivref" description="Select the connection for ACMPLP0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_ANALOG0_VREF"/>
+            <option display="PORT1 P101" id="module.driver.analog_connect.connection_acmplp0_ivref.port1_p101" value="ANALOG_CONNECT_ACMPLP0_IVREF_TO_PORT1_P101"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" display="ACMPLP1 IVREF" id="module.driver.analog_connect.connection_acmplp1_ivref" description="Select the connection for ACMPLP1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmplp1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmplp1_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_ANALOG0_VREF"/>
+            <option display="PORT1 P103" id="module.driver.analog_connect.connection_acmplp1_ivref.port1_p103" value="ANALOG_CONNECT_ACMPLP1_IVREF_TO_PORT1_P103"/>
+        </property>
+       <header>
+/** Analog Connection Instance. */
+extern const analog_connect_instance_t ${module.driver.analog_connect.name};
+extern const analog_connect_table_t ${module.driver.analog_connect.table_name};
+        </header>
+        <includes>
+#include &quot;r_analog_connect.h&quot;
+#include &quot;r_analog_connect_api.h&quot;
+        </includes>
+        <declarations>
+#define ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_t ${module.driver.analog_connect.name}_connections[] = 
+{
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmplp1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmplp1_ivref},
+#endif
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+    (analog_connect_t) 0, // Not a valid connection
+#endif
+};
+#ifdef ANALOG_CONNECT_CONNECTION_MADE
+const analog_connect_table_t ${module.driver.analog_connect.table_name} = {
+    .number_of_connections = sizeof(${module.driver.analog_connect.name}_connections)/sizeof(analog_connect_t),
+    .p_connection_table    = &amp;${module.driver.analog_connect.name}_connections[0],
+};
+#endif
+#undef ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_cfg_t ${module.driver.analog_connect.name}_cfg =
+{
+    .unused              = 0U,
+};
+/* Instance structure to use this module. */
+const analog_connect_instance_t ${module.driver.analog_connect.name} = 
+{
+    .p_cfg         = &amp;${module.driver.analog_connect.name}_cfg,
+    .p_api         = &amp;g_analog_connect_on_analog_connect
+};
+</declarations>
+    </module>
+
+    <module config="config.driver.analog_connect" display="Driver|Analog|${module.driver.analog_connect.name} Analog Connection Driver on r_analog_connect S5D3" id="module.driver.analog_connect_s5d3" version="1" common="1" url="https://en-support.renesas.com/knowledgeBase/18611532">
+        <constraint display="Unique name required for each instance">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.name}}" === "1")
+        </constraint>
+        <constraint display="Unique name required for each table name">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.table_name}}" === "1")
+        </constraint>
+        <requires id="interface.driver.analog_connect_s5d3.requires.mcu" visible="false" interface="interface.mcu.s5d3" display="Requires S5D3 MCU"/>
+        <provides interface="interface.driver.analog_connect" />
+        <provides interface="interface.driver.analog_connect_on_analog_connect" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.name}" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.table_name}" />
+        <property default="g_analog_connect${_instance}" display="Name" id="module.driver.analog_connect.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.name}")</constraint>
+        </property>
+        <property default="g_analog_connect${_instance}_table" display="Connection Table Name" id="module.driver.analog_connect.table_name" description="Connection table name.  The connection table is passed to the connectMultiple() API to make all configured connections.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.table_name}")</constraint>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" display="ACMPHS0 IVCMP" id="module.driver.analog_connect.connection_acmphs0_ivcmp" description="Select the connection for ACMPHS0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs0_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P000" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port0_p000" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT0_P000"/>
+            <option display="ADC0 PGA0" id="module.driver.analog_connect.connection_acmphs0_ivcmp.adc0_pga0" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_ADC0_PGA0"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" display="ACMPHS0 IVREF" id="module.driver.analog_connect.connection_acmphs0_ivref" description="Select the connection for ACMPHS0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs0_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs0_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs0_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" display="ACMPHS1 IVCMP" id="module.driver.analog_connect.connection_acmphs1_ivcmp" description="Select the connection for ACMPHS1 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs1_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P001" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port0_p001" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT0_P001"/>
+            <option display="ADC0 PGA1" id="module.driver.analog_connect.connection_acmphs1_ivcmp.adc0_pga1" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_ADC0_PGA1"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" display="ACMPHS1 IVREF" id="module.driver.analog_connect.connection_acmphs1_ivref" description="Select the connection for ACMPHS1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs1_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs1_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs1_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs1_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs2_ivcmp.no_connection" display="ACMPHS2 IVCMP" id="module.driver.analog_connect.connection_acmphs2_ivcmp" description="Select the connection for ACMPHS2 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs2_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs2_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs2_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P002" id="module.driver.analog_connect.connection_acmphs2_ivcmp.port0_p002" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_PORT0_P002"/>
+            <option display="ADC0 PGA2" id="module.driver.analog_connect.connection_acmphs2_ivcmp.adc0_pga2" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_ADC0_PGA2"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs2_ivref.no_connection" display="ACMPHS2 IVREF" id="module.driver.analog_connect.connection_acmphs2_ivref" description="Select the connection for ACMPHS2 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs2_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs2_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs2_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs2_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs2_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs3_ivcmp.no_connection" display="ACMPHS3 IVCMP" id="module.driver.analog_connect.connection_acmphs3_ivcmp" description="Select the connection for ACMPHS3 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs3_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs3_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs3_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P004" id="module.driver.analog_connect.connection_acmphs3_ivcmp.port0_p004" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_PORT0_P004"/>
+            <option display="ADC1 PGA3" id="module.driver.analog_connect.connection_acmphs3_ivcmp.adc1_pga3" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_ADC1_PGA3"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs3_ivref.no_connection" display="ACMPHS3 IVREF" id="module.driver.analog_connect.connection_acmphs3_ivref" description="Select the connection for ACMPHS3 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs3_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs3_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs3_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs3_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs3_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs4_ivcmp.no_connection" display="ACMPHS4 IVCMP" id="module.driver.analog_connect.connection_acmphs4_ivcmp" description="Select the connection for ACMPHS4 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs4_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs4_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs4_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P005" id="module.driver.analog_connect.connection_acmphs4_ivcmp.port0_p005" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_PORT0_P005"/>
+            <option display="ADC1 PGA4" id="module.driver.analog_connect.connection_acmphs4_ivcmp.adc1_pga4" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_ADC1_PGA4"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs4_ivref.no_connection" display="ACMPHS4 IVREF" id="module.driver.analog_connect.connection_acmphs4_ivref" description="Select the connection for ACMPHS4 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs4_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs4_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs4_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs4_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs4_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs5_ivcmp.no_connection" display="ACMPHS5 IVCMP" id="module.driver.analog_connect.connection_acmphs5_ivcmp" description="Select the connection for ACMPHS5 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs5_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs5_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs5_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P006" id="module.driver.analog_connect.connection_acmphs5_ivcmp.port0_p006" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_PORT0_P006"/>
+            <option display="ADC1 PGA5" id="module.driver.analog_connect.connection_acmphs5_ivcmp.adc1_pga5" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_ADC1_PGA5"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs5_ivref.no_connection" display="ACMPHS5 IVREF" id="module.driver.analog_connect.connection_acmphs5_ivref" description="Select the connection for ACMPHS5 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs5_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs5_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs5_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs5_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs5_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_DAC120_DA"/>
+        </property>
+       <header>
+/** Analog Connection Instance. */
+extern const analog_connect_instance_t ${module.driver.analog_connect.name};
+extern const analog_connect_table_t ${module.driver.analog_connect.table_name};
+        </header>
+        <includes>
+#include &quot;r_analog_connect.h&quot;
+#include &quot;r_analog_connect_api.h&quot;
+        </includes>
+        <declarations>
+#define ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_t ${module.driver.analog_connect.name}_connections[] = 
+{
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs2_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs2_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs2_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs2_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs3_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs3_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs3_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs3_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs4_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs4_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs4_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs4_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs5_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs5_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs5_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs5_ivref},
+#endif
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+    (analog_connect_t) 0, // Not a valid connection
+#endif
+};
+#ifdef ANALOG_CONNECT_CONNECTION_MADE
+const analog_connect_table_t ${module.driver.analog_connect.table_name} = {
+    .number_of_connections = sizeof(${module.driver.analog_connect.name}_connections)/sizeof(analog_connect_t),
+    .p_connection_table    = &amp;${module.driver.analog_connect.name}_connections[0],
+};
+#endif
+#undef ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_cfg_t ${module.driver.analog_connect.name}_cfg =
+{
+    .unused              = 0U,
+};
+/* Instance structure to use this module. */
+const analog_connect_instance_t ${module.driver.analog_connect.name} = 
+{
+    .p_cfg         = &amp;${module.driver.analog_connect.name}_cfg,
+    .p_api         = &amp;g_analog_connect_on_analog_connect
+};
+</declarations>
+    </module>
+
+    <module config="config.driver.analog_connect" display="Driver|Analog|${module.driver.analog_connect.name} Analog Connection Driver on r_analog_connect S5D5" id="module.driver.analog_connect_s5d5" version="1" common="1" url="https://en-support.renesas.com/knowledgeBase/18611532">
+        <constraint display="Unique name required for each instance">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.name}}" === "1")
+        </constraint>
+        <constraint display="Unique name required for each table name">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.table_name}}" === "1")
+        </constraint>
+        <requires id="interface.driver.analog_connect_s5d5.requires.mcu" visible="false" interface="interface.mcu.s5d5" display="Requires S5D5 MCU"/>
+        <provides interface="interface.driver.analog_connect" />
+        <provides interface="interface.driver.analog_connect_on_analog_connect" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.name}" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.table_name}" />
+        <property default="g_analog_connect${_instance}" display="Name" id="module.driver.analog_connect.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.name}")</constraint>
+        </property>
+        <property default="g_analog_connect${_instance}_table" display="Connection Table Name" id="module.driver.analog_connect.table_name" description="Connection table name.  The connection table is passed to the connectMultiple() API to make all configured connections.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.table_name}")</constraint>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" display="ACMPHS0 IVCMP" id="module.driver.analog_connect.connection_acmphs0_ivcmp" description="Select the connection for ACMPHS0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs0_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P000" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port0_p000" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT0_P000"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" display="ACMPHS0 IVREF" id="module.driver.analog_connect.connection_acmphs0_ivref" description="Select the connection for ACMPHS0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs0_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs0_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs0_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" display="ACMPHS1 IVCMP" id="module.driver.analog_connect.connection_acmphs1_ivcmp" description="Select the connection for ACMPHS1 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs1_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P001" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port0_p001" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT0_P001"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" display="ACMPHS1 IVREF" id="module.driver.analog_connect.connection_acmphs1_ivref" description="Select the connection for ACMPHS1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs1_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs1_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs1_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs1_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs2_ivcmp.no_connection" display="ACMPHS2 IVCMP" id="module.driver.analog_connect.connection_acmphs2_ivcmp" description="Select the connection for ACMPHS2 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs2_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs2_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs2_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P002" id="module.driver.analog_connect.connection_acmphs2_ivcmp.port0_p002" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_PORT0_P002"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs2_ivref.no_connection" display="ACMPHS2 IVREF" id="module.driver.analog_connect.connection_acmphs2_ivref" description="Select the connection for ACMPHS2 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs2_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs2_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs2_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs2_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs2_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs3_ivcmp.no_connection" display="ACMPHS3 IVCMP" id="module.driver.analog_connect.connection_acmphs3_ivcmp" description="Select the connection for ACMPHS3 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs3_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs3_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs3_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P004" id="module.driver.analog_connect.connection_acmphs3_ivcmp.port0_p004" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_PORT0_P004"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs3_ivref.no_connection" display="ACMPHS3 IVREF" id="module.driver.analog_connect.connection_acmphs3_ivref" description="Select the connection for ACMPHS3 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs3_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs3_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs3_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs3_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs3_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs4_ivcmp.no_connection" display="ACMPHS4 IVCMP" id="module.driver.analog_connect.connection_acmphs4_ivcmp" description="Select the connection for ACMPHS4 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs4_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs4_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs4_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P005" id="module.driver.analog_connect.connection_acmphs4_ivcmp.port0_p005" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_PORT0_P005"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs4_ivref.no_connection" display="ACMPHS4 IVREF" id="module.driver.analog_connect.connection_acmphs4_ivref" description="Select the connection for ACMPHS4 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs4_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs4_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs4_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs4_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs4_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs5_ivcmp.no_connection" display="ACMPHS5 IVCMP" id="module.driver.analog_connect.connection_acmphs5_ivcmp" description="Select the connection for ACMPHS5 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs5_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs5_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs5_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P006" id="module.driver.analog_connect.connection_acmphs5_ivcmp.port0_p006" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_PORT0_P006"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs5_ivref.no_connection" display="ACMPHS5 IVREF" id="module.driver.analog_connect.connection_acmphs5_ivref" description="Select the connection for ACMPHS5 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs5_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs5_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs5_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs5_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs5_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_DAC120_DA"/>
+        </property>
+       <header>
+/** Analog Connection Instance. */
+extern const analog_connect_instance_t ${module.driver.analog_connect.name};
+extern const analog_connect_table_t ${module.driver.analog_connect.table_name};
+        </header>
+        <includes>
+#include &quot;r_analog_connect.h&quot;
+#include &quot;r_analog_connect_api.h&quot;
+        </includes>
+        <declarations>
+#define ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_t ${module.driver.analog_connect.name}_connections[] = 
+{
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs2_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs2_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs2_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs2_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs3_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs3_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs3_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs3_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs4_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs4_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs4_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs4_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs5_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs5_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs5_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs5_ivref},
+#endif
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+    (analog_connect_t) 0, // Not a valid connection
+#endif
+};
+#ifdef ANALOG_CONNECT_CONNECTION_MADE
+const analog_connect_table_t ${module.driver.analog_connect.table_name} = {
+    .number_of_connections = sizeof(${module.driver.analog_connect.name}_connections)/sizeof(analog_connect_t),
+    .p_connection_table    = &amp;${module.driver.analog_connect.name}_connections[0],
+};
+#endif
+#undef ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_cfg_t ${module.driver.analog_connect.name}_cfg =
+{
+    .unused              = 0U,
+};
+/* Instance structure to use this module. */
+const analog_connect_instance_t ${module.driver.analog_connect.name} = 
+{
+    .p_cfg         = &amp;${module.driver.analog_connect.name}_cfg,
+    .p_api         = &amp;g_analog_connect_on_analog_connect
+};
+</declarations>
+    </module>
+
+    <module config="config.driver.analog_connect" display="Driver|Analog|${module.driver.analog_connect.name} Analog Connection Driver on r_analog_connect S5D9" id="module.driver.analog_connect_s5d9" version="1" common="1" url="https://en-support.renesas.com/knowledgeBase/18611532">
+        <constraint display="Unique name required for each instance">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.name}}" === "1")
+        </constraint>
+        <constraint display="Unique name required for each table name">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.table_name}}" === "1")
+        </constraint>
+        <requires id="interface.driver.analog_connect_s5d9.requires.mcu" visible="false" interface="interface.mcu.s5d9" display="Requires S5D9 MCU"/>
+        <provides interface="interface.driver.analog_connect" />
+        <provides interface="interface.driver.analog_connect_on_analog_connect" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.name}" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.table_name}" />
+        <property default="g_analog_connect${_instance}" display="Name" id="module.driver.analog_connect.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.name}")</constraint>
+        </property>
+        <property default="g_analog_connect${_instance}_table" display="Connection Table Name" id="module.driver.analog_connect.table_name" description="Connection table name.  The connection table is passed to the connectMultiple() API to make all configured connections.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.table_name}")</constraint>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" display="ACMPHS0 IVCMP" id="module.driver.analog_connect.connection_acmphs0_ivcmp" description="Select the connection for ACMPHS0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs0_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P000" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port0_p000" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT0_P000"/>
+            <option display="ADC0 PGA0" id="module.driver.analog_connect.connection_acmphs0_ivcmp.adc0_pga0" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_ADC0_PGA0"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" display="ACMPHS0 IVREF" id="module.driver.analog_connect.connection_acmphs0_ivref" description="Select the connection for ACMPHS0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs0_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs0_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs0_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" display="ACMPHS1 IVCMP" id="module.driver.analog_connect.connection_acmphs1_ivcmp" description="Select the connection for ACMPHS1 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs1_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P001" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port0_p001" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT0_P001"/>
+            <option display="ADC0 PGA1" id="module.driver.analog_connect.connection_acmphs1_ivcmp.adc0_pga1" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_ADC0_PGA1"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" display="ACMPHS1 IVREF" id="module.driver.analog_connect.connection_acmphs1_ivref" description="Select the connection for ACMPHS1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs1_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs1_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs1_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs1_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs2_ivcmp.no_connection" display="ACMPHS2 IVCMP" id="module.driver.analog_connect.connection_acmphs2_ivcmp" description="Select the connection for ACMPHS2 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs2_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs2_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs2_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P002" id="module.driver.analog_connect.connection_acmphs2_ivcmp.port0_p002" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_PORT0_P002"/>
+            <option display="ADC0 PGA2" id="module.driver.analog_connect.connection_acmphs2_ivcmp.adc0_pga2" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_ADC0_PGA2"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs2_ivref.no_connection" display="ACMPHS2 IVREF" id="module.driver.analog_connect.connection_acmphs2_ivref" description="Select the connection for ACMPHS2 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs2_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs2_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs2_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs2_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs2_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs3_ivcmp.no_connection" display="ACMPHS3 IVCMP" id="module.driver.analog_connect.connection_acmphs3_ivcmp" description="Select the connection for ACMPHS3 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs3_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs3_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs3_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P004" id="module.driver.analog_connect.connection_acmphs3_ivcmp.port0_p004" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_PORT0_P004"/>
+            <option display="ADC1 PGA3" id="module.driver.analog_connect.connection_acmphs3_ivcmp.adc1_pga3" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_ADC1_PGA3"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs3_ivref.no_connection" display="ACMPHS3 IVREF" id="module.driver.analog_connect.connection_acmphs3_ivref" description="Select the connection for ACMPHS3 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs3_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs3_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs3_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs3_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs3_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs4_ivcmp.no_connection" display="ACMPHS4 IVCMP" id="module.driver.analog_connect.connection_acmphs4_ivcmp" description="Select the connection for ACMPHS4 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs4_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs4_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs4_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P005" id="module.driver.analog_connect.connection_acmphs4_ivcmp.port0_p005" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_PORT0_P005"/>
+            <option display="ADC1 PGA4" id="module.driver.analog_connect.connection_acmphs4_ivcmp.adc1_pga4" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_ADC1_PGA4"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs4_ivref.no_connection" display="ACMPHS4 IVREF" id="module.driver.analog_connect.connection_acmphs4_ivref" description="Select the connection for ACMPHS4 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs4_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs4_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs4_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs4_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs4_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs5_ivcmp.no_connection" display="ACMPHS5 IVCMP" id="module.driver.analog_connect.connection_acmphs5_ivcmp" description="Select the connection for ACMPHS5 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs5_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs5_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs5_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P006" id="module.driver.analog_connect.connection_acmphs5_ivcmp.port0_p006" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_PORT0_P006"/>
+            <option display="ADC1 PGA5" id="module.driver.analog_connect.connection_acmphs5_ivcmp.adc1_pga5" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_ADC1_PGA5"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs5_ivref.no_connection" display="ACMPHS5 IVREF" id="module.driver.analog_connect.connection_acmphs5_ivref" description="Select the connection for ACMPHS5 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs5_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs5_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs5_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs5_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs5_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_DAC120_DA"/>
+        </property>
+       <header>
+/** Analog Connection Instance. */
+extern const analog_connect_instance_t ${module.driver.analog_connect.name};
+extern const analog_connect_table_t ${module.driver.analog_connect.table_name};
+        </header>
+        <includes>
+#include &quot;r_analog_connect.h&quot;
+#include &quot;r_analog_connect_api.h&quot;
+        </includes>
+        <declarations>
+#define ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_t ${module.driver.analog_connect.name}_connections[] = 
+{
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs2_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs2_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs2_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs2_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs3_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs3_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs3_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs3_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs4_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs4_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs4_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs4_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs5_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs5_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs5_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs5_ivref},
+#endif
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+    (analog_connect_t) 0, // Not a valid connection
+#endif
+};
+#ifdef ANALOG_CONNECT_CONNECTION_MADE
+const analog_connect_table_t ${module.driver.analog_connect.table_name} = {
+    .number_of_connections = sizeof(${module.driver.analog_connect.name}_connections)/sizeof(analog_connect_t),
+    .p_connection_table    = &amp;${module.driver.analog_connect.name}_connections[0],
+};
+#endif
+#undef ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_cfg_t ${module.driver.analog_connect.name}_cfg =
+{
+    .unused              = 0U,
+};
+/* Instance structure to use this module. */
+const analog_connect_instance_t ${module.driver.analog_connect.name} = 
+{
+    .p_cfg         = &amp;${module.driver.analog_connect.name}_cfg,
+    .p_api         = &amp;g_analog_connect_on_analog_connect
+};
+</declarations>
+    </module>
+
+    <module config="config.driver.analog_connect" display="Driver|Analog|${module.driver.analog_connect.name} Analog Connection Driver on r_analog_connect S7G2" id="module.driver.analog_connect_s7g2" version="1" common="1" url="https://en-support.renesas.com/knowledgeBase/18611532">
+        <constraint display="Unique name required for each instance">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.name}}" === "1")
+        </constraint>
+        <constraint display="Unique name required for each table name">
+            ("${interface.driver.analog_connect.${module.driver.analog_connect.table_name}}" === "1")
+        </constraint>
+        <requires id="interface.driver.analog_connect_s7g2.requires.mcu" visible="false" interface="interface.mcu.s7g2" display="Requires S7G2 MCU"/>
+        <provides interface="interface.driver.analog_connect" />
+        <provides interface="interface.driver.analog_connect_on_analog_connect" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.name}" />
+        <provides interface="interface.driver.analog_connect.${module.driver.analog_connect.table_name}" />
+        <property default="g_analog_connect${_instance}" display="Name" id="module.driver.analog_connect.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.name}")</constraint>
+        </property>
+        <property default="g_analog_connect${_instance}_table" display="Connection Table Name" id="module.driver.analog_connect.table_name" description="Connection table name.  The connection table is passed to the connectMultiple() API to make all configured connections.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.analog_connect.table_name}")</constraint>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" display="ACMPHS0 IVCMP" id="module.driver.analog_connect.connection_acmphs0_ivcmp" description="Select the connection for ACMPHS0 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs0_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P000" id="module.driver.analog_connect.connection_acmphs0_ivcmp.port0_p000" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_PORT0_P000"/>
+            <option display="ADC0 PGA0" id="module.driver.analog_connect.connection_acmphs0_ivcmp.adc0_pga0" value="ANALOG_CONNECT_ACMPHS0_IVCMP_TO_ADC0_PGA0"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" display="ACMPHS0 IVREF" id="module.driver.analog_connect.connection_acmphs0_ivref" description="Select the connection for ACMPHS0 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs0_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs0_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs0_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs0_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs0_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS0_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" display="ACMPHS1 IVCMP" id="module.driver.analog_connect.connection_acmphs1_ivcmp" description="Select the connection for ACMPHS1 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs1_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P001" id="module.driver.analog_connect.connection_acmphs1_ivcmp.port0_p001" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_PORT0_P001"/>
+            <option display="ADC0 PGA1" id="module.driver.analog_connect.connection_acmphs1_ivcmp.adc0_pga1" value="ANALOG_CONNECT_ACMPHS1_IVCMP_TO_ADC0_PGA1"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" display="ACMPHS1 IVREF" id="module.driver.analog_connect.connection_acmphs1_ivref" description="Select the connection for ACMPHS1 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs1_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs1_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs1_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs1_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs1_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS1_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs2_ivcmp.no_connection" display="ACMPHS2 IVCMP" id="module.driver.analog_connect.connection_acmphs2_ivcmp" description="Select the connection for ACMPHS2 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs2_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs2_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs2_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P002" id="module.driver.analog_connect.connection_acmphs2_ivcmp.port0_p002" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_PORT0_P002"/>
+            <option display="ADC0 PGA2" id="module.driver.analog_connect.connection_acmphs2_ivcmp.adc0_pga2" value="ANALOG_CONNECT_ACMPHS2_IVCMP_TO_ADC0_PGA2"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs2_ivref.no_connection" display="ACMPHS2 IVREF" id="module.driver.analog_connect.connection_acmphs2_ivref" description="Select the connection for ACMPHS2 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs2_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs2_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs2_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs2_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs2_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS2_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs3_ivcmp.no_connection" display="ACMPHS3 IVCMP" id="module.driver.analog_connect.connection_acmphs3_ivcmp" description="Select the connection for ACMPHS3 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs3_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs3_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs3_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P004" id="module.driver.analog_connect.connection_acmphs3_ivcmp.port0_p004" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_PORT0_P004"/>
+            <option display="ADC1 PGA3" id="module.driver.analog_connect.connection_acmphs3_ivcmp.adc1_pga3" value="ANALOG_CONNECT_ACMPHS3_IVCMP_TO_ADC1_PGA3"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs3_ivref.no_connection" display="ACMPHS3 IVREF" id="module.driver.analog_connect.connection_acmphs3_ivref" description="Select the connection for ACMPHS3 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs3_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs3_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs3_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs3_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs3_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS3_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs4_ivcmp.no_connection" display="ACMPHS4 IVCMP" id="module.driver.analog_connect.connection_acmphs4_ivcmp" description="Select the connection for ACMPHS4 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs4_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs4_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs4_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P005" id="module.driver.analog_connect.connection_acmphs4_ivcmp.port0_p005" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_PORT0_P005"/>
+            <option display="ADC1 PGA4" id="module.driver.analog_connect.connection_acmphs4_ivcmp.adc1_pga4" value="ANALOG_CONNECT_ACMPHS4_IVCMP_TO_ADC1_PGA4"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs4_ivref.no_connection" display="ACMPHS4 IVREF" id="module.driver.analog_connect.connection_acmphs4_ivref" description="Select the connection for ACMPHS4 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs4_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs4_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs4_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs4_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs4_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS4_IVREF_TO_DAC120_DA"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs5_ivcmp.no_connection" display="ACMPHS5 IVCMP" id="module.driver.analog_connect.connection_acmphs5_ivcmp" description="Select the connection for ACMPHS5 IVCMP.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs5_ivcmp.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P502" id="module.driver.analog_connect.connection_acmphs5_ivcmp.port5_p502" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_PORT5_P502"/>
+            <option display="DAC121 DA" id="module.driver.analog_connect.connection_acmphs5_ivcmp.dac121_da" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_DAC121_DA"/>
+            <option display="PORT0 P006" id="module.driver.analog_connect.connection_acmphs5_ivcmp.port0_p006" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_PORT0_P006"/>
+            <option display="ADC1 PGA5" id="module.driver.analog_connect.connection_acmphs5_ivcmp.adc1_pga5" value="ANALOG_CONNECT_ACMPHS5_IVCMP_TO_ADC1_PGA5"/>
+        </property>
+        <property default="module.driver.analog_connect.connection_acmphs5_ivref.no_connection" display="ACMPHS5 IVREF" id="module.driver.analog_connect.connection_acmphs5_ivref" description="Select the connection for ACMPHS5 IVREF.">
+            <option display="No Connection" id="module.driver.analog_connect.connection_acmphs5_ivref.no_connection" value="ANALOG_CONNECT_NO_CONNECTION"/>
+            <option display="PORT5 P500" id="module.driver.analog_connect.connection_acmphs5_ivref.port5_p500" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_PORT5_P500"/>
+            <option display="PORT5 P501" id="module.driver.analog_connect.connection_acmphs5_ivref.port5_p501" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_PORT5_P501"/>
+            <option display="ANALOG0 VREF" id="module.driver.analog_connect.connection_acmphs5_ivref.analog0_vref" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_ANALOG0_VREF"/>
+            <option display="DAC120 DA" id="module.driver.analog_connect.connection_acmphs5_ivref.dac120_da" value="ANALOG_CONNECT_ACMPHS5_IVREF_TO_DAC120_DA"/>
+        </property>
+       <header>
+/** Analog Connection Instance. */
+extern const analog_connect_instance_t ${module.driver.analog_connect.name};
+extern const analog_connect_table_t ${module.driver.analog_connect.table_name};
+        </header>
+        <includes>
+#include &quot;r_analog_connect.h&quot;
+#include &quot;r_analog_connect_api.h&quot;
+        </includes>
+        <declarations>
+#define ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_t ${module.driver.analog_connect.name}_connections[] = 
+{
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs0_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs0_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs1_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs1_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs2_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs2_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs2_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs2_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs3_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs3_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs3_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs3_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs4_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs4_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs4_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs4_ivref},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs5_ivcmp}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs5_ivcmp},
+#endif
+#ifndef ${module.driver.analog_connect.connection_acmphs5_ivref}
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+#define ANALOG_CONNECT_CONNECTION_MADE
+#endif
+    ${module.driver.analog_connect.connection_acmphs5_ivref},
+#endif
+#ifndef ANALOG_CONNECT_CONNECTION_MADE
+    (analog_connect_t) 0, // Not a valid connection
+#endif
+};
+#ifdef ANALOG_CONNECT_CONNECTION_MADE
+const analog_connect_table_t ${module.driver.analog_connect.table_name} = {
+    .number_of_connections = sizeof(${module.driver.analog_connect.name}_connections)/sizeof(analog_connect_t),
+    .p_connection_table    = &amp;${module.driver.analog_connect.name}_connections[0],
+};
+#endif
+#undef ANALOG_CONNECT_NO_CONNECTION
+const analog_connect_cfg_t ${module.driver.analog_connect.name}_cfg =
+{
+    .unused              = 0U,
+};
+/* Instance structure to use this module. */
+const analog_connect_instance_t ${module.driver.analog_connect.name} = 
+{
+    .p_cfg         = &amp;${module.driver.analog_connect.name}_cfg,
+    .p_api         = &amp;g_analog_connect_on_analog_connect
+};
+</declarations>
+    </module>
+</synergyModuleDescription>

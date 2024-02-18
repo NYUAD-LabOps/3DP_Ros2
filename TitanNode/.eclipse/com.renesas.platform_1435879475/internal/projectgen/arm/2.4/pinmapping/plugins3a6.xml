@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension point="com.tasking.pinmapper.mapping">
+    <vendor caption="Renesas" id="renesas" />
+    <group caption="Renesas Synergy" id="renesas.synergy" />
+    <family caption="Renesas S3A6" id="renesas.s3a6" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s3a6" device="renesas.s3a6_lj" package="renesas.100lga" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS3A67xxxxxxLJ.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s3a6" device="renesas.s3a6_fl" package="renesas.48lqfp" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS3A67xxxxxxFL.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s3a6" device="renesas.s3a6_fm" package="renesas.64lqfp" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS3A67xxxxxxFM.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s3a6" device="renesas.s3a6_fp" package="renesas.100lqfp" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS3A67xxxxxxFP.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s3a6" device="renesas.s3a6_nb" package="renesas.64qfn" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS3A67xxxxxxNB.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s3a6" device="renesas.s3a6_ne" package="renesas.48qfn" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS3A67xxxxxxNE.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s3a6" device="renesas.s3a6_nf" package="renesas.40qfn" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS3A67xxxxxxNF.xml" />
+  </extension>
+</plugin>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension point="com.tasking.pinmapper.mapping">
+    <vendor caption="Renesas" id="renesas" />
+    <group caption="Renesas Synergy" id="renesas.synergy" />
+    <family caption="Renesas S5D5" id="renesas.s5d5" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s5d5" device="renesas.s5d5_lk" package="renesas.145lga" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS5D57xxxxxxLK.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s5d5" device="renesas.s5d5_fb" package="renesas.144lqfp" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS5D57xxxxxxFB.xml" />
+    <mapping vendor="renesas" group="renesas.synergy" family="renesas.s5d5" device="renesas.s5d5_fp" package="renesas.100lqfp" path="platform:/base/../internal/projectgen/arm/${version}/pinmapping/PinCfgR7FS5D57xxxxxxFP.xml" />
+  </extension>
+</plugin>

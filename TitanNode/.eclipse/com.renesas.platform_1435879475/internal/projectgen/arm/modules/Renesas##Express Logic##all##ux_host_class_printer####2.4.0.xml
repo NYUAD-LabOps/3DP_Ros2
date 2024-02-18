@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<synergyModuleDescription>
+    <config id="config.el.ux_host_class_printer" path="ssp_cfg/framework/el/ux_host_class_printer_user.h" version="0">
+        <content>
+        #if (${interface.el.ux_host_class_printer_src})
+        #include "ux_host_class_printer_src_user.h"
+        #endif
+        </content>
+    </config>
+    <module config="config.el.ux_host_class_printer" display="X-Ware|USBX|Host|Classes|Printer|${module.el.host_class.name} USBX Host Class Printer" common="100" id="module.el.ux_host_class_printer" version="1" category="framework" 
+        url="https://knowledgebase.renesas.com/English_Content/Renesas_Synergy%E2%84%A2_Platform/Renesas_Synergy_Knowledge_Base/USBX_Host_Class_Printer_Module_Guide_Resources">
+        <constraint display="Module instances must have unique names">
+            "${interface.el.ux_host_class_printer.${module.el.host_class.name}}" === "1"
+        </constraint>
+        <constraint display="Express Logic source and default pre-built library should not be combined in the stack configuration.">
+            (("${interface.framework.tx_src}" === "1"  &amp;&amp; ("${interface.el.ux_host_class_printer_src}" === "1" &amp;&amp; "${interface.el.ux_src}" === "1" )) ||  "${interface.framework.tx_src}" != "1")
+        </constraint>
+        <requires interface="_rtos" />
+        <requires interface="interface.el.ux_host_class_printer_src" display="Add USBX Host Class Printer Source [Optional]" id="module.el.ux_host_class_printer.requires.ux_host_class_printer_src" find="false" />
+        <requires id="module.el.ux_host_class_printer.requires.ux_host" interface="interface.el.ux_host" display="Add USB Host Configuration" />
+        <provides interface="interface.el.ux_host_class_printer" />
+        <provides interface="interface.el.ux_host_class_printer.${module.el.host_class.name}" />
+        <property default="g_ux_host_class_printer${_instance}" display="Name" id="module.el.host_class.name">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.el.host_class.name}")</constraint>
+        </property>
+        <header>
+            #include "ux_api.h"
+            #include "ux_host_class_printer.h"
+        </header>
+        <macros>
+            #define USB_HOST_PRINTER_CLASS_REGISTER
+        </macros>
+        <declarations>
+        </declarations>
+        <init>
+        </init>
+    </module>
+</synergyModuleDescription>

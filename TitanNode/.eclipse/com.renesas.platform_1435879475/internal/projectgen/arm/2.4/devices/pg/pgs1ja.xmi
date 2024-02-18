@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<projgen:Container xmi:version="2.0" xmlns:projgen="http:///projgen.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xmi="http://www.omg.org/XMI" xsi:schemaLocation="http:///projgen.ecore ProjGen.ecore">
+  <Target shortName="SYNERGY" target="SYNERGY">
+    <CpuType shortName="S1" isUsedInPG="true">
+      <Cpu shortName="S1JA" compilerCpuType="cortex-m23">
+        <PinCountRZTC shortName="S1JA - 64 Pin" isUsedInPG="true" PinNumber="64">
+          <Device shortName="R7FS1JA783A01CFM" DeviceCommand="R7FS1JA78" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="S1JA - 48 Pin" isUsedInPG="true" PinNumber="48">
+          <Device shortName="R7FS1JA783A01CNE" DeviceCommand="R7FS1JA78" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="S1JA - 40 Pin" isUsedInPG="true" PinNumber="40">
+          <Device shortName="R7FS1JA783A01CNF" DeviceCommand="R7FS1JA78" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="S1JA - 36 Pin" isUsedInPG="true" PinNumber="36">
+          <Device shortName="R7FS1JA782A01CBT" DeviceCommand="R7FS1JA78" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="S1JA - 32 Pin" isUsedInPG="true" PinNumber="32">
+          <Device shortName="R7FS1JA783A01CFJ" DeviceCommand="R7FS1JA78" />
+        </PinCountRZTC>
+      </Cpu>
+    </CpuType>
+  </Target>
+</projgen:Container>

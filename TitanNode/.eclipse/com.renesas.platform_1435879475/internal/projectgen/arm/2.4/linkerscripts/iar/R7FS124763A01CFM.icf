@@ -1,0 +1,99 @@
+/* Revision History
+   v1.00 - First version. Factory Flash is temporarily located in 2nd 8KB block
+   v1.10 - Added SDRAM section
+*/
+
+/*-Memory Regions-*/
+define symbol region_VECT_start    = 0x00000000;
+define symbol region_VECT_end      = 0x000003FF;
+define symbol region_ROMREG_start  = 0x00000400;
+define symbol region_ROMREG_end    = 0x000004FF;
+define symbol region_FLASH_start   = 0x00000500;
+define symbol region_FLASH_end     = 0x0000FFFF;
+define symbol region_E2STrace_Buff = 0x20000000;
+
+/* The e2studio trace buffer requires 0x400 bytes of RAM starting at address 0x20000000. Those have been allocated above.
+ * If trace is not used then these 0x400 bytes can be used by the application by changing the below region_RAM_start to 0x20000000, 
+ * and removing the region_E2STrace_Buff definition. */
+
+define symbol region_RAM_start     = 0x20000400;
+define symbol region_RAM_end       = 0x20004000;
+define symbol region_DF_start      = 0x40100000;
+define symbol region_DF_end        = 0x40101000;
+
+/* ID code regions */
+define symbol region_ID_CODE_1_start    = 0x01010018;
+define symbol region_ID_CODE_1_end      = 0x0101001C;
+define symbol region_ID_CODE_2_start    = 0x01010020;
+define symbol region_ID_CODE_2_end      = 0x01010023;
+define symbol region_ID_CODE_3_start    = 0x01010028;
+define symbol region_ID_CODE_3_end      = 0x0101002C;
+define symbol region_ID_CODE_4_start    = 0x01010030;
+define symbol region_ID_CODE_4_end      = 0x01010033;
+
+/* Stack and heap sizes are defined in bsp_cfg.h */
+
+define memory mem with size     = 4G;
+define region VECT_region       = mem:[from region_VECT_start   to region_VECT_end];
+define region ROMREG_region     = mem:[from region_ROMREG_start to region_ROMREG_end];
+define region FLASH_region      = mem:[from region_FLASH_start  to region_FLASH_end];
+define region RAM_region        = mem:[from region_RAM_start    to region_RAM_end];
+define region DF_region         = mem:[from region_DF_start     to region_DF_end];
+
+define region ID_CODE_1_region  = mem:[from region_ID_CODE_1_start   to region_ID_CODE_1_end];
+define region ID_CODE_2_region  = mem:[from region_ID_CODE_2_start   to region_ID_CODE_2_end];
+define region ID_CODE_3_region  = mem:[from region_ID_CODE_3_start   to region_ID_CODE_3_end];
+define region ID_CODE_4_region  = mem:[from region_ID_CODE_4_start   to region_ID_CODE_4_end];
+
+initialize manually { readwrite };
+do not initialize   { zeroinit };
+initialize manually { section .code_in_ram };
+/* Main thread local storage */
+initialize manually { section __DLIB_PERTHREAD };
+
+define block RAM_INIT_CODE                 { section .code_in_ram_init };
+define block RAM_CODE                      { section .code_in_ram };
+define block VECT_INFO                     { ro section .vector_info.* };
+keep                                       { section .vector*};
+define block LOCK_LOOKUP                   { ro section .hw_lock_lookup.* };
+keep                                       { section .hw_lock_lookup*};
+define block HW_LOCK with alignment=1      { rw section .hw_lock.* };
+keep                                       { section .hw_lock.*};
+
+define block USB_DEV_DESC_BLK with fixed order, alignment = 1
+                                           { ro data section .usb_device_desc_fs,
+                                             ro data section .usb_config_desc_fs,
+                                             ro data section .usb_interface_desc_fs};
+keep                                       { section .usb_*};
+
+
+place at start of VECT_region  { ro section .vectors };
+place in VECT_region           { ro section .vector.* };
+place in ROMREG_region         { ro section .rom_registers };
+place at start of FLASH_region { block VECT_INFO };
+place in FLASH_region   { block LOCK_LOOKUP,
+                          ro,
+                          ro section .rodata,
+                          block RAM_INIT_CODE,
+                          block USB_DEV_DESC_BLK };
+/* If DTC is used, put the DTC vector table at the start of SRAM.
+This avoids memory holes due to 1K alignment required by it. */
+place at start of RAM_region   { rw section .ssp_dtc_vector_table };                        
+
+place in ID_CODE_1_region  { ro section .id_code_1 };
+place in ID_CODE_2_region  { ro section .id_code_2 };
+place in ID_CODE_3_region  { ro section .id_code_3 };
+place in ID_CODE_4_region  { ro section .id_code_4 };
+
+place in RAM_region     { rw,
+                          rw section .noinit,
+                          rw section .bss,
+                          rw section .data,
+                          block HW_LOCK,
+                          rw section HEAP,
+                          rw section .stack,
+                          block RAM_CODE };
+place in DF_region      { ro section .data_flash };
+place in RAM_region     { last section FREE_MEM};
+
+define exported symbol __Vector_Info_Start = region_FLASH_start;

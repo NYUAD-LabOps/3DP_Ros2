@@ -1,0 +1,120 @@
+<?xml version="1.0" ?>
+<synergyModuleDescription>
+    <config id="config.framework.sf_wifi_qca4010_socket" path="ssp_cfg/framework/sf_wifi_qca4010_socket_cfg.h" version="0">
+        <property default="config.framework.sf_wifi_qca4010_socket.param_checking_enable.bsp" display="Parameter Checking" id="config.framework.sf_wifi_qca4010_socket.param_checking_enable">
+            <option display="Default (BSP)" id="config.framework.sf_wifi_qca4010_socket.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="module.framework.sf_wifi_qca4010_socket.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="module.framework.sf_wifi_qca4010_socket.param_checking_enable.disabled" value="(0)"/>
+        </property>
+        <property default="1" display="Number of supported socket instances" id="config.framework.sf_wifi_qca4010_socket.num_sockets" description="Enable number of socket instances">
+            <option display="1" id="config.framework.sf_wifi_qca4010_socket.num_sockets.one" value="(1)"/>
+            <option display="2" id="config.framework.sf_wifi_qca4010_socket.num_sockets.two" value="(2)"/>
+            <option display="3" id="config.framework.sf_wifi_qca4010_socket.num_sockets.three" value="(3)"/>
+            <option display="4" id="config.framework.sf_wifi_qca4010_socket.num_sockets.four" value="(4)"/>
+            <option display="5" id="config.framework.sf_wifi_qca4010_socket.num_sockets.five" value="(5)"/>
+            <option display="6" id="config.framework.sf_wifi_qca4010_socket.num_sockets.six" value="(6)"/>
+            <option display="7" id="config.framework.sf_wifi_qca4010_socket.num_sockets.seven" value="(7)"/>
+            <option display="8" id="config.framework.sf_wifi_qca4010_socket.num_sockets.eight" value="(8)"/>
+            <option display="9" id="config.framework.sf_wifi_qca4010_socket.num_sockets.nine" value="(9)"/>
+            <option display="10" id="config.framework.sf_wifi_qca4010_socket.num_sockets.ten" value="(10)"/>
+            <option display="11" id="config.framework.sf_wifi_qca4010_socket.num_sockets.eleven" value="(11)"/>
+            <option display="12" id="config.framework.sf_wifi_qca4010_socket.num_sockets.twelve" value="(12)"/>
+        </property>
+        <content>
+        #ifndef SF_WIFI_QCA4010_SOCKET_CFG_PARAM_CHECKING_ENABLE
+        #define SF_WIFI_QCA4010_SOCKET_CFG_PARAM_CHECKING_ENABLE ${config.framework.sf_wifi_qca4010_socket.param_checking_enable}
+        #endif
+        #ifndef NUMBER_OF_SOCKET_INSTANCES
+        #define NUMBER_OF_SOCKET_INSTANCES ${config.framework.sf_wifi_qca4010_socket.num_sockets}
+        #endif
+        #ifndef MAX_NUMBER_OF_CREATABLE_SOCKETS
+        #define MAX_NUMBER_OF_CREATABLE_SOCKETS (12)
+        #endif
+        </content>
+    </config>
+    <module config="config.framework.sf_wifi_qca4010_socket" common="1" display="Framework|Networking|Wi-Fi|${module.framework.sf_wifi_qca4010_socket.name} Socket using qca4010 On-Chip Stack on qca4010 Wi-Fi Framework" id="module.framework.sf_wifi_qca4010_socket" version="1" url="https://en-support.renesas.com/knowledgeBase/20069118">
+        <requires interface="_rtos" />
+        <requires id="module.framework.sf_wifi_qca4010_socket.requires.sf_wifi_qca4010_onchip_stack" interface="interface.framework.sf_wifi_qca4010_onchip_stack" display="Add On-Chip Stack" />
+        <provides interface="interface.framework.sf_wifi_qca4010_socket" />
+        <provides interface="interface.framework.sf_wifi_qca4010_socket_wifi.${module.framework.sf_wifi_qca4010_socket.name}" />
+        <provides interface="interface.framework.sf_wifi_qca4010_socket_wifi" />
+        <provides interface="interface.framework.sf_wifi_qca4010_socket_wifi_on_sf_wifi_qca4010_socket" />
+        <provides interface="interface.framework.sf_wifi_qca4010_socket_wifi.${module.framework.sf_wifi_qca4010_socket.name}" />
+        <property default="g_sf_wifi_qca4010_socket" display="Name (Must be a valid C Symbol)" id="module.framework.sf_wifi_qca4010_socket.name" >
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.framework.sf_wifi_qca4010_socket.name}")</constraint>
+        </property>
+        <property default="sf_wifi_qca4010_socket_init${_instance}" display="Name of generated initialization function" id="module.framework.sf_wifi_qca4010_socket.init_function">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.framework.sf_wifi_qca4010_socket.init_function}")</constraint>
+        </property>
+        <property default="module.framework.sf_wifi_qca4010_socket.init.enable" display="Auto Initialization" id="module.framework.sf_wifi_qca4010_socket.init">
+            <option display="Enable"  id="module.framework.sf_wifi_qca4010_socket.init.enable"  value="1"/>
+            <option display="Disable" id="module.framework.sf_wifi_qca4010_socket.init.disable" value="0"/>
+        </property>
+        <header>
+        /** sf_wifi_qca4010_socket instance on qca4010 */
+        extern sf_wifi_qca4010_socket_instance_t ${module.framework.sf_wifi_qca4010_socket.name};
+        void ${module.framework.sf_wifi_qca4010_socket.init_function}(void);
+        </header>
+    <includes>#include &quot;sf_wifi_qca4010_socket_api.h&quot;
+    #include &quot;sf_wifi_qca4010_socket.h&quot;
+    #include &quot;sf_wifi_qca4010_socket_cfg.h&quot;
+    </includes>
+    <declarations>
+/***********************************************************************************************************************
+ * Wi-Fi Socket Instance
+ **********************************************************************************************************************/
+/** Control structure for Socket */
+static sf_wifi_qca4010_socket_ctrl_t ${module.framework.sf_wifi_qca4010_socket.name}_ctrl;
+
+/** Configuration structure for sf_wifi_qca4010_socket */
+static const sf_wifi_qca4010_socket_cfg_t  ${module.framework.sf_wifi_qca4010_socket.name}_cfg =
+{
+    .p_lower_lvl_onchip_wifi_qca4010 = &amp;${module.framework.sf_wifi_qca4010_socket.requires.sf_wifi_qca4010_onchip_stack::module.framework.sf_wifi_qca4010_onchip_stack.name},
+    .num_creatable_sockets = NUMBER_OF_SOCKET_INSTANCES
+};
+
+sf_wifi_qca4010_socket_instance_t ${module.framework.sf_wifi_qca4010_socket.name} =
+{
+    .p_ctrl = &amp;${module.framework.sf_wifi_qca4010_socket.name}_ctrl,
+    .p_cfg  = &amp;${module.framework.sf_wifi_qca4010_socket.name}_cfg,
+    .p_api  = &amp;g_sf_wifi_socket_on_sf_wifi_qca4010_socket,
+};
+/*******************************************************************************************************************//**
+ * @brief      This is a weak example initialization error function.  It should be overridden by defining a user  function 
+ *             with the prototype below.
+ *             - void ${module.framework.sf_wifi_qca4010_socket.name}_err_callback(void * p_instance, void * p_data)
+ *
+ * @param[in]  p_instance arguments used to identify which instance caused the error and p_data Callback arguments used to identify what error caused the callback.
+ **********************************************************************************************************************/
+void ${module.framework.sf_wifi_qca4010_socket.name}_err_callback_internal(void * p_instance, void * p_data);
+void ${module.framework.sf_wifi_qca4010_socket.name}_err_callback_internal(void * p_instance, void * p_data)
+{
+    /** Suppress compiler warning for not using parameters. */
+    SSP_PARAMETER_NOT_USED(p_instance);
+    SSP_PARAMETER_NOT_USED(p_data);
+    /** An error has occurred. Please check function arguments for more information. */
+    BSP_CFG_HANDLE_UNRECOVERABLE_ERROR(0);
+}
+/*******************************************************************************************************************//**
+* @brief     Initialization function that the user can choose to have called automatically during thread entry.
+*            The user can call this function at a later time if desired using the prototype below.
+*            - void ${module.framework.sf_wifi_qca4010_socket.init_function}(void)
+**********************************************************************************************************************/
+void ${module.framework.sf_wifi_qca4010_socket.init_function}(void)
+{
+    ssp_err_t ssp_err_${module.framework.sf_wifi_qca4010_socket.name};
+    ssp_err_${module.framework.sf_wifi_qca4010_socket.name} = ${module.framework.sf_wifi_qca4010_socket.name}.p_api->open(${module.framework.sf_wifi_qca4010_socket.name}.p_ctrl, ${module.framework.sf_wifi_qca4010_socket.name}.p_cfg);
+    if (SSP_SUCCESS != ssp_err_${module.framework.sf_wifi_qca4010_socket.name})
+    {
+        ${module.framework.sf_wifi_qca4010_socket.name}_err_callback_internal((void *)&amp;${module.framework.sf_wifi_qca4010_socket.name},&amp;ssp_err_${module.framework.sf_wifi_qca4010_socket.name});
+    }
+}
+    </declarations>
+    <init>
+        /** Call initialization function if user has selected to do so. */
+        #if (${module.framework.sf_wifi_qca4010_socket.init})
+            ${module.framework.sf_wifi_qca4010_socket.init_function}();
+        #endif
+    </init>
+    </module>
+</synergyModuleDescription>
