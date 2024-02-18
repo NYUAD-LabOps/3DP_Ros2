@@ -26,7 +26,6 @@
     <symbolicName propertyId="p015.symbolic_name" value="GPIO18"/>
     <symbolicName propertyId="p100.symbolic_name" value="SPI0__Pin_Option_A_MISOA_A"/>
     <symbolicName propertyId="p101.symbolic_name" value="SPI0__Pin_Option_A_MOSIA_A"/>
-    <symbolicName propertyId="p102.symbolic_name" value="SPI0__Pin_Option_A_RSPCKA_A"/>
     <symbolicName propertyId="p103.symbolic_name" value="SPI0__Pin_Option_A_SSLA0_A"/>
     <symbolicName propertyId="p104.symbolic_name" value="SCI8_RXD8_SCL8_MISO8"/>
     <symbolicName propertyId="p105.symbolic_name" value="SCI8_TXD8_SDA8_MOSI8"/>
@@ -200,18 +199,8 @@
       <configSetting altId="p010.gpio_mode.gpio_mode_in" configurationId="p010.gpio_mode"/>
       <configSetting altId="p015.asel" configurationId="p015"/>
       <configSetting altId="p015.gpio_mode.gpio_mode_an" configurationId="p015.gpio_mode"/>
-      <configSetting altId="p100.spi0.miso" configurationId="p100"/>
-      <configSetting altId="p100.gpio_speed.gpio_speed_medium" configurationId="p100.gpio_drivecapacity"/>
-      <configSetting altId="p100.gpio_mode.gpio_mode_peripheral" configurationId="p100.gpio_mode"/>
-      <configSetting altId="p101.spi0.mosi" configurationId="p101"/>
-      <configSetting altId="p101.gpio_speed.gpio_speed_medium" configurationId="p101.gpio_drivecapacity"/>
-      <configSetting altId="p101.gpio_mode.gpio_mode_peripheral" configurationId="p101.gpio_mode"/>
-      <configSetting altId="p102.spi0.rspck" configurationId="p102"/>
-      <configSetting altId="p102.gpio_speed.gpio_speed_medium" configurationId="p102.gpio_drivecapacity"/>
-      <configSetting altId="p102.gpio_mode.gpio_mode_peripheral" configurationId="p102.gpio_mode"/>
-      <configSetting altId="p103.spi0.ssl0" configurationId="p103"/>
-      <configSetting altId="p103.gpio_speed.gpio_speed_medium" configurationId="p103.gpio_drivecapacity"/>
-      <configSetting altId="p103.gpio_mode.gpio_mode_peripheral" configurationId="p103.gpio_mode"/>
+      <configSetting altId="p102.output.low" configurationId="p102"/>
+      <configSetting altId="p102.gpio_mode.gpio_mode_out.low" configurationId="p102.gpio_mode"/>
       <configSetting altId="p104.sci8.rxd" configurationId="p104"/>
       <configSetting altId="p104.gpio_speed.gpio_speed_medium" configurationId="p104.gpio_drivecapacity"/>
       <configSetting altId="p104.gpio_mode.gpio_mode_peripheral" configurationId="p104.gpio_mode"/>
@@ -395,11 +384,6 @@
       <configSetting altId="sci8.rxd.p104" configurationId="sci8.rxd"/>
       <configSetting altId="sci8.sck.p106" configurationId="sci8.sck"/>
       <configSetting altId="sci8.txd.p105" configurationId="sci8.txd"/>
-      <configSetting altId="spi0.miso.p100" configurationId="spi0.miso"/>
-      <configSetting altId="spi0.mode.enabled.free" configurationId="spi0.mode"/>
-      <configSetting altId="spi0.mosi.p101" configurationId="spi0.mosi"/>
-      <configSetting altId="spi0.rspck.p102" configurationId="spi0.rspck"/>
-      <configSetting altId="spi0.ssl0.p103" configurationId="spi0.ssl0"/>
       <configSetting altId="usbfs0.mode.custom" configurationId="usbfs0.mode"/>
       <configSetting altId="usbfs0.vbus.p407" configurationId="usbfs0.vbus"/>
       <configSetting altId="usbhs0.mode.custom" configurationId="usbhs0.mode"/>
@@ -1049,7 +1033,7 @@
     </module>
     <module id="module.framework.sf_el_ux_dcd_fs.1842534691">
       <property id="module.framework.sf_el_ux_dcd_fs.name" value="g_sf_el_ux_dcd_fs_0"/>
-      <property id="module.framework.sf_el_ux_dcd_fs.hw_address" value="R_USBFS_BASE"/>
+      <property id="module.framework.sf_el_ux_dcd_fs.hw_address" value="module.framework.sf_el_ux_dcd_fs.hw_address.fs"/>
     </module>
     <module id="module.driver.transfer_on_dmac.1353019232">
       <property id="module.driver.transfer.name" value="g_transfer2"/>
