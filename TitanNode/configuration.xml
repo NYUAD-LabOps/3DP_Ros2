@@ -24,13 +24,8 @@
     <symbolicName propertyId="p010.symbolic_name" value="GPIO20"/>
     <symbolicName propertyId="p014.symbolic_name" value="GPIO19"/>
     <symbolicName propertyId="p015.symbolic_name" value="GPIO18"/>
-    <symbolicName propertyId="p100.symbolic_name" value="SPI0__Pin_Option_A_MISOA_A"/>
     <symbolicName propertyId="p101.symbolic_name" value="SPI0__Pin_Option_A_MOSIA_A"/>
-    <symbolicName propertyId="p103.symbolic_name" value="SPI0__Pin_Option_A_SSLA0_A"/>
-    <symbolicName propertyId="p104.symbolic_name" value="SCI8_RXD8_SCL8_MISO8"/>
-    <symbolicName propertyId="p105.symbolic_name" value="SCI8_TXD8_SDA8_MOSI8"/>
     <symbolicName propertyId="p106.symbolic_name" value="SCI8_SCK8"/>
-    <symbolicName propertyId="p107.symbolic_name" value="GPIO12"/>
     <symbolicName propertyId="p108.symbolic_name" value="JTAG_TMS"/>
     <symbolicName propertyId="p109.symbolic_name" value="JTAG_TDO"/>
     <symbolicName propertyId="p110.symbolic_name" value="JTAG_TDI"/>
@@ -77,7 +72,6 @@
     <symbolicName propertyId="p505.symbolic_name" value="Quad_SPI_QIO3"/>
     <symbolicName propertyId="p506.symbolic_name" value="GPIO16"/>
     <symbolicName propertyId="p507.symbolic_name" value="GPIO17"/>
-    <symbolicName propertyId="p600.symbolic_name" value="GPIO11"/>
     <symbolicName propertyId="p601.symbolic_name" value="GPIO9"/>
     <symbolicName propertyId="p602.symbolic_name" value="GPIO8"/>
     <symbolicName propertyId="p603.symbolic_name" value="GPIO3"/>
@@ -201,18 +195,12 @@
       <configSetting altId="p015.gpio_mode.gpio_mode_an" configurationId="p015.gpio_mode"/>
       <configSetting altId="p102.output.low" configurationId="p102"/>
       <configSetting altId="p102.gpio_mode.gpio_mode_out.low" configurationId="p102.gpio_mode"/>
-      <configSetting altId="p104.sci8.rxd" configurationId="p104"/>
-      <configSetting altId="p104.gpio_speed.gpio_speed_medium" configurationId="p104.gpio_drivecapacity"/>
-      <configSetting altId="p104.gpio_mode.gpio_mode_peripheral" configurationId="p104.gpio_mode"/>
-      <configSetting altId="p105.sci8.txd" configurationId="p105"/>
-      <configSetting altId="p105.gpio_speed.gpio_speed_medium" configurationId="p105.gpio_drivecapacity"/>
-      <configSetting altId="p105.gpio_mode.gpio_mode_peripheral" configurationId="p105.gpio_mode"/>
-      <configSetting altId="p106.sci8.sck" configurationId="p106"/>
-      <configSetting altId="p106.gpio_speed.gpio_speed_high" configurationId="p106.gpio_drivecapacity"/>
-      <configSetting altId="p106.gpio_mode.gpio_mode_peripheral" configurationId="p106.gpio_mode"/>
-      <configSetting altId="p107.output.low" configurationId="p107"/>
-      <configSetting altId="p107.gpio_speed.gpio_speed_medium" configurationId="p107.gpio_drivecapacity"/>
-      <configSetting altId="p107.gpio_mode.gpio_mode_out.low" configurationId="p107.gpio_mode"/>
+      <configSetting altId="p103.output.low" configurationId="p103"/>
+      <configSetting altId="p103.gpio_mode.gpio_mode_out.low" configurationId="p103.gpio_mode"/>
+      <configSetting altId="p104.output.low" configurationId="p104"/>
+      <configSetting altId="p104.gpio_mode.gpio_mode_out.low" configurationId="p104.gpio_mode"/>
+      <configSetting altId="p105.output.low" configurationId="p105"/>
+      <configSetting altId="p105.gpio_mode.gpio_mode_out.low" configurationId="p105.gpio_mode"/>
       <configSetting altId="p108.debug0.tms" configurationId="p108"/>
       <configSetting altId="p108.gpio_mode.gpio_mode_peripheral" configurationId="p108.gpio_mode"/>
       <configSetting altId="p109.debug0.tdo" configurationId="p109"/>
@@ -293,15 +281,6 @@
       <configSetting altId="p406.gpio_mode.gpio_mode_peripheral" configurationId="p406.gpio_mode"/>
       <configSetting altId="p407.usbfs0.vbus" configurationId="p407"/>
       <configSetting altId="p407.gpio_mode.gpio_mode_peripheral" configurationId="p407.gpio_mode"/>
-      <configSetting altId="p410.sci0.rxd" configurationId="p410"/>
-      <configSetting altId="p410.gpio_speed.gpio_speed_medium" configurationId="p410.gpio_drivecapacity"/>
-      <configSetting altId="p410.gpio_mode.gpio_mode_peripheral" configurationId="p410.gpio_mode"/>
-      <configSetting altId="p411.sci0.txd" configurationId="p411"/>
-      <configSetting altId="p411.gpio_speed.gpio_speed_medium" configurationId="p411.gpio_drivecapacity"/>
-      <configSetting altId="p411.gpio_mode.gpio_mode_peripheral" configurationId="p411.gpio_mode"/>
-      <configSetting altId="p412.sci0.sck" configurationId="p412"/>
-      <configSetting altId="p412.gpio_speed.gpio_speed_high" configurationId="p412.gpio_drivecapacity"/>
-      <configSetting altId="p412.gpio_mode.gpio_mode_peripheral" configurationId="p412.gpio_mode"/>
       <configSetting altId="p413.output.low" configurationId="p413"/>
       <configSetting altId="p413.gpio_speed.gpio_speed_medium" configurationId="p413.gpio_drivecapacity"/>
       <configSetting altId="p413.gpio_mode.gpio_mode_out.low" configurationId="p413.gpio_mode"/>
@@ -309,9 +288,6 @@
       <configSetting altId="p506.gpio_mode.gpio_mode_in" configurationId="p506.gpio_mode"/>
       <configSetting altId="p507.input" configurationId="p507"/>
       <configSetting altId="p507.gpio_mode.gpio_mode_in" configurationId="p507.gpio_mode"/>
-      <configSetting altId="p600.output.low" configurationId="p600"/>
-      <configSetting altId="p600.gpio_speed.gpio_speed_medium" configurationId="p600.gpio_drivecapacity"/>
-      <configSetting altId="p600.gpio_mode.gpio_mode_out.low" configurationId="p600.gpio_mode"/>
       <configSetting altId="p601.output.low" configurationId="p601"/>
       <configSetting altId="p601.gpio_speed.gpio_speed_medium" configurationId="p601.gpio_drivecapacity"/>
       <configSetting altId="p601.gpio_mode.gpio_mode_out.low" configurationId="p601.gpio_mode"/>
@@ -348,12 +324,6 @@
       <configSetting altId="p705.etherc1.rmii.crs_dv" configurationId="p705"/>
       <configSetting altId="p705.gpio_speed.gpio_speed_high" configurationId="p705.gpio_drivecapacity"/>
       <configSetting altId="p705.gpio_mode.gpio_mode_peripheral" configurationId="p705.gpio_mode"/>
-      <configSetting altId="p706.sci3.rxd" configurationId="p706"/>
-      <configSetting altId="p706.gpio_speed.gpio_speed_medium" configurationId="p706.gpio_drivecapacity"/>
-      <configSetting altId="p706.gpio_mode.gpio_mode_peripheral" configurationId="p706.gpio_mode"/>
-      <configSetting altId="p707.sci3.txd" configurationId="p707"/>
-      <configSetting altId="p707.gpio_speed.gpio_speed_medium" configurationId="p707.gpio_drivecapacity"/>
-      <configSetting altId="p707.gpio_mode.gpio_mode_peripheral" configurationId="p707.gpio_mode"/>
       <configSetting altId="p800.output.low" configurationId="p800"/>
       <configSetting altId="p800.gpio_speed.gpio_speed_medium" configurationId="p800.gpio_drivecapacity"/>
       <configSetting altId="p800.gpio_mode.gpio_mode_out.low" configurationId="p800.gpio_mode"/>
@@ -373,17 +343,6 @@
       <configSetting altId="pb00.gpio_mode.gpio_mode_peripheral" configurationId="pb00.gpio_mode"/>
       <configSetting altId="pb01.usbhs0.vbus" configurationId="pb01"/>
       <configSetting altId="pb01.gpio_mode.gpio_mode_peripheral" configurationId="pb01.gpio_mode"/>
-      <configSetting altId="sci0.mode.spi.free" configurationId="sci0.mode"/>
-      <configSetting altId="sci0.rxd.p410" configurationId="sci0.rxd"/>
-      <configSetting altId="sci0.sck.p412" configurationId="sci0.sck"/>
-      <configSetting altId="sci0.txd.p411" configurationId="sci0.txd"/>
-      <configSetting altId="sci3.mode.custom.free" configurationId="sci3.mode"/>
-      <configSetting altId="sci3.rxd.p706" configurationId="sci3.rxd"/>
-      <configSetting altId="sci3.txd.p707" configurationId="sci3.txd"/>
-      <configSetting altId="sci8.mode.spi.free" configurationId="sci8.mode"/>
-      <configSetting altId="sci8.rxd.p104" configurationId="sci8.rxd"/>
-      <configSetting altId="sci8.sck.p106" configurationId="sci8.sck"/>
-      <configSetting altId="sci8.txd.p105" configurationId="sci8.txd"/>
       <configSetting altId="usbfs0.mode.custom" configurationId="usbfs0.mode"/>
       <configSetting altId="usbfs0.vbus.p407" configurationId="usbfs0.vbus"/>
       <configSetting altId="usbhs0.mode.custom" configurationId="usbhs0.mode"/>
