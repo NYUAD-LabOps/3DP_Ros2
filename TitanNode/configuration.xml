@@ -25,7 +25,6 @@
     <symbolicName propertyId="p014.symbolic_name" value="GPIO19"/>
     <symbolicName propertyId="p015.symbolic_name" value="GPIO18"/>
     <symbolicName propertyId="p101.symbolic_name" value="SPI0__Pin_Option_A_MOSIA_A"/>
-    <symbolicName propertyId="p106.symbolic_name" value="SCI8_SCK8"/>
     <symbolicName propertyId="p108.symbolic_name" value="JTAG_TMS"/>
     <symbolicName propertyId="p109.symbolic_name" value="JTAG_TDO"/>
     <symbolicName propertyId="p110.symbolic_name" value="JTAG_TDI"/>
@@ -201,6 +200,10 @@
       <configSetting altId="p104.gpio_mode.gpio_mode_out.low" configurationId="p104.gpio_mode"/>
       <configSetting altId="p105.output.low" configurationId="p105"/>
       <configSetting altId="p105.gpio_mode.gpio_mode_out.low" configurationId="p105.gpio_mode"/>
+      <configSetting altId="p106.output.low" configurationId="p106"/>
+      <configSetting altId="p106.gpio_mode.gpio_mode_out.low" configurationId="p106.gpio_mode"/>
+      <configSetting altId="p107.output.low" configurationId="p107"/>
+      <configSetting altId="p107.gpio_mode.gpio_mode_out.low" configurationId="p107.gpio_mode"/>
       <configSetting altId="p108.debug0.tms" configurationId="p108"/>
       <configSetting altId="p108.gpio_mode.gpio_mode_peripheral" configurationId="p108.gpio_mode"/>
       <configSetting altId="p109.debug0.tdo" configurationId="p109"/>
@@ -288,6 +291,8 @@
       <configSetting altId="p506.gpio_mode.gpio_mode_in" configurationId="p506.gpio_mode"/>
       <configSetting altId="p507.input" configurationId="p507"/>
       <configSetting altId="p507.gpio_mode.gpio_mode_in" configurationId="p507.gpio_mode"/>
+      <configSetting altId="p600.output.low" configurationId="p600"/>
+      <configSetting altId="p600.gpio_mode.gpio_mode_out.low" configurationId="p600.gpio_mode"/>
       <configSetting altId="p601.output.low" configurationId="p601"/>
       <configSetting altId="p601.gpio_speed.gpio_speed_medium" configurationId="p601.gpio_drivecapacity"/>
       <configSetting altId="p601.gpio_mode.gpio_mode_out.low" configurationId="p601.gpio_mode"/>
