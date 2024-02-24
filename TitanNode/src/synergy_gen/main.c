@@ -6,6 +6,11 @@ extern void NodeMain_create(void);
 extern void ProcessManager_create(void);
 extern void DriveHandler01_create(void);
 extern void USB_CDC_Read_create(void);
+extern void DriveHandler02_create(void);
+extern void DriveHandler03_create(void);
+extern void DriveHandler04_create(void);
+extern void DriveHandler05_create(void);
+extern void DriveHandler06_create(void);
 
 uint32_t g_ssp_common_thread_count;
 bool g_ssp_common_initialized;
@@ -64,6 +69,11 @@ void tx_application_define(void *first_unused_memory)
     ProcessManager_create ();
     DriveHandler01_create ();
     USB_CDC_Read_create ();
+    DriveHandler02_create ();
+    DriveHandler03_create ();
+    DriveHandler04_create ();
+    DriveHandler05_create ();
+    DriveHandler06_create ();
 
 #ifdef TX_USER_ENABLE_TRACE
 					TX_USER_ENABLE_TRACE;

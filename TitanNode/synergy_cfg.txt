@@ -1338,4 +1338,44 @@ Synergy Configuration
     Auto start: Enabled
     Time slicing interval (ticks): 1
     
+  Thread "DriveHandler02"
+    Symbol: DriveHandler02
+    Name: DriveHandler02
+    Stack size (bytes): 1024
+    Priority: 3
+    Auto start: Enabled
+    Time slicing interval (ticks): 1
+    
+  Thread "DriveHandler03"
+    Symbol: DriveHandler03
+    Name: DriveHandler03
+    Stack size (bytes): 1024
+    Priority: 3
+    Auto start: Enabled
+    Time slicing interval (ticks): 1
+    
+  Thread "DriveHandler04"
+    Symbol: DriveHandler04
+    Name: DriveHandler04
+    Stack size (bytes): 1024
+    Priority: 3
+    Auto start: Enabled
+    Time slicing interval (ticks): 1
+    
+  Thread "DriveHandler05"
+    Symbol: DriveHandler05
+    Name: DriveHandler05
+    Stack size (bytes): 1024
+    Priority: 3
+    Auto start: Enabled
+    Time slicing interval (ticks): 1
+    
+  Thread "DriveHandler06"
+    Symbol: DriveHandler06
+    Name: DriveHandler06
+    Stack size (bytes): 1024
+    Priority: 3
+    Auto start: Enabled
+    Time slicing interval (ticks): 1
+    
   Messaging

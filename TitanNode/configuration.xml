@@ -1139,6 +1139,46 @@
       <property id="rtos.threadx.thread.autostart" value="rtos.threadx.thread.autostart.enabled"/>
       <property id="rtos.threadx.thread.timeslice" value="1"/>
     </context>
+    <context id="rtos.threadx.thread.1920674182">
+      <property id="_symbol" value="DriveHandler02"/>
+      <property id="rtos.threadx.thread.name" value="DriveHandler02"/>
+      <property id="rtos.threadx.thread.stack" value="1024"/>
+      <property id="rtos.threadx.thread.priority" value="3"/>
+      <property id="rtos.threadx.thread.autostart" value="rtos.threadx.thread.autostart.enabled"/>
+      <property id="rtos.threadx.thread.timeslice" value="1"/>
+    </context>
+    <context id="rtos.threadx.thread.221927586">
+      <property id="_symbol" value="DriveHandler03"/>
+      <property id="rtos.threadx.thread.name" value="DriveHandler03"/>
+      <property id="rtos.threadx.thread.stack" value="1024"/>
+      <property id="rtos.threadx.thread.priority" value="3"/>
+      <property id="rtos.threadx.thread.autostart" value="rtos.threadx.thread.autostart.enabled"/>
+      <property id="rtos.threadx.thread.timeslice" value="1"/>
+    </context>
+    <context id="rtos.threadx.thread.1516671741">
+      <property id="_symbol" value="DriveHandler04"/>
+      <property id="rtos.threadx.thread.name" value="DriveHandler04"/>
+      <property id="rtos.threadx.thread.stack" value="1024"/>
+      <property id="rtos.threadx.thread.priority" value="3"/>
+      <property id="rtos.threadx.thread.autostart" value="rtos.threadx.thread.autostart.enabled"/>
+      <property id="rtos.threadx.thread.timeslice" value="1"/>
+    </context>
+    <context id="rtos.threadx.thread.285211466">
+      <property id="_symbol" value="DriveHandler05"/>
+      <property id="rtos.threadx.thread.name" value="DriveHandler05"/>
+      <property id="rtos.threadx.thread.stack" value="1024"/>
+      <property id="rtos.threadx.thread.priority" value="3"/>
+      <property id="rtos.threadx.thread.autostart" value="rtos.threadx.thread.autostart.enabled"/>
+      <property id="rtos.threadx.thread.timeslice" value="1"/>
+    </context>
+    <context id="rtos.threadx.thread.919285600">
+      <property id="_symbol" value="DriveHandler06"/>
+      <property id="rtos.threadx.thread.name" value="DriveHandler06"/>
+      <property id="rtos.threadx.thread.stack" value="1024"/>
+      <property id="rtos.threadx.thread.priority" value="3"/>
+      <property id="rtos.threadx.thread.autostart" value="rtos.threadx.thread.autostart.enabled"/>
+      <property id="rtos.threadx.thread.timeslice" value="1"/>
+    </context>
     <config id="config.el.ux_v2"/>
     <config id="config.el.ux_device">
       <property id="config.el.ux_device.composite" value="config.el.ux_device.composite.disable"/>
