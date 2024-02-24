@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<raModuleDescription>
+  <config id="config.bsp.ra6t2" path="fsp_cfg/bsp/bsp_mcu_device_cfg.h" version="0">
+    <property id="config.bsp.series" display="series" default="config.bsp.series.value" macro="BSP_CFG_MCU_PART_SERIES">
+      <option id="config.bsp.series.value" display="6" value="6" />
+    </property>
+    <content>
+      #define BSP_CFG_MCU_PART_SERIES (${config.bsp.series})
+    </content>
+  </config>
+  <bsp id="bsp.ra6t2" config="config.bsp.ra6t2" display="RA6T2" version="0">
+    <provides interface="interface.mcu.ra6t2" />
+    <provides interface="interface.mcu.core.cm33" />
+    <provides interface="interface.mcu.acmphs" />
+    <provides interface="interface.mcu.acmphs.0" />
+    <provides interface="interface.mcu.acmphs.1" />
+    <provides interface="interface.mcu.acmphs.2" />
+    <provides interface="interface.mcu.acmphs.3" />
+    <provides interface="interface.mcu.adc_b" />
+    <provides interface="interface.mcu.adc_b.0" />
+    <provides interface="interface.mcu.agt" />
+    <provides interface="interface.mcu.agt.0" />
+    <provides interface="interface.mcu.agt.1" />
+    <provides interface="interface.mcu.agtw" />
+    <provides interface="interface.mcu.agtw.0" />
+    <provides interface="interface.mcu.agtw.1" />
+    <provides interface="interface.mcu.bus" />
+    <provides interface="interface.mcu.bus.0" />
+    <provides interface="interface.mcu.cac" />
+    <provides interface="interface.mcu.cac.0" />
+    <provides interface="interface.mcu.cache" />
+    <provides interface="interface.mcu.cache.0" />
+    <provides interface="interface.mcu.canfd" />
+    <provides interface="interface.mcu.canfd.0" />
+    <provides interface="interface.mcu.cgc" />
+    <provides interface="interface.mcu.cgc.0" />
+    <provides interface="interface.mcu.cpscu" />
+    <provides interface="interface.mcu.cpscu.0" />
+    <provides interface="interface.mcu.crc" />
+    <provides interface="interface.mcu.crc.0" />
+    <provides interface="interface.mcu.dac" />
+    <provides interface="interface.mcu.dac.0" />
+    <provides interface="interface.mcu.dac.1" />
+    <provides interface="interface.mcu.dac.2" />
+    <provides interface="interface.mcu.dac.3" />
+    <provides interface="interface.mcu.dac12" />
+    <provides interface="interface.mcu.dac12.0" />
+    <provides interface="interface.mcu.dac12.1" />
+    <provides interface="interface.mcu.dac12.2" />
+    <provides interface="interface.mcu.dac12.3" />
+    <provides interface="interface.mcu.debug" />
+    <provides interface="interface.mcu.debug.0" />
+    <provides interface="interface.mcu.dma" />
+    <provides interface="interface.mcu.dma.0" />
+    <provides interface="interface.mcu.dma_dmac" />
+    <provides interface="interface.mcu.dma_dmac.0" />
+    <provides interface="interface.mcu.dma_dmac.1" />
+    <provides interface="interface.mcu.dma_dmac.2" />
+    <provides interface="interface.mcu.dma_dmac.3" />
+    <provides interface="interface.mcu.dma_dmac.4" />
+    <provides interface="interface.mcu.dma_dmac.5" />
+    <provides interface="interface.mcu.dma_dmac.6" />
+    <provides interface="interface.mcu.dma_dmac.7" />
+    <provides interface="interface.mcu.doc" />
+    <provides interface="interface.mcu.doc.0" />
+    <provides interface="interface.mcu.doc_b" />
+    <provides interface="interface.mcu.doc_b.0" />
+    <provides interface="interface.mcu.dtc" />
+    <provides interface="interface.mcu.dtc.0" />
+    <provides interface="interface.mcu.eccmb" />
+    <provides interface="interface.mcu.eccmb.0" />
+    <provides interface="interface.mcu.elc_b" />
+    <provides interface="interface.mcu.elc_b.0" />
+    <provides interface="interface.mcu.faci" />
+    <provides interface="interface.mcu.faci.0" />
+    <provides interface="interface.mcu.fcache" />
+    <provides interface="interface.mcu.fcache.0" />
+    <provides interface="interface.mcu.flad" />
+    <provides interface="interface.mcu.flad.0" />
+    <provides interface="interface.mcu.flash" />
+    <provides interface="interface.mcu.flash.0" />
+    <provides interface="interface.mcu.flash_hp" />
+    <provides interface="interface.mcu.flash_hp.0" />
+    <provides interface="interface.mcu.gpt" />
+    <provides interface="interface.mcu.gpt.0" />
+    <provides interface="interface.mcu.gpt.1" />
+    <provides interface="interface.mcu.gpt.2" />
+    <provides interface="interface.mcu.gpt.3" />
+    <provides interface="interface.mcu.gpt.4" />
+    <provides interface="interface.mcu.gpt.5" />
+    <provides interface="interface.mcu.gpt.6" />
+    <provides interface="interface.mcu.gpt.7" />
+    <provides interface="interface.mcu.gpt.8" />
+    <provides interface="interface.mcu.gpt.9" />
+    <provides interface="interface.mcu.gpt_gtclk" />
+    <provides interface="interface.mcu.gpt_gtclk.0" />
+    <provides interface="interface.mcu.gpt_ops" />
+    <provides interface="interface.mcu.gpt_ops.0" />
+    <provides interface="interface.mcu.gpt_poeg" />
+    <provides interface="interface.mcu.gpt_poeg.0" />
+    <provides interface="interface.mcu.gpt_poeg.1" />
+    <provides interface="interface.mcu.gpt_poeg.2" />
+    <provides interface="interface.mcu.gpt_poeg.3" />
+    <provides interface="interface.mcu.icu" />
+    <provides interface="interface.mcu.icu.0" />
+    <provides interface="interface.mcu.icu.1" />
+    <provides interface="interface.mcu.icu.10" />
+    <provides interface="interface.mcu.icu.11" />
+    <provides interface="interface.mcu.icu.12" />
+    <provides interface="interface.mcu.icu.13" />
+    <provides interface="interface.mcu.icu.14" />
+    <provides interface="interface.mcu.icu.15" />
+    <provides interface="interface.mcu.icu.2" />
+    <provides interface="interface.mcu.icu.3" />
+    <provides interface="interface.mcu.icu.4" />
+    <provides interface="interface.mcu.icu.5" />
+    <provides interface="interface.mcu.icu.6" />
+    <provides interface="interface.mcu.icu.7" />
+    <provides interface="interface.mcu.icu.8" />
+    <provides interface="interface.mcu.icu.9" />
+    <provides interface="interface.mcu.icu_ext_irq" />
+    <provides interface="interface.mcu.icu_ext_irq.0" />
+    <provides interface="interface.mcu.icu_ext_irq.1" />
+    <provides interface="interface.mcu.icu_ext_irq.10" />
+    <provides interface="interface.mcu.icu_ext_irq.11" />
+    <provides interface="interface.mcu.icu_ext_irq.12" />
+    <provides interface="interface.mcu.icu_ext_irq.13" />
+    <provides interface="interface.mcu.icu_ext_irq.14" />
+    <provides interface="interface.mcu.icu_ext_irq.15" />
+    <provides interface="interface.mcu.icu_ext_irq.2" />
+    <provides interface="interface.mcu.icu_ext_irq.3" />
+    <provides interface="interface.mcu.icu_ext_irq.4" />
+    <provides interface="interface.mcu.icu_ext_irq.5" />
+    <provides interface="interface.mcu.icu_ext_irq.6" />
+    <provides interface="interface.mcu.icu_ext_irq.7" />
+    <provides interface="interface.mcu.icu_ext_irq.8" />
+    <provides interface="interface.mcu.icu_ext_irq.9" />
+    <provides interface="interface.mcu.iic0wu_b" />
+    <provides interface="interface.mcu.iic0wu_b.0" />
+    <provides interface="interface.mcu.iic_b" />
+    <provides interface="interface.mcu.iic_b.0" />
+    <provides interface="interface.mcu.iic_b.1" />
+    <provides interface="interface.mcu.iirfa" />
+    <provides interface="interface.mcu.iirfa.0" />
+    <provides interface="interface.mcu.iwdt" />
+    <provides interface="interface.mcu.iwdt.0" />
+    <provides interface="interface.mcu.kint" />
+    <provides interface="interface.mcu.kint.0" />
+    <provides interface="interface.mcu.kint.1" />
+    <provides interface="interface.mcu.kint.2" />
+    <provides interface="interface.mcu.kint.3" />
+    <provides interface="interface.mcu.kint.4" />
+    <provides interface="interface.mcu.kint.5" />
+    <provides interface="interface.mcu.kint.6" />
+    <provides interface="interface.mcu.kint.7" />
+    <provides interface="interface.mcu.mpu" />
+    <provides interface="interface.mcu.mpu.0" />
+    <provides interface="interface.mcu.mstp" />
+    <provides interface="interface.mcu.mstp.0" />
+    <provides interface="interface.mcu.pdg" />
+    <provides interface="interface.mcu.pdg.0" />
+    <provides interface="interface.mcu.pfs_b" />
+    <provides interface="interface.mcu.pfs_b.0" />
+    <provides interface="interface.mcu.port" />
+    <provides interface="interface.mcu.port.0" />
+    <provides interface="interface.mcu.port.2" />
+    <provides interface="interface.mcu.port.A" />
+    <provides interface="interface.mcu.port.B" />
+    <provides interface="interface.mcu.port.C" />
+    <provides interface="interface.mcu.port.D" />
+    <provides interface="interface.mcu.port.E" />
+    <provides interface="interface.mcu.pscu" />
+    <provides interface="interface.mcu.pscu.0" />
+    <provides interface="interface.mcu.sci_b" />
+    <provides interface="interface.mcu.sci_b.0" />
+    <provides interface="interface.mcu.sci_b.1" />
+    <provides interface="interface.mcu.sci_b.2" />
+    <provides interface="interface.mcu.sci_b.3" />
+    <provides interface="interface.mcu.sci_b.4" />
+    <provides interface="interface.mcu.sci_b.9" />
+    <provides interface="interface.mcu.spi_b" />
+    <provides interface="interface.mcu.spi_b.0" />
+    <provides interface="interface.mcu.spi_b.1" />
+    <provides interface="interface.mcu.sram" />
+    <provides interface="interface.mcu.sram.0" />
+    <provides interface="interface.mcu.system" />
+    <provides interface="interface.mcu.system.0" />
+    <provides interface="interface.mcu.tfu" />
+    <provides interface="interface.mcu.tfu.0" />
+    <provides interface="interface.mcu.tsd" />
+    <provides interface="interface.mcu.tsd.0" />
+    <provides interface="interface.mcu.tsn" />
+    <provides interface="interface.mcu.tsn.0" />
+    <provides interface="interface.mcu.tzf" />
+    <provides interface="interface.mcu.tzf.0" />
+    <provides interface="interface.mcu.wdt" />
+    <provides interface="interface.mcu.wdt.0" />
+    <enum id="enum.mcu.acmphs.channels" default="enum.mcu.acmphs.channels.0">
+      <option id="enum.mcu.acmphs.channels.0" display="ACMPHS0" value="0" />
+      <option id="enum.mcu.acmphs.channels.1" display="ACMPHS1" value="1" />
+      <option id="enum.mcu.acmphs.channels.2" display="ACMPHS2" value="2" />
+      <option id="enum.mcu.acmphs.channels.3" display="ACMPHS3" value="3" />
+    </enum>
+    <enum id="enum.mcu.adc_b.channels" default="enum.mcu.adc_b.channels.0">
+      <option id="enum.mcu.adc_b.channels.0" display="ADC_B0" value="0" />
+    </enum>
+    <enum id="enum.mcu.agt.bits.ch0" default="enum.mcu.agt.bits.ch0.32">
+        <option id="enum.mcu.agt.bits.ch0.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.agt.bits.ch1" default="enum.mcu.agt.bits.ch1.32">
+        <option id="enum.mcu.agt.bits.ch1.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.agt.bits.ch2" default="enum.mcu.agt.bits.ch2.0">
+        <option id="enum.mcu.agt.bits.ch2.0" display="0" value="0" />
+    </enum>
+    <enum id="enum.mcu.agt.bits.ch3" default="enum.mcu.agt.bits.ch3.0">
+        <option id="enum.mcu.agt.bits.ch3.0" display="0" value="0" />
+    </enum>
+    <enum id="enum.mcu.agt.bits.ch4" default="enum.mcu.agt.bits.ch4.0">
+        <option id="enum.mcu.agt.bits.ch4.0" display="0" value="0" />
+    </enum>
+    <enum id="enum.mcu.agt.bits.ch5" default="enum.mcu.agt.bits.ch5.0">
+        <option id="enum.mcu.agt.bits.ch5.0" display="0" value="0" />
+    </enum>
+    <enum id="enum.mcu.agt.channels" default="enum.mcu.agt.channels.0">
+      <option id="enum.mcu.agt.channels.0" display="AGT0" value="0" />
+      <option id="enum.mcu.agt.channels.1" display="AGT1" value="1" />
+    </enum>
+    <enum id="enum.mcu.agtw.channels" default="enum.mcu.agtw.channels.0">
+      <option id="enum.mcu.agtw.channels.0" display="AGTW0" value="0" />
+      <option id="enum.mcu.agtw.channels.1" display="AGTW1" value="1" />
+    </enum>
+    <enum id="enum.mcu.bus.channels" default="enum.mcu.bus.channels.0">
+      <option id="enum.mcu.bus.channels.0" display="BUS0" value="0" />
+    </enum>
+    <enum id="enum.mcu.cac.channels" default="enum.mcu.cac.channels.0">
+      <option id="enum.mcu.cac.channels.0" display="CAC0" value="0" />
+    </enum>
+    <enum id="enum.mcu.cache.channels" default="enum.mcu.cache.channels.0">
+      <option id="enum.mcu.cache.channels.0" display="CACHE0" value="0" />
+    </enum>
+    <enum id="enum.mcu.canfd.channels" default="enum.mcu.canfd.channels.0">
+      <option id="enum.mcu.canfd.channels.0" display="CANFD0" value="0" />
+    </enum>
+    <enum id="enum.mcu.cgc.channels" default="enum.mcu.cgc.channels.0">
+      <option id="enum.mcu.cgc.channels.0" display="CGC0" value="0" />
+    </enum>
+    <enum id="enum.mcu.cpscu.channels" default="enum.mcu.cpscu.channels.0">
+      <option id="enum.mcu.cpscu.channels.0" display="CPSCU0" value="0" />
+    </enum>
+    <enum id="enum.mcu.crc.channels" default="enum.mcu.crc.channels.0">
+      <option id="enum.mcu.crc.channels.0" display="CRC0" value="0" />
+    </enum>
+    <enum id="enum.mcu.dac.channels" default="enum.mcu.dac.channels.0">
+      <option id="enum.mcu.dac.channels.0" display="DAC0" value="0" />
+      <option id="enum.mcu.dac.channels.1" display="DAC1" value="1" />
+      <option id="enum.mcu.dac.channels.2" display="DAC2" value="2" />
+      <option id="enum.mcu.dac.channels.3" display="DAC3" value="3" />
+    </enum>
+    <enum id="enum.mcu.dac12.channels" default="enum.mcu.dac12.channels.0">
+      <option id="enum.mcu.dac12.channels.0" display="DAC120" value="0" />
+      <option id="enum.mcu.dac12.channels.1" display="DAC121" value="1" />
+      <option id="enum.mcu.dac12.channels.2" display="DAC122" value="2" />
+      <option id="enum.mcu.dac12.channels.3" display="DAC123" value="3" />
+    </enum>
+    <enum id="enum.mcu.debug.channels" default="enum.mcu.debug.channels.0">
+      <option id="enum.mcu.debug.channels.0" display="DEBUG0" value="0" />
+    </enum>
+    <enum id="enum.mcu.dma.channels" default="enum.mcu.dma.channels.0">
+      <option id="enum.mcu.dma.channels.0" display="DMA0" value="0" />
+    </enum>
+    <enum id="enum.mcu.dma_dmac.channels" default="enum.mcu.dma_dmac.channels.0">
+      <option id="enum.mcu.dma_dmac.channels.0" display="DMA_DMAC0" value="0" />
+      <option id="enum.mcu.dma_dmac.channels.1" display="DMA_DMAC1" value="1" />
+      <option id="enum.mcu.dma_dmac.channels.2" display="DMA_DMAC2" value="2" />
+      <option id="enum.mcu.dma_dmac.channels.3" display="DMA_DMAC3" value="3" />
+      <option id="enum.mcu.dma_dmac.channels.4" display="DMA_DMAC4" value="4" />
+      <option id="enum.mcu.dma_dmac.channels.5" display="DMA_DMAC5" value="5" />
+      <option id="enum.mcu.dma_dmac.channels.6" display="DMA_DMAC6" value="6" />
+      <option id="enum.mcu.dma_dmac.channels.7" display="DMA_DMAC7" value="7" />
+    </enum>
+    <enum id="enum.mcu.doc.channels" default="enum.mcu.doc.channels.0">
+      <option id="enum.mcu.doc.channels.0" display="DOC0" value="0" />
+    </enum>
+    <enum id="enum.mcu.doc_b.channels" default="enum.mcu.doc_b.channels.0">
+      <option id="enum.mcu.doc_b.channels.0" display="DOC_B0" value="0" />
+    </enum>
+    <enum id="enum.mcu.dtc.channels" default="enum.mcu.dtc.channels.0">
+      <option id="enum.mcu.dtc.channels.0" display="DTC0" value="0" />
+    </enum>
+    <enum id="enum.mcu.eccmb.channels" default="enum.mcu.eccmb.channels.0">
+      <option id="enum.mcu.eccmb.channels.0" display="ECCMB0" value="0" />
+    </enum>
+    <enum id="enum.mcu.elc_b.channels" default="enum.mcu.elc_b.channels.0">
+      <option id="enum.mcu.elc_b.channels.0" display="ELC_B0" value="0" />
+    </enum>
+    <enum id="enum.mcu.faci.channels" default="enum.mcu.faci.channels.0">
+      <option id="enum.mcu.faci.channels.0" display="FACI0" value="0" />
+    </enum>
+    <enum id="enum.mcu.fcache.channels" default="enum.mcu.fcache.channels.0">
+      <option id="enum.mcu.fcache.channels.0" display="FCACHE0" value="0" />
+    </enum>
+    <enum id="enum.mcu.flad.channels" default="enum.mcu.flad.channels.0">
+      <option id="enum.mcu.flad.channels.0" display="FLAD0" value="0" />
+    </enum>
+    <enum id="enum.mcu.flash.channels" default="enum.mcu.flash.channels.0">
+      <option id="enum.mcu.flash.channels.0" display="FLASH0" value="0" />
+    </enum>
+    <enum id="enum.mcu.flash_hp.channels" default="enum.mcu.flash_hp.channels.0">
+      <option id="enum.mcu.flash_hp.channels.0" display="FLASH_HP0" value="0" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch0" default="enum.mcu.gpt.bits.ch0.32">
+        <option id="enum.mcu.gpt.bits.ch0.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch1" default="enum.mcu.gpt.bits.ch1.32">
+        <option id="enum.mcu.gpt.bits.ch1.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch10" default="enum.mcu.gpt.bits.ch10.0">
+        <option id="enum.mcu.gpt.bits.ch10.0" display="0" value="0" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch11" default="enum.mcu.gpt.bits.ch11.0">
+        <option id="enum.mcu.gpt.bits.ch11.0" display="0" value="0" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch12" default="enum.mcu.gpt.bits.ch12.0">
+        <option id="enum.mcu.gpt.bits.ch12.0" display="0" value="0" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch13" default="enum.mcu.gpt.bits.ch13.0">
+        <option id="enum.mcu.gpt.bits.ch13.0" display="0" value="0" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch2" default="enum.mcu.gpt.bits.ch2.32">
+        <option id="enum.mcu.gpt.bits.ch2.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch3" default="enum.mcu.gpt.bits.ch3.32">
+        <option id="enum.mcu.gpt.bits.ch3.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch4" default="enum.mcu.gpt.bits.ch4.32">
+        <option id="enum.mcu.gpt.bits.ch4.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch5" default="enum.mcu.gpt.bits.ch5.32">
+        <option id="enum.mcu.gpt.bits.ch5.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch6" default="enum.mcu.gpt.bits.ch6.32">
+        <option id="enum.mcu.gpt.bits.ch6.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch7" default="enum.mcu.gpt.bits.ch7.32">
+        <option id="enum.mcu.gpt.bits.ch7.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch8" default="enum.mcu.gpt.bits.ch8.32">
+        <option id="enum.mcu.gpt.bits.ch8.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.gpt.bits.ch9" default="enum.mcu.gpt.bits.ch9.32">
+        <option id="enum.mcu.gpt.bits.ch9.32" display="32" value="32" />
+    </enum>
+    <enum id="enum.mcu.gpt.channels" default="enum.mcu.gpt.channels.0">
+      <option id="enum.mcu.gpt.channels.0" display="GPT0" value="0" />
+      <option id="enum.mcu.gpt.channels.1" display="GPT1" value="1" />
+      <option id="enum.mcu.gpt.channels.2" display="GPT2" value="2" />
+      <option id="enum.mcu.gpt.channels.3" display="GPT3" value="3" />
+      <option id="enum.mcu.gpt.channels.4" display="GPT4" value="4" />
+      <option id="enum.mcu.gpt.channels.5" display="GPT5" value="5" />
+      <option id="enum.mcu.gpt.channels.6" display="GPT6" value="6" />
+      <option id="enum.mcu.gpt.channels.7" display="GPT7" value="7" />
+      <option id="enum.mcu.gpt.channels.8" display="GPT8" value="8" />
+      <option id="enum.mcu.gpt.channels.9" display="GPT9" value="9" />
+    </enum>
+    <enum id="enum.mcu.gpt_gtclk.channels" default="enum.mcu.gpt_gtclk.channels.0">
+      <option id="enum.mcu.gpt_gtclk.channels.0" display="GPT_GTCLK0" value="0" />
+    </enum>
+    <enum id="enum.mcu.gpt_ops.channels" default="enum.mcu.gpt_ops.channels.0">
+      <option id="enum.mcu.gpt_ops.channels.0" display="GPT_OPS0" value="0" />
+    </enum>
+    <enum id="enum.mcu.gpt_poeg.channels" default="enum.mcu.gpt_poeg.channels.0">
+      <option id="enum.mcu.gpt_poeg.channels.0" display="GPT_POEG0" value="0" />
+      <option id="enum.mcu.gpt_poeg.channels.1" display="GPT_POEG1" value="1" />
+      <option id="enum.mcu.gpt_poeg.channels.2" display="GPT_POEG2" value="2" />
+      <option id="enum.mcu.gpt_poeg.channels.3" display="GPT_POEG3" value="3" />
+    </enum>
+    <enum id="enum.mcu.icu.channels" default="enum.mcu.icu.channels.0">
+      <option id="enum.mcu.icu.channels.0" display="ICU0" value="0" />
+      <option id="enum.mcu.icu.channels.1" display="ICU1" value="1" />
+      <option id="enum.mcu.icu.channels.2" display="ICU2" value="2" />
+      <option id="enum.mcu.icu.channels.3" display="ICU3" value="3" />
+      <option id="enum.mcu.icu.channels.4" display="ICU4" value="4" />
+      <option id="enum.mcu.icu.channels.5" display="ICU5" value="5" />
+      <option id="enum.mcu.icu.channels.6" display="ICU6" value="6" />
+      <option id="enum.mcu.icu.channels.7" display="ICU7" value="7" />
+      <option id="enum.mcu.icu.channels.8" display="ICU8" value="8" />
+      <option id="enum.mcu.icu.channels.9" display="ICU9" value="9" />
+      <option id="enum.mcu.icu.channels.10" display="ICU10" value="10" />
+      <option id="enum.mcu.icu.channels.11" display="ICU11" value="11" />
+      <option id="enum.mcu.icu.channels.12" display="ICU12" value="12" />
+      <option id="enum.mcu.icu.channels.13" display="ICU13" value="13" />
+      <option id="enum.mcu.icu.channels.14" display="ICU14" value="14" />
+      <option id="enum.mcu.icu.channels.15" display="ICU15" value="15" />
+    </enum>
+    <enum id="enum.mcu.icu_ext_irq.channels" default="enum.mcu.icu_ext_irq.channels.0">
+      <option id="enum.mcu.icu_ext_irq.channels.0" display="ICU_EXT_IRQ0" value="0" />
+      <option id="enum.mcu.icu_ext_irq.channels.1" display="ICU_EXT_IRQ1" value="1" />
+      <option id="enum.mcu.icu_ext_irq.channels.2" display="ICU_EXT_IRQ2" value="2" />
+      <option id="enum.mcu.icu_ext_irq.channels.3" display="ICU_EXT_IRQ3" value="3" />
+      <option id="enum.mcu.icu_ext_irq.channels.4" display="ICU_EXT_IRQ4" value="4" />
+      <option id="enum.mcu.icu_ext_irq.channels.5" display="ICU_EXT_IRQ5" value="5" />
+      <option id="enum.mcu.icu_ext_irq.channels.6" display="ICU_EXT_IRQ6" value="6" />
+      <option id="enum.mcu.icu_ext_irq.channels.7" display="ICU_EXT_IRQ7" value="7" />
+      <option id="enum.mcu.icu_ext_irq.channels.8" display="ICU_EXT_IRQ8" value="8" />
+      <option id="enum.mcu.icu_ext_irq.channels.9" display="ICU_EXT_IRQ9" value="9" />
+      <option id="enum.mcu.icu_ext_irq.channels.10" display="ICU_EXT_IRQ10" value="10" />
+      <option id="enum.mcu.icu_ext_irq.channels.11" display="ICU_EXT_IRQ11" value="11" />
+      <option id="enum.mcu.icu_ext_irq.channels.12" display="ICU_EXT_IRQ12" value="12" />
+      <option id="enum.mcu.icu_ext_irq.channels.13" display="ICU_EXT_IRQ13" value="13" />
+      <option id="enum.mcu.icu_ext_irq.channels.14" display="ICU_EXT_IRQ14" value="14" />
+      <option id="enum.mcu.icu_ext_irq.channels.15" display="ICU_EXT_IRQ15" value="15" />
+    </enum>
+    <enum id="enum.mcu.iic0wu_b.channels" default="enum.mcu.iic0wu_b.channels.0">
+      <option id="enum.mcu.iic0wu_b.channels.0" display="IIC0WU_B0" value="0" />
+    </enum>
+    <enum id="enum.mcu.iic_b.channels" default="enum.mcu.iic_b.channels.0">
+      <option id="enum.mcu.iic_b.channels.0" display="IIC_B0" value="0" />
+      <option id="enum.mcu.iic_b.channels.1" display="IIC_B1" value="1" />
+    </enum>
+    <enum id="enum.mcu.iirfa.channels" default="enum.mcu.iirfa.channels.0">
+      <option id="enum.mcu.iirfa.channels.0" display="IIRFA0" value="0" />
+    </enum>
+    <enum id="enum.mcu.iwdt.channels" default="enum.mcu.iwdt.channels.0">
+      <option id="enum.mcu.iwdt.channels.0" display="IWDT0" value="0" />
+    </enum>
+    <enum id="enum.mcu.kint.channels" default="enum.mcu.kint.channels.0">
+      <option id="enum.mcu.kint.channels.0" display="KINT0" value="0" />
+      <option id="enum.mcu.kint.channels.1" display="KINT1" value="1" />
+      <option id="enum.mcu.kint.channels.2" display="KINT2" value="2" />
+      <option id="enum.mcu.kint.channels.3" display="KINT3" value="3" />
+      <option id="enum.mcu.kint.channels.4" display="KINT4" value="4" />
+      <option id="enum.mcu.kint.channels.5" display="KINT5" value="5" />
+      <option id="enum.mcu.kint.channels.6" display="KINT6" value="6" />
+      <option id="enum.mcu.kint.channels.7" display="KINT7" value="7" />
+    </enum>
+    <enum id="enum.mcu.mpu.channels" default="enum.mcu.mpu.channels.0">
+      <option id="enum.mcu.mpu.channels.0" display="MPU0" value="0" />
+    </enum>
+    <enum id="enum.mcu.mstp.channels" default="enum.mcu.mstp.channels.0">
+      <option id="enum.mcu.mstp.channels.0" display="MSTP0" value="0" />
+    </enum>
+    <enum id="enum.mcu.pdg.channels" default="enum.mcu.pdg.channels.0">
+      <option id="enum.mcu.pdg.channels.0" display="PDG0" value="0" />
+    </enum>
+    <enum id="enum.mcu.pfs_b.channels" default="enum.mcu.pfs_b.channels.0">
+      <option id="enum.mcu.pfs_b.channels.0" display="PFS_B0" value="0" />
+    </enum>
+    <enum id="enum.mcu.port.channels" default="enum.mcu.port.channels.0">
+      <option id="enum.mcu.port.channels.0" display="PORT0" value="0" />
+      <option id="enum.mcu.port.channels.2" display="PORT2" value="2" />
+      <option id="enum.mcu.port.channels.A" display="PORTA" value="A" />
+      <option id="enum.mcu.port.channels.B" display="PORTB" value="B" />
+      <option id="enum.mcu.port.channels.C" display="PORTC" value="C" />
+      <option id="enum.mcu.port.channels.D" display="PORTD" value="D" />
+      <option id="enum.mcu.port.channels.E" display="PORTE" value="E" />
+    </enum>
+    <enum id="enum.mcu.pscu.channels" default="enum.mcu.pscu.channels.0">
+      <option id="enum.mcu.pscu.channels.0" display="PSCU0" value="0" />
+    </enum>
+    <enum id="enum.mcu.sci_b.channels" default="enum.mcu.sci_b.channels.0">
+      <option id="enum.mcu.sci_b.channels.0" display="SCI_B0" value="0" />
+      <option id="enum.mcu.sci_b.channels.1" display="SCI_B1" value="1" />
+      <option id="enum.mcu.sci_b.channels.2" display="SCI_B2" value="2" />
+      <option id="enum.mcu.sci_b.channels.3" display="SCI_B3" value="3" />
+      <option id="enum.mcu.sci_b.channels.4" display="SCI_B4" value="4" />
+      <option id="enum.mcu.sci_b.channels.9" display="SCI_B9" value="9" />
+    </enum>
+    <enum id="enum.mcu.spi_b.channels" default="enum.mcu.spi_b.channels.0">
+      <option id="enum.mcu.spi_b.channels.0" display="SPI_B0" value="0" />
+      <option id="enum.mcu.spi_b.channels.1" display="SPI_B1" value="1" />
+    </enum>
+    <enum id="enum.mcu.sram.channels" default="enum.mcu.sram.channels.0">
+      <option id="enum.mcu.sram.channels.0" display="SRAM0" value="0" />
+    </enum>
+    <enum id="enum.mcu.system.channels" default="enum.mcu.system.channels.0">
+      <option id="enum.mcu.system.channels.0" display="SYSTEM0" value="0" />
+    </enum>
+    <enum id="enum.mcu.tfu.channels" default="enum.mcu.tfu.channels.0">
+      <option id="enum.mcu.tfu.channels.0" display="TFU0" value="0" />
+    </enum>
+    <enum id="enum.mcu.tsd.channels" default="enum.mcu.tsd.channels.0">
+      <option id="enum.mcu.tsd.channels.0" display="TSD0" value="0" />
+    </enum>
+    <enum id="enum.mcu.tsn.channels" default="enum.mcu.tsn.channels.0">
+      <option id="enum.mcu.tsn.channels.0" display="TSN0" value="0" />
+    </enum>
+    <enum id="enum.mcu.tzf.channels" default="enum.mcu.tzf.channels.0">
+      <option id="enum.mcu.tzf.channels.0" display="TZF0" value="0" />
+    </enum>
+    <enum id="enum.mcu.wdt.channels" default="enum.mcu.wdt.channels.0">
+      <option id="enum.mcu.wdt.channels.0" display="WDT0" value="0" />
+    </enum>
+  </bsp>
+</raModuleDescription>

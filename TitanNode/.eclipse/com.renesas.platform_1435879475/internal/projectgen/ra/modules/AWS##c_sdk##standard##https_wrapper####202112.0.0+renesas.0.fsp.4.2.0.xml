@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+    <module id="module.aws.c_sdk.https.wrapper" display="Networking|AWS HTTPS Wrapper (No Longer Supported)" config="config.aws.https.wrapper" common="1" visible="false" version="0" url="_f_r_e_e_r_t_o_s__m_i_g_r_a_t_i_o_n.html">
+        <constraint display="HTTPS Wrapper no longer supported. Please migrate properties over to new transport interface. See migration guide for more details"/>
+        <requires id="module.aws.c_sdk.https.wrapper.requires.coreHTTP" interface="interface.aws.coreHttps" display="Add Core HTTP" find="true" />
+        <requires id="module.aws.c_sdk.https.wrapper.requires.awsfreertos" interface="interface.rtos.awsfreertos" visible="false" display="Requires FreeRTOS"/>
+        <provides interface="interface.aws.c_sdk.https.wrapper" />
+    </module>
+</raModuleDescription>

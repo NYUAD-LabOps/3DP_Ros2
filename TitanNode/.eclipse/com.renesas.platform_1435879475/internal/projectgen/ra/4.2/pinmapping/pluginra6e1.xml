@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension point="com.tasking.pinmapper.mapping">
+    <vendor caption="Renesas" id="renesas" />
+    <group caption="Renesas RA" id="renesas.ra" />
+    <family caption="Renesas RA6E1" id="renesas.ra6e1" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra6e1" device="renesas.ra6e1_fm" package="renesas.64qfp" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA6E1xxxxFM.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra6e1" device="renesas.ra6e1_fp" package="renesas.100qfp" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA6E1xxxxFP.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra6e1" device="renesas.ra6e1_ne" package="renesas.48qfn" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA6E1xxxxNE.xml" />
+  </extension>
+</plugin>

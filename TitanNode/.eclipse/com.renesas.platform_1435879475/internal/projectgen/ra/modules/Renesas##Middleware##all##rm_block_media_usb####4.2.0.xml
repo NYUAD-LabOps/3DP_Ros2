@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+    <config id="config.driver.rm_block_media_usb" path="driver/rm_block_media_usb_cfg.h" version="0">
+        <property default="config.driver.rm_block_media_usb.param_checking_enable.bsp" display="Parameter Checking" id="config.driver.rm_block_media_usb.param_checking_enable" description="If selected code for parameter checking is included in the build.">
+            <option display="Default (BSP)" id="config.driver.rm_block_media_usb.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.driver.rm_block_media_usb.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.driver.rm_block_media_usb.param_checking_enable.disabled" value="(0)"/>
+        </property>
+        <content>
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define RM_BLOCK_MEDIA_USB_CFG_PARAM_CHECKING_ENABLE ${config.driver.rm_block_media_usb.param_checking_enable}
+
+#ifdef __cplusplus
+}
+#endif
+        </content>
+    </config>
+    <module config="config.driver.rm_block_media_usb" display="Storage|${module.driver.rm_block_media.name} Block Media USB (rm_block_media_usb)" id="module.driver.rm_block_media_on_rm_block_media_usb" version="1" url="group___r_m___b_l_o_c_k___m_e_d_i_a___u_s_b.html">
+        <constraint display="Unique name required for each instance">
+            "${interface.driver.rm_block_media.${module.driver.rm_block_media.name}}" === "1"
+        </constraint>
+        <constraint display="Requires lower level USB HMSC driver">
+            testExists("${module.driver.rm_block_media.requires.usb_hmsc::module.driver.hmsc.name}")
+        </constraint>
+        <constraint display="Support Dynamic Allocation set to Enabled in FreeRTOS Common configurations.">
+          "${config.awsfreertos.thread.configsupport_dynamic_allocation}" === "config.awsfreertos.thread.configsupport_dynamic_allocation.enabled" ||
+            "1" != "${interface.rtos.awsfreertos}"
+        </constraint>
+        <requires id="module.driver.rm_block_media.requires.usb_hmsc" interface="interface.driver.hmsc" display="Add USB HMSC Driver [Required]">
+            <override property="module.driver.hmsc.callback" value="rm_block_media_usb_callback"/>
+            <override property="module.driver.hmsc.context" value="${module.driver.rm_block_media.name}_ctrl"/>
+        </requires>
+        <provides interface="interface.driver.rm_block_media" />
+        <provides interface="interface.driver.rm_block_media_usb_on_rm_block_media" />
+        <provides interface="interface.driver.rm_block_media.${module.driver.rm_block_media.name}" />
+        <property default="g_rm_block_media${_instance}" display="Name" id="module.driver.rm_block_media.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.rm_block_media.name}")</constraint>
+        </property>
+        <property default="NULL" display="Callback" id="module.driver.rm_block_media.callback" description="A user callback function can be provided. If this callback function is provided, it will be called when a device is attached or removed.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.rm_block_media.callback}")</constraint>
+        </property>
+        <property default="NULL" display="Pointer to user context" id="module.driver.rm_block_media.p_context" description="A user context can be provided. If this context is provided, it will be passed to callback function when a device is attached or removed.">
+                    <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.rm_block_media.p_context}")</constraint>
+        </property>
+        <header>
+extern const rm_block_media_instance_t ${module.driver.rm_block_media.name};
+
+/** Access the block media instance using these structures when calling API functions directly. */
+extern rm_block_media_usb_instance_ctrl_t ${module.driver.rm_block_media.name}_ctrl;
+extern const rm_block_media_cfg_t ${module.driver.rm_block_media.name}_cfg;
+
+#ifndef ${module.driver.rm_block_media.callback}
+void ${module.driver.rm_block_media.callback}(rm_block_media_callback_args_t * p_args);
+#endif
+        </header>
+        <includes>#include &quot;rm_block_media_usb.h&quot;
+#include &quot;rm_block_media_api.h&quot;</includes>
+        <declarations>
+const rm_block_media_usb_extended_cfg_t ${module.driver.rm_block_media.name}_cfg_extend =
+{
+    .p_usb = &amp;usb_hmsc_instance_${module.driver.rm_block_media.requires.usb_hmsc::module.driver.hmsc.name},
+};
+const rm_block_media_cfg_t ${module.driver.rm_block_media.name}_cfg =
+{
+    .p_extend = &amp;${module.driver.rm_block_media.name}_cfg_extend,
+    .p_callback = ${module.driver.rm_block_media.callback},
+    .p_context = ${module.driver.rm_block_media.p_context},
+};
+rm_block_media_usb_instance_ctrl_t ${module.driver.rm_block_media.name}_ctrl;
+const rm_block_media_instance_t ${module.driver.rm_block_media.name} =
+{
+    .p_api  = &amp;g_rm_block_media_on_usb,
+    .p_ctrl = &amp;${module.driver.rm_block_media.name}_ctrl,
+    .p_cfg  = &amp;${module.driver.rm_block_media.name}_cfg,
+};
+        </declarations>
+    </module>
+</raModuleDescription>

@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" ?>
+<raModuleDescription>
+    <config id="config.driver.slcdc" path="fsp_cfg/r_slcdc_cfg.h" version="0">
+        <property default="config.driver.slcdc.param_checking_enable.bsp" display="Parameter Checking" id="config.driver.slcdc.param_checking_enable" description="If selected code for parameter checking is included in the build.">
+            <option display="Default (BSP)" id="config.driver.slcdc.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.driver.slcdc.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.driver.slcdc.param_checking_enable.disabled" value="(0)"/>
+        </property>
+        <content>
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define SLCDC_CFG_PARAM_CHECKING_ENABLE ${config.driver.slcdc.param_checking_enable}
+
+#ifdef __cplusplus
+}
+#endif
+        </content>
+    </config>
+    <module config="config.driver.slcdc" display="Graphics|${module.driver.slcdc.name} Segment LCD (r_slcdc)" id="module.driver.slcdc_on_slcdc" version="1" url="group___s_l_c_d_c.html">
+        <constraint display="Unique name required for each instance">
+            "${interface.driver.slcdc.${module.driver.slcdc.name}}" === "1"
+        </constraint>
+        <constraint display="Requires SLCDC peripheral">
+            "${interface.mcu.slcdc.external}" === "1"
+        </constraint>
+        <constraint display="In 1/4 bias mode the maximum contrast setting is 6.">
+            ("${config.bsp.fsp.mcu.slcdc.1_4_bias_method}" != "1") || ("${module.driver.slcdc.bias_method}" != "module.driver.slcdc.bias_method.bias_4") || (("${module.driver.slcdc.contrast}" &lt;= "module.driver.slcdc.contrast.6"))
+        </constraint>
+        <constraint display="1/4 bias mode is unsupported on the selected MCU.">
+            ("${config.bsp.fsp.mcu.slcdc.1_4_bias_method}" == "1") || ("${module.driver.slcdc.bias_method}" != "module.driver.slcdc.bias_method.bias_4")
+        </constraint>
+        <requires id="module.driver.slcdc_on_slcdc.requires.slcdc" interface="interface.mcu.slcdc.external" visible="false" display="Requires SLCDC peripheral" />
+        <provides interface="interface.driver.slcdc" />
+        <provides interface="interface.driver.slcdc_on_slcdc" />
+        <provides interface="interface.driver.slcdc.${module.driver.slcdc.name}" />
+        <property default="g_slcdc${_instance}" display="General|Name" id="module.driver.slcdc.name" description="Module Name">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.slcdc.name}")</constraint>
+        </property>
+        <property default="module.driver.slcdc.slcdc_clock.clock_hoco" display="Clock|Source" id="module.driver.slcdc.slcdc_clock" description="Select the clock source.">
+            <option display="LOCO" id="module.driver.slcdc.slcdc_clock.clock_loco" value="SLCDC_CLOCK_LOCO"/>
+            <option display="SOSC" id="module.driver.slcdc.slcdc_clock.clock_sosc" value="SLCDC_CLOCK_SOSC"/>
+            <option display="MOSC" id="module.driver.slcdc.slcdc_clock.clock_mosc" value="SLCDC_CLOCK_MOSC"/>
+            <option display="HOCO" id="module.driver.slcdc.slcdc_clock.clock_hoco" value="SLCDC_CLOCK_HOCO"/>
+        </property>
+        <property default="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_16384" display="Clock|Divisor" id="module.driver.slcdc.slcdc_clock_setting" description="Select the clock divisor.">
+            <option display="(LOCO/SOSC) 4" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_loco_4" value="SLCDC_CLK_DIVISOR_LOCO_4"/>
+            <option display="(LOCO/SOSC) 8" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_loco_8" value="SLCDC_CLK_DIVISOR_LOCO_8"/>
+            <option display="(LOCO/SOSC) 16" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_loco_16" value="SLCDC_CLK_DIVISOR_LOCO_16"/>
+            <option display="(LOCO/SOSC) 32" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_loco_32" value="SLCDC_CLK_DIVISOR_LOCO_32"/>
+            <option display="(LOCO/SOSC) 64" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_loco_64" value="SLCDC_CLK_DIVISOR_LOCO_64"/>
+            <option display="(LOCO/SOSC) 128" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_loco_128" value="SLCDC_CLK_DIVISOR_LOCO_128"/>
+            <option display="(LOCO/SOSC) 256" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_loco_256" value="SLCDC_CLK_DIVISOR_LOCO_256"/>
+            <option display="(LOCO/SOSC) 512" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_loco_512" value="SLCDC_CLK_DIVISOR_LOCO_512"/>
+            <option display="(LOCO/SOSC) 1024" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_loco_1024" value="SLCDC_CLK_DIVISOR_LOCO_1024"/>
+            <option display="(HOCO/MOSC) 256" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_256" value="SLCDC_CLK_DIVISOR_HOCO_256"/>
+            <option display="(HOCO/MOSC) 512" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_512" value="SLCDC_CLK_DIVISOR_HOCO_512"/>
+            <option display="(HOCO/MOSC) 1024" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_1024" value="SLCDC_CLK_DIVISOR_HOCO_1024"/>
+            <option display="(HOCO/MOSC) 2048" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_2048" value="SLCDC_CLK_DIVISOR_HOCO_2048"/>
+            <option display="(HOCO/MOSC) 4096" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_4096" value="SLCDC_CLK_DIVISOR_HOCO_4096"/>
+            <option display="(HOCO/MOSC) 8192" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_8192" value="SLCDC_CLK_DIVISOR_HOCO_8192"/>
+            <option display="(HOCO/MOSC) 16384" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_16384" value="SLCDC_CLK_DIVISOR_HOCO_16384"/>
+            <option display="(HOCO/MOSC) 32768" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_32768" value="SLCDC_CLK_DIVISOR_HOCO_32768"/>
+            <option display="(HOCO/MOSC) 65536" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_65536" value="SLCDC_CLK_DIVISOR_HOCO_65536"/>
+            <option display="(HOCO/MOSC) 131072" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_131072" value="SLCDC_CLK_DIVISOR_HOCO_131072"/>
+            <option display="(HOCO/MOSC) 262144" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_262144" value="SLCDC_CLK_DIVISOR_HOCO_262144"/>
+            <option display="(HOCO/MOSC) 524288" id="module.driver.slcdc.slcdc_clock_setting.clk_divisor_hoco_524288" value="SLCDC_CLK_DIVISOR_HOCO_524288"/>
+        </property>
+        <property default="module.driver.slcdc.bias_method.bias_2" display="Output|Bias method" id="module.driver.slcdc.bias_method" description="Select the bias method. This determines the number of voltage levels used to create the waveforms.">
+            <option display="1/2 bias" id="module.driver.slcdc.bias_method.bias_2" value="SLCDC_BIAS_2"/>
+            <option display="1/3 bias" id="module.driver.slcdc.bias_method.bias_3" value="SLCDC_BIAS_3"/>
+            <option display="1/4 bias" id="module.driver.slcdc.bias_method.bias_4" value="SLCDC_BIAS_4"/>
+        </property>
+        <property default="module.driver.slcdc.time_slice.static" display="Output|Timeslice" id="module.driver.slcdc.time_slice" description="Select the LCD time slice. The number of slices should match the number of common (COM) pins for your LCD panel.">
+            <option display="Static" id="module.driver.slcdc.time_slice.static" value="SLCDC_STATIC"/>
+            <option display="2-slice" id="module.driver.slcdc.time_slice.slice_2" value="SLCDC_SLICE_2"/>
+            <option display="3-slice" id="module.driver.slcdc.time_slice.slice_3" value="SLCDC_SLICE_3"/>
+            <option display="4-slice" id="module.driver.slcdc.time_slice.slice_4" value="SLCDC_SLICE_4"/>
+            <option display="8-slice" id="module.driver.slcdc.time_slice.slice_8" value="SLCDC_SLICE_8"/>
+        </property>
+        <property default="module.driver.slcdc.waveform.wave_a" display="Output|Waveform" id="module.driver.slcdc.waveform" description="Select the LCD waveform.">
+            <option display="Waveform A" id="module.driver.slcdc.waveform.wave_a" value="SLCDC_WAVE_A"/>
+            <option display="Waveform B" id="module.driver.slcdc.waveform.wave_b" value="SLCDC_WAVE_B"/>
+        </property>
+        <property default="module.driver.slcdc.drive_volt_gen.volt_external" display="Output|Drive method" id="module.driver.slcdc.drive_volt_gen" description="Select the LCD drive method.">
+            <option display="External resistance division" id="module.driver.slcdc.drive_volt_gen.volt_external" value="SLCDC_VOLT_EXTERNAL"/>
+            <option display="Internal voltage boosting" id="module.driver.slcdc.drive_volt_gen.volt_internal" value="SLCDC_VOLT_INTERNAL"/>
+            <option display="Capacitor split" id="module.driver.slcdc.drive_volt_gen.volt_capacitor" value="SLCDC_VOLT_CAPACITOR"/>
+        </property>
+        <property default="module.driver.slcdc.contrast.0" display="Output|Default contrast (if available)" id="module.driver.slcdc.contrast" description="Select the default contrast level.">
+            <option display="0" id="module.driver.slcdc.contrast.0" value="SLCDC_CONTRAST_0"/>
+            <option display="1" id="module.driver.slcdc.contrast.1" value="SLCDC_CONTRAST_1"/>
+            <option display="2" id="module.driver.slcdc.contrast.2" value="SLCDC_CONTRAST_2"/>
+            <option display="3" id="module.driver.slcdc.contrast.3" value="SLCDC_CONTRAST_3"/>
+            <option display="4" id="module.driver.slcdc.contrast.4" value="SLCDC_CONTRAST_4"/>
+            <option display="5" id="module.driver.slcdc.contrast.5" value="SLCDC_CONTRAST_5"/>
+            <option display="6" id="module.driver.slcdc.contrast.6" value="SLCDC_CONTRAST_6"/>
+            <option display="7" id="module.driver.slcdc.contrast.7" value="SLCDC_CONTRAST_7"/>
+            <option display="8" id="module.driver.slcdc.contrast.8" value="SLCDC_CONTRAST_8"/>
+            <option display="9" id="module.driver.slcdc.contrast.9" value="SLCDC_CONTRAST_9"/>
+            <option display="10" id="module.driver.slcdc.contrast.10" value="SLCDC_CONTRAST_10"/>
+            <option display="11" id="module.driver.slcdc.contrast.11" value="SLCDC_CONTRAST_11"/>
+            <option display="12" id="module.driver.slcdc.contrast.12" value="SLCDC_CONTRAST_12"/>
+            <option display="13" id="module.driver.slcdc.contrast.13" value="SLCDC_CONTRAST_13"/>
+            <option display="14" id="module.driver.slcdc.contrast.14" value="SLCDC_CONTRAST_14"/>
+            <option display="15" id="module.driver.slcdc.contrast.15" value="SLCDC_CONTRAST_15"/>
+        </property>
+        <peripheral name="SLCDC" component="slcdc0" />
+        <header>
+            /** SLCDC Instance. */
+            extern const slcdc_instance_t ${module.driver.slcdc.name};
+
+            /** Access the SLCDC instance using these structures when calling API functions directly (::p_api is not used). */
+            extern slcdc_instance_ctrl_t ${module.driver.slcdc.name}_ctrl;
+            extern const slcdc_cfg_t ${module.driver.slcdc.name}_cfg;
+        </header>
+        <includes>
+            #include &quot;r_slcdc.h&quot;
+        </includes>
+        <declarations>
+            slcdc_instance_ctrl_t ${module.driver.slcdc.name}_ctrl;
+            const slcdc_cfg_t ${module.driver.slcdc.name}_cfg  =
+            {
+                .slcdc_clock         = ${module.driver.slcdc.slcdc_clock},
+                .slcdc_clock_setting = ${module.driver.slcdc.slcdc_clock_setting},
+                .bias_method         = ${module.driver.slcdc.bias_method},
+                .time_slice          = ${module.driver.slcdc.time_slice},
+                .waveform            = ${module.driver.slcdc.waveform},
+                .drive_volt_gen      = ${module.driver.slcdc.drive_volt_gen},
+                .contrast            = ${module.driver.slcdc.contrast}
+            };
+
+            /* Instance structure to use this module. */
+            const slcdc_instance_t ${module.driver.slcdc.name} =
+            {
+                .p_ctrl        = &amp;${module.driver.slcdc.name}_ctrl,
+                .p_cfg         = &amp;${module.driver.slcdc.name}_cfg,
+                .p_api         = &amp;g_slcdc_on_slcdc
+            };
+        </declarations>
+        <api configurable="true">
+            <file>ra/fsp/inc/instances/r_slcdc.h</file>
+            <file>ra/fsp/inc/api/r_slcdc_api.h</file>
+        </api>
+    </module>
+</raModuleDescription>

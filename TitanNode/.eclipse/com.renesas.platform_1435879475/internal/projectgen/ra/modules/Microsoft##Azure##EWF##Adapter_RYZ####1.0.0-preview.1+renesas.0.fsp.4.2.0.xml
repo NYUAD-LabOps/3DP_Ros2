@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<raModuleDescription>
+    <module config="config.azure.ewf" id="module.azure.ewf.adapter.ryz" display="Networking|Azure EWF Adapter on RYZ014A" common="1" version="0" url="group___r_m___a_z_u_r_e___e_w_f___r_y_z.html">
+        <requires id="module.azure.ewf.adapter.ryz.requires.ewf_common" interface="interface.azure.ewf.common" find="true" display="Requires EWF Common"/>
+        <requires id="module.azure.ewf.adapter.ryz.requires.ewf_interface" interface="interface.azure.ewf.interface" find="true" display="Requires EWF Interface"/>
+        <requires id="module.azure.ewf.adapter.ryz.requires.ewf_platform" interface="interface.azure.ewf.platform" find="true" display="Requires EWF Platform"/>
+        <provides interface="interface.azure.ewf.adapter" />
+        <property default="renesas_ryz014" display="Name" id="module.azure.ewf.adapter.ryz.name" description="Adapter name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.azure.ewf.adapter.ryz.name}")</constraint>
+        </property>
+        <includes>
+#include &quot;ewf_adapter_renesas_ryz014.h&quot;
+        </includes>
+    </module>
+    <developerSupport>
+        <api version="1">
+            <platform id="fsp" max="" min="1.1.0"/>
+            <moduleRef id="module.azure.ewf.adapter.ryz"/>
+            <description><![CDATA[<form><p><span color="header" font="header">Overview</span></p><p>The Azure EWF Adapter on RYZ module provides snippets of code for configuring the Azure Embedded Wireless Framework library to run on RYZ.</p></form>]]></description>
+            <function display="Quick Setup" id="azure_ewf_ryz_quick_setup">
+                <description><![CDATA[<form><p>This function provides quick setup for the Azure EWF Adapter on RYZ instance using the properties from the RA configurator.</p></form>]]></description>
+            </function>
+        </api>
+        <template category="function_call" display="Call Quick Setup" id="module.azure.ewf.adapter.ryz.quick_setup" version="1">
+            <platform id="fsp" max="" min="1.1.0"/>
+            <moduleRef id="module.azure.ewf.adapter.ryz">
+                <function id="azure_ewf_ryz_quick_setup"/>
+            </moduleRef>
+            <content>
+#define MODEM_WAIT_TIME_SEC 30
+
+/* Global pointers for EWF */
+ewf_allocator * gp_message_allocator = NULL;
+ewf_interface * gp_interface = NULL;
+ewf_adapter * gp_adapter = NULL;
+
+void azure_ewf_ryz_quick_setup();
+
+/* Quick setup for Azure EWF Adapter on RYZ */
+void azure_ewf_ryz_quick_setup()
+{
+    ewf_result result;
+
+    EWF_ALLOCATOR_THREADX_STATIC_DECLARE(gp_message_allocator, message_allocator, 12, 2048);
+    EWF_INTERFACE_RA_UART_STATIC_DECLARE(gp_interface, sci_uart);
+    EWF_ADAPTER_RENESAS_RYZ014_STATIC_DECLARE(gp_adapter,
+                                              ${adapter_name:raProperty(module.azure.ewf.adapter.ryz.name)},
+                                              message_allocator_ptr,
+                                              NULL,
+                                              interface_ptr);
+
+    /* Start the adapter */
+    result = ewf_adapter_start(gp_adapter);
+    assert(EWF_RESULT_OK == result);
+
+    /* Set the ME functionality */
+    result = ewf_adapter_modem_functionality_set(gp_adapter, "1");
+    assert(EWF_RESULT_OK == result);
+
+    /* Wait for the modem functionality to be up */
+    result = ewf_adapter_modem_network_registration_check(adapter_ptr, MODEM_WAIT_TIME_SEC);
+    assert(EWF_RESULT_OK == result);
+}
+            </content>
+        </template>
+    </developerSupport>
+</raModuleDescription>

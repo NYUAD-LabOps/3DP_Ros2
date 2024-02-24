@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deviceconfig>
+  <device>
+    <name>R7FA6T2AB</name>
+    <series>RA</series>
+    <family>RA6</family>
+    <server>
+      <params>
+        <param>-t R7FA6T2AB</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+      <booleanAttribute key="com.renesas.hardwaredebug.trustZone.support" value="true" />
+    </extraAttributes>
+  </device>
+  <device>
+    <name>R7FA6T2AD</name>
+    <series>RA</series>
+    <family>RA6</family>
+    <server>
+      <params>
+        <param>-t R7FA6T2AD</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+      <booleanAttribute key="com.renesas.hardwaredebug.trustZone.support" value="true" />
+    </extraAttributes>
+  </device>
+  <device>
+    <name>R7FA6T2BB</name>
+    <series>RA</series>
+    <family>RA6</family>
+    <server>
+      <params>
+        <param>-t R7FA6T2BB</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+      <booleanAttribute key="com.renesas.hardwaredebug.trustZone.support" value="true" />
+    </extraAttributes>
+  </device>
+  <device>
+    <name>R7FA6T2BD</name>
+    <series>RA</series>
+    <family>RA6</family>
+    <server>
+      <params>
+        <param>-t R7FA6T2BD</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+      <booleanAttribute key="com.renesas.hardwaredebug.trustZone.support" value="true" />
+    </extraAttributes>
+  </device>
+</deviceconfig>

@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+    <config id="config.module.aws.freertosplus.tls" path="aws/aws_clientcredential_keys.h" version="0">
+        <property default="" description="Add a path to your custom aws_clientcredential_keys.h file. It can be used to add contents to this file." display="Header file to #include in ra_cfg/aws/aws_clientcredential_keys.h" id="config.module.aws.freertosplus.tls.custom_include">
+            <export>eval('' +
+'var input = "${config.module.aws.freertosplus.tls.custom_include}";' +
+'if (input != "")' +
+'{' +
+'    input = \'#include "\' + input + \'"\';' +
+'}' +
+'    input' +
+                '')</export>
+        </property>
+        <content>
+#include &lt;stdint.h&gt;
+
+${config.module.aws.freertosplus.tls.custom_include}
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifndef keyCLIENT_CERTIFICATE_PEM
+#define keyCLIENT_CERTIFICATE_PEM &quot;&quot;
+#endif
+#ifndef keyCLIENT_PRIVATE_KEY_PEM
+#define keyCLIENT_PRIVATE_KEY_PEM &quot;&quot;
+#endif
+#ifndef keyJITR_DEVICE_CERTIFICATE_AUTHORITY_PEM
+#define keyJITR_DEVICE_CERTIFICATE_AUTHORITY_PEM &quot;&quot;
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+        </content>
+    </config>
+    <module config="config.module.aws.freertosplus.tls" id="module.aws.freertosplus.tls" display="Networking|FreeRTOS+TLS (No Longer Supported)" common="1" visible="false" version="0" url="_f_r_e_e_r_t_o_s__m_i_g_r_a_t_i_o_n.html">
+        <constraint display="IoT libraries no longer supported. Please migrate properties over to new transport interface. See migration guide for more details"/>
+        <constraint display="Requires FreeRTOS heap implementation 4 or 5">
+          "${interface.freertos.heap_4_or_5}" === "1"
+        </constraint>
+        <requires interface="_rtos" />
+        <requires id="module.aws.freertosplus.tls.requires.pkcs11" interface="interface.aws.pkcs11" display="Add PKCS11" find="true" />
+        <provides interface="interface.aws.freertosplus.tls" />
+    </module>
+</raModuleDescription>

@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+    <module id="module.arm.cmsis5.dsp" display="DSP|Arm CMSIS5 DSP Library Source" common="1" version="0" url="http://www.keil.com/pack/doc/CMSIS/DSP/html/index.html">
+        <provides interface="interface.cmsis5.dsp" />
+        <includes>
+#include &quot;arm_math.h&quot;
+        </includes>
+    </module>
+</raModuleDescription>

@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+    <config id="config.aws.secure_sockets.common" path="aws/aws_secure_sockets_config.h" version="0">
+        <property default="10000" display="Socket Send Timeout" id="config.aws.secure_sockets.common.default_send_timeout"/>
+        <property default="10000" display="Socket Receive Timeout" id="config.aws.secure_sockets.common.default_recv_timeout"/>
+        <property default="config.aws.secure_sockets.common.aws_iot_secure_sockets_metrics.disabled" display="Secure Socket Metrics" id="config.aws.secure_sockets.common.aws_iot_secure_sockets_metrics">
+            <option id="config.aws.secure_sockets.common.aws_iot_secure_sockets_metrics.disabled" display="Disabled" value="0" />
+            <option id="config.aws.secure_sockets.common.aws_iot_secure_sockets_metrics.enabled" display="Enabled" value="1" />
+        </property>
+        <content>
+#ifndef AWS_INC_SECURE_SOCKETS_CONFIG_H_
+#define AWS_INC_SECURE_SOCKETS_CONFIG_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * @brief Byte order of the target MCU must be defined.
+ *
+ * Valid values are pdLITTLE_ENDIAN and pdBIG_ENDIAN.
+ */
+#define socketsconfigBYTE_ORDER pdLITTLE_ENDIAN
+
+/**
+ * @brief Default socket send timeout.
+ *
+ * The user can change the send timeout for a socket using the SOCKETS_SetSockOpt API
+ * with the SOCKETS_SO_SNDTIMEO option.
+ */
+#ifndef socketsconfigDEFAULT_SEND_TIMEOUT
+    #define socketsconfigDEFAULT_SEND_TIMEOUT    (${config.aws.secure_sockets.common.default_send_timeout})
+#endif
+
+/**
+ * @brief Default socket receive timeout.
+ *
+ * The user can change the receive timeout for a socket using the SOCKETS_SetSockOpt API
+ * with the SOCKETS_SO_RCVTIMEO option.
+ */
+#ifndef socketsconfigDEFAULT_RECV_TIMEOUT
+    #define socketsconfigDEFAULT_RECV_TIMEOUT    (${config.aws.secure_sockets.common.default_recv_timeout})
+#endif
+
+/**
+ * @brief By default, metircs of secure socket is disabled.
+ *
+ */
+#ifndef AWS_IOT_SECURE_SOCKETS_METRICS_ENABLED
+    #define AWS_IOT_SECURE_SOCKETS_METRICS_ENABLED    (${config.aws.secure_sockets.common.aws_iot_secure_sockets_metrics})
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* AWS_INC_SECURE_SOCKETS_CONFIG_H_ */
+        </content>
+    </config>
+    <module id="module.aws.secure_sockets.common" display="Networking|AWS Secure Sockets Common (No Longer Supported)" config="config.aws.secure_sockets.common" common="1" version="0" visible="false" url="_f_r_e_e_r_t_o_s__m_i_g_r_a_t_i_o_n.html">
+        <constraint display="Secure sockets no longer supported. Please migrate properties over to new transport interface. See migration guide for more details"/>
+        <requires id="module.aws.secure_sockets.requires.awsfreertos" interface="interface.rtos.awsfreertos" visible="false" display="Requires FreeRTOS"/>
+        <requires id="module.aws.secure_sockets.freertosplustcp.requires.iot_common" interface="interface.aws.iot.common" display="Add AWS IoT common" find="true" />
+        <provides interface="interface.secure_sockets.common" />
+    </module>
+</raModuleDescription>

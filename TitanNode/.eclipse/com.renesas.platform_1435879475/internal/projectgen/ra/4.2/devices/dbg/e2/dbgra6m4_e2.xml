@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deviceconfig>
+  <device>
+    <name>R7FA6M4AD</name>
+    <series>RA</series>
+    <family>RA6</family>
+    <server>
+      <params>
+        <param>-t R7FA6M4AD</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.trace.supportMTB" value="false" />
+      <booleanAttribute key="com.renesas.hardwaredebug.trustZone.support" value="true" />
+    </extraAttributes>
+  </device>
+  <device>
+    <name>R7FA6M4AE</name>
+    <series>RA</series>
+    <family>RA6</family>
+    <server>
+      <params>
+        <param>-t R7FA6M4AE</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.trace.supportMTB" value="false" />
+      <booleanAttribute key="com.renesas.hardwaredebug.trustZone.support" value="true" />
+    </extraAttributes>
+  </device>
+  <device>
+    <name>R7FA6M4AF</name>
+    <series>RA</series>
+    <family>RA6</family>
+    <server>
+      <params>
+        <param>-t R7FA6M4AF</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.trace.supportMTB" value="false" />
+      <booleanAttribute key="com.renesas.hardwaredebug.trustZone.support" value="true" />
+    </extraAttributes>
+  </device>
+</deviceconfig>

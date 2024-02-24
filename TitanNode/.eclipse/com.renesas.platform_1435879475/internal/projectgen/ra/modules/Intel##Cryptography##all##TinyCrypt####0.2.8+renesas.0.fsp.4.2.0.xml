@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<raModuleDescription>
+    <module display="Security|TinyCrypt (S/W Only)" id="module.middleware.tinycrypt" common="1" version="1" url="https://github.com/01org/tinycrypt/blob/master/documentation/tinycrypt.rst">
+        <!-- uECC documentation (http://kmackay.ca/micro-ecc/) requires only 672 bytes of stack but the mcuboot application requires about 1000 bytes of stack -->
+        <constraint display="A minimum stack of 2K (0x800) is required. If used in an RTOS thread, the thread stack should instead be at least 0x800.">(("${config.bsp.common.main}" &gt;= 0x800)) || (testExists("${interface.rtos.rtos}") )
+        </constraint>
+        <provides interface="interface.driver.tinycrypt" />
+        <includes>
+        #include "tinycrypt/cbc_mode.h"
+        #include "tinycrypt/ccm_mode.h"
+        #include "tinycrypt/cmac_mode.h"
+        #include "tinycrypt/constants.h"
+        #include "tinycrypt/ctr_mode.h"
+        #include "tinycrypt/ctr_prng.h"
+        #include "tinycrypt/ecc_dh.h"
+        #include "tinycrypt/ecc_dsa.h"
+        #include "tinycrypt/ecc_platform_specific.h"
+        #include "tinycrypt/ecc.h"
+        #include "tinycrypt/hmac_prng.h"
+        #include "tinycrypt/hmac.h"
+        #include "tinycrypt/sha256.h"
+        #include "tinycrypt/utils.h"
+        </includes>
+        <declarations>
+        </declarations>
+    </module>
+</raModuleDescription>

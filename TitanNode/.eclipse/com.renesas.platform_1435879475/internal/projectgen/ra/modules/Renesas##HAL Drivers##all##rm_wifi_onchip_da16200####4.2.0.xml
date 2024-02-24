@@ -1,0 +1,180 @@
+<?xml version="1.0" ?>
+
+<raModuleDescription>
+    <module id="module.driver.secure_sockets.wifi_onchip_da16200" display="Networking|AWS Secure Sockets on WiFi (No Longer Supported)" version="1" visible="false" url="">
+        <constraint display="Secure sockets no longer supported. Please migrate properties over to new transport interface. See porting guide for more details"/>
+        <requires id="module.aws.secure_sockets.freertosplustcp.requires.secure_sockets_common" interface="interface.secure_sockets.common" display="Add AWS Secure Sockets common" find="true" />
+        <requires id="module.aws.secure_sockets.wifi_onchip_da16200.requires.tls_support" interface="interface.secure_sockets.tls_support" display="Add TLS Support [Optional for Wifi]" find="true" />
+        <requires id="module.aws.secure_sockets.wifi_onchip_da16200.requires.wifi_onchip_da16200" interface="interface.driver.wifi_onchip_da16200" display="Add WiFi" find="true" />
+        <requires id="module.aws.secure_sockets.wifi_onchip_da16200.requires.awsfreertos" interface="interface.rtos.awsfreertos" visible="false" display="Requires FreeRTOS"/>
+        <provides interface="interface.secure_sockets" />
+        <provides interface="interface.secure_sockets.wifi_onchip_da16200" />
+    </module>
+    <config id="config.driver.wifi_onchip_da16200" path="fsp_cfg/rm_wifi_onchip_da16200_cfg.h" version="0">
+        <property default="config.driver.wifi_onchip_da16200.param_checking_enable.bsp" display="Parameter Checking" id="config.driver.wifi_onchip_da16200.param_checking_enable" description="If selected code for parameter checking is included in the build.">
+            <option display="Default (BSP)" id="config.driver.wifi_onchip_da16200.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.driver.wifi_onchip_da16200.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.driver.wifi_onchip_da16200.param_checking_enable.disabled" value="(0)"/>
+        </property>                 
+        <property default="config.driver.wifi_onchip_da16200.num_sockets.one" display="Number of supported socket instances" id="config.driver.wifi_onchip_da16200.num_sockets" description="Enable number of socket instances">
+            <option display="1" id="config.driver.wifi_onchip_da16200.num_sockets.one" value="(1)"/>
+        </property>
+        <property default="8192" display="Size of RX buffer for socket" id="config.driver.wifi_onchip_da16200.socket_rx_size"/>
+        <property default="1500" display="Size of TX buffer for CMD Port" id="config.driver.wifi_onchip_da16200.cmd_port_tx_size"/>
+        <property default="3000" display="Size of RX buffer for CMD Port" id="config.driver.wifi_onchip_da16200.cmd_port_rx_size"/>
+        <property default="10000" display="Semaphore maximum timeout" id="config.driver.wifi_onchip_da16200.sem_max_timeout"/>
+        <property default="10" display="Number of retries for AT commands" id="config.driver.wifi_onchip_da16200.max_retries_uart_comms"/>
+        <property default="module.driver.wifi_onchip_da16200.pin_control_port.PORT_06" display="Module Reset Port" id="module.driver.wifi_onchip_da16200.pin_control_port" description="Specify the module reset pin port for the MCU.">
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_00" display="00" value="00" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_01" display="01" value="01" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_02" display="02" value="02" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_03" display="03" value="03" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_04" display="04" value="04" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_05" display="05" value="05" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_06" display="06" value="06" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_07" display="07" value="07" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_08" display="08" value="08" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_09" display="09" value="09" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_10" display="10" value="10" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_port.PORT_11" display="11" value="11" />
+        </property>
+        <property default="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_03" display="Module Reset Pin" id="module.driver.wifi_onchip_da16200.pin_control_pin" description="Specify the module reset pin for the MCU.">
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_00" display="00" value="00" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_01" display="01" value="01" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_02" display="02" value="02" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_03" display="03" value="03" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_04" display="04" value="04" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_05" display="05" value="05" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_06" display="06" value="06" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_07" display="07" value="07" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_08" display="08" value="08" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_09" display="09" value="09" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_10" display="10" value="10" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_11" display="11" value="11" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_12" display="12" value="12" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_13" display="13" value="13" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_14" display="14" value="14" />
+            <option id="module.driver.wifi_onchip_da16200.pin_control_pin.PIN_15" display="15" value="15" />
+        </property>
+        
+        <property default="config.driver.wifi_onchip_da16200.enable_sntp_client.disabled" display="Enable SNTP Client" id="config.driver.wifi_onchip_da16200.enable_sntp_client" description="Should the SNTP client of the module be enabled">
+            <option display="Enabled" id="config.driver.wifi_onchip_da16200.enable_sntp_client.enabled" value="1"/>
+            <option display="Disabled" id="config.driver.wifi_onchip_da16200.enable_sntp_client.disabled" value="0"/>
+        </property>
+        <content>
+            #ifdef __cplusplus
+            extern "C" {
+            #endif
+
+            #define WIFI_ONCHIP_DA16200_CFG_PARAM_CHECKING_ENABLED        (${config.driver.wifi_onchip_da16200.param_checking_enable})
+            #define WIFI_ONCHIP_DA16200_CFG_NUM_CREATEABLE_SOCKETS        (${config.driver.wifi_onchip_da16200.num_sockets})            
+            #define WIFI_ONCHIP_DA16200_CFG_MAX_SOCKET_RX_SIZE            (${config.driver.wifi_onchip_da16200.socket_rx_size})
+            #define WIFI_ONCHIP_DA16200_CFG_CMD_TX_BUF_SIZE               (${config.driver.wifi_onchip_da16200.cmd_port_tx_size})
+            #define WIFI_ONCHIP_DA16200_CFG_CMD_RX_BUF_SIZE               (${config.driver.wifi_onchip_da16200.cmd_port_rx_size})
+            #define WIFI_ONCHIP_DA16200_CFG_RESET_PIN                     BSP_IO_PORT_${module.driver.wifi_onchip_da16200.pin_control_port}_PIN_${module.driver.wifi_onchip_da16200.pin_control_pin}
+            #define WIFI_ONCHIP_DA16200_CFG_SEM_MAX_TIMEOUT               (${config.driver.wifi_onchip_da16200.sem_max_timeout})
+            #define WIFI_ONCHIP_DA16200_CFG_MAX_NUMBER_UART_PORTS         (2)
+            #define WIFI_ONCHIP_DA16200_CFG_MAX_RETRIES_UART_COMMS        (${config.driver.wifi_onchip_da16200.max_retries_uart_comms})
+            #define WIFI_ONCHIP_DA16200_CFG_TLS_SUPPORT                   (${interface.secure_sockets.tls_support})
+            #define WIFI_ONCHIP_DA16200_CFG_SNTP_ENABLE                   (${config.driver.wifi_onchip_da16200.enable_sntp_client})
+
+
+            #ifdef __cplusplus
+            }
+            #endif
+        </content>
+    </config>
+    <module config="config.driver.wifi_onchip_da16200" display="Networking|WiFi Onchip da16200 Driver using r_sci_uart (rm_wifi_onchip_da16200)" id="module.driver.wifi_onchip_da16200_using_sci_uart" common="1" visible="false" version="1" url="group___w_i_f_i___o_n_c_h_i_p___s_i_l_e_x.html">
+        <constraint display="Mutexes must be enabled in the FreeRTOS thread config under Common|General|Use Mutexes.">
+            "${config.awsfreertos.thread.configuse_mutexes}" === "config.awsfreertos.thread.configuse_mutexes.enabled"
+        </constraint>
+        <requires interface="_rtos" />
+        <requires id="module.driver.wifi_onchip_da16200_using_sci_uart.wifi.common" interface="interface.aws.wifi.common" display="Requires AWS WiFi Common" find="true"/>
+        <requires id="module.driver.wifi_onchip_da16200_using_sci_uart.requires.uart_cmd" interface="interface.driver.uart" display="Requires SCI UART Peripheral Port" find="true">
+            <override property="module.driver.uart.callback" value="rm_wifi_onchip_da16200_uart_callback"/>
+        </requires>
+        
+        <provides interface="interface.driver.wifi_onchip_da16200" />
+        <provides interface="interface.driver.wifi" />
+        <property default="US" display="Country code in ISO 3166-1 alpha-2 standard" id="module.driver.wifi_onchip_da16200.country_code"/>
+        <property default="wifi_onchip_da16200" id="module.driver.wifi_onchip_da16200.wifi_onchip_da16200_interface" description=""/>
+
+        <property default="0.0.0.0" display="SNTP server IPv4 address" id="module.driver.wifi_onchip_da16200.sntp_server_ip">
+            <constraint display="Must be a valid IPv4 address">eval('' +
+            'var input = "${module.driver.wifi_onchip_da16200.sntp_server_ip}";' +
+            'var regex = RegExp("^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$","i");' +
+            'regex.test(input)')
+            </constraint>
+        </property>
+        <property default="0" display="SNTP Timezone UTC Offset in Hours" id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours" description="Value in hours from 12 to -12">
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-12"    display="-12" value="-12" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-11"    display="-11" value="-11" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-10"    display="-10" value="-10" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-9"    display="-9" value="-9" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-8"    display="-8" value="-8" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-7"    display="-7" value="-7" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-6"    display="-6" value="-6" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-5"    display="-5" value="-5" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-4"    display="-4" value="-4" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-3"    display="-3" value="-3" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-2"    display="-2" value="-2" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.-1"    display="-1" value="-1" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.0"      display="0" value="0" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.1"     display="1" value="1" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.2"     display="2" value="2" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.3"     display="3" value="3" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.4"     display="4" value="4" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.5"     display="5" value="5" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.6"     display="6" value="6" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.7"     display="7" value="7" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.8"     display="8" value="8" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.9"     display="9" value="9" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.10"     display="10" value="10" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.11"     display="11" value="11" />
+            <option id="module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours.12"     display="12" value="12" />
+        </property>
+
+        <header>
+           extern const wifi_onchip_da16200_cfg_t          g_wifi_onchip_da16200_cfg;
+           extern const char *                           g_wifi_onchip_da16200_uart_cmd_baud;
+        </header>
+
+        <includes>
+            #include &quot;rm_wifi_onchip_da16200.h&quot;
+        </includes>
+
+        <declarations>
+
+            const char * g_wifi_onchip_da16200_uart_cmd_baud = "${module.driver.wifi_onchip_da16200_using_sci_uart.requires.uart_cmd::module.driver.uart.baud}";
+
+            /** WiFi Onchip da16200 configuration */
+            const wifi_onchip_da16200_cfg_t     g_wifi_onchip_da16200_cfg =
+            {
+                #define RA_NOT_DEFINED (1)
+
+
+                .num_uarts = 1,
+                .num_sockets = WIFI_ONCHIP_DA16200_CFG_NUM_CREATEABLE_SOCKETS,
+                .country_code = (uint8_t*)"${module.driver.wifi_onchip_da16200.country_code}",
+                .reset_pin = WIFI_ONCHIP_DA16200_CFG_RESET_PIN,
+                .sntp_server_ip = (uint8_t*)"${module.driver.wifi_onchip_da16200.sntp_server_ip}",
+                .sntp_utc_offset_in_hours = ${module.driver.wifi_onchip_da16200.sntp_utc_offset_in_hours},
+
+                .uart_instances =
+                {
+
+                #if (RA_NOT_DEFINED == ${module.driver.wifi_onchip_da16200_using_sci_uart.requires.uart_cmd::module.driver.uart.name})
+                    NULL,
+                #else
+                    &amp;${module.driver.wifi_onchip_da16200_using_sci_uart.requires.uart_cmd::module.driver.uart.name},
+                #endif
+
+                NULL,
+
+                #undef RA_NOT_DEFINED
+                }
+            };
+
+        </declarations>
+    </module>
+</raModuleDescription>

@@ -1,0 +1,408 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+    <config id="config.aws.iot.common" path="aws/iot_config.h" version="0">
+        <property default="" description="Add a path to your custom iot_config.h file. It can be used to override some or all of the configurations defined here, and to define additional configurations." display="Custom iot_config.h" id="config.aws.iot.common.custom_iot_config">
+            <export>eval('' +
+'var input = "${config.aws.iot.common.custom_iot_config}";' +
+'if (input != "")' +
+'{' +
+'    input = \'#include "\' + input + \'"\';' +
+'}' +
+'    input' +
+                '')</export>
+        </property>
+        <property display="IoT Logging puts()" id="config.aws.iot.common.iotlogging_puts" default="configPRINTF( ( &quot;%s\r\n&quot;, str ) )" description="Function the logging library uses to print a line."/>
+        <property display="Asserts|IoT Metrics Enable Asserts" id="config.aws.iot.common.iot_metrics_enable_asserts" default="config.aws.iot.common.iot_metrics_enable_asserts.enabled" description="Enable asserts in Metrics library.">
+            <option display="Enabled" id="config.aws.iot.common.iot_metrics_enable_asserts.enabled" value="1" />
+            <option display="Disabled" id="config.aws.iot.common.iot_metrics_enable_asserts.disabled" value="0" />
+        </property>
+        <property display="Asserts|IoT Containers Enable Asserts" id="config.aws.iot.common.iot_containers_enable_asserts" default="config.aws.iot.common.iot_containers_enable_asserts.enabled" description="Enable asserts in Containers library.">
+            <option display="Enabled" id="config.aws.iot.common.iot_containers_enable_asserts.enabled" value="1" />
+            <option display="Disabled" id="config.aws.iot.common.iot_containers_enable_asserts.disabled" value="0" />
+        </property>
+        <property display="Asserts|IoT Taskpool Enable Asserts" id="config.aws.iot.common.iot_taskpool_enable_asserts" default="config.aws.iot.common.iot_taskpool_enable_asserts.enabled" description="Enable asserts in Taskpool library.">
+            <option display="Enabled" id="config.aws.iot.common.iot_taskpool_enable_asserts.enabled" value="1" />
+            <option display="Disabled" id="config.aws.iot.common.iot_taskpool_enable_asserts.disabled" value="0" />
+        </property>
+        <property display="Asserts|IoT MQTT Enable Asserts" id="config.aws.iot.common.iot_mqtt_enable_asserts" default="config.aws.iot.common.iot_mqtt_enable_asserts.enabled" description="Enable asserts in MQTT library.">
+            <option display="Enabled" id="config.aws.iot.common.iot_mqtt_enable_asserts.enabled" value="1" />
+            <option display="Disabled" id="config.aws.iot.common.iot_mqtt_enable_asserts.disabled" value="0" />
+        </property>
+        <property display="Asserts|AWS IoT Shadow Enable Asserts" id="config.aws.iot.common.aws_iot_shadow_enable_asserts" default="config.aws.iot.common.aws_iot_shadow_enable_asserts.enabled" description="Enable asserts in IoT library.">
+            <option display="Enabled" id="config.aws.iot.common.aws_iot_shadow_enable_asserts.enabled" value="1" />
+            <option display="Disabled" id="config.aws.iot.common.aws_iot_shadow_enable_asserts.disabled" value="0" />
+        </property>
+        <property display="Asserts|AWS IoT Defender Enable Asserts" id="config.aws.iot.common.aws_iot_defender_enable_asserts" default="config.aws.iot.common.aws_iot_defender_enable_asserts.enabled" description="Enable asserts in IoT library.">
+            <option display="Enabled" id="config.aws.iot.common.aws_iot_defender_enable_asserts.enabled" value="1" />
+            <option display="Disabled" id="config.aws.iot.common.aws_iot_defender_enable_asserts.disabled" value="0" />
+        </property>
+        <property display="Asserts|IoT BLE Enable Asserts" id="config.aws.iot.common.iot_ble_enable_asserts" default="config.aws.iot.common.iot_ble_enable_asserts.enabled" description="Enable asserts in BLE library.">
+            <option display="Enabled" id="config.aws.iot.common.iot_ble_enable_asserts.enabled" value="1" />
+            <option display="Disabled" id="config.aws.iot.common.iot_ble_enable_asserts.disabled" value="0" />
+        </property>
+        <property display="Asserts|IoT Metrics Assert" id="config.aws.iot.common.iotmetrics_assert" default="configASSERT( expression )" description="Assert Function for IoT Metrics Library." />
+        <property display="Asserts|IoT Containers Assert" id="config.aws.iot.common.iotcontainers_assert" default="configASSERT( expression )" description="Assert Function for IoT Containers Library." />
+        <property display="Asserts|IoT Taskpool Assert" id="config.aws.iot.common.iottaskpool_assert" default="configASSERT( expression )" description="Assert Function for IoT Taskpool Library." />
+        <property display="Asserts|IoT MQTT Assert" id="config.aws.iot.common.iotmqtt_assert" default="configASSERT( expression )" description="Assert Function for IoT MQTT Library." />
+        <property display="Asserts|AWS IoT Shadow Assert" id="config.aws.iot.common.awsiotshadow_assert" default="configASSERT( expression )" description="Assert Function for AWS IoT Shadow Library." />
+        <property display="Asserts|AWS IoT Defender Assert" id="config.aws.iot.common.awsiotdefender_assert" default="configASSERT( expression )" description="Assert Function for AWS Iot Defender Library." />
+        <property display="Asserts|IoT BLE Assert" id="config.aws.iot.common.iotble_assert" default="configASSERT( expression )" description="Assert Function for IoT BLE Library." />
+        <property display="IoT Static Memory Only" id="config.aws.iot.common.iot_static_memory_only.disabled" default="config.aws.iot.common.iot_static_memory_only.disabled" description="Control the usage of dynamic memory allocation.">
+            <option display="Enabled" id="config.aws.iot.common.iot_static_memory_only.enabled" value="1" />
+            <option display="Disabled" id="config.aws.iot.common.iot_static_memory_only.disabled" value="0" />
+        </property>
+        <property display="IoT Thread Default Priority" id="config.aws.iot.common.iot_thread_default_priority" default="1" description="A value representing the system default for new thread priority.">
+            <constraint display="Must be an integer and greater than 0 and less than the maximum priority configured in FreeRTOS.">
+            testInteger(&quot;${config.aws.iot.common.iot_thread_default_priority}&quot;) &amp;&amp;
+            (&quot;${config.aws.iot.common.iot_thread_default_priority}&quot; &gt;= 0)
+            </constraint>
+        </property>
+        <property display="IoT Thread Default Stack Size" id="config.aws.iot.common.iot_thread_default_stack_size" default="512" description="A value representing the system default for new thread stack size.">
+            <constraint display="Must be an integer and greater than 0 and divisible by 8.">
+            ("${config.aws.iot.common.iot_thread_default_stack_size}" % 8 == 0) &amp;&amp;
+            testInteger(&quot;${config.aws.iot.common.iot_thread_default_stack_size}&quot;) &amp;&amp;
+            (&quot;${config.aws.iot.common.iot_thread_default_stack_size}&quot; &gt;= 0)
+            </constraint>
+        </property>
+        <property display="IoT Network Receive Task Priority" id="config.aws.iot.common.iot_network_receive_task_priority" default="0" description="A value representing the network receive thread stack size.">
+            <constraint display="Must be an integer and greater than 0 and less than the maximum priority configured in FreeRTOS.">
+            testInteger(&quot;${config.aws.iot.common.iot_network_receive_task_priority}&quot;) &amp;&amp;
+            (&quot;${config.aws.iot.common.iot_network_receive_task_priority}&quot; &gt;= 0)
+            </constraint>
+        </property>
+        <property display="IoT Network Receive Task Stack Size" id="config.aws.iot.common.iot_network_receive_task_stack_size" default="512" description="A value representing the network receive thread priority.">
+            <constraint display="Must be an integer and greater than 0 and divisible by 8.">
+            ("${config.aws.iot.common.iot_network_receive_task_stack_size}" % 8 == 0) &amp;&amp;
+            testInteger(&quot;${config.aws.iot.common.iot_network_receive_task_stack_size}&quot;) &amp;&amp;
+            (&quot;${config.aws.iot.common.iot_network_receive_task_stack_size}&quot; &gt;= 0)
+            </constraint>
+        </property>
+        <property display="IoT MQTT Enable Metrics" id="config.aws.iot.common.iot_mqtt_metrics" default="config.aws.iot.common.iot_mqtt_metrics.disabled" description="Enable metrics in the AWS MQTT library.">
+            <option display="Enabled" id="config.aws.iot.common.iot_mqtt_metrics.enabled" value="1" />
+            <option display="Disabled" id="config.aws.iot.common.iot_mqtt_metrics.disabled" value="0" />
+        </property>
+        <property display="IoT SDK Name" id="config.aws.iot.common.iot_sdk_name" default="FreeRTOS" description="SDK name for AWS IoT MQTT metrics. Only used when AWS_IOT_MQTT_ENABLE_METRICS is 1."/>
+        <property display="Platform Name" id="config.aws.iot.common.configplatform_name" default="Unknown" description="Platform for AWS IoT MQTT metrics. Only used when AWS_IOT_MQTT_ENABLE_METRICS is 1."/>
+        <property display="IoT Cloud Endpoint" id="config.aws.iot.common.iot_cloud_endpoint" default="clientcredentialMQTT_BROKER_ENDPOINT" description="Cloud endpoint to which the device connects to."/>
+        <property display="IoT Device Identifier" id="config.aws.iot.common.iot_device_identifier" default="getDeviceIdentifier()" description="Unique identifier used to recognize a device by the cloud. This could be SHA-256 of the device certificate."/>
+        <property display="AWS IoT Metrics Username" id="config.aws.iot.common.aws_iot_metrics_username" default="getDeviceMetrics()" description="Metrics emitted by the device."/>
+        <property display="AWS IoT Metrics Username Length" id="config.aws.iot.common.aws_iot_metrics_username_length" default="getDeviceMetricsLength()" description="Length of the metrics emitted by device."/>
+        <property display="IotMetricsConnectionId_t" id="config.aws.iot.common.iotmetricsconnectionid_t" default="void *" description="Define the data type of metrics connection id as same as Socket_t in aws_secure_socket.h"/>
+        <property display="AWS IoT Defender Format" id="config.aws.iot.common.aws_iot_defender_format" default="AWS_IOT_DEFENDER_FORMAT_CBOR" description="Configuration for defender demo: set format to CBOR."/>
+        <property display="AWS IoT Defender Use Long Tag" id="config.aws.iot.common.aws_iot_defender_use_long_tag" default="config.aws.iot.common.aws_iot_defender_use_long_tag.enabled" description="Configuration for defender demo: use long tag for readable output. Please use short tag for the real application.">
+            <option display="Enabled" id="config.aws.iot.common.aws_iot_defender_use_long_tag.enabled" value="1" />
+            <option display="Disabled" id="config.aws.iot.common.aws_iot_defender_use_long_tag.disabled" value="0" />
+        </property>
+        <content>
+/* Include the common configuration file for FreeRTOS. */
+#include &lt;FreeRTOS.h&gt;
+#include &quot;platform/iot_platform_types_freertos.h&quot;
+
+${config.aws.iot.common.custom_iot_config}
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Build test code. */
+#ifndef IOT_BUILD_TESTS
+#define IOT_BUILD_TESTS    (0)
+#endif
+
+/* Logging puts function. */
+#ifndef IotLogging_Puts
+#define IotLogging_Puts( str )                 ${config.aws.iot.common.iotlogging_puts}
+#endif
+
+/* Enable asserts in libraries by default. */
+#ifndef IOT_METRICS_ENABLE_ASSERTS
+    #define IOT_METRICS_ENABLE_ASSERTS         (${config.aws.iot.common.iot_metrics_enable_asserts})
+#endif
+#ifndef IOT_CONTAINERS_ENABLE_ASSERTS
+    #define IOT_CONTAINERS_ENABLE_ASSERTS      (${config.aws.iot.common.iot_containers_enable_asserts})
+#endif
+#ifndef IOT_TASKPOOL_ENABLE_ASSERTS
+    #define IOT_TASKPOOL_ENABLE_ASSERTS        (${config.aws.iot.common.iot_taskpool_enable_asserts})
+#endif
+#ifndef IOT_MQTT_ENABLE_ASSERTS
+    #define IOT_MQTT_ENABLE_ASSERTS            (${config.aws.iot.common.iot_mqtt_enable_asserts})
+#endif
+#ifndef AWS_IOT_SHADOW_ENABLE_ASSERTS
+    #define AWS_IOT_SHADOW_ENABLE_ASSERTS      (${config.aws.iot.common.aws_iot_shadow_enable_asserts})
+#endif
+#ifndef AWS_IOT_DEFENDER_ENABLE_ASSERTS
+    #define AWS_IOT_DEFENDER_ENABLE_ASSERTS    (${config.aws.iot.common.aws_iot_defender_enable_asserts})
+#endif
+#ifndef IOT_BLE_ENABLE_ASSERTS
+    #define IOT_BLE_ENABLE_ASSERTS             (${config.aws.iot.common.iot_ble_enable_asserts})
+#endif
+
+/* Assert functions. */
+#ifndef IotMetrics_Assert
+#define IotMetrics_Assert( expression )        ${config.aws.iot.common.iotmetrics_assert}
+#endif
+#ifndef IotContainers_Assert
+#define IotContainers_Assert( expression )     ${config.aws.iot.common.iotcontainers_assert}
+#endif
+#ifndef IotTaskPool_Assert
+#define IotTaskPool_Assert( expression )       ${config.aws.iot.common.iottaskpool_assert}
+#endif
+#ifndef IotMqtt_Assert
+#define IotMqtt_Assert( expression )           ${config.aws.iot.common.iotmqtt_assert}
+#endif
+#ifndef AwsIotShadow_Assert
+#define AwsIotShadow_Assert( expression )      ${config.aws.iot.common.awsiotshadow_assert}
+#endif
+#ifndef AwsIotDefender_Assert
+#define AwsIotDefender_Assert( expression )    ${config.aws.iot.common.awsiotdefender_assert}
+#endif
+#ifndef IotBle_Assert
+#define IotBle_Assert( expression )            ${config.aws.iot.common.iotble_assert}
+#endif
+#ifndef AWS_IOT_MQTT_ENABLE_METRICS
+#define AWS_IOT_MQTT_ENABLE_METRICS            ${config.aws.iot.common.iot_mqtt_metrics}
+#endif
+
+/* Control the usage of dynamic memory allocation. */
+#ifndef IOT_STATIC_MEMORY_ONLY
+    #define IOT_STATIC_MEMORY_ONLY    (${config.aws.iot.common.iot_static_memory_only})
+#endif
+
+/* Memory allocation configuration. Note that these functions will not be affected
+ * by IOT_STATIC_MEMORY_ONLY. */
+#ifndef IotNetwork_Malloc
+#define IotNetwork_Malloc    pvPortMalloc
+#endif
+#ifndef IotNetwork_Free
+#define IotNetwork_Free      vPortFree
+#endif
+#ifndef IotThreads_Malloc
+#define IotThreads_Malloc    pvPortMalloc
+#endif
+#ifndef IotThreads_Free
+#define IotThreads_Free      vPortFree
+#endif
+#ifndef IotLogging_Malloc
+#define IotLogging_Malloc    pvPortMalloc
+#endif
+#ifndef IotLogging_Free
+#define IotLogging_Free      vPortFree
+#endif
+#ifndef IotBle_Malloc
+#define IotBle_Malloc        pvPortMalloc
+#endif
+#ifndef IotBle_Free
+#define IotBle_Free          vPortFree
+#endif
+/* #define IotLogging_StaticBufferSize */
+
+/* Memory allocation function configuration for the MQTT and Defender library.
+ * These libraries will be affected by IOT_STATIC_MEMORY_ONLY. */
+#if IOT_STATIC_MEMORY_ONLY == 0
+    #ifndef IotMetrics_MallocTcpConnection
+    #define IotMetrics_MallocTcpConnection       pvPortMalloc
+    #endif
+    #ifndef IotMetrics_FreeTcpConnection
+    #define IotMetrics_FreeTcpConnection         vPortFree
+    #endif
+    #ifndef IotMetrics_MallocIpAddress
+    #define IotMetrics_MallocIpAddress           pvPortMalloc
+    #endif
+    #ifndef IotMetrics_FreeIpAddress
+    #define IotMetrics_FreeIpAddress             vPortFree
+    #endif
+
+    #ifndef IotTaskPool_MallocTaskPool
+    #define IotTaskPool_MallocTaskPool           pvPortMalloc
+    #endif
+    #ifndef IotTaskPool_FreeTaskPool
+    #define IotTaskPool_FreeTaskPool             vPortFree
+    #endif
+    #ifndef IotTaskPool_MallocJob
+    #define IotTaskPool_MallocJob                pvPortMalloc
+    #endif
+    #ifndef IotTaskPool_FreeJob
+    #define IotTaskPool_FreeJob                  vPortFree
+    #endif
+    #ifndef IotTaskPool_MallocTimerEvent
+    #define IotTaskPool_MallocTimerEvent         pvPortMalloc
+    #endif
+    #ifndef IotTaskPool_FreeTimerEvent
+    #define IotTaskPool_FreeTimerEvent           vPortFree
+    #endif
+
+    #ifndef IotMqtt_MallocConnection
+    #define IotMqtt_MallocConnection             pvPortMalloc
+    #endif
+    #ifndef IotMqtt_FreeConnection
+    #define IotMqtt_FreeConnection               vPortFree
+    #endif
+    #ifndef IotMqtt_MallocMessage
+    #define IotMqtt_MallocMessage                pvPortMalloc
+    #endif
+    #ifndef IotMqtt_FreeMessage
+    #define IotMqtt_FreeMessage                  vPortFree
+    #endif
+    #ifndef IotMqtt_MallocOperation
+    #define IotMqtt_MallocOperation              pvPortMalloc
+    #endif
+    #ifndef IotMqtt_FreeOperation
+    #define IotMqtt_FreeOperation                vPortFree
+    #endif
+    #ifndef IotMqtt_MallocSubscription
+    #define IotMqtt_MallocSubscription           pvPortMalloc
+    #endif
+    #ifndef IotMqtt_FreeSubscription
+    #define IotMqtt_FreeSubscription             vPortFree
+    #endif
+
+    #ifndef IotSerializer_MallocCborEncoder
+    #define IotSerializer_MallocCborEncoder      pvPortMalloc
+    #endif
+    #ifndef IotSerializer_FreeCborEncoder
+    #define IotSerializer_FreeCborEncoder        vPortFree
+    #endif
+    #ifndef IotSerializer_MallocCborParser
+    #define IotSerializer_MallocCborParser       pvPortMalloc
+    #endif
+    #ifndef IotSerializer_FreeCborParser
+    #define IotSerializer_FreeCborParser         vPortFree
+    #endif
+    #ifndef IotSerializer_MallocCborValue
+    #define IotSerializer_MallocCborValue        pvPortMalloc
+    #endif
+    #ifndef IotSerializer_FreeCborValue
+    #define IotSerializer_FreeCborValue          vPortFree
+    #endif
+    #ifndef IotSerializer_MallocDecoderObject
+    #define IotSerializer_MallocDecoderObject    pvPortMalloc
+    #endif
+    #ifndef IotSerializer_FreeDecoderObject
+    #define IotSerializer_FreeDecoderObject      vPortFree
+    #endif
+
+    #ifndef AwsIotShadow_MallocOperation
+    #define AwsIotShadow_MallocOperation         pvPortMalloc
+    #endif
+    #ifndef AwsIotShadow_FreeOperation
+    #define AwsIotShadow_FreeOperation           vPortFree
+    #endif
+    #ifndef AwsIotShadow_MallocString
+    #define AwsIotShadow_MallocString            pvPortMalloc
+    #endif
+    #ifndef AwsIotShadow_FreeString
+    #define AwsIotShadow_FreeString              vPortFree
+    #endif
+    #ifndef AwsIotShadow_MallocSubscription
+    #define AwsIotShadow_MallocSubscription      pvPortMalloc
+    #endif
+    #ifndef AwsIotShadow_FreeSubscription
+    #define AwsIotShadow_FreeSubscription        vPortFree
+    #endif
+
+    #ifndef AwsIotDefender_MallocReport
+    #define AwsIotDefender_MallocReport          pvPortMalloc
+    #endif
+    #ifndef AwsIotDefender_FreeReport
+    #define AwsIotDefender_FreeReport            vPortFree
+    #endif
+    #ifndef AwsIotDefender_MallocTopic
+    #define AwsIotDefender_MallocTopic           pvPortMalloc
+    #endif
+    #ifndef AwsIotDefender_FreeTopic
+    #define AwsIotDefender_FreeTopic             vPortFree
+    #endif
+#endif /* if IOT_STATIC_MEMORY_ONLY == 0 */
+
+/* Default platform thread stack size and priority. */
+#ifndef IOT_THREAD_DEFAULT_STACK_SIZE
+    #define IOT_THREAD_DEFAULT_STACK_SIZE ${config.aws.iot.common.iot_thread_default_stack_size}
+#endif
+#ifndef IOT_THREAD_DEFAULT_PRIORITY
+    #define IOT_THREAD_DEFAULT_PRIORITY ${config.aws.iot.common.iot_thread_default_priority}
+#endif
+
+/* Platform network configuration. */
+#ifndef IOT_NETWORK_RECEIVE_TASK_PRIORITY
+    #define IOT_NETWORK_RECEIVE_TASK_PRIORITY ${config.aws.iot.common.iot_network_receive_task_priority}
+#endif
+#ifndef IOT_NETWORK_RECEIVE_TASK_STACK_SIZE
+    #define IOT_NETWORK_RECEIVE_TASK_STACK_SIZE ${config.aws.iot.common.iot_network_receive_task_stack_size}
+#endif
+
+/* Platform and SDK name for AWS IoT MQTT metrics. Only used when
+ * AWS_IOT_MQTT_ENABLE_METRICS is 1. */
+#define IOT_SDK_NAME &quot;${config.aws.iot.common.iot_sdk_name}&quot;
+#ifndef configPLATFORM_NAME
+#define configPLATFORM_NAME &quot;${config.aws.iot.common.configplatform_name}&quot;
+#endif
+
+#ifndef IOT_PLATFORM_NAME
+#define IOT_PLATFORM_NAME    configPLATFORM_NAME
+#endif
+
+/* Cloud endpoint to which the device connects to. */
+#ifndef IOT_CLOUD_ENDPOINT
+#define IOT_CLOUD_ENDPOINT ${config.aws.iot.common.iot_cloud_endpoint}
+#endif
+
+/**
+ * @brief Unique identifier used to recognize a device by the cloud.
+ * This could be SHA-256 of the device certificate.
+ */
+extern const char *getDeviceIdentifier( void );
+#ifndef IOT_DEVICE_IDENTIFIER
+#define IOT_DEVICE_IDENTIFIER ${config.aws.iot.common.iot_device_identifier}
+#endif
+
+/**
+ * @brief Metrics emitted by the device.
+ */
+extern const char *getDeviceMetrics( void );
+#ifndef AWS_IOT_METRICS_USERNAME
+#define AWS_IOT_METRICS_USERNAME ${config.aws.iot.common.aws_iot_metrics_username}
+#endif
+
+/**
+ * @brief Length of the metrics emitted by device.
+ */
+extern uint16_t getDeviceMetricsLength( void );
+#ifndef AWS_IOT_METRICS_USERNAME_LENGTH
+#define AWS_IOT_METRICS_USERNAME_LENGTH ${config.aws.iot.common.aws_iot_metrics_username_length}
+#endif
+
+/* Define the data type of metrics connection id as same as Socket_t in aws_secure_socket.h */
+#ifndef IotMetricsConnectionId_t
+#define IotMetricsConnectionId_t ${config.aws.iot.common.iotmetricsconnectionid_t}
+#endif
+
+/* Configuration for defender demo: set format to CBOR. */
+#ifndef AWS_IOT_DEFENDER_FORMAT
+#define AWS_IOT_DEFENDER_FORMAT ${config.aws.iot.common.aws_iot_defender_format}
+#endif
+
+/* Configuration for defender demo: use long tag for readable output. Please use short tag for the real application. */
+#ifndef AWS_IOT_DEFENDER_USE_LONG_TAG
+#define AWS_IOT_DEFENDER_USE_LONG_TAG (${config.aws.iot.common.aws_iot_defender_use_long_tag})
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+        </content>
+    </config>
+    <module id="module.aws.iot.common" display="Networking|AWS IoT Common (No Longer Supported)" common="1" config="config.aws.iot.common" visible="false" version="0" url="_f_r_e_e_r_t_o_s__m_i_g_r_a_t_i_o_n.html">
+        <constraint display="IoT libraries no longer supported. Please migrate properties over to new transport interface. See migration guide for more details"/>
+        <constraint display="The IoT thread must have a greater priority than the network receive thead.">
+            ${config.aws.iot.common.iot_thread_default_priority} &gt; ${config.aws.iot.common.iot_network_receive_task_priority}
+        </constraint>
+        <constraint display="The IoT thread priority must be less than the FreeRTOS maximum thread priority.">
+            (${config.aws.iot.common.iot_thread_default_priority} &lt;= ${config.awsfreertos.thread.configmax_priorities} - 1)
+        </constraint>
+        <constraint display="The Network Receive thread priority must be less than the FreeRTOS maximum thread priority.">
+            (${config.aws.iot.common.iot_network_receive_task_priority} &lt;= ${config.awsfreertos.thread.configmax_priorities} - 1)
+        </constraint>
+        <requires id="module.aws.iot.common.requires.clientcredential" interface="interface.aws.clientcredential" display="Add Client Credentials [Optional]" find="true" />
+        <provides interface="interface.aws.iot.common" />
+    </module>
+</raModuleDescription>

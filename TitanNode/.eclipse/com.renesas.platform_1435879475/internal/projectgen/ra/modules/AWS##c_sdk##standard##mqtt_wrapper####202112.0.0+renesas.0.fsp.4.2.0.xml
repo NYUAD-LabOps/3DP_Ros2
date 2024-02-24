@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+    <module id="module.aws.c_sdk.mqtt.wrapper" display="Networking|AWS MQTT Wrapper (No Longer Supported)" common="1" visible="false" version="0" url="_f_r_e_e_r_t_o_s__m_i_g_r_a_t_i_o_n.html">
+        <constraint display="MQTT Wrapper no longer supported. Please migrate properties over to new transport interface. See migration guide for more details"/>
+        <requires id="module.aws.c_sdk.mqtt.wrapper.requires.coreMqtt" interface="interface.aws.coreMqtt" display="Add Core MQTT" find="true" />
+        <requires id="module.aws.c_sdk.mqtt.wrapper.requires.awsfreertos" interface="interface.rtos.awsfreertos" visible="false" display="Requires FreeRTOS"/>
+        <provides interface="interface.aws.c_sdk.mqtt" />
+    </module>
+</raModuleDescription>

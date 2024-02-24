@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deviceconfig>
+  <device>
+    <name>R7FA6M1AD</name>
+    <series>RA</series>
+    <family>RA6</family>
+    <server>
+      <params>
+        <param>-t R7FA6M1AD</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.trace.supportMTB" value="false" />
+    </extraAttributes>
+  </device>
+</deviceconfig>

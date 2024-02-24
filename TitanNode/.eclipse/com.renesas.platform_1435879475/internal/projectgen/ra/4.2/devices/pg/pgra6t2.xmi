@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<projgen:Container xmi:version="2.0" xmlns:projgen="http:///projgen.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xmi="http://www.omg.org/XMI" xsi:schemaLocation="http:///projgen.ecore ProjGen.ecore">
+  <Target shortName="ARM_RA" target="ARM_RA">
+    <CpuType shortName="RA6" isUsedInPG="true">
+      <Cpu shortName="RA6T2" compilerCpuType="cortex-m33">
+        <BuilderOptions optionName="Capabilities" value="renesaspincfg;trustzone" />
+        <PinCountRZTC shortName="RA6T2 - 100 Pin" isUsedInPG="true" PinNumber="100">
+          <Device shortName="R7FA6T2AD3CFP" DeviceCommand="R7FA6T2AD" />
+          <Device shortName="R7FA6T2AB3CFP" DeviceCommand="R7FA6T2AB" />
+          <Device shortName="R7FA6T2BD3CFP" DeviceCommand="R7FA6T2BD" />
+          <Device shortName="R7FA6T2BB3CFP" DeviceCommand="R7FA6T2BB" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA6T2 - 64 Pin" isUsedInPG="true" PinNumber="64">
+          <Device shortName="R7FA6T2AD3CFM" DeviceCommand="R7FA6T2AD" />
+          <Device shortName="R7FA6T2AD3CNB" DeviceCommand="R7FA6T2AD" />
+          <Device shortName="R7FA6T2AB3CFM" DeviceCommand="R7FA6T2AB" />
+          <Device shortName="R7FA6T2AB3CNB" DeviceCommand="R7FA6T2AB" />
+          <Device shortName="R7FA6T2BD3CFM" DeviceCommand="R7FA6T2BD" />
+          <Device shortName="R7FA6T2BD3CNB" DeviceCommand="R7FA6T2BD" />
+          <Device shortName="R7FA6T2BB3CFM" DeviceCommand="R7FA6T2BB" />
+          <Device shortName="R7FA6T2BB3CNB" DeviceCommand="R7FA6T2BB" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA6T2 - 48 Pin" isUsedInPG="true" PinNumber="48">
+          <Device shortName="R7FA6T2AD3CFL" DeviceCommand="R7FA6T2AD" />
+          <Device shortName="R7FA6T2AD3CNE" DeviceCommand="R7FA6T2AD" />
+          <Device shortName="R7FA6T2AB3CFL" DeviceCommand="R7FA6T2AB" />
+          <Device shortName="R7FA6T2AB3CNE" DeviceCommand="R7FA6T2AB" />
+          <Device shortName="R7FA6T2BD3CFL" DeviceCommand="R7FA6T2BD" />
+          <Device shortName="R7FA6T2BD3CNE" DeviceCommand="R7FA6T2BD" />
+          <Device shortName="R7FA6T2BB3CFL" DeviceCommand="R7FA6T2BB" />
+          <Device shortName="R7FA6T2BB3CNE" DeviceCommand="R7FA6T2BB" />
+        </PinCountRZTC>
+      </Cpu>
+    </CpuType>
+  </Target>
+</projgen:Container>

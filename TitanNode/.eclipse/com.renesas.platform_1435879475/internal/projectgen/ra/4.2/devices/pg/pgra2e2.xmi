@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<projgen:Container xmi:version="2.0" xmlns:projgen="http:///projgen.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xmi="http://www.omg.org/XMI" xsi:schemaLocation="http:///projgen.ecore ProjGen.ecore">
+  <Target shortName="ARM_RA" target="ARM_RA">
+    <CpuType shortName="RA2" isUsedInPG="true">
+      <Cpu shortName="RA2E2" compilerCpuType="cortex-m23">
+        <BuilderOptions optionName="Capabilities" value="renesaspincfg" />
+        <PinCountRZTC shortName="RA2E2 - 24 Pin" isUsedInPG="true" PinNumber="24">
+          <Device shortName="R7FA2E2A74CNK" DeviceCommand="R7FA2E2A7" />
+          <Device shortName="R7FA2E2A73CNK" DeviceCommand="R7FA2E2A7" />
+          <Device shortName="R7FA2E2A72DNK" DeviceCommand="R7FA2E2A7" />
+          <Device shortName="R7FA2E2A54CNK" DeviceCommand="R7FA2E2A5" />
+          <Device shortName="R7FA2E2A53CNK" DeviceCommand="R7FA2E2A5" />
+          <Device shortName="R7FA2E2A52DNK" DeviceCommand="R7FA2E2A5" />
+          <Device shortName="R7FA2E2A34CNK" DeviceCommand="R7FA2E2A3" />
+          <Device shortName="R7FA2E2A33CNK" DeviceCommand="R7FA2E2A3" />
+          <Device shortName="R7FA2E2A32DNK" DeviceCommand="R7FA2E2A3" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA2E2 - 20 Pin" isUsedInPG="true" PinNumber="20">
+          <Device shortName="R7FA2E2A74CNJ" DeviceCommand="R7FA2E2A7" />
+          <Device shortName="R7FA2E2A73CNJ" DeviceCommand="R7FA2E2A7" />
+          <Device shortName="R7FA2E2A72DNJ" DeviceCommand="R7FA2E2A7" />
+          <Device shortName="R7FA2E2A54CNJ" DeviceCommand="R7FA2E2A5" />
+          <Device shortName="R7FA2E2A53CNJ" DeviceCommand="R7FA2E2A5" />
+          <Device shortName="R7FA2E2A52DNJ" DeviceCommand="R7FA2E2A5" />
+          <Device shortName="R7FA2E2A34CNJ" DeviceCommand="R7FA2E2A3" />
+          <Device shortName="R7FA2E2A33CNJ" DeviceCommand="R7FA2E2A3" />
+          <Device shortName="R7FA2E2A32DNJ" DeviceCommand="R7FA2E2A3" />
+        </PinCountRZTC>
+      </Cpu>
+    </CpuType>
+  </Target>
+</projgen:Container>

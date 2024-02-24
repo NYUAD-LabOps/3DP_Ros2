@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+    <module id="module.aws.freertos.dev_mode_key_provisioning" display="Networking|AWS Demo dev_mode_key_provisioning (No Longer Supported)" common="1" visible="false" version="0" url="_f_r_e_e_r_t_o_s__m_i_g_r_a_t_i_o_n.html">
+        <provides interface="interface.aws.freertos.dev_mode_key_provisioning" />
+    </module>
+</raModuleDescription>

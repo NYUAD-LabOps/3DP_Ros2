@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+    <module id="module.aws.secure_sockets.freertosplus_tcp" display="Networking|AWS Secure Sockets on FreeRTOS Plus TCP (No Longer Supported)" config="config.aws.secure_sockets.freertosplus_tcp" common="1" version="0" visible="false" url="_f_r_e_e_r_t_o_s__m_i_g_r_a_t_i_o_n.html">
+        <constraint display="Secure sockets no longer supported. Please migrate properties over to new transport interface. See migration guide for more details"/>
+        <requires interface="interface.rtos.awsfreertos" visible="false"/>
+        <requires id="module.aws.secure_sockets.freertosplustcp.requires.freertosplus_tcp" interface="interface.freertosplus.freertosplus_tcp" display="Add FreeRTOS Plus TCP" find="true" />
+        <requires id="module.aws.secure_sockets.freertosplustcp.requires.secure_sockets_common" interface="interface.secure_sockets.common" display="Add AWS Secure Sockets common" find="true" />
+        <requires id="module.aws.secure_sockets.freertosplustcp.requires.tls_support" interface="interface.secure_sockets.tls_support" display="Add TLS Support" find="true" />
+        <provides interface="interface.secure_sockets" />
+        <provides interface="interface.secure_sockets.freertosplustcp" />
+    </module>
+</raModuleDescription>

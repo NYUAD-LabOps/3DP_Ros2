@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deviceconfig>
+  <device>
+    <name>R7FA4W1AD</name>
+    <series>RA</series>
+    <family>RA4</family>
+    <server>
+      <params>
+        <param>-t R7FA4W1AD</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+    </extraAttributes>
+  </device>
+</deviceconfig>

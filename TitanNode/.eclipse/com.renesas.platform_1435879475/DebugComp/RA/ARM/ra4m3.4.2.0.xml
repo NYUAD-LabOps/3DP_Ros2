@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ARMDeviceList>
+  <Header>
+    <Generated>2022-12-15T17:10:42+00:00</Generated>
+    <FileToolVersion>2.7.5235.17264</FileToolVersion>
+    <Support>ARM</Support>
+  </Header>
+  <E2Information>
+    <Path>ARM/E2_v1.10.2</Path>
+    <FileName>RFWARM.dll</FileName>
+    <DriverFileName>Communi.dll</DriverFileName>
+  </E2Information>
+  <SeggerInformation>
+    <Path>ARM/Segger_v7.82.3</Path>
+    <FileName>JLinkARM.dll</FileName>
+  </SeggerInformation>
+  <Devices>
+    <Device cpuName="R7FA4M3AD" mcuFile="R7FA4M3AD.mcu" armFamily="CM33" fpu="true" tz="true" regset=".\ARM\armv8m">
+      <MemMonitor address="0x0100A100" size="768" name="Option Function Select" write="true" />
+      <MonitorRegister name="DLMMON" address="0x400E002C" size="4" mask="0x0000000F" />
+      <MonitorRegister name="CFSAMONA" address="0x400E0018" size="4" mask="0x00FF8000" />
+      <MonitorRegister name="CFSAMONB" address="0x400E001C" size="4" mask="0x00FFFC00" />
+      <MonitorRegister name="DFSAMON" address="0x400E0020" size="4" mask="0x0000FC00" />
+      <MonitorRegister name="SSAMONA" address="0x400E0024" size="4" mask="0x001FE000" />
+      <MonitorRegister name="SSAMONB" address="0x400E0028" size="4" mask="0x001FFC00" />
+      <PartNumber address="0x010080F0" deref="false" partoffset="0x0" />
+      <TrustZone state="NSECSD" cpuname="R7FA4M3AD_RAMLess" />
+    </Device>
+    <Device cpuName="R7FA4M3AE" mcuFile="R7FA4M3AE.mcu" armFamily="CM33" fpu="true" tz="true" regset=".\ARM\armv8m">
+      <MemMonitor address="0x0100A100" size="768" name="Option Function Select" write="true" />
+      <MonitorRegister name="DLMMON" address="0x400E002C" size="4" mask="0x0000000F" />
+      <MonitorRegister name="CFSAMONA" address="0x400E0018" size="4" mask="0x00FF8000" />
+      <MonitorRegister name="CFSAMONB" address="0x400E001C" size="4" mask="0x00FFFC00" />
+      <MonitorRegister name="DFSAMON" address="0x400E0020" size="4" mask="0x0000FC00" />
+      <MonitorRegister name="SSAMONA" address="0x400E0024" size="4" mask="0x001FE000" />
+      <MonitorRegister name="SSAMONB" address="0x400E0028" size="4" mask="0x001FFC00" />
+      <PartNumber address="0x010080F0" deref="false" partoffset="0x0" />
+      <TrustZone state="NSECSD" cpuname="R7FA4M3AE_RAMLess" />
+    </Device>
+    <Device cpuName="R7FA4M3AF" mcuFile="R7FA4M3AF.mcu" armFamily="CM33" fpu="true" tz="true" regset=".\ARM\armv8m">
+      <MemMonitor address="0x0100A100" size="768" name="Option Function Select" write="true" />
+      <MonitorRegister name="DLMMON" address="0x400E002C" size="4" mask="0x0000000F" />
+      <MonitorRegister name="CFSAMONA" address="0x400E0018" size="4" mask="0x00FF8000" />
+      <MonitorRegister name="CFSAMONB" address="0x400E001C" size="4" mask="0x00FFFC00" />
+      <MonitorRegister name="DFSAMON" address="0x400E0020" size="4" mask="0x0000FC00" />
+      <MonitorRegister name="SSAMONA" address="0x400E0024" size="4" mask="0x001FE000" />
+      <MonitorRegister name="SSAMONB" address="0x400E0028" size="4" mask="0x001FFC00" />
+      <PartNumber address="0x010080F0" deref="false" partoffset="0x0" />
+      <TrustZone state="NSECSD" cpuname="R7FA4M3AF_RAMLess" />
+    </Device>
+  </Devices>
+</ARMDeviceList>

@@ -306,7 +306,7 @@ void gpt_MTR_02_callback(timer_callback_args_t *p_args)
     SingleMotorLinearDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_02];
     if(ptr_drive){
-        ptr_drive->DriveHandler();
+        ptr_drive->DriveStepHandler();
     }
 }
 
@@ -315,7 +315,7 @@ void gpt_MTR_03_callback(timer_callback_args_t *p_args)
     SingleMotorLinearDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_03];
     if(ptr_drive){
-        ptr_drive->DriveHandler();
+        ptr_drive->DriveStepHandler();
     }
 }
 
@@ -324,7 +324,7 @@ void gpt_MTR_04_callback(timer_callback_args_t *p_args)
     SingleMotorLinearDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_04];
     if(ptr_drive){
-        ptr_drive->DriveHandler();
+        ptr_drive->DriveStepHandler();
     }
 }
 
@@ -333,7 +333,7 @@ void gpt_MTR_05_callback(timer_callback_args_t *p_args)
     SingleMotorLinearDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_05];
     if(ptr_drive){
-        ptr_drive->DriveHandler();
+        ptr_drive->DriveStepHandler();
     }
 }
 
@@ -342,7 +342,7 @@ void gpt_MTR_06_callback(timer_callback_args_t *p_args)
     SingleMotorLinearDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_06];
     if(ptr_drive){
-        ptr_drive->DriveHandler();
+        ptr_drive->DriveStepHandler();
     }
 }
 
@@ -351,7 +351,7 @@ void gpt_MTR_07_callback(timer_callback_args_t *p_args)
     SingleMotorLinearDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_07];
     if(ptr_drive){
-        ptr_drive->DriveHandler();
+        ptr_drive->DriveStepHandler();
     }
 }
 
@@ -360,7 +360,7 @@ void gpt_MTR_08_callback(timer_callback_args_t *p_args)
     SingleMotorLinearDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_08];
     if(ptr_drive){
-        ptr_drive->DriveHandler();
+        ptr_drive->DriveStepHandler();
     }
 }
 
@@ -369,7 +369,7 @@ void gpt_MTR_09_callback(timer_callback_args_t *p_args)
     SingleMotorLinearDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_09];
     if(ptr_drive){
-        ptr_drive->DriveHandler();
+        ptr_drive->DriveStepHandler();
     }
 }
 
@@ -378,7 +378,7 @@ void gpt_MTR_10_callback(timer_callback_args_t *p_args)
     SingleMotorLinearDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_10];
     if(ptr_drive){
-        ptr_drive->DriveHandler();
+        ptr_drive->DriveStepHandler();
     }
 }
 
@@ -387,7 +387,7 @@ void gpt_MTR_11_callback(timer_callback_args_t *p_args)
     SingleMotorLinearDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_11];
     if(ptr_drive){
-        ptr_drive->DriveHandler();
+        ptr_drive->DriveStepHandler();
     }
 }
 
@@ -396,7 +396,7 @@ void gpt_MTR_12_callback(timer_callback_args_t *p_args)
     SingleMotorLinearDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_12];
     if(ptr_drive){
-        ptr_drive->DriveHandler();
+        ptr_drive->DriveStepHandler();
     }
 }
 

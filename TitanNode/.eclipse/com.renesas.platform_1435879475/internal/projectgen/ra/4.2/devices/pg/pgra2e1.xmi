@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<projgen:Container xmi:version="2.0" xmlns:projgen="http:///projgen.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xmi="http://www.omg.org/XMI" xsi:schemaLocation="http:///projgen.ecore ProjGen.ecore">
+  <Target shortName="ARM_RA" target="ARM_RA">
+    <CpuType shortName="RA2" isUsedInPG="true">
+      <Cpu shortName="RA2E1" compilerCpuType="cortex-m23">
+        <BuilderOptions optionName="Capabilities" value="renesaspincfg" />
+        <PinCountRZTC shortName="RA2E1 - 64 Pin" isUsedInPG="true" PinNumber="64">
+          <Device shortName="R7FA2E1A93CFM" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A93CFK" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A93CBU" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A92DFM" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A92DFK" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A92DBU" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A83CFM" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A83CFK" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A83CBU" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A82DFM" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A82DFK" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A82DBU" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A73CFM" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A73CFK" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A73CBU" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A72DFM" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A72DFK" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A72DBU" DeviceCommand="R7FA2E1A7" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA2E1 - 48 Pin" isUsedInPG="true" PinNumber="48">
+          <Device shortName="R7FA2E1A93CFL" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A93CNE" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A92DFL" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A92DNE" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A83CFL" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A83CNE" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A82DFL" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A82DNE" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A73CFL" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A73CNE" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A72DFL" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A72DNE" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A53CFL" DeviceCommand="R7FA2E1A5" />
+          <Device shortName="R7FA2E1A53CNE" DeviceCommand="R7FA2E1A5" />
+          <Device shortName="R7FA2E1A52DFL" DeviceCommand="R7FA2E1A5" />
+          <Device shortName="R7FA2E1A52DNE" DeviceCommand="R7FA2E1A5" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA2E1 - 32 Pin" isUsedInPG="true" PinNumber="32">
+          <Device shortName="R7FA2E1A93CFJ" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A93CNH" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A92DFJ" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A92DNH" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A83CFJ" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A83CNH" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A82DFJ" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A82DNH" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A73CFJ" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A73CNH" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A72DFJ" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A72DNH" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A53CFJ" DeviceCommand="R7FA2E1A5" />
+          <Device shortName="R7FA2E1A53CNH" DeviceCommand="R7FA2E1A5" />
+          <Device shortName="R7FA2E1A52DFJ" DeviceCommand="R7FA2E1A5" />
+          <Device shortName="R7FA2E1A52DNH" DeviceCommand="R7FA2E1A5" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA2E1 - 36 Pin" isUsedInPG="true" PinNumber="36">
+          <Device shortName="R7FA2E1A93CLM" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A92DLM" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A83CLM" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A82DLM" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A73CLM" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A72DLM" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A53CLM" DeviceCommand="R7FA2E1A5" />
+          <Device shortName="R7FA2E1A52DLM" DeviceCommand="R7FA2E1A5" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA2E1 - 25 Pin" isUsedInPG="true" PinNumber="25">
+          <Device shortName="R7FA2E1A93CBV" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A92DBV" DeviceCommand="R7FA2E1A9" />
+          <Device shortName="R7FA2E1A83CBV" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A82DBV" DeviceCommand="R7FA2E1A8" />
+          <Device shortName="R7FA2E1A73CBV" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A72DBV" DeviceCommand="R7FA2E1A7" />
+          <Device shortName="R7FA2E1A53CBV" DeviceCommand="R7FA2E1A5" />
+          <Device shortName="R7FA2E1A52DBV" DeviceCommand="R7FA2E1A5" />
+        </PinCountRZTC>
+      </Cpu>
+    </CpuType>
+  </Target>
+</projgen:Container>

@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+    <module id="module.aws.transport_interface.secure_sockets" display="Networking|AWS Transport Interface on Secure Sockets (No Longer Supported)" config="config.aws.transport.secure_sockets" common="1" version="0" url="_f_r_e_e_r_t_o_s__m_i_g_r_a_t_i_o_n.html" visible="false">
+        <constraint display="Secure Sockets no longer supported. Please migrate properties over to new transport interface. See migration guide for more details"/>
+        <requires id="module.aws.transport_interface.secure_sockets.requires.awsfreertos" interface="interface.rtos.awsfreertos" visible="false" display="Requires FreeRTOS"/>
+        <requires id="module.aws.transport_interface.secure_sockets.requires.secure_sockets" interface="interface.secure_sockets" display="Add Secure Sockets Implementation" find="true" />
+        <provides interface="interface.aws.transport_interface" />
+    </module>
+</raModuleDescription>

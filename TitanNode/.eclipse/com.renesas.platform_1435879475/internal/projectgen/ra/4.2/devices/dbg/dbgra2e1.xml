@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deviceconfig>
+  <device>
+    <name>R7FA2E1A5</name>
+    <series>RA</series>
+    <family>RA2</family>
+    <server>
+      <params>
+        <param>-t R7FA2E1A5</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+    </extraAttributes>
+  </device>
+  <device>
+    <name>R7FA2E1A7</name>
+    <series>RA</series>
+    <family>RA2</family>
+    <server>
+      <params>
+        <param>-t R7FA2E1A7</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+    </extraAttributes>
+  </device>
+  <device>
+    <name>R7FA2E1A8</name>
+    <series>RA</series>
+    <family>RA2</family>
+    <server>
+      <params>
+        <param>-t R7FA2E1A8</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+    </extraAttributes>
+  </device>
+  <device>
+    <name>R7FA2E1A9</name>
+    <series>RA</series>
+    <family>RA2</family>
+    <server>
+      <params>
+        <param>-t R7FA2E1A9</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+    </extraAttributes>
+  </device>
+</deviceconfig>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" ?>
+<raModuleDescription>
+    <module config="config.azure.fx_usbx" id="module.azure.fx" display="Storage|${module.azure.fx.name} Azure RTOS FileX on USBX" version="0" url="https://docs.microsoft.com/en-us/azure/rtos/filex/overview-filex">
+        <requires id="module.azure.fx.requires.threadx" interface="interface.rtos.tx" visible="false" display="Requires ThreadX"/>
+        <requires id="module.azure.fx.requires.usbx_hmsc" interface="interface.driver.usbx_hmsc" display="Add USBX Porting Layer" />
+        <provides interface="interface.azure.fx.usbx" />
+        <provides interface="interface.azure.fx" />
+        <property default="g_fx_media${_instance}" display="Name" id="module.azure.fx.name" description="Symbol used for media_ptr parameter in FileX APIs">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.azure.fx.name}")</constraint>
+        </property>
+        <includes>
+#include "fx_api.h"
+        </includes>
+    </module>
+</raModuleDescription>

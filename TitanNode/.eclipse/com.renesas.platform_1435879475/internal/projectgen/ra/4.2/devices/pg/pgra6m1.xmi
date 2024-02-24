@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<projgen:Container xmi:version="2.0" xmlns:projgen="http:///projgen.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xmi="http://www.omg.org/XMI" xsi:schemaLocation="http:///projgen.ecore ProjGen.ecore">
+  <Target shortName="ARM_RA" target="ARM_RA">
+    <CpuType shortName="RA6" isUsedInPG="true">
+      <Cpu shortName="RA6M1" compilerCpuType="cortex-m4">
+        <BuilderOptions optionName="Capabilities" value="renesaspincfg" />
+        <PinCountRZTC shortName="RA6M1 - 100 Pin" isUsedInPG="true" PinNumber="100">
+          <Device shortName="R7FA6M1AD2CLJ" DeviceCommand="R7FA6M1AD" />
+          <Device shortName="R7FA6M1AD3CLJ" DeviceCommand="R7FA6M1AD" />
+          <Device shortName="R7FA6M1AD3CFP" DeviceCommand="R7FA6M1AD" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA6M1 - 64 Pin" isUsedInPG="true" PinNumber="64">
+          <Device shortName="R7FA6M1AD3CFM" DeviceCommand="R7FA6M1AD" />
+          <Device shortName="R7FA6M1AD3CNB" DeviceCommand="R7FA6M1AD" />
+        </PinCountRZTC>
+      </Cpu>
+    </CpuType>
+  </Target>
+</projgen:Container>

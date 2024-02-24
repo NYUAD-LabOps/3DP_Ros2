@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" ?>
+<raModuleDescription>
+    <config id="config.driver.cgc" path="fsp_cfg/r_cgc_cfg.h" version="0">
+        <property default="config.driver.cgc.param_checking_enable.bsp" display="Parameter Checking" id="config.driver.cgc.param_checking_enable" description="If selected code for parameter checking is included in the build.">
+            <option display="Default (BSP)" id="config.driver.cgc.param_checking_enable.bsp" value="(BSP_CFG_PARAM_CHECKING_ENABLE)"/>
+            <option display="Enabled" id="config.driver.cgc.param_checking_enable.enabled" value="(1)"/>
+            <option display="Disabled" id="config.driver.cgc.param_checking_enable.disabled" value="(0)"/>
+        </property>
+        <content>
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define CGC_CFG_PARAM_CHECKING_ENABLE ${config.driver.cgc.param_checking_enable}
+#define CGC_CFG_USE_LOW_VOLTAGE_MODE ${config.driver.cgc.low_voltage_mode}
+
+#ifdef __cplusplus
+}
+#endif
+        </content>
+    </config>
+    <module config="config.driver.cgc" display="System|${module.driver.cgc.name} Clock Generation Circuit (r_cgc)" id="module.driver.cgc_on_cgc" common="1" version="1" url="group___c_g_c.html">
+        <constraint display="Only one CGC driver instance is allowed">
+            "${interface.driver.cgc}" === "1"
+        </constraint>
+        <provides interface="interface.driver.cgc" />
+        <property default="g_cgc${_instance}" display="Name" id="module.driver.cgc.name" description="Module name.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.cgc.name}")</constraint>
+        </property>
+        <property display="NMI Callback" id="module.driver.cgc.callback" default="NULL" description="A user callback function must be provided if oscillation stop detection is used. If this callback function is provided, it is called from the NMI handler if the main oscillator stops.">
+            <constraint display="Name must be a valid C symbol">testSymbol("${module.driver.cgc.callback}")</constraint>
+        </property>
+        <peripheral name="" component="cgc0" />
+        <!-- For MCU's whose pinmapping files have been generated with MPC Designer Tool -->
+        <peripheral name="" component="cgc" />
+        <symbol id="symbol.driver.cgc.name" value="${module.driver.cgc.name}"/>
+        <symbol id="symbol.driver.cgc.guard.open" value="${module.driver.cgc.name}_open_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.open" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_Open"/>
+        <symbol id="symbol.driver.cgc.guard.clocks_cfg" value="${module.driver.cgc.name}_clocks_cfg_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.clocks_cfg" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_ClocksCfg"/>
+        <symbol id="symbol.driver.cgc.guard.clock_start" value="${module.driver.cgc.name}_clock_start_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.clock_start" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_ClockStart"/>
+        <symbol id="symbol.driver.cgc.guard.clock_stop" value="${module.driver.cgc.name}_clock_stop_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.clock_stop" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_ClockStop"/>
+        <symbol id="symbol.driver.cgc.guard.clock_check" value="${module.driver.cgc.name}_clock_check_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.clock_check" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_ClockCheck"/>
+        <symbol id="symbol.driver.cgc.guard.system_clock_set" value="${module.driver.cgc.name}_system_clock_set_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.system_clock_set" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_SystemClockSet"/>
+        <symbol id="symbol.driver.cgc.guard.system_clock_get" value="${module.driver.cgc.name}_system_clock_get_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.system_clock_get" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_SystemClockGet"/>
+        <symbol id="symbol.driver.cgc.guard.osc_stop_detect_enable" value="${module.driver.cgc.name}_osc_stop_detect_enable_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.osc_stop_detect_enable" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_OscStopDetectEnable"/>
+        <symbol id="symbol.driver.cgc.guard.osc_stop_detect_disable" value="${module.driver.cgc.name}_osc_stop_detect_disable_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.osc_stop_detect_disable" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_OscStopDetectDisable"/>
+        <symbol id="symbol.driver.cgc.guard.osc_stop_status_clear" value="${module.driver.cgc.name}_osc_stop_status_clear_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.osc_stop_status_clear" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_OscStopStatusClear"/>
+        <symbol id="symbol.driver.cgc.guard.callback_set" value="${module.driver.cgc.name}_callback_set_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.callback_set" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_CallbackSet"/>
+        <symbol id="symbol.driver.cgc.guard.close" value="${module.driver.cgc.name}_close_guard"/>
+        <symbol id="symbol.driver.cgc.guard.macro.close" value="FSP_GUARD_${module.driver.cgc.name}_R_CGC_Close"/>
+        <symbol id="symbol.driver.cgc.nsc_api" value="${module.driver.cgc.name}_nsc_api"/>
+        <symbol id="symbol.driver.cgc.cfg" value="${module.driver.cgc.name}_cfg"/>
+        <symbol id="symbol.driver.cgc.ctrl" value="${module.driver.cgc.name}_ctrl"/>
+        <header>
+/** CGC Instance */
+extern const cgc_instance_t ${module.driver.cgc.name};
+
+/** Access the CGC instance using these structures when calling API functions directly (::p_api is not used). */
+extern cgc_instance_ctrl_t ${module.driver.cgc.name}_ctrl;
+extern const cgc_cfg_t ${module.driver.cgc.name}_cfg;
+
+#ifndef ${module.driver.cgc.callback}
+void ${module.driver.cgc.callback}(cgc_callback_args_t * p_args);
+#endif
+        </header>
+        <includes>
+#include &quot;r_cgc.h&quot;
+#include &quot;r_cgc_api.h&quot;
+        </includes>
+        <declarations>
+
+const cgc_cfg_t ${module.driver.cgc.name}_cfg =
+{
+    .p_callback = ${module.driver.cgc.callback},
+};
+cgc_instance_ctrl_t ${module.driver.cgc.name}_ctrl;
+const cgc_instance_t ${module.driver.cgc.name} = {
+    .p_api = &amp;g_cgc_on_cgc,
+    .p_ctrl        = &amp;${module.driver.cgc.name}_ctrl,
+    .p_cfg         = &amp;${module.driver.cgc.name}_cfg,
+};
+        </declarations>
+        <guard>
+            <header>
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_open_guard(cgc_ctrl_t *const p_ctrl, cgc_cfg_t const *const p_cfg);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clocks_cfg_guard(cgc_ctrl_t *const p_ctrl, cgc_clocks_cfg_t const *const p_clock_cfg);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clock_start_guard(cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source, cgc_pll_cfg_t const *const p_pll_cfg);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clock_stop_guard(cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clock_check_guard(cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_system_clock_set_guard(cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source, cgc_divider_cfg_t const *const p_divider_cfg);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_system_clock_get_guard(cgc_ctrl_t *const p_ctrl, cgc_clock_t *const p_clock_source, cgc_divider_cfg_t *const p_divider_cfg);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_osc_stop_detect_enable_guard(cgc_ctrl_t *const p_ctrl);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_osc_stop_detect_disable_guard(cgc_ctrl_t *const p_ctrl);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_osc_stop_status_clear_guard(cgc_ctrl_t *const p_ctrl);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_callback_set_guard(cgc_ctrl_t *const p_api_ctrl, void(*p_callback)(cgc_callback_args_t *), void const *const p_context, cgc_callback_args_t *const p_callback_memory);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_close_guard(cgc_ctrl_t *const p_ctrl);
+
+            </header>
+            <template name="${module.driver.cgc.name}_guard.c">
+                <![CDATA[
+                    #include "guard.h"
+
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_open_guard (cgc_ctrl_t *const p_ctrl, cgc_cfg_t const *const p_cfg)
+{
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_ctrl);
+    FSP_PARAMETER_NOT_USED(p_cfg);
+
+    return R_CGC_Open(&${module.driver.cgc.name}_ctrl, &${module.driver.cgc.name}_cfg);
+}
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clocks_cfg_guard (cgc_ctrl_t *const p_ctrl, cgc_clocks_cfg_t const *const p_clock_cfg)
+{
+    /* Verify all pointers are in non-secure memory. */
+    cgc_clocks_cfg_t const *const p_clock_cfg_checked = cmse_check_pointed_object((cgc_clocks_cfg_t *) p_clock_cfg, CMSE_AU_NONSECURE);
+    FSP_ASSERT(p_clock_cfg_checked != NULL);
+
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_ctrl);
+
+    return R_CGC_ClocksCfg(&${module.driver.cgc.name}_ctrl, p_clock_cfg_checked);
+}
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clock_start_guard (cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source, cgc_pll_cfg_t const *const p_pll_cfg)
+{
+    /* Verify all pointers are in non-secure memory. */
+    cgc_pll_cfg_t const *const p_pll_cfg_checked = cmse_check_pointed_object((cgc_pll_cfg_t *) p_pll_cfg, CMSE_AU_NONSECURE);
+    FSP_ASSERT(p_pll_cfg == p_pll_cfg_checked);
+
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_ctrl);
+
+    return R_CGC_ClockStart(&${module.driver.cgc.name}_ctrl, clock_source, p_pll_cfg_checked);
+}
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clock_stop_guard (cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source)
+{
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_ctrl);
+
+    return R_CGC_ClockStop(&${module.driver.cgc.name}_ctrl, clock_source);
+}
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clock_check_guard (cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source)
+{
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_ctrl);
+
+    return R_CGC_ClockCheck(&${module.driver.cgc.name}_ctrl, clock_source);
+}
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_system_clock_set_guard (cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source, cgc_divider_cfg_t const *const p_divider_cfg)
+{
+    /* Verify all pointers are in non-secure memory. */
+    cgc_divider_cfg_t const *const p_divider_cfg_checked = cmse_check_pointed_object((cgc_divider_cfg_t *) p_divider_cfg, CMSE_AU_NONSECURE);
+    FSP_ASSERT(p_divider_cfg_checked != NULL);
+
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_ctrl);
+
+    return R_CGC_SystemClockSet(&${module.driver.cgc.name}_ctrl, clock_source, p_divider_cfg_checked);
+}
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_system_clock_get_guard (cgc_ctrl_t *const p_ctrl, cgc_clock_t *const p_clock_source, cgc_divider_cfg_t *const p_divider_cfg)
+{
+    /* Verify all pointers are in non-secure memory. */
+    cgc_clock_t *const p_clock_source_checked = cmse_check_pointed_object(p_clock_source, CMSE_AU_NONSECURE);
+    FSP_ASSERT(p_clock_source_checked != NULL);
+    cgc_divider_cfg_t *const p_divider_cfg_checked = cmse_check_pointed_object(p_divider_cfg, CMSE_AU_NONSECURE);
+    FSP_ASSERT(p_divider_cfg_checked != NULL);
+
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_ctrl);
+
+    return R_CGC_SystemClockGet(&${module.driver.cgc.name}_ctrl, p_clock_source_checked, p_divider_cfg_checked);
+}
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_osc_stop_detect_enable_guard (cgc_ctrl_t *const p_ctrl)
+{
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_ctrl);
+
+    return R_CGC_OscStopDetectEnable(&${module.driver.cgc.name}_ctrl);
+}
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_osc_stop_detect_disable_guard (cgc_ctrl_t *const p_ctrl)
+{
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_ctrl);
+
+    return R_CGC_OscStopDetectDisable(&${module.driver.cgc.name}_ctrl);
+}
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_osc_stop_status_clear_guard (cgc_ctrl_t *const p_ctrl)
+{
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_ctrl);
+
+    return R_CGC_OscStopStatusClear(&${module.driver.cgc.name}_ctrl);
+}
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_callback_set_guard (cgc_ctrl_t *const p_api_ctrl, void(*p_callback)(cgc_callback_args_t *), void const *const p_context, cgc_callback_args_t *const p_callback_memory)
+{
+    /* Verify all pointers are in non-secure memory. */
+    void(*p_callback_checked)(cgc_callback_args_t *) = (void(*)(cgc_callback_args_t *)) cmse_check_address_range((void *) p_callback, sizeof(void *), CMSE_AU_NONSECURE);
+    FSP_ASSERT(p_callback_checked != NULL);
+    cgc_callback_args_t *const p_callback_memory_checked = cmse_check_pointed_object(p_callback_memory, CMSE_AU_NONSECURE);
+    FSP_ASSERT(p_callback_memory_checked != NULL);
+
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_api_ctrl);
+    FSP_PARAMETER_NOT_USED(p_context);
+
+    return R_CGC_CallbackSet(&${module.driver.cgc.name}_ctrl, p_callback_checked, p_context, p_callback_memory_checked);
+}
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_close_guard (cgc_ctrl_t *const p_ctrl)
+{
+    /* TODO: add your own security checks here */
+
+    FSP_PARAMETER_NOT_USED(p_ctrl);
+
+    return R_CGC_Close(&${module.driver.cgc.name}_ctrl);
+}
+
+                ]]>
+            </template>
+        </guard>
+        <nsc>
+            <header>
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_Open() ${module.driver.cgc.name}_open_guard(FSP_SECURE_ARGUMENT, FSP_SECURE_ARGUMENT)
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_ClocksCfg(p_clock_cfg) ${module.driver.cgc.name}_clocks_cfg_guard(FSP_SECURE_ARGUMENT, p_clock_cfg)
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_ClockStart(clock_source, p_pll_cfg) ${module.driver.cgc.name}_clock_start_guard(FSP_SECURE_ARGUMENT, clock_source, p_pll_cfg)
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_ClockStop(clock_source) ${module.driver.cgc.name}_clock_stop_guard(FSP_SECURE_ARGUMENT, clock_source)
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_ClockCheck(clock_source) ${module.driver.cgc.name}_clock_check_guard(FSP_SECURE_ARGUMENT, clock_source)
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_SystemClockSet(clock_source, p_divider_cfg) ${module.driver.cgc.name}_system_clock_set_guard(FSP_SECURE_ARGUMENT, clock_source, p_divider_cfg)
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_SystemClockGet(p_clock_source, p_divider_cfg) ${module.driver.cgc.name}_system_clock_get_guard(FSP_SECURE_ARGUMENT, p_clock_source, p_divider_cfg)
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_OscStopDetectEnable() ${module.driver.cgc.name}_osc_stop_detect_enable_guard(FSP_SECURE_ARGUMENT)
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_OscStopDetectDisable() ${module.driver.cgc.name}_osc_stop_detect_disable_guard(FSP_SECURE_ARGUMENT)
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_OscStopStatusClear() ${module.driver.cgc.name}_osc_stop_status_clear_guard(FSP_SECURE_ARGUMENT)
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_CallbackSet(p_callback, p_context, p_callback_memory) ${module.driver.cgc.name}_callback_set_guard(FSP_SECURE_ARGUMENT, p_callback, p_context, p_callback_memory)
+
+#define FSP_GUARD_${module.driver.cgc.name}_R_CGC_Close() ${module.driver.cgc.name}_close_guard(FSP_SECURE_ARGUMENT)
+
+
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_open_guard(cgc_ctrl_t *const p_ctrl, cgc_cfg_t const *const p_cfg);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clocks_cfg_guard(cgc_ctrl_t *const p_ctrl, cgc_clocks_cfg_t const *const p_clock_cfg);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clock_start_guard(cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source, cgc_pll_cfg_t const *const p_pll_cfg);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clock_stop_guard(cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_clock_check_guard(cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_system_clock_set_guard(cgc_ctrl_t *const p_ctrl, cgc_clock_t clock_source, cgc_divider_cfg_t const *const p_divider_cfg);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_system_clock_get_guard(cgc_ctrl_t *const p_ctrl, cgc_clock_t *const p_clock_source, cgc_divider_cfg_t *const p_divider_cfg);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_osc_stop_detect_enable_guard(cgc_ctrl_t *const p_ctrl);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_osc_stop_detect_disable_guard(cgc_ctrl_t *const p_ctrl);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_osc_stop_status_clear_guard(cgc_ctrl_t *const p_ctrl);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_callback_set_guard(cgc_ctrl_t *const p_api_ctrl, void(*p_callback)(cgc_callback_args_t *), void const *const p_context, cgc_callback_args_t *const p_callback_memory);
+
+BSP_CMSE_NONSECURE_ENTRY fsp_err_t ${module.driver.cgc.name}_close_guard(cgc_ctrl_t *const p_ctrl);
+
+
+extern const cgc_instance_t ${module.driver.cgc.name};
+            </header>
+            <declarations>
+                <![CDATA[
+static const cgc_api_t ${module.driver.cgc.name}_nsc_api =
+{
+    .open = ${module.driver.cgc.name}_open_guard,
+    .clocksCfg = ${module.driver.cgc.name}_clocks_cfg_guard,
+    .clockStart = ${module.driver.cgc.name}_clock_start_guard,
+    .clockStop = ${module.driver.cgc.name}_clock_stop_guard,
+    .clockCheck = ${module.driver.cgc.name}_clock_check_guard,
+    .systemClockSet = ${module.driver.cgc.name}_system_clock_set_guard,
+    .systemClockGet = ${module.driver.cgc.name}_system_clock_get_guard,
+    .oscStopDetectEnable = ${module.driver.cgc.name}_osc_stop_detect_enable_guard,
+    .oscStopDetectDisable = ${module.driver.cgc.name}_osc_stop_detect_disable_guard,
+    .oscStopStatusClear = ${module.driver.cgc.name}_osc_stop_status_clear_guard,
+    .callbackSet = ${module.driver.cgc.name}_callback_set_guard,
+    .close = ${module.driver.cgc.name}_close_guard,
+};
+const cgc_instance_t ${module.driver.cgc.name} =
+{
+    .p_api = &${module.driver.cgc.name}_nsc_api,
+    .p_ctrl = FSP_SECURE_ARGUMENT,
+    .p_cfg = FSP_SECURE_ARGUMENT,
+};
+                ]]>
+            </declarations>
+        </nsc>
+        <api configurable="true">
+            <file>ra/fsp/inc/instances/r_cgc.h</file>
+            <file>ra/fsp/inc/api/r_cgc_api.h</file>
+        </api>
+    </module>
+</raModuleDescription>

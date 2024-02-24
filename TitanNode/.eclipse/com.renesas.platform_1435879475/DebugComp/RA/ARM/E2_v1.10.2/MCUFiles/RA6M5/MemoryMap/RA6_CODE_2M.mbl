@@ -1,0 +1,15 @@
+[FILE_INFORMATION]
+VER=V.1.00.00.000
+DATE=20200122
+
+[CORE_ROM]
+CoreFlashNum=1
+CoreFlashRomPatternNum_00=2
+CoreFlashRomBlockStart_00_00=0x0000000000000000
+CoreFlashRomBlockSize_00_00=8192
+CoreFlashRomBlockNum_00_00=8
+CoreFlashRomBlockType_00_00=0
+CoreFlashRomBlockStart_00_01=0x0000000000010000
+CoreFlashRomBlockSize_00_01=32768
+CoreFlashRomBlockNum_00_01=62
+CoreFlashRomBlockType_00_01=0

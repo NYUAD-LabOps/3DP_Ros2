@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+  <module id="module.aws.secure_sockets.tls_support" display="Networking|AWS Secure Sockets TLS Support (No Longer Supported)" common="1" version="0" visible="false" url="_f_r_e_e_r_t_o_s__m_i_g_r_a_t_i_o_n.html">
+    <constraint display="IoT libraries no longer supported. Please migrate properties over to new transport interface. See migration guide for more details"/>
+    <!-- This is not listed as a <requires> to keep stack smaller in e2 -->
+    <constraint display="Requires FreeRTOS+Crypto">
+          "${interface.aws.freertosplus.crypto}" === "1"
+    </constraint>
+    <!-- This is not listed as a <requires> to keep stack smaller in e2 -->
+    <constraint display="Requires AWS PKCS11 to MbedTLS3">
+          "${interface.aws.pkcs11}" === "1"
+    </constraint>
+    <requires interface="_rtos" />
+    <requires id="module.aws.secure_sockets.tls_support.requires.freertosplus_tls" interface="interface.aws.freertosplus.tls" display="Add FreeRTOS+TLS" find="true" />
+    <requires id="module.aws.secure_sockets.tls_support.requires.c_sdk_logging" interface="interface.aws.c_sdk_logging" display="Add AWS c_sdk Logging" find="true" />
+    <requires id="module.aws.secure_sockets.tls_support.requires.dev_mode_key_provisioning" interface="interface.aws.freertos.dev_mode_key_provisioning" display="Add AWS Demo dev_mode_key_provisioning" find="true" />
+    <provides interface="interface.secure_sockets.tls_support" />
+  </module>
+</raModuleDescription>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deviceconfig>
+  <device>
+    <name>R7FA4M2AB</name>
+    <series>RA</series>
+    <family>RA4</family>
+    <server>
+      <params>
+        <param>-t R7FA4M2AB</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+      <booleanAttribute key="com.renesas.hardwaredebug.trustZone.support" value="true" />
+    </extraAttributes>
+  </device>
+  <device>
+    <name>R7FA4M2AC</name>
+    <series>RA</series>
+    <family>RA4</family>
+    <server>
+      <params>
+        <param>-t R7FA4M2AC</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+      <booleanAttribute key="com.renesas.hardwaredebug.trustZone.support" value="true" />
+    </extraAttributes>
+  </device>
+  <device>
+    <name>R7FA4M2AD</name>
+    <series>RA</series>
+    <family>RA4</family>
+    <server>
+      <params>
+        <param>-t R7FA4M2AD</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+      <booleanAttribute key="com.renesas.hardwaredebug.trustZone.support" value="true" />
+    </extraAttributes>
+  </device>
+</deviceconfig>

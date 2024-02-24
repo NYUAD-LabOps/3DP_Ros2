@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<projgen:Container xmi:version="2.0" xmlns:projgen="http:///projgen.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xmi="http://www.omg.org/XMI" xsi:schemaLocation="http:///projgen.ecore ProjGen.ecore">
+  <Target shortName="ARM_RA" target="ARM_RA">
+    <CpuType shortName="RA6" isUsedInPG="true">
+      <Cpu shortName="RA6M3" compilerCpuType="cortex-m4">
+        <BuilderOptions optionName="Capabilities" value="renesaspincfg" />
+        <PinCountRZTC shortName="RA6M3 - 176 Pin" isUsedInPG="true" PinNumber="176">
+          <Device shortName="R7FA6M3AH2CBG" DeviceCommand="R7FA6M3AH" />
+          <Device shortName="R7FA6M3AH3CBG" DeviceCommand="R7FA6M3AH" />
+          <Device shortName="R7FA6M3AH3CFC" DeviceCommand="R7FA6M3AH" />
+          <Device shortName="R7FA6M3AF2CBG" DeviceCommand="R7FA6M3AF" />
+          <Device shortName="R7FA6M3AF3CBG" DeviceCommand="R7FA6M3AF" />
+          <Device shortName="R7FA6M3AF3CFC" DeviceCommand="R7FA6M3AF" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA6M3 - 145 Pin" isUsedInPG="true" PinNumber="145">
+          <Device shortName="R7FA6M3AH2CLK" DeviceCommand="R7FA6M3AH" />
+          <Device shortName="R7FA6M3AH3CLK" DeviceCommand="R7FA6M3AH" />
+          <Device shortName="R7FA6M3AF2CLK" DeviceCommand="R7FA6M3AF" />
+          <Device shortName="R7FA6M3AF3CLK" DeviceCommand="R7FA6M3AF" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA6M3 - 144 Pin" isUsedInPG="true" PinNumber="144">
+          <Device shortName="R7FA6M3AH3CFB" DeviceCommand="R7FA6M3AH" />
+          <Device shortName="R7FA6M3AF3CFB" DeviceCommand="R7FA6M3AF" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA6M3 - 100 Pin" isUsedInPG="true" PinNumber="100">
+          <Device shortName="R7FA6M3AH3CFP" DeviceCommand="R7FA6M3AH" />
+          <Device shortName="R7FA6M3AF3CFP" DeviceCommand="R7FA6M3AF" />
+        </PinCountRZTC>
+      </Cpu>
+    </CpuType>
+  </Target>
+</projgen:Container>

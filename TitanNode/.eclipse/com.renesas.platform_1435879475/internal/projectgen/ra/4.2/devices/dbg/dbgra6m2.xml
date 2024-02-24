@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deviceconfig>
+  <device>
+    <name>R7FA6M2AD</name>
+    <series>RA</series>
+    <family>RA6</family>
+    <server>
+      <params>
+        <param>-t R7FA6M2AD</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+    </extraAttributes>
+  </device>
+  <device>
+    <name>R7FA6M2AF</name>
+    <series>RA</series>
+    <family>RA6</family>
+    <server>
+      <params>
+        <param>-t R7FA6M2AF</param>
+      </params>
+    </server>
+    <initcmd />
+    <runcmd />
+    <supportFileTarget>com.renesas.ide.supportfiles.ra.debug.debugSupportFileTarget</supportFileTarget>
+    <extraAttributes>
+      <booleanAttribute key="com.renesas.hardwaredebug.jlink.connection.defaultSwi" value="true" />
+    </extraAttributes>
+  </device>
+</deviceconfig>

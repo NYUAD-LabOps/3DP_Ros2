@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension point="com.tasking.pinmapper.mapping">
+    <vendor caption="Renesas" id="renesas" />
+    <group caption="Renesas RA" id="renesas.ra" />
+    <family caption="Renesas RA2E1" id="renesas.ra2e1" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra2e1" device="renesas.ra2e1_fm" package="renesas.64lqfp" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA2E1AxxxFM.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra2e1" device="renesas.ra2e1_fk" package="renesas.64lqfp" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA2E1AxxxFK.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra2e1" device="renesas.ra2e1_fl" package="renesas.48lqfp" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA2E1AxxxFL.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra2e1" device="renesas.ra2e1_ne" package="renesas.48qfn" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA2E1AxxxNE.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra2e1" device="renesas.ra2e1_fj" package="renesas.32lqfp" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA2E1AxxxFJ.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra2e1" device="renesas.ra2e1_nh" package="renesas.32qfn" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA2E1AxxxNH.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra2e1" device="renesas.ra2e1_lm" package="renesas.36lga" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA2E1AxxxLM.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra2e1" device="renesas.ra2e1_bv" package="renesas.25bga" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA2E1AxxxBV.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra2e1" device="renesas.ra2e1_bu" package="renesas.64bga" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA2E1AxxxBU.xml" />
+  </extension>
+</plugin>

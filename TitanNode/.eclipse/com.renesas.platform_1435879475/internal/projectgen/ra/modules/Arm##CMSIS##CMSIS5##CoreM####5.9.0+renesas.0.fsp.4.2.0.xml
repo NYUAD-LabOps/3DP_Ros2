@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+    <module id="module.arm.cmsis5.corem" display="System|Arm CMSIS5 Core (M)" visible ="false" common="1" version="0" url="https://arm-software.github.io/CMSIS_5/Core/html/index.html">
+        <provides interface="interface.cmsis5.corem" />
+    </module>
+</raModuleDescription>

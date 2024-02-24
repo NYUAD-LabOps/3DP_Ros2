@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<memoryMaps>
+  <memoryMap device="R7FA2E2A52DNK">
+    <memoryArea type="InternalRom" startAddress="0x00000000" endAddress="0x00008000" wordWidth="0" />
+    <memoryArea type="InternalRam" startAddress="0x20004000" endAddress="0x20006000" wordWidth="0" />
+  </memoryMap>
+</memoryMaps>

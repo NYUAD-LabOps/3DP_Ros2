@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension point="com.tasking.pinmapper.mapping">
+    <vendor caption="Renesas" id="renesas" />
+    <group caption="Renesas RA" id="renesas.ra" />
+    <family caption="Renesas RA6T2" id="renesas.ra6t2" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra6t2" device="renesas.ra6t2_512kb_canfd_lqfp100" package="renesas.100lqfp" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA6T2AxxxFP.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra6t2" device="renesas.ra6t2_512kb_canfd_lqfp64" package="renesas.64lqfp" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA6T2AxxxFM.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra6t2" device="renesas.ra6t2_512kb_canfd_qfn48" package="renesas.48qfn" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA6T2AxxxNE.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra6t2" device="renesas.ra6t2_512kb_canfd_qfn64" package="renesas.64qfn" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA6T2AxxxNB.xml" />
+    <mapping vendor="renesas" group="renesas.ra" family="renesas.ra6t2" device="renesas.ra6t2_512kb_canfd_lqfp48" package="renesas.48lqfp" path="platform:/base/../internal/projectgen/ra/${version}/pinmapping/PinCfgR7FA6T2AxxxFL.xml" />
+  </extension>
+</plugin>

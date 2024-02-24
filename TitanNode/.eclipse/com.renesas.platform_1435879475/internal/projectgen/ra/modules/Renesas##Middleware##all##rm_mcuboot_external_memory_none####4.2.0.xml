@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<raModuleDescription>
+  <module display="Bootloader|MCUboot External Memory (Unsupported)" id="module.driver.rm_mcuboot_external_memory_interface" visible="false" version="1" url="">
+    <provides interface="interface.driver.rm_mcuboot_external_memory_interface"/>
+    <includes>
+
+    </includes>
+    <declarations>
+
+    </declarations>
+  </module>
+</raModuleDescription>

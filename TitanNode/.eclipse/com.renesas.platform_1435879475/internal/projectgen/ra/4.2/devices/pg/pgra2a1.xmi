@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<projgen:Container xmi:version="2.0" xmlns:projgen="http:///projgen.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xmi="http://www.omg.org/XMI" xsi:schemaLocation="http:///projgen.ecore ProjGen.ecore">
+  <Target shortName="ARM_RA" target="ARM_RA">
+    <CpuType shortName="RA2" isUsedInPG="true">
+      <Cpu shortName="RA2A1" compilerCpuType="cortex-m23">
+        <BuilderOptions optionName="Capabilities" value="renesaspincfg" />
+        <PinCountRZTC shortName="RA2A1 - 64 Pin" isUsedInPG="true" PinNumber="64">
+          <Device shortName="R7FA2A1AB3CFM" DeviceCommand="R7FA2A1AB" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA2A1 - 48 Pin" isUsedInPG="true" PinNumber="48">
+          <Device shortName="R7FA2A1AB3CNE" DeviceCommand="R7FA2A1AB" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA2A1 - 40 Pin" isUsedInPG="true" PinNumber="40">
+          <Device shortName="R7FA2A1AB3CNF" DeviceCommand="R7FA2A1AB" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA2A1 - 36 Pin" isUsedInPG="true" PinNumber="36">
+          <Device shortName="R7FA2A1AB2CBT" DeviceCommand="R7FA2A1AB" />
+        </PinCountRZTC>
+        <PinCountRZTC shortName="RA2A1 - 32 Pin" isUsedInPG="true" PinNumber="32">
+          <Device shortName="R7FA2A1AB3CFJ" DeviceCommand="R7FA2A1AB" />
+        </PinCountRZTC>
+      </Cpu>
+    </CpuType>
+  </Target>
+</projgen:Container>

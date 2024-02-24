@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ARMDeviceList>
+  <Header>
+    <Generated>2022-12-15T17:10:43+00:00</Generated>
+    <FileToolVersion>2.7.5235.17264</FileToolVersion>
+    <Support>ARM</Support>
+  </Header>
+  <E2Information>
+    <Path>ARM/E2_v1.10.2</Path>
+    <FileName>RFWARM.dll</FileName>
+    <DriverFileName>Communi.dll</DriverFileName>
+  </E2Information>
+  <SeggerInformation>
+    <Path>ARM/Segger_v7.82.3</Path>
+    <FileName>JLinkARM.dll</FileName>
+  </SeggerInformation>
+  <Devices>
+    <Device cpuName="R7FA4M1AB" mcuFile="R7FA4M1AB.mcu" armFamily="CM4" regset=".\ARM\CM4regset">
+      <MemMonitor address="0x400" size="8" name="Option Function Select" write="true" />
+      <MemMonitor address="0x408" size="52" name="SECMPUxxx" write="true" />
+      <PartNumber address="0x407FB19C" deref="true" partoffset="0x24" />
+    </Device>
+  </Devices>
+</ARMDeviceList>

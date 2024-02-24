@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ARMDeviceList>
+  <Header>
+    <Generated>2022-12-15T17:10:42+00:00</Generated>
+    <FileToolVersion>2.7.5235.17264</FileToolVersion>
+    <Support>ARM</Support>
+  </Header>
+  <E2Information>
+    <Path>ARM/E2_v1.10.2</Path>
+    <FileName>RFWARM.dll</FileName>
+    <DriverFileName>Communi.dll</DriverFileName>
+  </E2Information>
+  <SeggerInformation>
+    <Path>ARM/Segger_v7.82.3</Path>
+    <FileName>JLinkARM.dll</FileName>
+  </SeggerInformation>
+  <Devices>
+    <Device cpuName="R7FA2E2A3" mcuFile="R7FA2E2A3.mcu" armFamily="CM23" regset=".\ARM\CM23regset">
+      <MemMonitor address="0x400" size="8" name="Option Function Select" write="true" />
+      <MemMonitor address="0x408" size="52" name="SECMPUxxx" write="true" />
+    </Device>
+    <Device cpuName="R7FA2E2A5" mcuFile="R7FA2E2A5.mcu" armFamily="CM23" regset=".\ARM\CM23regset">
+      <MemMonitor address="0x400" size="8" name="Option Function Select" write="true" />
+      <MemMonitor address="0x408" size="52" name="SECMPUxxx" write="true" />
+    </Device>
+    <Device cpuName="R7FA2E2A7" mcuFile="R7FA2E2A7.mcu" armFamily="CM23" regset=".\ARM\CM23regset">
+      <MemMonitor address="0x400" size="8" name="Option Function Select" write="true" />
+      <MemMonitor address="0x408" size="52" name="SECMPUxxx" write="true" />
+    </Device>
+  </Devices>
+</ARMDeviceList>

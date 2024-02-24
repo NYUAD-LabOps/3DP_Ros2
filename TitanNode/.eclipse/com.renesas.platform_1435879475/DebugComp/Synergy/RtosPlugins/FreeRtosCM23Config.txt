@@ -1,0 +1,56 @@
+#Type of the Cortex Used: This is Compatible with CM4 and CM0/0+
+-cortexType CM23
+
+
+#Task List Offests
+#offset from a task list address at which the first task pinter is located
+-threadPointerInListOffset 16 
+
+#offset from a task list address at which the task count is located
+-threadCountInListOffset 0
+
+
+#Task Control Block Offsets
+#offset from the task pointer at which the TCB is located 
+-tcbLocationOffset 12
+
+#offset from the TCB pointer at which the task name is located
+-namePointerInTcbOffset 52
+
+#offset from the TCB pointer at which the task stack pinter is located
+-stackPointerInTcbOffset 0 
+
+#offset from the TCB pointer at which the task stack end address is located
+-stackEndPointerInTcbOffset 48
+
+#offset from the TCB pointer at which the next task pointer is located
+-nextThreadPointerInTcbOffset 8
+
+#offset from the TCB pointer at which the task id is located
+-idPointerInTcbOffset 68
+
+
+#Register Stack Offsets
+-numberOfPCRegistersNoFP 22
+-register r0 0x24 
+-register r1 0x28
+-register r2 0x2c
+-register r3 0x30
+-register r4 0x00
+-register r5 0x04
+-register r6 0x08
+-register r7 0x0c
+-register r8 0x10
+-register r9 0x14
+-register r10 0x18
+-register r11 0x1c
+-register r12 0x30
+-register sp -2
+-register lr 0x34
+-register pc 0x38
+-register xpsr 0x3c
+-register msp -1
+-register psp -1
+-register cfbp -1
+-register msplim -1
+-register psplim -1

@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sfrx>
   <header>
-    <device>R7FS12477</device>
+    <device>R7FS1247</device>
     <deviceFile>
-      <name>R7FS12477</name>
+      <name>R7FS1247</name>
       <version>1.2</version>
       <license />
     </deviceFile>
     <fileToolVersion>3.5.4</fileToolVersion>
-    <generated>2016-10-11T14:17:31.8778714-04:00</generated>
+    <generated>2016-08-03T15:51:30.7004224+01:00</generated>
   </header>
   <moduletable>
     <module name="ACMPLP">
@@ -6269,9 +6269,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6284,9 +6284,9 @@
       <register name="P100PFS_HA" address="0x40040842" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6334,9 +6334,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6349,9 +6349,9 @@
       <register name="P108PFS_HA" address="0x40040862" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6378,9 +6378,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6393,9 +6393,9 @@
       <register name="P109PFS_HA" address="0x40040866" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6422,9 +6422,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6441,9 +6441,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6460,9 +6460,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6479,9 +6479,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6494,9 +6494,9 @@
       <register name="P110PFS_HA" address="0x4004086A" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6509,9 +6509,9 @@
       <register name="P111PFS_HA" address="0x4004086E" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6524,9 +6524,9 @@
       <register name="P112PFS_HA" address="0x40040872" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-		<bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6539,9 +6539,9 @@
       <register name="P113PFS_HA" address="0x40040876" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6598,9 +6598,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6613,9 +6613,9 @@
       <register name="P200PFS_HA" address="0x40040882" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6642,9 +6642,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6657,9 +6657,9 @@
       <register name="P201PFS_HA" address="0x40040886" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6686,9 +6686,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6705,9 +6705,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6724,9 +6724,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6739,9 +6739,9 @@
       <register name="P204PFS_HA" address="0x40040892" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6754,9 +6754,9 @@
       <register name="P205PFS_HA" address="0x40040896" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6769,9 +6769,9 @@
       <register name="P206PFS_HA" address="0x4004089A" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6818,9 +6818,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6837,9 +6837,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6856,9 +6856,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6875,9 +6875,9 @@
         <bitfield name="PMR" bit="16" bitlength="1" />
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6890,9 +6890,9 @@
       <register name="P212PFS_HA" address="0x400408B2" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6905,9 +6905,9 @@
       <register name="P213PFS_HA" address="0x400408B6" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6920,9 +6920,9 @@
       <register name="P214PFS_HA" address="0x400408BA" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -6935,9 +6935,9 @@
       <register name="P215PFS_HA" address="0x400408BE" size="W" value="" absolute="A" format="H" access="RW">
         <bitfield name="ASEL" bit="15" bitlength="1" />
         <bitfield name="ISEL" bit="14" bitlength="1" />
-        <bitfield name="EOFR" bit="12" bitlength="2" />
-        <bitfield name="Reserved" bit="11" bitlength="1" />
-        <bitfield name="DSCR" bit="10" bitlength="1" />
+        <bitfield name="EOF" bit="13" bitlength="1" />
+        <bitfield name="EOR" bit="12" bitlength="1" />
+        <bitfield name="DSCR" bit="10" bitlength="2" />
         <bitfield name="Reserved" bit="7" bitlength="3" />
         <bitfield name="NCODR" bit="6" bitlength="1" />
         <bitfield name="Reserved" bit="5" bitlength="1" />
@@ -8042,7 +8042,7 @@
         <bitfield name="IICRSTAREQ" bit="1" bitlength="1" />
         <bitfield name="IICSTAREQ" bit="0" bitlength="1" />
       </register>
-      <register name="SISR" address="0x4007000C" size="B" value="" absolute="A" format="H" access="RW">
+      <register name="SISR" address="0x4007000C" size="B" value="" absolute="A" format="H" access="R">
         <bitfield name="Reserved" bit="6" bitlength="2" />
         <bitfield name="Reserved" bit="4" bitlength="2" />
         <bitfield name="Reserved" bit="3" bitlength="1" />
@@ -8255,7 +8255,7 @@
         <bitfield name="IICRSTAREQ" bit="1" bitlength="1" />
         <bitfield name="IICSTAREQ" bit="0" bitlength="1" />
       </register>
-      <register name="SISR" address="0x4007002C" size="B" value="" absolute="A" format="H" access="RW">
+      <register name="SISR" address="0x4007002C" size="B" value="" absolute="A" format="H" access="R">
         <bitfield name="Reserved" bit="6" bitlength="2" />
         <bitfield name="Reserved" bit="4" bitlength="2" />
         <bitfield name="Reserved" bit="3" bitlength="1" />
@@ -8409,7 +8409,7 @@
         <bitfield name="IICRSTAREQ" bit="1" bitlength="1" />
         <bitfield name="IICSTAREQ" bit="0" bitlength="1" />
       </register>
-      <register name="SISR" address="0x4007012C" size="B" value="" absolute="A" format="H" access="RW">
+      <register name="SISR" address="0x4007012C" size="B" value="" absolute="A" format="H" access="R">
         <bitfield name="Reserved" bit="6" bitlength="2" />
         <bitfield name="Reserved" bit="4" bitlength="2" />
         <bitfield name="Reserved" bit="3" bitlength="1" />
@@ -8627,6 +8627,33 @@
       </register>
     </module>
     <module name="SYSTEM">
+      <register name="PRCR" address="0x4001E3FE" size="W" value="" absolute="A" format="H" access="RW">
+        <bitfield name="PRKEY" bit="8" bitlength="8" />
+        <bitfield name="Reserved" bit="4" bitlength="4" />
+        <bitfield name="PRC3" bit="3" bitlength="1" />
+        <bitfield name="Reserved" bit="2" bitlength="1" />
+        <bitfield name="PRC1" bit="1" bitlength="1" />
+        <bitfield name="PRC0" bit="0" bitlength="1" />
+      </register>
+      <register name="RSTSR0" address="0x4001E410" size="B" value="" absolute="A" format="H" access="RW">
+        <bitfield name="Reserved" bit="4" bitlength="4" />
+        <bitfield name="LVD2RF" bit="3" bitlength="1" />
+        <bitfield name="LVD1RF" bit="2" bitlength="1" />
+        <bitfield name="LVD0RF" bit="1" bitlength="1" />
+        <bitfield name="PORF" bit="0" bitlength="1" />
+      </register>
+      <register name="RSTSR2" address="0x4001E411" size="B" value="" absolute="A" format="H" access="RW">
+        <bitfield name="Reserved" bit="1" bitlength="7" />
+        <bitfield name="CWSF" bit="0" bitlength="1" />
+      </register>
+      <register name="RSTSR1" address="0x4001E0C0" size="W" value="" absolute="A" format="H" access="RW">
+        <bitfield name="Reserved" bit="9" bitlength="7" />
+        <bitfield name="RPERF" bit="8" bitlength="1" />
+        <bitfield name="Reserved" bit="3" bitlength="5" />
+        <bitfield name="SWRF" bit="2" bitlength="1" />
+        <bitfield name="WDTRF" bit="1" bitlength="1" />
+        <bitfield name="IWDTRF" bit="0" bitlength="1" />
+      </register>
       <register name="SCKDIVCR" address="0x4001E020" size="LW" value="" absolute="A" format="H" access="RW">
         <bitfield name="Reserved" bit="27" bitlength="5" />
         <bitfield name="ICK" bit="24" bitlength="3" />
@@ -8821,33 +8848,6 @@
       <register name="SYOCDCR" address="0x4001E40E" size="B" value="" absolute="A" format="H" access="RW">
         <bitfield name="DBGEN" bit="7" bitlength="1" />
         <bitfield name="Reserved" bit="0" bitlength="7" />
-      </register>
-      <register name="PRCR" address="0x4001E3FE" size="W" value="" absolute="A" format="H" access="RW">
-        <bitfield name="PRKEY" bit="8" bitlength="8" />
-        <bitfield name="Reserved" bit="4" bitlength="4" />
-        <bitfield name="PRC3" bit="3" bitlength="1" />
-        <bitfield name="Reserved" bit="2" bitlength="1" />
-        <bitfield name="PRC1" bit="1" bitlength="1" />
-        <bitfield name="PRC0" bit="0" bitlength="1" />
-      </register>
-      <register name="RSTSR0" address="0x4001E410" size="B" value="" absolute="A" format="H" access="RW">
-        <bitfield name="Reserved" bit="4" bitlength="4" />
-        <bitfield name="LVD2RF" bit="3" bitlength="1" />
-        <bitfield name="LVD1RF" bit="2" bitlength="1" />
-        <bitfield name="LVD0RF" bit="1" bitlength="1" />
-        <bitfield name="PORF" bit="0" bitlength="1" />
-      </register>
-      <register name="RSTSR2" address="0x4001E411" size="B" value="" absolute="A" format="H" access="RW">
-        <bitfield name="Reserved" bit="1" bitlength="7" />
-        <bitfield name="CWSF" bit="0" bitlength="1" />
-      </register>
-      <register name="RSTSR1" address="0x4001E0C0" size="W" value="" absolute="A" format="H" access="RW">
-        <bitfield name="Reserved" bit="9" bitlength="7" />
-        <bitfield name="RPERF" bit="8" bitlength="1" />
-        <bitfield name="Reserved" bit="3" bitlength="5" />
-        <bitfield name="SWRF" bit="2" bitlength="1" />
-        <bitfield name="WDTRF" bit="1" bitlength="1" />
-        <bitfield name="IWDTRF" bit="0" bitlength="1" />
       </register>
     </module>
     <module name="TSN">
