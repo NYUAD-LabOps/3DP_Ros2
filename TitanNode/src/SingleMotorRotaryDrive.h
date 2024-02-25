@@ -25,6 +25,8 @@ public:
     ioport_level_t dir;
     ioport_level_t dirFwd;
     ioport_level_t dirHome;
+    ioport_level_t dirFwd2;
+    ioport_level_t dirHome2;
     ioport_level_t dirRev;
     ioport_level_t dirTarget;
     int drive_index;
