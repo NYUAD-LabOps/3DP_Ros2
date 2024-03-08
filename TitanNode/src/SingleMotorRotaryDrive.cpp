@@ -159,12 +159,12 @@ void SingleMotorRotaryDrive::SetDriveDir(ioport_level_t target_Dir)
             g_ioport.p_api->pinWrite (pinDir, dirTarget);
             break;
         case 2:
-            if(dirFwd==dirFwd2){
-                dirTarget =
+//            if(dirFwd==dirFwd2){
+//                dirTarget =
 
-            }else{
+//            }else{
 
-            }
+//            }
             g_ioport.p_api->pinWrite (pinDir, dirTarget);
             g_ioport.p_api->pinWrite (pinDir2, dirTarget);
             break;
