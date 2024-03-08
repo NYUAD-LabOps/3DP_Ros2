@@ -46,6 +46,8 @@ void ProcessManagerTitan::ProcessCommand(void)
         data[1] = uartRx[5];
         data[2] = 0;
         drive_index = atoi(data);
+        if(drive_index<0)drive_index = 0;
+        if(drive_index>drive_count) drive_index = 0;
         switch(uartRx[3]){
             case 'H':
 //                ptr_drive_handlers[drive_index]->homing = HOMING_GOTOHOME;
