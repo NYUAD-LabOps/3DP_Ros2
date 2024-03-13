@@ -151,13 +151,13 @@ Synergy Configuration
       P512 175 - - - - Disabled - - "CAN1: CTX; ETHERC_MII0: ETXD2; GPT0: GTIOCA; ICU0: IRQ14; IIC2: SCL; PDC0: VSYNC; SCI4: SDA; SCI4: TXD" - None - - 
       P513 174 - - - - Disabled - - "ETHERC_MII0: ETXD3; GLCDC0: LCD_DATA16" - None - - 
       P600 122 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: RD; GLCDC0: LCD_DATA02" - IO - - 
-      P601 121 - GPIO9 Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: WR_DQM; GLCDC0: LCD_DATA03" - IO - - 
-      P602 120 - GPIO8 Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: BCLK_SDCLK; GLCDC0: LCD_DATA04" - IO - - 
-      P603 119 - GPIO3 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: D_DQ13" - IO - - 
-      P604 118 - GPIO2 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: D_DQ12" - IO - - 
-      P605 117 - GPIO1 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: D_DQ11" - IO - - 
-      P606 116 - GLCD_Controller__Pin_Option_B_LCD_DATA03_B - - Disabled - - "GLCDC0: LCD_DATA03" - None - - 
-      P607 115 - GLCD_Controller__Pin_Option_B_LCD_DATA04_B - - Disabled - - "GLCDC0: LCD_DATA04" - None - - 
+      P601 121 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: WR_DQM; GLCDC0: LCD_DATA03" - IO - - 
+      P602 120 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: BCLK_SDCLK; GLCDC0: LCD_DATA04" - IO - - 
+      P603 119 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: D_DQ13" - IO - - 
+      P604 118 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: D_DQ12" - IO - - 
+      P605 117 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: D_DQ11" - IO - - 
+      P606 116 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA03" - IO - - 
+      P607 115 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA04" - IO - - 
       P608 99 - GPIO7 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: BC_A_DQM00; GLCDC0: LCD_DATA07" - IO - - 
       P609 100 - - - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS_CKE1; GLCDC0: LCD_DATA06" - None - - 
       P610 101 - - - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS_WE0; GLCDC0: LCD_DATA05" - None - - 
@@ -187,8 +187,8 @@ Synergy Configuration
       P906 72 - GLCD_Controller__Pin_Option_B_LCD_DATA12_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS5; GLCDC0: LCD_DATA12" - None - - 
       P907 71 - GLCD_Controller__Pin_Option_B_LCD_DATA13_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS6; GLCDC0: LCD_DATA13" - None - - 
       P908 70 - GLCD_Controller__Pin_Option_B_LCD_DATA14_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS7; GLCDC0: LCD_DATA14" - None - - 
-      PA00 114 - GLCD_Controller__Pin_Option_B_LCD_DATA05_B - - Disabled - - "GLCDC0: LCD_DATA05" - None - - 
-      PA01 113 - GLCD_Controller__Pin_Option_B_LCD_DATA06_B - - Disabled - - "GLCDC0: LCD_DATA06" - None - - 
+      PA00 114 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA05" - IO - - 
+      PA01 113 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA06" - IO - - 
       PA08 107 - GLCD_Controller__Pin_Option_B_LCD_DATA09_B - - Disabled - - "GLCDC0: LCD_DATA09" - None - - 
       PA09 108 - GLCD_Controller__Pin_Option_B_LCD_DATA08_B - - Disabled - - "GLCDC0: LCD_DATA08" - None - - 
       PA10 109 - GLCD_Controller__Pin_Option_B_LCD_DATA07_B - - Disabled - - "GLCDC0: LCD_DATA07" - None - - 
@@ -328,13 +328,13 @@ Synergy Configuration
       P512 175 - - - - Disabled - - "CAN1: CTX; ETHERC_MII0: ETXD2; GPT0: GTIOCA; ICU0: IRQ14; IIC2: SCL; PDC0: VSYNC; SCI4: SDA; SCI4: TXD" - None - - 
       P513 174 - - - - Disabled - - "ETHERC_MII0: ETXD3; GLCDC0: LCD_DATA16" - None - - 
       P600 122 GPIO - Low - "Output mode (Initial Low)" CMOS - "BUS_ASYNCH_BUS_SDRAM0: RD; GLCDC0: LCD_DATA02" - IO - - 
-      P601 121 GPIO GPIO9 Medium - "Output mode (Initial Low)" CMOS - "BUS_ASYNCH_BUS_SDRAM0: WR_DQM; GLCDC0: LCD_DATA03" - IO - - 
-      P602 120 GPIO GPIO8 Medium - "Output mode (Initial Low)" CMOS - "BUS_ASYNCH_BUS_SDRAM0: BCLK_SDCLK; GLCDC0: LCD_DATA04" - IO - - 
-      P603 119 GPIO GPIO3 - - "Input mode" - None "BUS_ASYNCH_BUS_SDRAM0: D_DQ13" - IO - - 
-      P604 118 GPIO GPIO2 - - "Input mode" - None "BUS_ASYNCH_BUS_SDRAM0: D_DQ12" - IO - - 
-      P605 117 GPIO GPIO1 - - "Input mode" - None "BUS_ASYNCH_BUS_SDRAM0: D_DQ11" - IO - - 
-      P606 116 - GLCD_Controller__Pin_Option_B_LCD_DATA03_B - - Disabled - - "GLCDC0: LCD_DATA03" - None - - 
-      P607 115 - GLCD_Controller__Pin_Option_B_LCD_DATA04_B - - Disabled - - "GLCDC0: LCD_DATA04" - None - - 
+      P601 121 GPIO - Medium - "Output mode (Initial Low)" CMOS - "BUS_ASYNCH_BUS_SDRAM0: WR_DQM; GLCDC0: LCD_DATA03" - IO - - 
+      P602 120 GPIO - Medium - "Output mode (Initial Low)" CMOS - "BUS_ASYNCH_BUS_SDRAM0: BCLK_SDCLK; GLCDC0: LCD_DATA04" - IO - - 
+      P603 119 GPIO - Low - "Output mode (Initial Low)" CMOS - "BUS_ASYNCH_BUS_SDRAM0: D_DQ13" - IO - - 
+      P604 118 GPIO - Low - "Output mode (Initial Low)" CMOS - "BUS_ASYNCH_BUS_SDRAM0: D_DQ12" - IO - - 
+      P605 117 GPIO - Low - "Output mode (Initial Low)" CMOS - "BUS_ASYNCH_BUS_SDRAM0: D_DQ11" - IO - - 
+      P606 116 GPIO - Low - "Output mode (Initial Low)" CMOS - "GLCDC0: LCD_DATA03" - IO - - 
+      P607 115 GPIO - Low - "Output mode (Initial Low)" CMOS - "GLCDC0: LCD_DATA04" - IO - - 
       P608 99 GPIO GPIO7 - - "Input mode" - None "BUS_ASYNCH_BUS_SDRAM0: BC_A_DQM00; GLCDC0: LCD_DATA07" - IO - - 
       P609 100 - - - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS_CKE1; GLCDC0: LCD_DATA06" - None - - 
       P610 101 - - - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS_WE0; GLCDC0: LCD_DATA05" - None - - 
@@ -364,8 +364,8 @@ Synergy Configuration
       P906 72 - GLCD_Controller__Pin_Option_B_LCD_DATA12_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS5; GLCDC0: LCD_DATA12" - None - - 
       P907 71 - GLCD_Controller__Pin_Option_B_LCD_DATA13_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS6; GLCDC0: LCD_DATA13" - None - - 
       P908 70 - GLCD_Controller__Pin_Option_B_LCD_DATA14_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS7; GLCDC0: LCD_DATA14" - None - - 
-      PA00 114 - GLCD_Controller__Pin_Option_B_LCD_DATA05_B - - Disabled - - "GLCDC0: LCD_DATA05" - None - - 
-      PA01 113 - GLCD_Controller__Pin_Option_B_LCD_DATA06_B - - Disabled - - "GLCDC0: LCD_DATA06" - None - - 
+      PA00 114 GPIO - Low - "Output mode (Initial Low)" CMOS - "GLCDC0: LCD_DATA05" - IO - - 
+      PA01 113 GPIO - Low - "Output mode (Initial Low)" CMOS - "GLCDC0: LCD_DATA06" - IO - - 
       PA08 107 - GLCD_Controller__Pin_Option_B_LCD_DATA09_B - - Disabled - - "GLCDC0: LCD_DATA09" - None - - 
       PA09 108 - GLCD_Controller__Pin_Option_B_LCD_DATA08_B - - Disabled - - "GLCDC0: LCD_DATA08" - None - - 
       PA10 109 - GLCD_Controller__Pin_Option_B_LCD_DATA07_B - - Disabled - - "GLCDC0: LCD_DATA07" - None - - 
@@ -505,13 +505,13 @@ Synergy Configuration
       P512 175 - - - - Disabled - - "CAN1: CTX; ETHERC_MII0: ETXD2; GPT0: GTIOCA; ICU0: IRQ14; IIC2: SCL; PDC0: VSYNC; SCI4: SDA; SCI4: TXD" - None - - 
       P513 174 - - - - Disabled - - "ETHERC_MII0: ETXD3; GLCDC0: LCD_DATA16" - None - - 
       P600 122 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: RD; GLCDC0: LCD_DATA02" - IO - - 
-      P601 121 - GPIO9 Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: WR_DQM; GLCDC0: LCD_DATA03" - IO - - 
-      P602 120 - GPIO8 Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: BCLK_SDCLK; GLCDC0: LCD_DATA04" - IO - - 
-      P603 119 - GPIO3 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: D_DQ13" - IO - - 
-      P604 118 - GPIO2 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: D_DQ12" - IO - - 
-      P605 117 - GPIO1 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: D_DQ11" - IO - - 
-      P606 116 - GLCD_Controller__Pin_Option_B_LCD_DATA03_B - - Disabled - - "GLCDC0: LCD_DATA03" - None - - 
-      P607 115 - GLCD_Controller__Pin_Option_B_LCD_DATA04_B - - Disabled - - "GLCDC0: LCD_DATA04" - None - - 
+      P601 121 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: WR_DQM; GLCDC0: LCD_DATA03" - IO - - 
+      P602 120 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: BCLK_SDCLK; GLCDC0: LCD_DATA04" - IO - - 
+      P603 119 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: D_DQ13" - IO - - 
+      P604 118 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: D_DQ12" - IO - - 
+      P605 117 - - Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: D_DQ11" - IO - - 
+      P606 116 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA03" - IO - - 
+      P607 115 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA04" - IO - - 
       P608 99 - GPIO7 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: BC_A_DQM00; GLCDC0: LCD_DATA07" - IO - - 
       P609 100 - - - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS_CKE1; GLCDC0: LCD_DATA06" - None - - 
       P610 101 - - - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS_WE0; GLCDC0: LCD_DATA05" - None - - 
@@ -541,8 +541,8 @@ Synergy Configuration
       P906 72 - GLCD_Controller__Pin_Option_B_LCD_DATA12_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS5; GLCDC0: LCD_DATA12" - None - - 
       P907 71 - GLCD_Controller__Pin_Option_B_LCD_DATA13_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS6; GLCDC0: LCD_DATA13" - None - - 
       P908 70 - GLCD_Controller__Pin_Option_B_LCD_DATA14_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS7; GLCDC0: LCD_DATA14" - None - - 
-      PA00 114 - GLCD_Controller__Pin_Option_B_LCD_DATA05_B - - Disabled - - "GLCDC0: LCD_DATA05" - None - - 
-      PA01 113 - GLCD_Controller__Pin_Option_B_LCD_DATA06_B - - Disabled - - "GLCDC0: LCD_DATA06" - None - - 
+      PA00 114 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA05" - IO - - 
+      PA01 113 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA06" - IO - - 
       PA08 107 - GLCD_Controller__Pin_Option_B_LCD_DATA09_B - - Disabled - - "GLCDC0: LCD_DATA09" - None - - 
       PA09 108 - GLCD_Controller__Pin_Option_B_LCD_DATA08_B - - Disabled - - "GLCDC0: LCD_DATA08" - None - - 
       PA10 109 - GLCD_Controller__Pin_Option_B_LCD_DATA07_B - - Disabled - - "GLCDC0: LCD_DATA07" - None - - 

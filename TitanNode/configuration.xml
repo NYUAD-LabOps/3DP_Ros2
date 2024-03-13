@@ -71,13 +71,6 @@
     <symbolicName propertyId="p505.symbolic_name" value="Quad_SPI_QIO3"/>
     <symbolicName propertyId="p506.symbolic_name" value="GPIO16"/>
     <symbolicName propertyId="p507.symbolic_name" value="GPIO17"/>
-    <symbolicName propertyId="p601.symbolic_name" value="GPIO9"/>
-    <symbolicName propertyId="p602.symbolic_name" value="GPIO8"/>
-    <symbolicName propertyId="p603.symbolic_name" value="GPIO3"/>
-    <symbolicName propertyId="p604.symbolic_name" value="GPIO2"/>
-    <symbolicName propertyId="p605.symbolic_name" value="GPIO1"/>
-    <symbolicName propertyId="p606.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA03_B"/>
-    <symbolicName propertyId="p607.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA04_B"/>
     <symbolicName propertyId="p608.symbolic_name" value="GPIO7"/>
     <symbolicName propertyId="p613.symbolic_name" value="GPIO37"/>
     <symbolicName propertyId="p614.symbolic_name" value="GPIO38"/>
@@ -99,8 +92,6 @@
     <symbolicName propertyId="p906.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA12_B"/>
     <symbolicName propertyId="p907.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA13_B"/>
     <symbolicName propertyId="p908.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA14_B"/>
-    <symbolicName propertyId="pa00.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA05_B"/>
-    <symbolicName propertyId="pa01.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA06_B"/>
     <symbolicName propertyId="pa08.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA09_B"/>
     <symbolicName propertyId="pa09.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA08_B"/>
     <symbolicName propertyId="pa10.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA07_B"/>
@@ -299,12 +290,16 @@
       <configSetting altId="p602.output.low" configurationId="p602"/>
       <configSetting altId="p602.gpio_speed.gpio_speed_medium" configurationId="p602.gpio_drivecapacity"/>
       <configSetting altId="p602.gpio_mode.gpio_mode_out.low" configurationId="p602.gpio_mode"/>
-      <configSetting altId="p603.input" configurationId="p603"/>
-      <configSetting altId="p603.gpio_mode.gpio_mode_in" configurationId="p603.gpio_mode"/>
-      <configSetting altId="p604.input" configurationId="p604"/>
-      <configSetting altId="p604.gpio_mode.gpio_mode_in" configurationId="p604.gpio_mode"/>
-      <configSetting altId="p605.input" configurationId="p605"/>
-      <configSetting altId="p605.gpio_mode.gpio_mode_in" configurationId="p605.gpio_mode"/>
+      <configSetting altId="p603.output.low" configurationId="p603"/>
+      <configSetting altId="p603.gpio_mode.gpio_mode_out.low" configurationId="p603.gpio_mode"/>
+      <configSetting altId="p604.output.low" configurationId="p604"/>
+      <configSetting altId="p604.gpio_mode.gpio_mode_out.low" configurationId="p604.gpio_mode"/>
+      <configSetting altId="p605.output.low" configurationId="p605"/>
+      <configSetting altId="p605.gpio_mode.gpio_mode_out.low" configurationId="p605.gpio_mode"/>
+      <configSetting altId="p606.output.low" configurationId="p606"/>
+      <configSetting altId="p606.gpio_mode.gpio_mode_out.low" configurationId="p606.gpio_mode"/>
+      <configSetting altId="p607.output.low" configurationId="p607"/>
+      <configSetting altId="p607.gpio_mode.gpio_mode_out.low" configurationId="p607.gpio_mode"/>
       <configSetting altId="p608.input" configurationId="p608"/>
       <configSetting altId="p608.gpio_mode.gpio_mode_in" configurationId="p608.gpio_mode"/>
       <configSetting altId="p613.input" configurationId="p613"/>
@@ -344,6 +339,10 @@
       <configSetting altId="p806.output.low" configurationId="p806"/>
       <configSetting altId="p806.gpio_speed.gpio_speed_medium" configurationId="p806.gpio_drivecapacity"/>
       <configSetting altId="p806.gpio_mode.gpio_mode_out.low" configurationId="p806.gpio_mode"/>
+      <configSetting altId="pa00.output.low" configurationId="pa00"/>
+      <configSetting altId="pa00.gpio_mode.gpio_mode_out.low" configurationId="pa00.gpio_mode"/>
+      <configSetting altId="pa01.output.low" configurationId="pa01"/>
+      <configSetting altId="pa01.gpio_mode.gpio_mode_out.low" configurationId="pa01.gpio_mode"/>
       <configSetting altId="pb00.usbhs0.vbusen" configurationId="pb00"/>
       <configSetting altId="pb00.gpio_mode.gpio_mode_peripheral" configurationId="pb00.gpio_mode"/>
       <configSetting altId="pb01.usbhs0.vbus" configurationId="pb01"/>
