@@ -36,7 +36,6 @@
     <symbolicName propertyId="p301.symbolic_name" value="SCI2_RXD2_SCL2_MISO2"/>
     <symbolicName propertyId="p303.symbolic_name" value="GPIO39"/>
     <symbolicName propertyId="p304.symbolic_name" value="SCI6_RXD6_SCL6_MISO6"/>
-    <symbolicName propertyId="p305.symbolic_name" value="SCI6_TXD6_SDA6_MOSI6"/>
     <symbolicName propertyId="p306.symbolic_name" value="SCI6_SCK6"/>
     <symbolicName propertyId="p307.symbolic_name" value="GPIO36"/>
     <symbolicName propertyId="p308.symbolic_name" value="GPIO35"/>
@@ -92,9 +91,6 @@
     <symbolicName propertyId="p906.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA12_B"/>
     <symbolicName propertyId="p907.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA13_B"/>
     <symbolicName propertyId="p908.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA14_B"/>
-    <symbolicName propertyId="pa08.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA09_B"/>
-    <symbolicName propertyId="pa09.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA08_B"/>
-    <symbolicName propertyId="pa10.symbolic_name" value="GLCD_Controller__Pin_Option_B_LCD_DATA07_B"/>
     <symbolicName propertyId="pb00.symbolic_name" value="USB_High_Speed_USBHS_VBUSEN"/>
     <symbolicName propertyId="pb01.symbolic_name" value="USB_High_Speed_USBHS_VBUS"/>
     <pincfg active="false" name="R7FS7G27H3A01CFC.pincfg" selected="false" symbol="g_bsp_pin_cfg">
@@ -343,6 +339,12 @@
       <configSetting altId="pa00.gpio_mode.gpio_mode_out.low" configurationId="pa00.gpio_mode"/>
       <configSetting altId="pa01.output.low" configurationId="pa01"/>
       <configSetting altId="pa01.gpio_mode.gpio_mode_out.low" configurationId="pa01.gpio_mode"/>
+      <configSetting altId="pa08.output.low" configurationId="pa08"/>
+      <configSetting altId="pa08.gpio_mode.gpio_mode_out.low" configurationId="pa08.gpio_mode"/>
+      <configSetting altId="pa09.output.low" configurationId="pa09"/>
+      <configSetting altId="pa09.gpio_mode.gpio_mode_out.low" configurationId="pa09.gpio_mode"/>
+      <configSetting altId="pa10.output.low" configurationId="pa10"/>
+      <configSetting altId="pa10.gpio_mode.gpio_mode_out.low" configurationId="pa10.gpio_mode"/>
       <configSetting altId="pb00.usbhs0.vbusen" configurationId="pb00"/>
       <configSetting altId="pb00.gpio_mode.gpio_mode_peripheral" configurationId="pb00.gpio_mode"/>
       <configSetting altId="pb01.usbhs0.vbus" configurationId="pb01"/>

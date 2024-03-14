@@ -112,7 +112,7 @@ Synergy Configuration
       P302 86 - - - None Disabled - - "BUS_ASYNCH_BUS_SDRAM0: A07; GLCDC0: LCD_DATA14; GPT_OPS0: GTOUUP; GPT4: GTIOCA; ICU0: IRQ05; SCI2: SDA; SCI2: TXD; SPI1: SSL3" - IO - - 
       P303 85 - GPIO39 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: A08; GLCDC0: LCD_DATA15; GPT7: GTIOCB" - IO - - 
       P304 82 - SCI6_RXD6_SCL6_MISO6 - None Disabled - - "BUS_ASYNCH_BUS_SDRAM0: A09; GLCDC0: LCD_DATA16; GPT7: GTIOCA; ICU0: IRQ09; SCI6: RXD; SCI6: SCL" - IO - - 
-      P305 81 - SCI6_TXD6_SDA6_MOSI6 - None Disabled - - "BUS_ASYNCH_BUS_SDRAM0: A10; GLCDC0: LCD_DATA17; ICU0: IRQ08; SCI6: SDA; SCI6: TXD" - IO - - 
+      P305 81 - - - None Disabled - - "BUS_ASYNCH_BUS_SDRAM0: A10; GLCDC0: LCD_DATA17; ICU0: IRQ08; SCI6: SDA; SCI6: TXD" - IO - - 
       P306 80 - SCI6_SCK6 - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: A11; GLCDC0: LCD_DATA18; SCI6: SCK" - None - - 
       P307 79 - GPIO36 Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: A12; GLCDC0: LCD_DATA19; SCI6: CTS" - IO - - 
       P308 78 - GPIO35 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: A13; GLCDC0: LCD_DATA20" - IO - - 
@@ -189,9 +189,9 @@ Synergy Configuration
       P908 70 - GLCD_Controller__Pin_Option_B_LCD_DATA14_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS7; GLCDC0: LCD_DATA14" - None - - 
       PA00 114 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA05" - IO - - 
       PA01 113 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA06" - IO - - 
-      PA08 107 - GLCD_Controller__Pin_Option_B_LCD_DATA09_B - - Disabled - - "GLCDC0: LCD_DATA09" - None - - 
-      PA09 108 - GLCD_Controller__Pin_Option_B_LCD_DATA08_B - - Disabled - - "GLCDC0: LCD_DATA08" - None - - 
-      PA10 109 - GLCD_Controller__Pin_Option_B_LCD_DATA07_B - - Disabled - - "GLCDC0: LCD_DATA07" - None - - 
+      PA08 107 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA09" - IO - - 
+      PA09 108 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA08" - IO - - 
+      PA10 109 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA07" - IO - - 
       PB00 16 - USB_High_Speed_USBHS_VBUSEN Low - Disabled CMOS None "SCI3: SCK; USB_HS0: VBUSEN" - IO - - 
       PB01 17 - USB_High_Speed_USBHS_VBUS Low - Disabled CMOS None "SCI3: CTS; USB_HS0: VBUS" - IO - - 
       PVSSUSBHS 29 USB_HS0_PVSS - - - - - - - - IO "Read only" - 
@@ -289,7 +289,7 @@ Synergy Configuration
       P302 86 ICU0_IRQ05 - - IRQ05 "IRQ mode" - - "BUS_ASYNCH_BUS_SDRAM0: A07; GLCDC0: LCD_DATA14; GPT_OPS0: GTOUUP; GPT4: GTIOCA; ICU0: IRQ05; SCI2: SDA; SCI2: TXD; SPI1: SSL3" - IO - - 
       P303 85 GPIO GPIO39 - - "Input mode" - None "BUS_ASYNCH_BUS_SDRAM0: A08; GLCDC0: LCD_DATA15; GPT7: GTIOCB" - IO - - 
       P304 82 ICU0_IRQ09 SCI6_RXD6_SCL6_MISO6 - IRQ09 "IRQ mode" - - "BUS_ASYNCH_BUS_SDRAM0: A09; GLCDC0: LCD_DATA16; GPT7: GTIOCA; ICU0: IRQ09; SCI6: RXD; SCI6: SCL" - IO - - 
-      P305 81 ICU0_IRQ08 SCI6_TXD6_SDA6_MOSI6 - IRQ08 "IRQ mode" - - "BUS_ASYNCH_BUS_SDRAM0: A10; GLCDC0: LCD_DATA17; ICU0: IRQ08; SCI6: SDA; SCI6: TXD" - IO - - 
+      P305 81 ICU0_IRQ08 - - IRQ08 "IRQ mode" - - "BUS_ASYNCH_BUS_SDRAM0: A10; GLCDC0: LCD_DATA17; ICU0: IRQ08; SCI6: SDA; SCI6: TXD" - IO - - 
       P306 80 - SCI6_SCK6 - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: A11; GLCDC0: LCD_DATA18; SCI6: SCK" - None - - 
       P307 79 GPIO GPIO36 Medium - "Output mode (Initial Low)" CMOS - "BUS_ASYNCH_BUS_SDRAM0: A12; GLCDC0: LCD_DATA19; SCI6: CTS" - IO - - 
       P308 78 GPIO GPIO35 - - "Input mode" - None "BUS_ASYNCH_BUS_SDRAM0: A13; GLCDC0: LCD_DATA20" - IO - - 
@@ -366,9 +366,9 @@ Synergy Configuration
       P908 70 - GLCD_Controller__Pin_Option_B_LCD_DATA14_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS7; GLCDC0: LCD_DATA14" - None - - 
       PA00 114 GPIO - Low - "Output mode (Initial Low)" CMOS - "GLCDC0: LCD_DATA05" - IO - - 
       PA01 113 GPIO - Low - "Output mode (Initial Low)" CMOS - "GLCDC0: LCD_DATA06" - IO - - 
-      PA08 107 - GLCD_Controller__Pin_Option_B_LCD_DATA09_B - - Disabled - - "GLCDC0: LCD_DATA09" - None - - 
-      PA09 108 - GLCD_Controller__Pin_Option_B_LCD_DATA08_B - - Disabled - - "GLCDC0: LCD_DATA08" - None - - 
-      PA10 109 - GLCD_Controller__Pin_Option_B_LCD_DATA07_B - - Disabled - - "GLCDC0: LCD_DATA07" - None - - 
+      PA08 107 GPIO - Low - "Output mode (Initial Low)" CMOS - "GLCDC0: LCD_DATA09" - IO - - 
+      PA09 108 GPIO - Low - "Output mode (Initial Low)" CMOS - "GLCDC0: LCD_DATA08" - IO - - 
+      PA10 109 GPIO - Low - "Output mode (Initial Low)" CMOS - "GLCDC0: LCD_DATA07" - IO - - 
       PB00 16 USB_HS0_VBUSEN USB_High_Speed_USBHS_VBUSEN Low - "Peripheral mode" CMOS None "SCI3: SCK; USB_HS0: VBUSEN" - IO - - 
       PB01 17 USB_HS0_VBUS USB_High_Speed_USBHS_VBUS Low - "Peripheral mode" CMOS None "SCI3: CTS; USB_HS0: VBUS" - IO - - 
       PVSSUSBHS 29 USB_HS0_PVSS - - - - - - - - IO "Read only" - 
@@ -466,7 +466,7 @@ Synergy Configuration
       P302 86 - - - None Disabled - - "BUS_ASYNCH_BUS_SDRAM0: A07; GLCDC0: LCD_DATA14; GPT_OPS0: GTOUUP; GPT4: GTIOCA; ICU0: IRQ05; SCI2: SDA; SCI2: TXD; SPI1: SSL3" - IO - - 
       P303 85 - GPIO39 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: A08; GLCDC0: LCD_DATA15; GPT7: GTIOCB" - IO - - 
       P304 82 - SCI6_RXD6_SCL6_MISO6 - None Disabled - - "BUS_ASYNCH_BUS_SDRAM0: A09; GLCDC0: LCD_DATA16; GPT7: GTIOCA; ICU0: IRQ09; SCI6: RXD; SCI6: SCL" - IO - - 
-      P305 81 - SCI6_TXD6_SDA6_MOSI6 - None Disabled - - "BUS_ASYNCH_BUS_SDRAM0: A10; GLCDC0: LCD_DATA17; ICU0: IRQ08; SCI6: SDA; SCI6: TXD" - IO - - 
+      P305 81 - - - None Disabled - - "BUS_ASYNCH_BUS_SDRAM0: A10; GLCDC0: LCD_DATA17; ICU0: IRQ08; SCI6: SDA; SCI6: TXD" - IO - - 
       P306 80 - SCI6_SCK6 - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: A11; GLCDC0: LCD_DATA18; SCI6: SCK" - None - - 
       P307 79 - GPIO36 Low - Disabled CMOS - "BUS_ASYNCH_BUS_SDRAM0: A12; GLCDC0: LCD_DATA19; SCI6: CTS" - IO - - 
       P308 78 - GPIO35 - - Disabled - None "BUS_ASYNCH_BUS_SDRAM0: A13; GLCDC0: LCD_DATA20" - IO - - 
@@ -543,9 +543,9 @@ Synergy Configuration
       P908 70 - GLCD_Controller__Pin_Option_B_LCD_DATA14_B - - Disabled - - "BUS_ASYNCH_BUS_SDRAM0: CS7; GLCDC0: LCD_DATA14" - None - - 
       PA00 114 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA05" - IO - - 
       PA01 113 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA06" - IO - - 
-      PA08 107 - GLCD_Controller__Pin_Option_B_LCD_DATA09_B - - Disabled - - "GLCDC0: LCD_DATA09" - None - - 
-      PA09 108 - GLCD_Controller__Pin_Option_B_LCD_DATA08_B - - Disabled - - "GLCDC0: LCD_DATA08" - None - - 
-      PA10 109 - GLCD_Controller__Pin_Option_B_LCD_DATA07_B - - Disabled - - "GLCDC0: LCD_DATA07" - None - - 
+      PA08 107 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA09" - IO - - 
+      PA09 108 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA08" - IO - - 
+      PA10 109 - - Low - Disabled CMOS - "GLCDC0: LCD_DATA07" - IO - - 
       PB00 16 - USB_High_Speed_USBHS_VBUSEN Low - Disabled CMOS None "SCI3: SCK; USB_HS0: VBUSEN" - IO - - 
       PB01 17 - USB_High_Speed_USBHS_VBUS Low - Disabled CMOS None "SCI3: CTS; USB_HS0: VBUS" - IO - - 
       PVSSUSBHS 29 USB_HS0_PVSS - - - - - - - - IO "Read only" - 
