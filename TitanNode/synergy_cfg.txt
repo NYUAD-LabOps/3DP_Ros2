@@ -842,7 +842,7 @@ Synergy Configuration
     Instance "g_external_irqLS4 External IRQ Driver on r_icu"
       Name: g_external_irqLS4
       Channel: 3
-      Trigger: Rising
+      Trigger: Both Edges
       Digital Filtering: Disabled
       Digital Filtering Sample Clock (Only valid when Digital Filtering is Enabled): PCLK / 64
       Interrupt enabled after initialization: True
@@ -852,7 +852,7 @@ Synergy Configuration
     Instance "g_external_irqLS5 External IRQ Driver on r_icu"
       Name: g_external_irqLS5
       Channel: 8
-      Trigger: Rising
+      Trigger: Both Edges
       Digital Filtering: Disabled
       Digital Filtering Sample Clock (Only valid when Digital Filtering is Enabled): PCLK / 64
       Interrupt enabled after initialization: True
@@ -872,7 +872,7 @@ Synergy Configuration
     Instance "g_external_irqLS7 External IRQ Driver on r_icu"
       Name: g_external_irqLS7
       Channel: 5
-      Trigger: Rising
+      Trigger: Both Edges
       Digital Filtering: Enabled
       Digital Filtering Sample Clock (Only valid when Digital Filtering is Enabled): PCLK / 64
       Interrupt enabled after initialization: True

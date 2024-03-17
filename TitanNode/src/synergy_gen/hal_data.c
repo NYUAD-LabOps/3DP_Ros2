@@ -325,7 +325,7 @@ SSP_VECTOR_DEFINE(icu_irq_isr, ICU, IRQ5);
 static icu_instance_ctrl_t g_external_irqLS7_ctrl;
 static const external_irq_cfg_t g_external_irqLS7_cfg =
 { .channel = 5,
-  .trigger = EXTERNAL_IRQ_TRIG_RISING,
+  .trigger = EXTERNAL_IRQ_TRIG_BOTH_EDGE,
   .filter_enable = true,
   .pclk_div = EXTERNAL_IRQ_PCLK_DIV_BY_64,
   .autostart = true,
@@ -363,7 +363,7 @@ SSP_VECTOR_DEFINE(icu_irq_isr, ICU, IRQ8);
 static icu_instance_ctrl_t g_external_irqLS5_ctrl;
 static const external_irq_cfg_t g_external_irqLS5_cfg =
 { .channel = 8,
-  .trigger = EXTERNAL_IRQ_TRIG_RISING,
+  .trigger = EXTERNAL_IRQ_TRIG_BOTH_EDGE,
   .filter_enable = false,
   .pclk_div = EXTERNAL_IRQ_PCLK_DIV_BY_64,
   .autostart = true,
@@ -382,7 +382,7 @@ SSP_VECTOR_DEFINE(icu_irq_isr, ICU, IRQ3);
 static icu_instance_ctrl_t g_external_irqLS4_ctrl;
 static const external_irq_cfg_t g_external_irqLS4_cfg =
 { .channel = 3,
-  .trigger = EXTERNAL_IRQ_TRIG_RISING,
+  .trigger = EXTERNAL_IRQ_TRIG_BOTH_EDGE,
   .filter_enable = false,
   .pclk_div = EXTERNAL_IRQ_PCLK_DIV_BY_64,
   .autostart = true,

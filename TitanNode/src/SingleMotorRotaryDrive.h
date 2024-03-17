@@ -33,9 +33,10 @@ public:
     int drive_timer_index;
     TX_BLOCK_POOL move_block_pool;
     int move_count;
-    int move_current;
+    int move_cycle;
     int move_generic;
     int move_index;
+    int move_index_next;
     move *move_list;
     ioport_level_t mtrDisableState;
     ioport_level_t mtrEnableState;
@@ -48,11 +49,11 @@ public:
     ioport_level_t hasLimits;
     int homed;
     int homing;
+    bool homing_in_progress;
     int init;
     ioport_level_t limit0State;
     ioport_level_t limit1State;
     int ls_index;
-    int move_cycle;
     int motor_count;
 //    int move_count;
 //    move move_current;
@@ -68,9 +69,9 @@ public:
     ioport_port_pin_t pinEnable;
     ioport_port_pin_t pinEnable2;
     ioport_port_pin_t pinLimit0;
-    ioport_port_pin_t pinLimit02;
-    ioport_port_pin_t pinLimit1;
-    ioport_port_pin_t pinLimit12;
+//    ioport_port_pin_t pinLimit02;
+//    ioport_port_pin_t pinLimit1;
+//    ioport_port_pin_t pinLimit12;
     ioport_port_pin_t pinStep;
     ioport_port_pin_t pinStep2;
     char referenced;
@@ -85,7 +86,8 @@ public:
     void DriveCycleNone();
     void DriveCycleStart();
     void DriveHandler(void);
-    void DriveHoming(void);
+    void DriveHandlerHoming(void);
+//    void DriveHoming(void);
     void DriveHomingBackoff(void);
     void DriveMoveAdd(move new_move);
     void DriveMoveIncrementCurrent(void);
@@ -97,6 +99,7 @@ public:
     void DriveStartHoming();
     void DriveStep(void);
     void DriveStepHandler(void);
+    void DriveStepHandlerHoming(void);
     void DriveStop(void);
     void LimitHit(void);
     void OpenExtIRQ(void);

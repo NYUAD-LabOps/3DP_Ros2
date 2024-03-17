@@ -55,7 +55,7 @@ void ProcessManagerTitan::ProcessCommand(void)
                 break;
             case 'B':
                 ptr_drive_handlers[drive_index]->homing = HOMING_BACKOFF;
-                ptr_drive_handlers[drive_index]->DriveHoming();
+                ptr_drive_handlers[drive_index]->DriveStartHoming();
                 break;
             case 'M':
                 c_len = strlen((const char *)uartRx);

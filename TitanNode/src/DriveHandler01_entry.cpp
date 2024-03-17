@@ -29,24 +29,20 @@ void DriveHandler01_entry(void)
         DH1->DriveStartHoming();
     }
     max_moves = MAX_MOVE_COUNT;
+    for(i=0;i<max_moves;i++){
+        the_move.clock_cycle_target = 5000+i*5000;
+        the_move.clock_cycle_count = 0;
+        the_move.output = true;
+        the_move.frequency = 2500+ i*200;
+        DH1->DriveMoveAdd(the_move);
+    }
+//    DH1->DriveCycleStart();
     while (DH1)
     {
-        DH1->DriveHandler();
-        if(DH1->homed==HOMING_HOMED && drive_homed_==0){
-            printf("Drive Homed\n");
-            tx_thread_sleep(1000);
-            for(i=0;i<max_moves;i++){
-                the_move.pos = 1600+i*500;
-                the_move.frequency = 2500+ i*200;
-                DH1->DriveMoveAdd(the_move);
-            }
-//            for(i=max_moves;i>0;i--){
-//                the_move.pos = 10000+i*8;
-//                the_move.frequency = 5000+ i*6;
-//                DH1->DriveAddMove(the_move);
-//            }
-            drive_homed_ = 1;
-            DH1->DriveCycleStart();
+        if(DH1->homing_in_progress){
+            DH1->DriveHandlerHoming();
+        }else{
+            DH1->DriveHandler();
         }
         tx_thread_relinquish();
     }

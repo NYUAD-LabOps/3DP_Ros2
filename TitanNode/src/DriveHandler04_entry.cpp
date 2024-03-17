@@ -31,22 +31,10 @@ void DriveHandler04_entry(void)
     max_moves = MAX_MOVE_COUNT;
     while (DH4)
     {
-        DH4->DriveHandler();
-        if(DH4->homed==HOMING_HOMED && drive_homed_==0){
-            printf("Drive Homed\n");
-            tx_thread_sleep(1000);
-            for(i=0;i<max_moves;i++){
-                the_move.pos = 1600+i*500;
-                the_move.frequency = 2500+ i*200;
-                DH4->DriveMoveAdd(the_move);
-            }
-//            for(i=max_moves;i>0;i--){
-//                the_move.pos = 10000+i*8;
-//                the_move.frequency = 5000+ i*6;
-//                DH4->DriveAddMove(the_move);
-//            }
-            drive_homed_ = 1;
-            DH4->DriveCycleStart();
+        if(DH4->homing_in_progress){
+            DH4->DriveHandlerHoming();
+        }else{
+            DH4->DriveHandler();
         }
         tx_thread_relinquish();
     }
