@@ -12,7 +12,7 @@ SingleMotorLinearDrive* DH1 = NULL;
 
 void DriveHandler01_entry(void)
 {
-    int drive_homed_,i,max_moves;
+    int i;
     move the_move;
     tx_thread_sleep (5000);
     while(ptr_ProcessManager==NULL){
@@ -22,21 +22,31 @@ void DriveHandler01_entry(void)
         tx_thread_sleep (5000);
 //        tx_thread_relinquish();
     }
-    drive_homed_ = 0;
 //    DH1 = getDriveHandler(DRIVE_HANDLER_INDEX_01);
     DH1 = ptr_ProcessManager->ptr_drive_handlers[DRIVE_HANDLER_INDEX_01];
     if(DH1->homed==DRIVESTATENOTHOMED){
         DH1->DriveStartHoming();
     }
-    max_moves = MAX_MOVE_COUNT;
-    for(i=0;i<max_moves;i++){
-        the_move.clock_cycle_target = 5000+i*5000;
+    for(i=0;i<MAX_MOVE_COUNT;i++){
+        the_move.started = false;
+        the_move.finished = false;
+        the_move.move_type = MOVE_TYPE_CLOCK_COUNT;
         the_move.clock_cycle_count = 0;
+//        the_move.dir = DH1->dirFwd;
+        if(i<6){
+            the_move.dir = IOPORT_LEVEL_LOW;
+            the_move.frequency = 1000*(5 - i);
+            the_move.clock_cycle_target = 4800;
+        }else{
+            the_move.dir = IOPORT_LEVEL_HIGH;
+            the_move.frequency = 1000*(i-5);
+            the_move.clock_cycle_target = 4800;
+        }
+        the_move.posDelta = 0;
         the_move.output = true;
-        the_move.frequency = 2500+ i*200;
-        DH1->DriveMoveAdd(the_move);
+        DH1->move_data.DriveMoveAdd(the_move);
     }
-//    DH1->DriveCycleStart();
+    DH1->DriveCycleStart();
     while (DH1)
     {
         if(DH1->homing_in_progress){

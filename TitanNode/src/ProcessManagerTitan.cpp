@@ -39,6 +39,7 @@ void ProcessManagerTitan::ProcessCommand(void)
     int freq, drive_index, c_len;
     int i,x;
     ioport_level_t move_dir;
+    move the_move;
     char data[20];
     if (uartRx[0] == '@' && uartRx[1] == '@' && uartRx[2] == '@')
     {
@@ -58,11 +59,12 @@ void ProcessManagerTitan::ProcessCommand(void)
                 ptr_drive_handlers[drive_index]->DriveStartHoming();
                 break;
             case 'M':
+                the_move = *(ptr_drive_handlers[drive_index]->move_data.DriveMoveGetBlankMove());
                 c_len = strlen((const char *)uartRx);
                 if(uartRx[6]=='F'){
-                    move_dir = ptr_drive_handlers[drive_index]->dirFwd;
+                    the_move.dir = ptr_drive_handlers[drive_index]->dirFwd;
                 }else{
-                    move_dir = ptr_drive_handlers[drive_index]->dirRev;
+                    the_move.dir = ptr_drive_handlers[drive_index]->dirRev;
                 }
                 x = 0;
                 for(i=7;i<c_len;i++){
@@ -71,10 +73,11 @@ void ProcessManagerTitan::ProcessCommand(void)
                 }
                 data[x] = 0;
                 freq = atoi(data);
-                ptr_drive_handlers[drive_index]->DriveMoveGenericStart(freq, move_dir);
+                ptr_drive_handlers[drive_index]->move_data.DriveMoveAdd(the_move);
+                ptr_drive_handlers[drive_index]->DriveCycleStart();
                 break;
             case 'S':
-                ptr_drive_handlers[drive_index]->DriveMoveGenericStop();
+                ptr_drive_handlers[drive_index]->DriveMoveStop();
                 break;
         }
     }

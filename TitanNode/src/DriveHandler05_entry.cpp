@@ -12,7 +12,7 @@ SingleMotorLinearDrive* DH5 = NULL;
 
 void DriveHandler05_entry(void)
 {
-    int drive_homed_,i,max_moves;
+    int i;
     move the_move;
     tx_thread_sleep (5000);
     while(ptr_ProcessManager==NULL){
@@ -22,13 +22,7 @@ void DriveHandler05_entry(void)
         tx_thread_sleep (5000);
 //        tx_thread_relinquish();
     }
-    drive_homed_ = 0;
-//    DH5 = getDriveHandler(DRIVE_HANDLER_INDEX_05);
     DH5 = ptr_ProcessManager->ptr_drive_handlers[DRIVE_HANDLER_INDEX_05];
-    if(DH5->homed==DRIVESTATENOTHOMED){
-        DH5->DriveStartHoming();
-    }
-    max_moves = MAX_MOVE_COUNT;
     while (DH5)
     {
         if(DH5->homing_in_progress){

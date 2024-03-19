@@ -14,13 +14,14 @@
 #include "USB_IO.h"
 #include "math.h"
 #include "DriveUnitDefinedConstants.h"
-
+#include "DriveMoveData.h"
 
 #define BLOCK_SIZE_MOVE sizeof(move)
 
 class SingleMotorRotaryDrive
 {
 public:
+    DriveMoveData move_data;
     char controlCode;
     ioport_level_t dir;
     ioport_level_t dirFwd;
@@ -32,12 +33,7 @@ public:
     int drive_index;
     int drive_timer_index;
     TX_BLOCK_POOL move_block_pool;
-    int move_count;
     int move_cycle;
-    int move_generic;
-    int move_index;
-    int move_index_next;
-    move *move_list;
     ioport_level_t mtrDisableState;
     ioport_level_t mtrEnableState;
     ioport_level_t mtrEnabledStatus;
@@ -89,13 +85,10 @@ public:
     void DriveHandlerHoming(void);
 //    void DriveHoming(void);
     void DriveHomingBackoff(void);
-    void DriveMoveAdd(move new_move);
-    void DriveMoveIncrementCurrent(void);
-    void DriveMoveGeneric(void);
-    void DriveMoveGenericStart(int freq,ioport_level_t dir);
-    void DriveMoveGenericStop(void);
-    move DriveMoveGetCurrent(void);
-    void DriveSetMove(move the_move);
+//    void DriveMoveGeneric(void);
+//    void DriveMoveGenericStart(int freq,ioport_level_t dir);
+    void DriveMoveStop(void);
+//    void DriveSetMove(move the_move);
     void DriveStartHoming();
     void DriveStep(void);
     void DriveStepHandler(void);

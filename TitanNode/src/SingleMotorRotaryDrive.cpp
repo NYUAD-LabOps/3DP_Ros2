@@ -19,11 +19,6 @@ SingleMotorRotaryDrive::SingleMotorRotaryDrive()
     dirTarget = IOPORT_LEVEL_LOW;
     drive_index = 0;
     drive_timer_index = 0;
-    move_count = 0;
-    move_generic = 0;
-    move_index = 0;
-    move_index_next = 0;
-    move_list = NULL;
     mtrDisableState = IOPORT_LEVEL_LOW;;
     mtrEnableState = IOPORT_LEVEL_LOW;;
     mtrEnabledStatus = IOPORT_LEVEL_LOW;;
@@ -99,25 +94,6 @@ void SingleMotorRotaryDrive::DriveStartHoming()
     homing_in_progress = true;
 }
 
-void SingleMotorRotaryDrive::DriveMoveGeneric()
-{
-
-}
-
-void SingleMotorRotaryDrive::DriveMoveGenericStart(int new_frequency,ioport_level_t new_direction)
-{
-    SetDriveDir(new_direction);
-    SetTimerFrequency(new_frequency);
-    move_generic = 1;
-    TimerStart();
-}
-void SingleMotorRotaryDrive::DriveMoveGenericStop()
-{
-    DriveStop();
-    move_generic = 0;
-}
-
-
 void SingleMotorRotaryDrive::DriveHandlerHoming()
 {
     switch(homing){
@@ -147,7 +123,7 @@ void SingleMotorRotaryDrive::DriveHandlerHoming()
 }
 
 
-/*
+
 void SingleMotorRotaryDrive::DriveHandler()
 {
     if (homed==HOMING_HOMED && hasLimits)
@@ -157,79 +133,18 @@ void SingleMotorRotaryDrive::DriveHandler()
             DriveStop();
         }
     }
-    if(homing){
-        DriveHoming();
-        return;
-    }
-    if(move_generic){
-//        DriveMoveGeneric();
-        return;
-    }
     if(homed==HOMING_NOT_HOMED) return;
     if(move_cycle!=CYCLE_RUN) return;
-    while(move_count){
-//        move_current = move_list.front();
-//        move_list.pop_front();
-//        move_count = move_list.size();
-        posTarget = move_list[move_current].pos;
-        if(pos>posTarget){
-            dir = dirHome;
-        }else{
-            dir = dirFwd;
-        }
-        SetDriveDir(dir);
-        SetTimerFrequency(move_list[move_current].frequency);
-        DriveMoveIncrementCurrent();
-        while(pos!=posTarget){
+    while(move_data.buffer_empty==false){
+       move_data.DriveMoveGetNext();
+        SetDriveDir(move_data.move_current.dir);
+        SetTimerFrequency(move_data.move_current.frequency);
+        move_data.move_current.finished = false;
+        move_data.move_current.started = true;
+        while(move_data.move_current.finished==false){
             tx_thread_relinquish();
         }
-        if(move_count==0){
-            DriveStop();
-            move_cycle = CYCLE_NONE;
-        }
-    }
-
-
-}
-*/
-
-void SingleMotorRotaryDrive::DriveHandler()
-{
-    int i = 0;
-    if (homed==HOMING_HOMED && hasLimits)
-    {
-        if (pos > posSoftLimitForward || pos < posSoftLimitReverse)
-        {
-            DriveStop();
-        }
-    }
-    if(move_generic){
-//        DriveMoveGeneric();
-        return;
-    }
-    if(homed==HOMING_NOT_HOMED) return;
-    if(move_cycle!=CYCLE_RUN) return;
-    while(move_count){
-//        move_current = move_list.front();
-//        move_list.pop_front();
-//        move_count = move_list.size();
-        if(posTarget>pos){
-            dir = dirFwd;
-        }else{
-            dir = dirRev;
-        }
-        SetDriveDir(dir);
-        SetTimerFrequency(move_list[move_index].frequency);
-        DriveMoveIncrementCurrent();
-        while(pos!=posTarget){
-            if(pos>posTarget){
-                i = i+1;
-                i++;
-            }
-            tx_thread_relinquish();
-//            return;
-        }
-        if(move_count==0){
+        if(move_data.buffer_empty){
             DriveStop();
             move_cycle = CYCLE_NONE;
         }
@@ -332,59 +247,25 @@ void SingleMotorRotaryDrive::DriveStepHandler()
     {
         stepState = IOPORT_LEVEL_HIGH;
         pos += posDelta;
+        move_data.move_current.clock_cycle_count++;
     }
-    switch(motor_count)
-    {
-        case 1:
-            g_ioport.p_api->pinWrite (pinStep, stepState);
-            break;
-        case 2:
-            g_ioport.p_api->pinWrite (pinStep, stepState);
-            g_ioport.p_api->pinWrite (pinStep2, stepState);
-            break;
-        default:
-            break;
+    if(move_data.move_current.move_type!= MOVE_TYPE_CONTINUOUS && move_data.move_current.clock_cycle_count==move_data.move_current.clock_cycle_target){
+        move_data.move_current.finished = true;
     }
-
-
-
-/*
-    if(homing != HOMING_NOT_HOMING){
-        DriveHoming();
-        return;
-    }
-    if(homed!=HOMING_HOMED) return;
-    if(current_move){
-        if(current_move->output==true){
-            pos += posDelta;
-            if(stepState==IOPORT_LEVEL_HIGH){
-                stepState = IOPORT_LEVEL_LOW;
-            }else{
-                stepState = IOPORT_LEVEL_HIGH;
-            }
-            switch(motor_count)
-            {
-                case 1:
-                    g_ioport.p_api->pinWrite (pinStep, stepState);
-                    break;
-                case 2:
-                    g_ioport.p_api->pinWrite (pinStep, stepState);
-                    g_ioport.p_api->pinWrite (pinStep2, stepState);
-                    break;
-                default:
-                    break;
-            }
-            current_move->clock_cycle_count++;
-            if(current_move->clock_cycle_count==current_move->clock_cycle_target){
-                move_index++;
-                if(move_index<move_count){
-                    current_move = &(move_list[move_index]);
-                    SetTimerFrequency(current_move->frequency);
-                }
-            }
+    if(move_data.move_current.output){
+        switch(motor_count)
+        {
+            case 1:
+                g_ioport.p_api->pinWrite (pinStep, stepState);
+                break;
+            case 2:
+                g_ioport.p_api->pinWrite (pinStep, stepState);
+                g_ioport.p_api->pinWrite (pinStep2, stepState);
+                break;
+            default:
+                break;
         }
     }
-*/
 }
 
 void SingleMotorRotaryDrive::SetTimerFrequency(int new_targetFreq)
@@ -476,7 +357,7 @@ void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_st
     mb_status = tx_block_allocate(&move_block_pool, (void **)&memory_ptr, TX_NO_WAIT);
     switch(mb_status){
         case TX_SUCCESS: //  (0x00) Successful memory block allocation.
-            move_list = (move *)memory_ptr;
+            move_data.move_list = (move *)memory_ptr;
             printf("MB A - success\n");
             break;
         case TX_DELETED: //  (0x01) Memory block pool was deleted while thread was suspended.
@@ -503,20 +384,9 @@ void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_st
 
 
 
-    for (i = 0; i < MAX_MOVE_COUNT; i++)
-    {
-        move_list[i].frequency = 0;
-        move_list[i].dir = 0;
-        move_list[i].output = false;
-        move_list[i].move_type = MOVE_TYPE_CLOCK_COUNT_NO_OUTPUT;
-        move_list[i].clock_cycle_count = 0;
-        move_list[i].clock_cycle_target = 0;
-    }
     homed = HOMING_NOT_HOMED;
     homing = HOMING_NOT_HOMING;
     move_cycle = CYCLE_NONE;
-    move_count = 0;
-    move_index = 0;
     motor_count = 0;
 
 
@@ -612,30 +482,7 @@ void SingleMotorRotaryDrive::DriveStep()
     }
 }
 
-void SingleMotorRotaryDrive::DriveMoveAdd(move new_move)
-{
-    if(move_index==MAX_MOVE_COUNT){
-        move_index = 0;
-    }
-    move_list[move_index] = new_move;
-    move_index++;
-    move_count++;
-}
 
-move SingleMotorRotaryDrive::DriveMoveGetCurrent(void)
-{
-    return move_list[move_index];
-}
-
-void SingleMotorRotaryDrive::DriveMoveIncrementCurrent(void)
-{
-    move_index++;
-    if(move_index==MAX_MOVE_COUNT) move_index = 0;
-    move_count--;
-    if(move_count==0){
-        move_index = 0;
-    }
-}
 
 
 void SingleMotorRotaryDrive::DriveCycleFeedHold()
@@ -651,4 +498,8 @@ void SingleMotorRotaryDrive::DriveCycleStart()
     move_cycle = CYCLE_RUN;
 }
 
-
+void SingleMotorRotaryDrive::DriveMoveStop(void)
+{
+    DriveCycleNone();
+    DriveStop();
+}

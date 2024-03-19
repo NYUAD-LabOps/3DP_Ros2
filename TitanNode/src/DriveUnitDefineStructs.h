@@ -10,14 +10,6 @@
 
 #include "fx_api.h"
 
-typedef struct move_instruction{
-    bool output;
-    int dir;
-    int frequency;
-    int move_type;
-    long clock_cycle_target;
-    long clock_cycle_count;
-}move;
 
 typedef struct fileDataUSB
 {
