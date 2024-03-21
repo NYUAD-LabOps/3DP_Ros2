@@ -85,7 +85,6 @@ void SingleMotorRotaryDrive::DriveStartHoming()
     R_BSP_SoftwareDelay (DEBOUNCE_TIME, BSP_DELAY_UNITS_MILLISECONDS);
     g_ioport.p_api->pinRead (pinLimit0, &level);
     limit0State = level;
-    posDelta = 1;
     if(limit0State == LIMITACTIVESTATE) DriveHomingBackoff();
     SetDriveDir(dirHome);
     SetTimerFrequency(freqHome);
@@ -492,6 +491,8 @@ void SingleMotorRotaryDrive::DriveCycleFeedHold()
 void SingleMotorRotaryDrive::DriveCycleNone()
 {
     move_cycle = CYCLE_NONE;
+    move_data.buffer_empty = true;
+    move_data.move_current.finished = true;
 }
 void SingleMotorRotaryDrive::DriveCycleStart()
 {

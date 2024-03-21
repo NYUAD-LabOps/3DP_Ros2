@@ -37,11 +37,13 @@ void ProcessManagerTitan::ProcessManager_Main(void)
 void ProcessManagerTitan::ProcessCommand(void)
 {
     int freq, drive_index, c_len;
+
     int i,x;
     ioport_level_t move_dir;
     move the_move;
-    char data[20];
-    if (uartRx[0] == '@' && uartRx[1] == '@' && uartRx[2] == '@')
+    char data[25];
+    char m_type[2],m_freq[6];
+    if (VerifyAck(uartRx))
     {
         data[0] = uartRx[4];
         data[1] = uartRx[5];
@@ -66,13 +68,28 @@ void ProcessManagerTitan::ProcessCommand(void)
                 }else{
                     the_move.dir = ptr_drive_handlers[drive_index]->dirRev;
                 }
+                m_type[0] = uartRx[7];
+                m_type[1] = 0;
+                the_move.move_type = atoi(m_type);
+                if(the_move.move_type){
+                    the_move.output = true;
+                }else{
+                    the_move.output = false;
+                }
                 x = 0;
-                for(i=7;i<c_len;i++){
+                for(i=8;i<13;i++){
                     data[x] = uartRx[i];
                     x++;
                 }
                 data[x] = 0;
-                freq = atoi(data);
+                the_move.frequency = atoi(data);
+                x = 0;
+                for(i=13;i<c_len;i++){
+                    data[x] = uartRx[i];
+                    x++;
+                }
+                data[x] = 0;
+                the_move.clock_cycle_target = atoi(data);
                 ptr_drive_handlers[drive_index]->move_data.DriveMoveAdd(the_move);
                 ptr_drive_handlers[drive_index]->DriveCycleStart();
                 break;
@@ -83,4 +100,14 @@ void ProcessManagerTitan::ProcessCommand(void)
     }
 }
 
+bool ProcessManagerTitan::VerifyAck(char *data_buffer)
+{
+    if (data_buffer[0] == '@' && data_buffer[1] == '@' && data_buffer[2] == '@') return true;
+    return false;
+}
+
+move * ProcessManagerTitan::ParseMessage(char *message_buffer)
+{
+    return &a_move;
+}
 

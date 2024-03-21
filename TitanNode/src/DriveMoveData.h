@@ -11,7 +11,6 @@
 #include "fx_api.h"
 #include "DriveUnitDefinedConstants.h"
 
-
 typedef struct move_instruction{
     bool output;
     bool finished;
@@ -35,6 +34,7 @@ public:
     move blank_move;
     move move_current;
     int move_index;
+//    move move_list[MAX_MOVE_COUNT];
     move *move_list;
 
 public:

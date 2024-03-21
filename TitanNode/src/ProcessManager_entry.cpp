@@ -11,8 +11,8 @@ ProcessManagerTitan* ptr_ProcessManager = NULL;
 #define CDCACM_FLAG ((ULONG)0x0001)
 
 /* CDC-ACM reception data buffer. */
-static unsigned char buffer[UX_BUFFER_SIZE];
-unsigned char *uartRx;
+static char buffer[UX_BUFFER_SIZE];
+char *uartRx;
 
 int USB_Device_connected = 0;
 
@@ -131,7 +131,7 @@ void USB_Device_UART_entry()
     USB_Device_connected = 1;
 }
 
-extern unsigned char *uartRx;
+extern char *uartRx;
 
 int USBDeviceDataWatchDownloadFile(void)
 {
@@ -149,10 +149,10 @@ int USBDeviceDataWatch(void)
     for(i=0;i<WIFI_PACKET_SIZE;i++){
             uartRx[i] = 0;
     }
-    status = ux_device_class_cdc_acm_read (g_cdc, uartRx, WIFI_PACKET_SIZE, &actual_length);
+    status = ux_device_class_cdc_acm_read (g_cdc, (unsigned char *)uartRx, WIFI_PACKET_SIZE, &actual_length);
     printf("The data =>*** %s ***\n",uartRx);
     i = strlen((char *)uartRx);
-    ux_device_class_cdc_acm_write (g_cdc, uartRx, i, &actual_length);
+    ux_device_class_cdc_acm_write (g_cdc, (unsigned char *)uartRx, i, &actual_length);
 
     if (status)
     {
@@ -171,7 +171,7 @@ int USBDeviceDataWatch(void)
                 datafound = CDC_COMMAND_GENERIC;
                 break;
         }
-        status = ux_device_class_cdc_acm_write (g_cdc, uartRx, WIFI_PACKET_SIZE, &actual_length);
+        status = ux_device_class_cdc_acm_write (g_cdc, (unsigned char *)uartRx, WIFI_PACKET_SIZE, &actual_length);
         return datafound;
     }
     printf ("%d characters read\n", (int) actual_length);

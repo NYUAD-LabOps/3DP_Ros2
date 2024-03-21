@@ -9,12 +9,12 @@
 
 DriveMoveData::DriveMoveData()
 {
+    move_list = NULL;
     head = 0;
     tail = 0;
     buffer_empty = true;
     buffer_full = false;
     move_index = 0;
-    move_list = NULL;;
     blank_move.clock_cycle_count = 0;
     blank_move.clock_cycle_target = 0;
     blank_move.dir = IOPORT_LEVEL_LOW;
@@ -50,14 +50,11 @@ void DriveMoveData::DriveMoveGetNext(void)
 
 int DriveMoveData::DriveMoveAdd(move new_move)
 {
-    int tmp_head;
     if(buffer_full) return MOVE_ADD_FAIL_BUFFER_FULL;
     move_list[head] = new_move;
-    tmp_head = head;
-    tmp_head++;
-    if(tmp_head>=MAX_MOVE_COUNT) tmp_head = 0;
-    if(tmp_head==tail){
-        head = tmp_head;
+    head++;
+    if(head>=MAX_MOVE_COUNT) head = 0;
+    if(head==tail){
         buffer_full = true;
     }
     buffer_empty = false;
