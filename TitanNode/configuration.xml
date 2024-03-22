@@ -618,7 +618,7 @@
       <property id="module.driver.transfer.activation_source" value="module.driver.transfer.event.event_elc_software_event_0"/>
       <property id="module.driver.transfer.auto_enable" value="module.driver.transfer.auto_enable.true"/>
       <property id="module.driver.transfer.p_callback" value="NULL"/>
-      <property id="module.driver.transfer.irq_ipl" value="board.icu.common.irq.priority1"/>
+      <property id="module.driver.transfer.irq_ipl" value="board.icu.common.irq.priority10"/>
     </module>
     <module id="module.driver.transfer_on_dmac.1434976051">
       <property id="module.driver.transfer.name" value="g_transfer1"/>
@@ -636,7 +636,7 @@
       <property id="module.driver.transfer.activation_source" value="module.driver.transfer.event.event_elc_software_event_0"/>
       <property id="module.driver.transfer.auto_enable" value="module.driver.transfer.auto_enable.true"/>
       <property id="module.driver.transfer.p_callback" value="NULL"/>
-      <property id="module.driver.transfer.irq_ipl" value="board.icu.common.irq.priority1"/>
+      <property id="module.driver.transfer.irq_ipl" value="board.icu.common.irq.priority10"/>
     </module>
     <module id="module.el.ux_src.509014718">
       <property id="module.el.ux_src.linkage_warning" value="module.el.ux_src.linkage_warning.disabled"/>
@@ -1016,7 +1016,7 @@
       <property id="module.driver.transfer.activation_source" value="module.driver.transfer.event.event_elc_software_event_0"/>
       <property id="module.driver.transfer.auto_enable" value="module.driver.transfer.auto_enable.true"/>
       <property id="module.driver.transfer.p_callback" value="NULL"/>
-      <property id="module.driver.transfer.irq_ipl" value="board.icu.common.irq.priority1"/>
+      <property id="module.driver.transfer.irq_ipl" value="board.icu.common.irq.priority5"/>
     </module>
     <module id="module.driver.transfer_on_dmac.1935911454">
       <property id="module.driver.transfer.name" value="g_transfer3"/>
@@ -1034,7 +1034,7 @@
       <property id="module.driver.transfer.activation_source" value="module.driver.transfer.event.event_elc_software_event_0"/>
       <property id="module.driver.transfer.auto_enable" value="module.driver.transfer.auto_enable.true"/>
       <property id="module.driver.transfer.p_callback" value="NULL"/>
-      <property id="module.driver.transfer.irq_ipl" value="board.icu.common.irq.priority1"/>
+      <property id="module.driver.transfer.irq_ipl" value="board.icu.common.irq.priority5"/>
     </module>
     <module id="module.el.ux_device_class_cdc_acm_src.694434168">
       <property id="module.el.ux_device_class_cdc_acm_src.linkage_warning" value="module.el.ux_device_class_cdc_acm_src.linkage_warning.disabled"/>
@@ -1214,7 +1214,7 @@
       <property id="config.framework.sf_el_ux.fs_irq_ipl" value="board.icu.common.irq.disabled"/>
     </config>
     <config id="config.framework.sf_el_ux_hcd_hs">
-      <property id="config.framework.sf_el_ux_hcd_hs.irq_ipl" value="board.icu.common.irq.priority2"/>
+      <property id="config.framework.sf_el_ux_hcd_hs.irq_ipl" value="board.icu.common.irq.priority11"/>
       <property id="config.framework.sf_el_ux_hcd_hs.fifo_size" value="config.framework.sf_el_ux_hcd_hs.fifo_size.normal"/>
       <property id="config.framework.sf_el_ux_hcd_hs.bulk_pipe_start_index" value="config.framework.sf_el_ux_hcd_hs.bulk_pipe_start_index.pipe1"/>
       <property id="config.framework.sf_el_ux_hcd_hs.VBUSENpin_logic" value="config.framework.sf_el_ux_hcd_hs.VBUSENpin_logic.active_high"/>
@@ -1229,7 +1229,7 @@
       <property id="config.framework.sf_el_ux_dcd_hs.irq_ipl" value="board.icu.common.irq.disabled"/>
     </config>
     <config id="config.framework.sf_el_ux_dcd_fs">
-      <property id="config.framework.sf_el_ux_dcd_fs.irq_ipl" value="board.icu.common.irq.priority2"/>
+      <property id="config.framework.sf_el_ux_dcd_fs.irq_ipl" value="board.icu.common.irq.priority6"/>
       <property id="config.framework.sf_el_ux_dcd_fs.VCC_LDO_Regulator" value="config.framework.sf_el_ux_dcd_fs.VCC_LDO_Regulator.disabled"/>
     </config>
     <config id="config.el.ux_src">

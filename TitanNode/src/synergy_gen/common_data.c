@@ -278,7 +278,7 @@ __root static const unsigned char g_usb_interface_desc_cdcacm_0_high_speed[] BSP
 #endif
 #endif
 #endif
-#if (1) != BSP_IRQ_DISABLED
+#if (5) != BSP_IRQ_DISABLED
 #if !defined(SSP_SUPPRESS_ISR_g_transfer3) && !defined(SSP_SUPPRESS_ISR_DMACELC_EVENT_USBFS_FIFO_1)
 SSP_VECTOR_DEFINE_CHAN(dmac_int_isr, DMAC, INT, 3);
 #endif
@@ -304,12 +304,12 @@ const transfer_cfg_t g_transfer3_cfg =
   .auto_enable = false,
   .p_callback = NULL,
   .p_context = &g_transfer3,
-  .irq_ipl = (1),
+  .irq_ipl = (5),
   .p_extend = &g_transfer3_extend, };
 /* Instance structure to use this module. */
 const transfer_instance_t g_transfer3 =
 { .p_ctrl = &g_transfer3_ctrl, .p_cfg = &g_transfer3_cfg, .p_api = &g_transfer_on_dmac };
-#if (1) != BSP_IRQ_DISABLED
+#if (5) != BSP_IRQ_DISABLED
 #if !defined(SSP_SUPPRESS_ISR_g_transfer2) && !defined(SSP_SUPPRESS_ISR_DMACELC_EVENT_USBFS_FIFO_0)
 SSP_VECTOR_DEFINE_CHAN(dmac_int_isr, DMAC, INT, 2);
 #endif
@@ -335,7 +335,7 @@ const transfer_cfg_t g_transfer2_cfg =
   .auto_enable = false,
   .p_callback = NULL,
   .p_context = &g_transfer2,
-  .irq_ipl = (1),
+  .irq_ipl = (5),
   .p_extend = &g_transfer2_extend, };
 /* Instance structure to use this module. */
 const transfer_instance_t g_transfer2 =
@@ -1173,7 +1173,7 @@ void g_ux_device_class_cdc_acm0_ux_device_open_init(void)
     /* Register the class into slave stack */
     ux_device_class_cdc_acm_init0 ();
 }
-#if (1) != BSP_IRQ_DISABLED
+#if (10) != BSP_IRQ_DISABLED
 #if !defined(SSP_SUPPRESS_ISR_g_transfer1) && !defined(SSP_SUPPRESS_ISR_DMACELC_EVENT_ELC_SOFTWARE_EVENT_1)
 SSP_VECTOR_DEFINE_CHAN(dmac_int_isr, DMAC, INT, 1);
 #endif
@@ -1196,11 +1196,11 @@ const transfer_on_dmac_cfg_t g_transfer1_extend =
 const transfer_cfg_t g_transfer1_cfg =
 { .p_info = &g_transfer1_info, .activation_source = ELC_EVENT_ELC_SOFTWARE_EVENT_1, .auto_enable = false, .p_callback =
           NULL,
-  .p_context = &g_transfer1, .irq_ipl = (1), .p_extend = &g_transfer1_extend, };
+  .p_context = &g_transfer1, .irq_ipl = (10), .p_extend = &g_transfer1_extend, };
 /* Instance structure to use this module. */
 const transfer_instance_t g_transfer1 =
 { .p_ctrl = &g_transfer1_ctrl, .p_cfg = &g_transfer1_cfg, .p_api = &g_transfer_on_dmac };
-#if (1) != BSP_IRQ_DISABLED
+#if (10) != BSP_IRQ_DISABLED
 #if !defined(SSP_SUPPRESS_ISR_g_transfer0) && !defined(SSP_SUPPRESS_ISR_DMACELC_EVENT_ELC_SOFTWARE_EVENT_0)
 SSP_VECTOR_DEFINE_CHAN(dmac_int_isr, DMAC, INT, 0);
 #endif
@@ -1223,7 +1223,7 @@ const transfer_on_dmac_cfg_t g_transfer0_extend =
 const transfer_cfg_t g_transfer0_cfg =
 { .p_info = &g_transfer0_info, .activation_source = ELC_EVENT_ELC_SOFTWARE_EVENT_0, .auto_enable = false, .p_callback =
           NULL,
-  .p_context = &g_transfer0, .irq_ipl = (1), .p_extend = &g_transfer0_extend, };
+  .p_context = &g_transfer0, .irq_ipl = (10), .p_extend = &g_transfer0_extend, };
 /* Instance structure to use this module. */
 const transfer_instance_t g_transfer0 =
 { .p_ctrl = &g_transfer0_ctrl, .p_cfg = &g_transfer0_cfg, .p_api = &g_transfer_on_dmac };

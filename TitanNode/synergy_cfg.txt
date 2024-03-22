@@ -698,7 +698,7 @@ Synergy Configuration
     Remove Filex dependency on host class: Disabled (default)
     
   Module "USBX Port HCD on sf_el_ux for USBHS"
-    High Speed Interrupt Priority: Priority 2
+    High Speed Interrupt Priority: Priority 11
     FIFO size for Bulk/Isochronous Pipes: 512 bytes(default)
     Number of Isochronous Pipes Reserved: 0(default)
     VBUSEN pin Signal Logic: Active High
@@ -787,7 +787,7 @@ Synergy Configuration
     
   Module "USBX Interface Configuration CDC-ACM"
   Module "USBX Port DCD on sf_el_ux for USBFS"
-    Full Speed Interrupt Priority: Priority 2
+    Full Speed Interrupt Priority: Priority 6
     LDO Regulator(Only for S3 and S1 part MCUs): Disable
     
   Module "USBX Device Class CDC-ACM Source"
@@ -1173,7 +1173,7 @@ Synergy Configuration
               Activation Source: ELC SOFTWARE EVENT 0
               Auto Enable: False
               Callback: NULL
-              Transfer End Interrupt Priority: Priority 1
+              Transfer End Interrupt Priority: Priority 10
               
             Instance "g_transfer1 Transfer Driver on r_dmac ELC SOFTWARE EVENT 1"
               Name: g_transfer1
@@ -1191,7 +1191,7 @@ Synergy Configuration
               Activation Source: ELC SOFTWARE EVENT 1
               Auto Enable: False
               Callback: NULL
-              Transfer End Interrupt Priority: Priority 1
+              Transfer End Interrupt Priority: Priority 10
               
           Instance "USBX on ux"
             USBX Pool Memory Name: g_ux_pool_memory
@@ -1267,7 +1267,7 @@ Synergy Configuration
             Activation Source: USBFS FIFO 0
             Auto Enable: False
             Callback: NULL
-            Transfer End Interrupt Priority: Priority 1
+            Transfer End Interrupt Priority: Priority 5
             
           Instance "g_transfer3 Transfer Driver on r_dmac USBFS FIFO 1"
             Name: g_transfer3
@@ -1285,7 +1285,7 @@ Synergy Configuration
             Activation Source: USBFS FIFO 1
             Auto Enable: False
             Callback: NULL
-            Transfer End Interrupt Priority: Priority 1
+            Transfer End Interrupt Priority: Priority 5
             
         Instance "USBX on ux"
           USBX Pool Memory Name: g_ux_pool_memory

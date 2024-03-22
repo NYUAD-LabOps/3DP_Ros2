@@ -5,7 +5,7 @@
 
 #if (SF_EL_UX_DCD_CFG_FS_IRQ_IPL == BSP_IRQ_DISABLED)
 #undef SF_EL_UX_DCD_CFG_FS_IRQ_IPL
-#define SF_EL_UX_DCD_CFG_FS_IRQ_IPL      (2)
+#define SF_EL_UX_DCD_CFG_FS_IRQ_IPL      (6)
 #endif
 
 #if (0)

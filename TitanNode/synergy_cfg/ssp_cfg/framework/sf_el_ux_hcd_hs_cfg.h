@@ -33,7 +33,7 @@
 
 #if (SF_EL_UX_HCD_CFG_HS_IRQ_IPL == BSP_IRQ_DISABLED)
 #undef SF_EL_UX_HCD_CFG_HS_IRQ_IPL
-#define SF_EL_UX_HCD_CFG_HS_IRQ_IPL      (2)
+#define SF_EL_UX_HCD_CFG_HS_IRQ_IPL      (11)
 #define UX_HCD_SYNERY_USE_USBHS
 #endif
 #endif /* SF_EL_UX_HCD_HS_CFG_H_ */
