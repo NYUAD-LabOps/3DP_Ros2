@@ -4,7 +4,7 @@
 TX_THREAD ProcessManager;
 void ProcessManager_create(void);
 static void ProcessManager_func(ULONG thread_input);
-static uint8_t ProcessManager_stack[2048] BSP_PLACE_IN_SECTION_V2(".stack.ProcessManager") BSP_ALIGN_VARIABLE_V2(BSP_STACK_ALIGNMENT);
+static uint8_t ProcessManager_stack[4096] BSP_PLACE_IN_SECTION_V2(".stack.ProcessManager") BSP_ALIGN_VARIABLE_V2(BSP_STACK_ALIGNMENT);
 void tx_startup_err_callback(void *p_instance, void *p_data);
 void tx_startup_common_init(void);
 TX_SEMAPHORE g_cdc_activate_semaphore;
@@ -42,7 +42,7 @@ void ProcessManager_create(void)
 
     UINT err;
     err = tx_thread_create (&ProcessManager, (CHAR*) "ProcessManager", ProcessManager_func, (ULONG) NULL,
-                            &ProcessManager_stack, 2048, 12, 12, 1, TX_AUTO_START);
+                            &ProcessManager_stack, 4096, 12, 12, 1, TX_AUTO_START);
     if (TX_SUCCESS != err)
     {
         tx_startup_err_callback (&ProcessManager, 0);

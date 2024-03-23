@@ -12,21 +12,23 @@
 
 
 typedef struct move_message{
-    char action[1];
-    char drive[1];
-    char dir[1];
-    char type[1];
-    char freq[6];
-    char cycle_count[20];
+    int drive;
+    int type;
+    int freq;
+    unsigned long clock_cycle_target;
 }move_msg;
 
 typedef struct message_header{
     char ack[3];
-    char action[1];
-    char msg_length[4];
-    char move_count[4];
-    char cycle_start[8];
+    int msg_length;
+    int move_count;
+    int cycle_start;
 }msg_hdr;
+
+typedef struct move_msg_hdr{
+    msg_hdr the_header;
+    move_msg the_first_message;
+}move_msg_hdr_ptr;
 
 
 #define MSG_HDR_SIZE        sizeof(msg_hdr)

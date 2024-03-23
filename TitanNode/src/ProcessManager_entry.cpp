@@ -144,12 +144,14 @@ int USBDeviceDataWatch(void)
     bool datafound = false;
     unsigned long status;
     unsigned long actual_length;
+    move_msg_hdr_ptr *move_message_hdr;
     USB_Device_connected = 1;
     int i;
     for(i=0;i<WIFI_PACKET_SIZE;i++){
             uartRx[i] = 0;
     }
     status = ux_device_class_cdc_acm_read (g_cdc, (unsigned char *)uartRx, WIFI_PACKET_SIZE, &actual_length);
+    move_message_hdr = (move_msg_hdr_ptr *)uartRx;
     printf("The data =>*** %s ***\n",uartRx);
     i = strlen((char *)uartRx);
     ux_device_class_cdc_acm_write (g_cdc, (unsigned char *)uartRx, i, &actual_length);

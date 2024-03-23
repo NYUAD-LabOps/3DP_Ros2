@@ -1131,7 +1131,7 @@ Synergy Configuration
   Thread "ProcessManager"
     Symbol: ProcessManager
     Name: ProcessManager
-    Stack size (bytes): 2048
+    Stack size (bytes): 4096
     Priority: 12
     Auto start: Enabled
     Time slicing interval (ticks): 1
@@ -1333,7 +1333,7 @@ Synergy Configuration
   Thread "USB_CDC_Read"
     Symbol: USB_CDC_Read
     Name: USB_CDC_Read
-    Stack size (bytes): 1024
+    Stack size (bytes): 4096
     Priority: 1
     Auto start: Enabled
     Time slicing interval (ticks): 1

@@ -30,14 +30,15 @@ void DriveHandler01_entry(void)
     for(i=0;i<MAX_MOVE_COUNT;i++){
         the_move.started = false;
         the_move.finished = false;
-        the_move.move_type = MOVE_TYPE_CLOCK_COUNT;
         the_move.clock_cycle_count = 0;
 //        the_move.dir = DH1->dirFwd;
         if(i<6){
+            the_move.move_type = MOVE_TYPE_CLOCK_COUNT_REV;
             the_move.dir = IOPORT_LEVEL_LOW;
             the_move.frequency = 1000*(5 - i);
             the_move.clock_cycle_target = 4800;
         }else{
+            the_move.move_type = MOVE_TYPE_CLOCK_COUNT_FWD;
             the_move.dir = IOPORT_LEVEL_HIGH;
             the_move.frequency = 1000*(i-5);
             the_move.clock_cycle_target = 4800;

@@ -238,6 +238,7 @@ void SingleMotorRotaryDrive::DriveStepHandlerHoming()
 ///Handles counting steps, stopping the motor when target position is reached, and toggling the STEP pin.
 void SingleMotorRotaryDrive::DriveStepHandler()
 {
+    bool move_type_continuous;
     if (stepState == IOPORT_LEVEL_HIGH)
     {
         stepState = IOPORT_LEVEL_LOW;
@@ -248,7 +249,14 @@ void SingleMotorRotaryDrive::DriveStepHandler()
         pos += posDelta;
         move_data.move_current.clock_cycle_count++;
     }
-    if(move_data.move_current.move_type!= MOVE_TYPE_CONTINUOUS && move_data.move_current.clock_cycle_count==move_data.move_current.clock_cycle_target){
+    if(move_data.move_current.move_type== MOVE_TYPE_CONTINUOUS_FWD){
+        move_type_continuous = true;
+    }else if(move_data.move_current.move_type== MOVE_TYPE_CONTINUOUS_REV){
+        move_type_continuous = true;
+    }else{
+        move_type_continuous = false;
+    }
+    if(move_type_continuous && (move_data.move_current.clock_cycle_count==move_data.move_current.clock_cycle_target)){
         move_data.move_current.finished = true;
     }
     if(move_data.move_current.output){
