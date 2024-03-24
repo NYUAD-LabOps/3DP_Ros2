@@ -11,6 +11,27 @@
 #include "SingleMotorLinearDrive.h"
 
 
+typedef struct move_message_char{
+    char drive[2];
+    char type[2];
+    char freq[7];
+    char clock_cycle_target[7];
+}move_msg_char;
+
+typedef struct message_header_char{
+    char ack[3];
+    char msg_length[2];
+    char move_count[2];
+    char cycle_start[2];
+}msg_hdr_char;
+
+typedef struct move_msg_hdr_char{
+    msg_hdr_char the_header;
+    move_msg_char the_first_message;
+}move_msg_hdr_char_ptr;
+
+
+
 typedef struct move_message{
     int drive;
     int type;
