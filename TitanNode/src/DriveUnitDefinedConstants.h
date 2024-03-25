@@ -69,10 +69,11 @@ constexpr uintptr_t BASE_MEMORY_ADDRESS_MOVES = BASE_MEMORY_ADDRESS_USB + USB_BL
 
 
 #define MOVE_TYPE_CLOCK_COUNT_NO_OUTPUT     0
-#define MOVE_TYPE_CONTINUOUS_FWD            1
-#define MOVE_TYPE_CONTINUOUS_REV            2
-#define MOVE_TYPE_CLOCK_COUNT_FWD           3
-#define MOVE_TYPE_CLOCK_COUNT_REV           4
+#define MOVE_TYPE_HOME                      1
+#define MOVE_TYPE_CONTINUOUS_FWD            2
+#define MOVE_TYPE_CONTINUOUS_REV            3
+#define MOVE_TYPE_CLOCK_COUNT_FWD           4
+#define MOVE_TYPE_CLOCK_COUNT_REV           5
 
 
 

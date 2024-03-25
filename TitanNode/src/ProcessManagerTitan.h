@@ -20,7 +20,6 @@ typedef struct move_message_char{
 
 typedef struct message_header_char{
     char ack[3];
-    char msg_length[2];
     char move_count[2];
     char cycle_start[2];
 }msg_hdr_char;
