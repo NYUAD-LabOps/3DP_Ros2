@@ -20,14 +20,14 @@ typedef struct move_message_char{
 
 typedef struct message_header_char{
     char ack[3];
-    char move_count[2];
+    char move_count[3];
     char cycle_start[2];
 }msg_hdr_char;
 
-typedef struct move_msg_hdr_char{
-    msg_hdr_char the_header;
-    move_msg_char the_first_message;
-}move_msg_hdr_char_ptr;
+//typedef struct move_msg_hdr_char{
+//    msg_hdr_char the_header;
+//    move_msg_char the_first_message;
+//}move_msg_hdr_char_ptr;
 
 
 
@@ -40,15 +40,14 @@ typedef struct move_message{
 
 typedef struct message_header{
     char ack[3];
-    int msg_length;
     int move_count;
     int cycle_start;
 }msg_hdr;
 
-typedef struct move_msg_hdr{
-    msg_hdr the_header;
-    move_msg the_first_message;
-}move_msg_hdr_ptr;
+//typedef struct move_msg_hdr{
+//    msg_hdr the_header;
+//    move_msg the_messages[MAX_MOVE_MSGS];
+//}move_msg_hdr_ptr;
 
 
 #define MSG_HDR_SIZE        sizeof(msg_hdr)
@@ -57,10 +56,11 @@ typedef struct move_msg_hdr{
 class ProcessManagerTitan
 {
 public:
-    msg_hdr     message_header;
-    move_msg    move_message;
-    move        a_move;
-    int         message_count;
+    //move_msg_hdr_ptr    move_message_hdr_ptr;
+    msg_hdr             message_header;
+    move_msg            move_message;
+    move                a_move;
+    int                 message_count;
     SingleMotorLinearDrive *ptr_drive_handlers[MAX_DRIVES];
     SingleMotorLinearDrive *ptr_motor_timers[MAX_MOTOR_TIMERS];
     SingleMotorLinearDrive *ptr_limitswitches[MAX_LIMIT_SWITCHES];
@@ -75,9 +75,13 @@ public:
     virtual ~ProcessManagerTitan();
     void ProcessManager_Main(void);
     void ProcessCommand(void);
-    move * ParseMessage(char *message_buffer);
-    bool VerifyAck(char *data_buffer);
-
+    bool VerifyAck(msg_hdr *the_msg_hdr);
+    void ParseMessageZeroStructures(void);
+    void ParseMessageZeroStructureHeader(void);
+    void ParseMessageZeroStructureMoveMsgHeader(void);
+    void ParseMessageZeroStructureMoveQty(move *the_moves,int count);
+    void ParseMessageExtractHeaderFromChar(char *message_buffer);
+    void ParseMessageExtractMoveFromChar(char *message_buffer);
 };
 
 #endif /* PROCESSMANAGERTITAN_H_ */

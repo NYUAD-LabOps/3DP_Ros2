@@ -86,7 +86,7 @@ void SingleMotorRotaryDrive::DriveStartHoming()
     g_ioport.p_api->pinRead (pinLimit0, &level);
     limit0State = level;
     if(limit0State == LIMITACTIVESTATE) DriveHomingBackoff();
-    SetDriveDir(dirHome);
+    SetDriveDir(MOVE_TYPE_HOME);
     SetTimerFrequency(freqHome);
     homing = HOMING_GOTOHOME;
     homed = HOMING_NOT_HOMED;
@@ -105,7 +105,7 @@ void SingleMotorRotaryDrive::DriveHandlerHoming()
             break;
         case HOMING_BACKOFF:
             DriveStop();
-            SetDriveDir(dirFwd);
+            SetDriveDir(MOVE_TYPE_CLOCK_COUNT_FWD);
             SetTimerFrequency(freqHome);
             TimerStart();
             homing = HOMING_BACKINGOFF;
@@ -135,12 +135,11 @@ void SingleMotorRotaryDrive::DriveHandler()
     if(homed==HOMING_NOT_HOMED) return;
     if(move_cycle!=CYCLE_RUN) return;
     while(move_data.buffer_empty==false){
-       move_data.DriveMoveGetNext();
-        SetDriveDir(move_data.move_current.dir);
+        move_data.DriveMoveGetNext();
+        move_data.move_current_finished = false;
+        SetDriveDir(move_data.move_current.move_type);
         SetTimerFrequency(move_data.move_current.frequency);
-        move_data.move_current.finished = false;
-        move_data.move_current.started = true;
-        while(move_data.move_current.finished==false){
+        while(!move_data.move_current_finished){
             tx_thread_relinquish();
         }
         if(move_data.buffer_empty){
@@ -159,14 +158,40 @@ void SingleMotorRotaryDrive::SetTimerPointer(timer_instance_t *ptr_gpt_timer)
 
 
 
-void SingleMotorRotaryDrive::SetDriveDir(ioport_level_t target_Dir)
+void SingleMotorRotaryDrive::SetDriveDir(int move_type)
 {
-
-    dir = target_Dir;
-    if(dir==dirFwd){
-        posDelta = 1;
-    }else{
-        posDelta = -1;
+    switch(move_type){
+        case MOVE_TYPE_CLOCK_COUNT_NO_OUTPUT:
+            dir=dirFwd;
+            posDelta = 0;
+            break;
+        case MOVE_TYPE_HOME:
+            dir=dirHome;
+            posDelta = 1;
+            if(dirHome==dirRev){
+                posDelta = -1;
+            }
+            break;
+        case MOVE_TYPE_HOME_HOMING_BACK_OFF:
+            dir=dirFwd;
+            posDelta = 1;
+            break;
+        case MOVE_TYPE_CONTINUOUS_FWD:
+            dir=dirFwd;
+            posDelta = 1;
+            break;
+        case MOVE_TYPE_CONTINUOUS_REV:
+            dir=dirRev;
+            posDelta = -1;
+            break;
+        case MOVE_TYPE_CLOCK_COUNT_FWD:
+            dir=dirFwd;
+            posDelta = 1;
+            break;
+        case MOVE_TYPE_CLOCK_COUNT_REV:
+            dir=dirRev;
+            posDelta = -1;
+            break;
     }
     switch(motor_count){
         case 1:
@@ -185,8 +210,8 @@ void SingleMotorRotaryDrive::DriveStop()
 {
 
     TimerStop ();
+    move_data.DriveMoveStop();
     frequency = 0;
-
 }
 
 /**Handles behavior when limit switch is activated*/
@@ -238,7 +263,6 @@ void SingleMotorRotaryDrive::DriveStepHandlerHoming()
 ///Handles counting steps, stopping the motor when target position is reached, and toggling the STEP pin.
 void SingleMotorRotaryDrive::DriveStepHandler()
 {
-    bool move_type_continuous;
     if (stepState == IOPORT_LEVEL_HIGH)
     {
         stepState = IOPORT_LEVEL_LOW;
@@ -248,18 +272,11 @@ void SingleMotorRotaryDrive::DriveStepHandler()
         stepState = IOPORT_LEVEL_HIGH;
         pos += posDelta;
         move_data.move_current.clock_cycle_count++;
+        if(move_data.move_current.move_type!=MOVE_TYPE_CONTINUOUS_FWD && move_data.move_current.move_type!=MOVE_TYPE_CONTINUOUS_REV && move_data.move_current.clock_cycle_count==move_data.move_current.clock_cycle_target){
+            move_data.move_current_finished = true;
+        }
     }
-    if(move_data.move_current.move_type== MOVE_TYPE_CONTINUOUS_FWD){
-        move_type_continuous = true;
-    }else if(move_data.move_current.move_type== MOVE_TYPE_CONTINUOUS_REV){
-        move_type_continuous = true;
-    }else{
-        move_type_continuous = false;
-    }
-    if(move_type_continuous && (move_data.move_current.clock_cycle_count==move_data.move_current.clock_cycle_target)){
-        move_data.move_current.finished = true;
-    }
-    if(move_data.move_current.output){
+    if(move_data.move_current.move_type>MOVE_TYPE_CLOCK_COUNT_STOP){
         switch(motor_count)
         {
             case 1:
@@ -337,7 +354,6 @@ void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_st
     CHAR *memory_ptr = NULL;
     CHAR section[25],key[25];
     UINT mb_status = 0;
-    int i;
     sprintf(section,"drive%u_bp",drive_index);
 
 //    block_pool_start = (VOID *) BASE_MEMORY_ADDRESS_MOVES;
@@ -500,7 +516,7 @@ void SingleMotorRotaryDrive::DriveCycleNone()
 {
     move_cycle = CYCLE_NONE;
     move_data.buffer_empty = true;
-    move_data.move_current.finished = true;
+    move_data.move_current_finished = true;
 }
 void SingleMotorRotaryDrive::DriveCycleStart()
 {

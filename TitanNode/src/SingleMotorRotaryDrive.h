@@ -99,7 +99,7 @@ public:
     void SetIrqInstance(external_irq_instance_t * ptr_external_irq);
     void SetDriveEnable(void);
     void SetDriveUnitIndex(int drive_unit_index);
-    void SetDriveDir(ioport_level_t targetDir);
+    void SetDriveDir(int moveType);
     void SetTimerFrequency(int new_frequency);
     void SetTimerPointer(timer_instance_t *gpt_timer);
     void SetupDriveUnit(ULONG block_size,void *block_pool_start,ULONG block_allocation_size);

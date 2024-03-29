@@ -17,14 +17,10 @@ DriveMoveData::DriveMoveData()
     move_index = 0;
     blank_move.clock_cycle_count = 0;
     blank_move.clock_cycle_target = 0;
-    blank_move.dir = IOPORT_LEVEL_LOW;
-    blank_move.finished = false;
     blank_move.frequency = 0;
     blank_move.move_type = 0;
-    blank_move.output = false;
-    blank_move.posDelta = 0;
-    blank_move.started = false;
     move_current = blank_move;
+    move_current_finished = true;
 }
 
 DriveMoveData::~DriveMoveData()
@@ -32,6 +28,21 @@ DriveMoveData::~DriveMoveData()
     // TODO Auto-generated destructor stub
 }
 
+
+void DriveMoveData::DriveMoveStop(void)
+{
+    head = 0;
+    tail = 0;
+    buffer_empty = true;
+    buffer_full = false;
+    move_index = 0;
+    blank_move.clock_cycle_count = 0;
+    blank_move.clock_cycle_target = 0;
+    blank_move.frequency = 0;
+    blank_move.move_type = 0;
+    move_current = blank_move;
+    move_current_finished = true;
+}
 
 void DriveMoveData::DriveMoveGetNext(void)
 {
@@ -51,21 +62,20 @@ void DriveMoveData::DriveMoveGetNext(void)
 int DriveMoveData::DriveMoveAdd(move new_move)
 {
     if(buffer_full) return MOVE_ADD_FAIL_BUFFER_FULL;
+//    new_move.clock_cycle_count = 0;
     move_list[head] = new_move;
     head++;
     if(head>=MAX_MOVE_COUNT) head = 0;
+    buffer_empty = false;
     if(head==tail){
         buffer_full = true;
     }
-    buffer_empty = false;
     return MOVE_ADD_SUCCESS;
 }
 
 move * DriveMoveData::DriveMoveGetBlankMove(void)
 {
     return &blank_move;
-
-
 }
 
 

@@ -144,8 +144,6 @@ int USBDeviceDataWatch(void)
     bool datafound = false;
     unsigned long status;
     unsigned long actual_length;
-    move_msg_hdr_ptr *move_message_hdr;
-    move_msg_hdr_char_ptr *move_message_hdr_char;
     int i_number;
     USB_Device_connected = 1;
     int i;
@@ -153,9 +151,7 @@ int USBDeviceDataWatch(void)
             uartRx[i] = 0;
     }
     status = ux_device_class_cdc_acm_read (g_cdc, (unsigned char *)uartRx, WIFI_PACKET_SIZE, &actual_length);
-    move_message_hdr = (move_msg_hdr_ptr *)uartRx;
-    move_message_hdr_char = (move_msg_hdr_char_ptr *)uartRx;
-    i_number = atoi(move_message_hdr_char->the_header.cycle_start);
+//    i_number = atoi(move_message_hdr_char->the_header.cycle_start);
     printf("The data =>*** %s ***\n",uartRx);
     i = strlen((char *)uartRx);
     ux_device_class_cdc_acm_write (g_cdc, (unsigned char *)uartRx, i, &actual_length);

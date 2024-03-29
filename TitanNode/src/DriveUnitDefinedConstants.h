@@ -17,7 +17,8 @@ constexpr uintptr_t BASE_MEMORY_ADDRESS_USB = 0x20000000;
 constexpr uintptr_t BASE_MEMORY_ADDRESS_MOVES = BASE_MEMORY_ADDRESS_USB + USB_BLOCK_MEMORY_SIZE;
 
 //#define WIFI_PACKET_SIZE 53
-#define WIFI_PACKET_SIZE 1000
+#define WIFI_PACKET_SIZE 500
+//#define MAX_MOVE_MSGS   100
 
 #define CDC_COMMAND_GENERIC     1
 #define CDC_FILE_TRANSFER       0
@@ -69,11 +70,13 @@ constexpr uintptr_t BASE_MEMORY_ADDRESS_MOVES = BASE_MEMORY_ADDRESS_USB + USB_BL
 
 
 #define MOVE_TYPE_CLOCK_COUNT_NO_OUTPUT     0
-#define MOVE_TYPE_HOME                      1
-#define MOVE_TYPE_CONTINUOUS_FWD            2
-#define MOVE_TYPE_CONTINUOUS_REV            3
-#define MOVE_TYPE_CLOCK_COUNT_FWD           4
-#define MOVE_TYPE_CLOCK_COUNT_REV           5
+#define MOVE_TYPE_CLOCK_COUNT_STOP          1
+#define MOVE_TYPE_HOME                      2
+#define MOVE_TYPE_HOME_HOMING_BACK_OFF      3
+#define MOVE_TYPE_CONTINUOUS_FWD            4
+#define MOVE_TYPE_CONTINUOUS_REV            5
+#define MOVE_TYPE_CLOCK_COUNT_FWD           6
+#define MOVE_TYPE_CLOCK_COUNT_REV           7
 
 
 
