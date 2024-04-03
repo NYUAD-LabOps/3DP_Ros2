@@ -1123,7 +1123,7 @@ Synergy Configuration
   Thread "NodeMain"
     Symbol: NodeMain
     Name: NodeMain
-    Stack size (bytes): 4096
+    Stack size (bytes): 8192
     Priority: 2
     Auto start: Enabled
     Time slicing interval (ticks): 1

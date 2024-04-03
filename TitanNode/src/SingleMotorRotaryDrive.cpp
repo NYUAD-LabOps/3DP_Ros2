@@ -134,15 +134,15 @@ void SingleMotorRotaryDrive::DriveHandler()
     }
     if(homed==HOMING_NOT_HOMED) return;
     if(move_cycle!=CYCLE_RUN) return;
-    while(move_data.buffer_empty==false){
-        move_data.DriveMoveGetNext();
-        move_data.move_current_finished = false;
-        SetDriveDir(move_data.move_current.move_type);
-        SetTimerFrequency(move_data.move_current.frequency);
-        while(!move_data.move_current_finished){
+    while(move_data->buffer_empty==false){
+        move_data->DriveMoveGetNext();
+        move_data->move_current_finished = false;
+        SetDriveDir(move_data->move_current.move_type);
+        SetTimerFrequency(move_data->move_current.frequency);
+        while(!move_data->move_current_finished){
             tx_thread_relinquish();
         }
-        if(move_data.buffer_empty){
+        if(move_data->buffer_empty){
             DriveStop();
             move_cycle = CYCLE_NONE;
         }
@@ -210,7 +210,7 @@ void SingleMotorRotaryDrive::DriveStop()
 {
 
     TimerStop ();
-    move_data.DriveMoveStop();
+    move_data->DriveMoveStop();
     frequency = 0;
 }
 
@@ -271,12 +271,12 @@ void SingleMotorRotaryDrive::DriveStepHandler()
     {
         stepState = IOPORT_LEVEL_HIGH;
         pos += posDelta;
-        move_data.move_current.clock_cycle_count++;
-        if(move_data.move_current.move_type!=MOVE_TYPE_CONTINUOUS_FWD && move_data.move_current.move_type!=MOVE_TYPE_CONTINUOUS_REV && move_data.move_current.clock_cycle_count==move_data.move_current.clock_cycle_target){
-            move_data.move_current_finished = true;
+        move_data->move_current.clock_cycle_count++;
+        if(move_data->move_current.move_type!=MOVE_TYPE_CONTINUOUS_FWD && move_data->move_current.move_type!=MOVE_TYPE_CONTINUOUS_REV && move_data->move_current.clock_cycle_count==move_data->move_current.clock_cycle_target){
+            move_data->move_current_finished = true;
         }
     }
-    if(move_data.move_current.move_type>MOVE_TYPE_CLOCK_COUNT_STOP){
+    if(move_data->move_current.move_type>MOVE_TYPE_CLOCK_COUNT_STOP){
         switch(motor_count)
         {
             case 1:
@@ -336,27 +336,29 @@ void SingleMotorRotaryDrive::SetIrqInstance(external_irq_instance_t * ptr_extern
     external_irq = ptr_external_irq;
 }
 
-void SingleMotorRotaryDrive::SetUSBDrive(usbIO* ptr_usb_drive)
-{
-    usb = ptr_usb_drive;
-}
+//void SingleMotorRotaryDrive::SetUSBDrive(usbIO* ptr_usb_drive)
+//{
+//    usb = ptr_usb_drive;
+//}
 
-void SingleMotorRotaryDrive::SetDriveUnitIndex(INT drive_unit_index)
-{
-    drive_index = drive_unit_index;
-}
+//void SingleMotorRotaryDrive::SetDriveUnitIndex(INT drive_unit_index)
+//{
+//    drive_index = drive_unit_index;
+//}
 
-void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_start,ULONG block_allocation_size)
+//void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_start,ULONG block_allocation_size)
+void SingleMotorRotaryDrive::SetupDriveUnit(void)
 {
 //    void *block_pool_start = NULL;
 //    ULONG block_size = sizeof(move)*MAX_MOVE_COUNT;
 //    ULONG block_allocation_size = block_size + 4;
-    CHAR *memory_ptr = NULL;
+//    CHAR *memory_ptr = NULL;
     CHAR section[25],key[25];
-    UINT mb_status = 0;
-    sprintf(section,"drive%u_bp",drive_index);
+//    UINT mb_status = 0;
+//    sprintf(section,"drive%u_bp",drive_index);
 
 //    block_pool_start = (VOID *) BASE_MEMORY_ADDRESS_MOVES;
+/*
     mb_status = tx_block_pool_create(&move_block_pool, section, block_size,block_pool_start , block_allocation_size);
     switch(mb_status){
     case TX_SUCCESS: // (0x00) Successful memory block pool creation.
@@ -405,15 +407,12 @@ void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_st
             break;
     }
 
-
+*/
 
     homed = HOMING_NOT_HOMED;
     homing = HOMING_NOT_HOMING;
     move_cycle = CYCLE_NONE;
     motor_count = 0;
-
-
-
     sprintf(section,"drive%u",drive_index);
     usb->SetDefaultIniSection(section);
     sprintf(key,"motorcount");
@@ -456,8 +455,6 @@ void SingleMotorRotaryDrive::SetupDriveUnit(ULONG block_size,void *block_pool_st
     freqHome = usb->getIniIValue(NULL,NULL,key);  //HOMEVX;
     sprintf(key,"homeBackOff");
     posBackOff = usb->getIniIValue(NULL,NULL,key);  //HOMEVX;
-
-
     limit0State = LIMITINACTIVESTATE;
     frequency = 0;
     sprintf(key,"mtrEnable");
@@ -515,8 +512,8 @@ void SingleMotorRotaryDrive::DriveCycleFeedHold()
 void SingleMotorRotaryDrive::DriveCycleNone()
 {
     move_cycle = CYCLE_NONE;
-    move_data.buffer_empty = true;
-    move_data.move_current_finished = true;
+    move_data->buffer_empty = true;
+    move_data->move_current_finished = true;
 }
 void SingleMotorRotaryDrive::DriveCycleStart()
 {

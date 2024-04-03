@@ -7,7 +7,8 @@
 
 extern ProcessManagerTitan* ptr_ProcessManager;
 
-SingleMotorLinearDrive* DH4 = NULL;
+//SingleMotorLinearDrive* DH4 = NULL;
+SingleMotorRotaryDrive* DH4 = NULL;
 //extern char driveHandlerThread[];
 
 void DriveHandler04_entry(void)
@@ -20,17 +21,17 @@ void DriveHandler04_entry(void)
     }
     while(ptr_ProcessManager->ptr_drive_handlers[DRIVE_HANDLER_INDEX_04]==NULL){
         tx_thread_sleep (5000);
-//        tx_thread_relinquish();
     }
-//    DH4 = getDriveHandler(DRIVE_HANDLER_INDEX_04);
     DH4 = ptr_ProcessManager->ptr_drive_handlers[DRIVE_HANDLER_INDEX_04];
     while (DH4)
     {
+/*
         if(DH4->homing_in_progress){
             DH4->DriveHandlerHoming();
         }else{
             DH4->DriveHandler();
         }
+*/
         tx_thread_relinquish();
     }
 }

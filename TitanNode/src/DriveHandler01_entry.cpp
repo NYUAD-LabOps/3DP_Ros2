@@ -7,7 +7,8 @@
 
 extern ProcessManagerTitan* ptr_ProcessManager;
 
-SingleMotorLinearDrive* DH1 = NULL;
+//SingleMotorLinearDrive* DH1 = NULL;
+SingleMotorRotaryDrive* DH1 = NULL;
 //extern char driveHandlerThread[];
 
 void DriveHandler01_entry(void)
@@ -20,14 +21,12 @@ void DriveHandler01_entry(void)
     }
     while(ptr_ProcessManager->ptr_drive_handlers[DRIVE_HANDLER_INDEX_01]==NULL){
         tx_thread_sleep (5000);
-//        tx_thread_relinquish();
     }
-//    DH1 = getDriveHandler(DRIVE_HANDLER_INDEX_01);
     DH1 = ptr_ProcessManager->ptr_drive_handlers[DRIVE_HANDLER_INDEX_01];
+/*
     if(DH1->homed==DRIVESTATENOTHOMED){
         DH1->DriveStartHoming();
     }
-//    for(i=0;i<MAX_MOVE_COUNT;i++){
     for(i=0;i<0;i++){
         the_move.clock_cycle_count = 0;
         if(i<6){
@@ -42,13 +41,16 @@ void DriveHandler01_entry(void)
         DH1->move_data.DriveMoveAdd(the_move);
     }
     DH1->DriveCycleStart();
+*/
     while (DH1)
     {
+/*
         if(DH1->homing_in_progress){
             DH1->DriveHandlerHoming();
         }else{
             DH1->DriveHandler();
         }
+*/
         tx_thread_relinquish();
     }
 }

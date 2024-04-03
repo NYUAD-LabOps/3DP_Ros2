@@ -52,7 +52,7 @@ void ProcessManagerTitan::ProcessCommand(void)
         drive_index = move_message.drive;
         switch(a_move.move_type){
             case MOVE_TYPE_CLOCK_COUNT_NO_OUTPUT:
-                ptr_drive_handlers[drive_index]->move_data.DriveMoveAdd(a_move);
+                ptr_drive_handlers[drive_index]->move_data->DriveMoveAdd(a_move);
                 break;
             case MOVE_TYPE_HOME:
                 ptr_drive_handlers[drive_index]->DriveStartHoming();
@@ -62,16 +62,16 @@ void ProcessManagerTitan::ProcessCommand(void)
                 ptr_drive_handlers[drive_index]->DriveStartHoming();
                 break;
             case MOVE_TYPE_CONTINUOUS_FWD:
-                ptr_drive_handlers[drive_index]->move_data.DriveMoveAdd(a_move);
+                ptr_drive_handlers[drive_index]->move_data->DriveMoveAdd(a_move);
                 break;
             case MOVE_TYPE_CONTINUOUS_REV:
-                ptr_drive_handlers[drive_index]->move_data.DriveMoveAdd(a_move);
+                ptr_drive_handlers[drive_index]->move_data->DriveMoveAdd(a_move);
                 break;
             case MOVE_TYPE_CLOCK_COUNT_FWD:
-                ptr_drive_handlers[drive_index]->move_data.DriveMoveAdd(a_move);
+                ptr_drive_handlers[drive_index]->move_data->DriveMoveAdd(a_move);
                 break;
             case MOVE_TYPE_CLOCK_COUNT_REV:
-                ptr_drive_handlers[drive_index]->move_data.DriveMoveAdd(a_move);
+                ptr_drive_handlers[drive_index]->move_data->DriveMoveAdd(a_move);
                 break;
             case MOVE_TYPE_CLOCK_COUNT_STOP:
                 ptr_drive_handlers[drive_index]->DriveMoveStop();

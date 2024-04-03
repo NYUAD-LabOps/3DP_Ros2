@@ -34,6 +34,9 @@ public:
     void InitUSB();
     int USBOpenMedia(void);
     int USBCloseMedia(void);
+    int USBTitanINIOpen(void);
+    void USBTitanINIClose(void);
+    void USBTitanINIRewind(unsigned long pos);
     void initGlobalsBlockUSB(void);
     char *initUSBBufferPool(UINT size);
     int getIniValue(CHAR * file_name, CHAR* section, CHAR* key, CHAR* value);

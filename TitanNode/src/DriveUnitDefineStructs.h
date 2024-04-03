@@ -30,6 +30,7 @@ struct machineGlobalsUSB
     FX_MEDIA * p_media;
     CHAR volume[USB_MEDIA_VOLUME_SIZE];
 //    FX_FILE my_file;
+    fileDataUSB *file_data_titan_ini;
     fileDataUSB file_data[USB_FILE_MAX_COUNT];
 };
 

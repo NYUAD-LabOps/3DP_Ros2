@@ -61,6 +61,7 @@ public:
     move *DriveMoveGetBlankMove(void);
     void DriveMoveGetNext(void);
     void DriveMoveStop(void);
+    void DriveMoveZeroMove(move *the_move);
 
 };
 

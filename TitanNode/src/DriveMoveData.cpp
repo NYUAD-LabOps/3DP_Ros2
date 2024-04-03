@@ -28,6 +28,11 @@ DriveMoveData::~DriveMoveData()
     // TODO Auto-generated destructor stub
 }
 
+void DriveMoveData::DriveMoveZeroMove(move *the_move)
+{
+    memset(the_move,0,sizeof(move));
+}
+
 
 void DriveMoveData::DriveMoveStop(void)
 {
@@ -46,7 +51,7 @@ void DriveMoveData::DriveMoveStop(void)
 
 void DriveMoveData::DriveMoveGetNext(void)
 {
-
+    if(move_list==NULL) return;
     if(buffer_empty) return;
     move_current = move_list[tail];
     tail++;
@@ -61,6 +66,7 @@ void DriveMoveData::DriveMoveGetNext(void)
 
 int DriveMoveData::DriveMoveAdd(move new_move)
 {
+    if(move_list==NULL) return MOVE_ADD_FAIL_NO_LIST;
     if(buffer_full) return MOVE_ADD_FAIL_BUFFER_FULL;
 //    new_move.clock_cycle_count = 0;
     move_list[head] = new_move;

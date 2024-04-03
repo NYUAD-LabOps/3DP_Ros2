@@ -21,7 +21,7 @@
 class SingleMotorRotaryDrive
 {
 public:
-    DriveMoveData move_data;
+    DriveMoveData *move_data;
     char controlCode;
     ioport_level_t dir;
     ioport_level_t dirFwd;
@@ -98,12 +98,13 @@ public:
     void OpenExtIRQ(void);
     void SetIrqInstance(external_irq_instance_t * ptr_external_irq);
     void SetDriveEnable(void);
-    void SetDriveUnitIndex(int drive_unit_index);
+//    void SetDriveUnitIndex(int drive_unit_index);
     void SetDriveDir(int moveType);
     void SetTimerFrequency(int new_frequency);
     void SetTimerPointer(timer_instance_t *gpt_timer);
-    void SetupDriveUnit(ULONG block_size,void *block_pool_start,ULONG block_allocation_size);
-    void SetUSBDrive(usbIO* ptr_usb_drive);
+//    void SetupDriveUnit(ULONG block_size,void *block_pool_start,ULONG block_allocation_size);
+    void SetupDriveUnit(void);
+//    void SetUSBDrive(usbIO* ptr_usb_drive);
     void TimerOpen(void);
     void TimerStart(void);
     void TimerStop(void);

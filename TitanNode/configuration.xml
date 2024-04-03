@@ -1071,7 +1071,7 @@
     <context id="rtos.threadx.thread.705490524">
       <property id="_symbol" value="NodeMain"/>
       <property id="rtos.threadx.thread.name" value="NodeMain"/>
-      <property id="rtos.threadx.thread.stack" value="4096"/>
+      <property id="rtos.threadx.thread.stack" value="8192"/>
       <property id="rtos.threadx.thread.priority" value="2"/>
       <property id="rtos.threadx.thread.autostart" value="rtos.threadx.thread.autostart.enabled"/>
       <property id="rtos.threadx.thread.timeslice" value="1"/>

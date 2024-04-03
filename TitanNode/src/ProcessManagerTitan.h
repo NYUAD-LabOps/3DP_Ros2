@@ -61,9 +61,13 @@ public:
     move_msg            move_message;
     move                a_move;
     int                 message_count;
-    SingleMotorLinearDrive *ptr_drive_handlers[MAX_DRIVES];
-    SingleMotorLinearDrive *ptr_motor_timers[MAX_MOTOR_TIMERS];
-    SingleMotorLinearDrive *ptr_limitswitches[MAX_LIMIT_SWITCHES];
+//    SingleMotorLinearDrive *ptr_drive_handlers[MAX_DRIVES];
+//    SingleMotorLinearDrive *ptr_motor_timers[MAX_MOTOR_TIMERS];
+//    SingleMotorLinearDrive *ptr_limitswitches[MAX_LIMIT_SWITCHES];
+
+    SingleMotorRotaryDrive *ptr_drive_handlers[MAX_DRIVES];
+    SingleMotorRotaryDrive *ptr_motor_timers[MAX_MOTOR_TIMERS];
+    SingleMotorRotaryDrive *ptr_limitswitches[MAX_LIMIT_SWITCHES];
 
     int drive_count;
     usbIO* usbDrive;

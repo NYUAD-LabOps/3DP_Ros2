@@ -7,7 +7,8 @@
 
 extern ProcessManagerTitan* ptr_ProcessManager;
 
-SingleMotorLinearDrive* DH6 = NULL;
+//SingleMotorLinearDrive* DH6 = NULL;
+SingleMotorRotaryDrive* DH6 = NULL;
 //extern char driveHandlerThread[];
 
 void DriveHandler06_entry(void)
@@ -25,11 +26,13 @@ void DriveHandler06_entry(void)
     DH6 = ptr_ProcessManager->ptr_drive_handlers[DRIVE_HANDLER_INDEX_06];
     while (DH6)
     {
+/*
         if(DH6->homing_in_progress){
             DH6->DriveHandlerHoming();
         }else{
             DH6->DriveHandler();
         }
+*/
         tx_thread_relinquish();
     }
 }

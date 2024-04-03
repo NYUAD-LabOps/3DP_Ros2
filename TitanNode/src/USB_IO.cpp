@@ -19,10 +19,17 @@ usbIO::~usbIO()
 
 void usbIO::InitUSB()
 {
+    int titan_ini_open;
     sprintf(default_ini_file,DEFAULT_INI_FILE);
     USBOpenMedia();
     usb_init = 1;
     printf("USB Init Done.\n");
+    titan_ini_open = USBTitanINIOpen();
+    if(titan_ini_open==0){
+        printf("Titan INI Opened.\n");
+    }else{
+        printf("Titan INI Open failed.\n");
+    }
 }
 
 void usbIO::initGlobalsBlockUSB()
@@ -224,6 +231,33 @@ int usbIO::USBCloseMedia(void)
     return (int)fx_return;
 }
 
+
+int usbIO::USBTitanINIOpen(void)
+{
+    fileDataUSB *tmp_USB;
+    tmp_USB = USBOpenFileRW(DEFAULT_INI_FILE);
+    if(tmp_USB==NULL) return -1;
+    machineGlobalsBlockUSB->file_data_titan_ini = tmp_USB;
+    return 0;
+}
+
+void usbIO::USBTitanINIClose(void)
+{
+    fileDataUSB *titan_ini = machineGlobalsBlockUSB->file_data_titan_ini;
+    fx_file_close(titan_ini->p_file);
+    memset(titan_ini->p_file,0,sizeof(FX_FILE));
+    free(titan_ini->p_file);
+    titan_ini->file_open = 0;
+}
+
+void usbIO::USBTitanINIRewind(unsigned long pos)
+{
+    machineGlobalsBlockUSB->file_data_titan_ini->file_pos = pos;
+    fx_file_seek(machineGlobalsBlockUSB->file_data_titan_ini->p_file,machineGlobalsBlockUSB->file_data_titan_ini->file_pos);
+}
+
+
+
 fileDataUSB *usbIO::USBOpenFileRW(CHAR* filename)
 {
 //    UCHAR line_buffer[MAX_LINE_LENGTH];
@@ -362,17 +396,19 @@ int usbIO::getIniIValue(CHAR * file_name, CHAR* section, CHAR* key){
 
 
 int usbIO::getIniValue(CHAR* file_name, CHAR* section, CHAR* key, CHAR* value) {
+    fileDataUSB *titan_ini = machineGlobalsBlockUSB->file_data_titan_ini;
     fileDataUSB *file_data_ptr;
     int status;
     CHAR *theFile,*theSection;
 
     // Open the INI file.
     if(file_name==NULL){
-        theFile = default_ini_file;
+        file_data_ptr = machineGlobalsBlockUSB->file_data_titan_ini;
+        USBTitanINIRewind(0);
     }else{
         theFile = file_name;
+        file_data_ptr = USBOpenFileRW(theFile);
     }
-    file_data_ptr = USBOpenFileRW(theFile);
     if (file_data_ptr == NULL) {
         return INI_FILE_NOT_FOUND;
     }
@@ -385,10 +421,10 @@ int usbIO::getIniValue(CHAR* file_name, CHAR* section, CHAR* key, CHAR* value) {
     status = findSection(file_data_ptr, theSection);
     if (status == INI_SUCCESS) {
         findKey(file_data_ptr, key, value);
-        USBCloseFileRW(file_data_ptr);
-        return status;
     }
-    USBCloseFileRW(file_data_ptr);
+    if(file_name!=NULL){
+        USBCloseFileRW(file_data_ptr);
+    }
     return status;
 }
 

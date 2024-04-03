@@ -14,7 +14,7 @@ extern int USB_Device_connected;
 void USB_CDC_Read_entry(void)
 {
     /* TODO: add your own code here */
-    bool datafound = 0;
+    int datafound = 0;
     tx_thread_sleep(5000);
     printf("USB_Device startup next...\n");
     USB_Device_UART_entry();

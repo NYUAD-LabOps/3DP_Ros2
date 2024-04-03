@@ -64,9 +64,10 @@ constexpr uintptr_t BASE_MEMORY_ADDRESS_MOVES = BASE_MEMORY_ADDRESS_USB + USB_BL
 #define DEBOUNCE_TIME 75 //time in milliseconds for debouncing delay
 #define ENCODERPULSESPERREVOLUTION  4000
 #define STEPSPERREVOLUTION          1600
-#define MAX_MOVE_COUNT              10
-#define MOVE_ADD_SUCCESS             0
+#define MAX_MOVE_COUNT              100
+#define MOVE_ADD_SUCCESS            0
 #define MOVE_ADD_FAIL_BUFFER_FULL   1
+#define MOVE_ADD_FAIL_NO_LIST       2
 
 
 #define MOVE_TYPE_CLOCK_COUNT_NO_OUTPUT     0

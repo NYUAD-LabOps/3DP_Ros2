@@ -3,6 +3,9 @@
 #include "usb_io.h"
 #include "SingleMotorLinearDrive.h"
 #include "ProcessManagerTitan.h"
+#include <new> // Required for std::nothrow
+//#include <iostream>
+
 //extern external_irq_instance_t g_external_irqLS1;
 //extern usbIO* usbDrive;
 //usbIO* usbDrive = NULL;
@@ -22,7 +25,7 @@ void nmi_pin_callback_Node(bsp_grp_irq_t irq)
     R_ICU->NMICLR_b.NMICLR = 1;
 }
 
-SingleMotorLinearDrive* getDriveHandler(int drive_index)
+SingleMotorRotaryDrive* getDriveHandler(int drive_index)
 {
     if(drive_index<0) return NULL;
     if(drive_index>(MAX_DRIVES-1)) return NULL;
@@ -31,12 +34,13 @@ SingleMotorLinearDrive* getDriveHandler(int drive_index)
 
 void NodeMain_entry(void)
 {
-    void *block_pool_start = NULL;
-    ULONG block_size = sizeof(move)*MAX_MOVE_COUNT;
-    ULONG block_allocation_size = block_size + 4;
+//    void *block_pool_start = NULL;
+//    ULONG block_size = sizeof(move)*MAX_MOVE_COUNT;
+//    ULONG block_allocation_size = block_size + 4;
     void (* p_callback_nmi)(bsp_grp_irq_t irq);
+    unsigned long drive_size = sizeof(SingleMotorRotaryDrive);
 //    timer_instance_t *timer_instance;
-    SingleMotorLinearDrive *tmp_drive_ptr;
+    SingleMotorRotaryDrive *tmp_drive_ptr;
     int i;
 
     char file_name[25];
@@ -87,15 +91,19 @@ void NodeMain_entry(void)
     sprintf(section,"main");
     sprintf(key,"drive_count");
     ptr_ProcessManager->drive_count = ptr_ProcessManager->usbDrive->getIniIValue(NULL, section, key);
-    block_size = sizeof(move)*MAX_MOVE_COUNT;
-    block_allocation_size = block_size + 4;
-    block_pool_start = (VOID *) BASE_MEMORY_ADDRESS_MOVES;
+//    block_size = sizeof(move)*MAX_MOVE_COUNT;
+//    block_allocation_size = block_size + 4;
+//    block_pool_start = (VOID *) BASE_MEMORY_ADDRESS_MOVES;
     for(i=0;i<ptr_ProcessManager->drive_count;i++){
-        tmp_drive_ptr = new SingleMotorLinearDrive();
-        tmp_drive_ptr->SetUSBDrive(ptr_ProcessManager->usbDrive);
-        tmp_drive_ptr->SetDriveUnitIndex(i);
-        block_pool_start = (void *)(BASE_MEMORY_ADDRESS_MOVES + block_allocation_size*i);
-        tmp_drive_ptr->SetupDriveUnit(block_size,block_pool_start,block_allocation_size);
+        tmp_drive_ptr = new SingleMotorRotaryDrive();
+        tmp_drive_ptr->move_data = new DriveMoveData();
+        tmp_drive_ptr->usb = ptr_ProcessManager->usbDrive;
+//        tmp_drive_ptr->SetUSBDrive(ptr_ProcessManager->usbDrive);
+//        tmp_drive_ptr->SetDriveUnitIndex(i);
+        tmp_drive_ptr->drive_index  = i;
+//        block_pool_start = (void *)(BASE_MEMORY_ADDRESS_MOVES + block_allocation_size*i);
+        tmp_drive_ptr->SetupDriveUnit();
+//        tmp_drive_ptr->SetupDriveUnit(block_size,block_pool_start,block_allocation_size);
         tmp_drive_ptr->gpt_timer = get_Gpt_Timer_Index(tmp_drive_ptr->drive_timer_index);
         tmp_drive_ptr->SetTimerFrequency(0);
         tmp_drive_ptr->TimerOpen();
@@ -107,12 +115,7 @@ void NodeMain_entry(void)
         if( (tmp_drive_ptr->drive_timer_index>-1) && (tmp_drive_ptr->drive_timer_index<MAX_MOTOR_TIMERS)){
             ptr_ProcessManager->ptr_motor_timers[tmp_drive_ptr->drive_timer_index] = tmp_drive_ptr;
         }
-//        driveHandlerThread[i] = 0;
     }
-//    numberOfDrives = num_of_drives;
-//    g_timer_MTR_01.p_cfg->p_callback = gpt_MTR_02_callback;
-//    timer_instance = get_Gpt_Timer_Index(5);
-//    genericTimerOpenandStart(timer_instance);
 
     while (1)
     {
@@ -200,7 +203,7 @@ void genericOpenExtIRQ(external_irq_instance_t * external_irq)
 
 void ext_irqLS1_callback(external_irq_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_limitswitches[LS_01];
     if(ptr_drive){
         ptr_drive->LimitHit();
@@ -209,7 +212,7 @@ void ext_irqLS1_callback(external_irq_callback_args_t *p_args)
 
 void ext_irqLS2_callback(external_irq_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_limitswitches[LS_02];
     if(ptr_drive){
         ptr_drive->LimitHit();
@@ -218,7 +221,7 @@ void ext_irqLS2_callback(external_irq_callback_args_t *p_args)
 
 void ext_irqLS3_callback(external_irq_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_limitswitches[LS_03];
     if(ptr_drive){
         ptr_drive->LimitHit();
@@ -227,7 +230,7 @@ void ext_irqLS3_callback(external_irq_callback_args_t *p_args)
 
 void ext_irqLS4_callback(external_irq_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_limitswitches[LS_04];
     if(ptr_drive){
         ptr_drive->LimitHit();
@@ -236,7 +239,7 @@ void ext_irqLS4_callback(external_irq_callback_args_t *p_args)
 
 void ext_irqLS5_callback(external_irq_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_limitswitches[LS_05];
     if(ptr_drive){
         ptr_drive->LimitHit();
@@ -245,7 +248,7 @@ void ext_irqLS5_callback(external_irq_callback_args_t *p_args)
 
 void ext_irqLS6_callback(external_irq_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_limitswitches[LS_06];
     if(ptr_drive){
         ptr_drive->LimitHit();
@@ -254,7 +257,7 @@ void ext_irqLS6_callback(external_irq_callback_args_t *p_args)
 
 void ext_irqLS7_callback(external_irq_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_limitswitches[LS_07];
     if(ptr_drive){
         ptr_drive->LimitHit();
@@ -263,7 +266,7 @@ void ext_irqLS7_callback(external_irq_callback_args_t *p_args)
 
 void ext_irqLS8_callback(external_irq_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_limitswitches[LS_08];
     if(ptr_drive){
         ptr_drive->LimitHit();
@@ -273,7 +276,7 @@ void ext_irqLS8_callback(external_irq_callback_args_t *p_args)
 
 void ext_irqLS9_callback(external_irq_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_limitswitches[LS_09];
     if(ptr_drive){
         ptr_drive->LimitHit();
@@ -283,7 +286,7 @@ void ext_irqLS9_callback(external_irq_callback_args_t *p_args)
 
 void gpt_MTR_01_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_01];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
@@ -296,7 +299,7 @@ void gpt_MTR_01_callback(timer_callback_args_t *p_args)
 
 void gpt_MTR_02_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_02];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
@@ -309,7 +312,7 @@ void gpt_MTR_02_callback(timer_callback_args_t *p_args)
 
 void gpt_MTR_03_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_03];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
@@ -322,7 +325,7 @@ void gpt_MTR_03_callback(timer_callback_args_t *p_args)
 
 void gpt_MTR_04_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_04];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
@@ -335,7 +338,7 @@ void gpt_MTR_04_callback(timer_callback_args_t *p_args)
 
 void gpt_MTR_05_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_05];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
@@ -348,7 +351,7 @@ void gpt_MTR_05_callback(timer_callback_args_t *p_args)
 
 void gpt_MTR_06_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_06];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
@@ -361,7 +364,7 @@ void gpt_MTR_06_callback(timer_callback_args_t *p_args)
 
 void gpt_MTR_07_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_07];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
@@ -374,7 +377,7 @@ void gpt_MTR_07_callback(timer_callback_args_t *p_args)
 
 void gpt_MTR_08_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_08];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
@@ -387,7 +390,7 @@ void gpt_MTR_08_callback(timer_callback_args_t *p_args)
 
 void gpt_MTR_09_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_09];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
@@ -400,7 +403,7 @@ void gpt_MTR_09_callback(timer_callback_args_t *p_args)
 
 void gpt_MTR_10_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_10];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
@@ -413,7 +416,7 @@ void gpt_MTR_10_callback(timer_callback_args_t *p_args)
 
 void gpt_MTR_11_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_11];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
@@ -426,7 +429,8 @@ void gpt_MTR_11_callback(timer_callback_args_t *p_args)
 
 void gpt_MTR_12_callback(timer_callback_args_t *p_args)
 {
-    SingleMotorLinearDrive *ptr_drive;
+//    SingleMotorLinearDrive *ptr_drive;
+    SingleMotorRotaryDrive *ptr_drive;
     ptr_drive = ptr_ProcessManager->ptr_motor_timers[TIMER_INDEX_12];
     if(ptr_drive){
         if(ptr_drive->homing_in_progress){
